@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Falcon Calcultor</string>
+
+	
+    <string name="drawer_open">open</string>
+    <string name="drawer_close">close</string>
+
+    <!--nav menu-->
+    <string name="nav_menu_one">Debit Info</string>
+    <string name="nav_menu_two">Calcultor</string>
+    <string name="nav_menu_three">Favourite</string>
+    <string name="nav_menu_four">Setting</string>
+    <string name="nav_menu_five">Advertising</string>
+    <string name="nav_menu_six">Version</string>
+
+    <!--Fragment Calcultor-->
+    <string name="calcultor_loanamount_title">Loan Amount</string>
+    <string name="calcultor_loanamount_subtitle">Loan Amount_sub</string>
+
+    <string name="calcultor_loantrems_title">Loan Terms</string>
+    <string name="calcultor_loantrems_subtitle">Loan Terms_sub</string>
+
+    <string name="calcultor_loanrate_title">Loan Rate</string>
+    <string name="calcultor_loanrate_subtitle">Loan Rate_sub</string>
+
+    <!--Fragment Calcultor dialog-->
+    <string name="calcultor_dialog_PositiveButton">Done</string>
+    <string name="calcultor_dialog_NegativeButton">Cancel</string>
+
+	<string-array name="alert_date_spinner">
+
+		<item>Dont Reminding me</item>
+		<item>Reminding me 3 days ago before due date</item>
+		<item>Reminding me 5 days ago before due date</item>
+		<item>Reminding me 7 days ago before due date</item>
+
+
+	</string-array>
+
+    <string-array name="apply_status_spinner">
+
+        <item> --- </item>
+        <item>Pending</item>
+        <item>Approval</item>
+        <item>Reject</item>
+
+    </string-array>
+
+    <string-array name="loan_type_spinner">
+        <item>Peroner Loan </item>
+        <item>Mort Loan</item>
+        <item>Car Loan</item>
+    </string-array>
+
+</resources>
+
