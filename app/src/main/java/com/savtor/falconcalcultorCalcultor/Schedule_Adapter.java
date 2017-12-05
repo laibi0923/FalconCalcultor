@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import java.util.Collections;
 import java.util.List;
 
-/**
+/**1
  * Created by GhostLeo_DT on 26/11/2017.
  */
 public class Schedule_Adapter extends RecyclerView.Adapter<Schedule_ViewHolder>{

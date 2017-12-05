@@ -27,7 +27,7 @@ import android.support.v4.app.*;
  * Created by GhostLeo_DT on 2/12/2017.
  */
 
-//RecyclerView.Adapter<Favourite_ViewHolder>
+//RecyclerView.Adapter<Favourite_ViewHolder>1
 
 public class Favourite_Adapter extends RecyclerSwipeAdapter<Favourite_ViewHolder> {
 

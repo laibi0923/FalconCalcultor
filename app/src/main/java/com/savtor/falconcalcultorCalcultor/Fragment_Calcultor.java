@@ -17,7 +17,7 @@ import com.savtor.falconcalaultorDatabase.*;
 import android.graphics.drawable.*;
 
 
-/**
+/**1
  * Created by GhostLeo_DT on 24/11/2017.
  */
 public class Fragment_Calcultor extends Fragment {

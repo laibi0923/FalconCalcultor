@@ -22,7 +22,7 @@ import com.thinkcool.circletextimageview.CircleTextImageView;
 
 import java.text.BreakIterator;
 
-/**
+/**1
  * Created by GhostLeo_DT on 2/12/2017.
  */
 public class Favourite_ViewHolder extends RecyclerView.ViewHolder {

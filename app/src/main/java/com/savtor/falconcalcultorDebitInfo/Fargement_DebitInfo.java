@@ -10,7 +10,7 @@ import com.savtor.falconcalaultorDatabase.*;
 
 import java.util.List;
 
-
+//1
 public class Fargement_DebitInfo extends Fragment
 {
 
