@@ -41,7 +41,7 @@ public class Fragment_Calcultor extends Fragment {
     private TextView loanAmount_tv, loanTrems_tv, loanRate_tv, installment_tv, total_insterest_tv, total_payment_tv;
     private LinearLayout loan_amount, loan_trems, loan_rate;
     private RecyclerView calcultor_recycleView;
-
+//1
     int databasic_ID;
     private String Edit_Mode;
 
