@@ -20,6 +20,7 @@ import com.savtor.falconcalcultorCalcultor.Fragment_Calcultor;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import android.support.v4.app.*;
 
 
 /**
@@ -126,11 +127,17 @@ public class Favourite_Adapter extends RecyclerSwipeAdapter<Favourite_ViewHolder
             @Override
             public void onClick(View v) {
 
-                mFragmentManager.beginTransaction().addToBackStack(null).replace(R.id.mFrameLayout, new Fragment_Calcultor()).commit();
+                Fragment mFragment = new Fragment_Calcultor();
 
-                Bundle b = new Bundle();
-
-
+                Bundle mBundle = new Bundle();
+				
+				mBundle.putString("EDIT_MODE", "true");
+				
+				mBundle.putInt("DB_ID",Integer.parseInt(list.get(position).getid()));
+				
+				mFragment.setArguments(mBundle);
+				
+				mFragmentManager.beginTransaction().addToBackStack(null).replace(R.id.mFrameLayout, mFragment).commit();
             }
         });
 

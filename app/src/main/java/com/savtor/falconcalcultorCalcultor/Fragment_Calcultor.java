@@ -1,31 +1,20 @@
 package com.savtor.falconcalcultorCalcultor;
 
+import android.content.*;
+import android.os.*;
+import android.support.annotation.*;
+import android.support.design.widget.*;
+import android.support.v4.app.*;
+import android.support.v7.app.*;
+import android.support.v7.widget.*;
+import android.text.*;
+import android.util.*;
+import android.view.*;
+import android.widget.*;
 import com.savtor.falconcalcultor.*;
-
-import android.content.DialogInterface;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.support.annotation.Nullable;
-import android.support.design.widget.TextInputLayout;
-
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.text.InputType;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import com.savtor.falconcalaultorDatabase.*;
+import android.graphics.drawable.*;
 
 
 /**
@@ -42,10 +31,55 @@ public class Fragment_Calcultor extends Fragment {
     private Float getLoanAmount, getLoanTrems, getLoanRate, getInstallment;
     private float x = 0;
 
+	private String setLoanAmount, setLoanTrems, setLoanRate;
+	private String Edit_Mode;
+	
+	Drawable edit_icon;
+	
     private ImageView addtofav_btn;
     private TextView loanAmount_tv, loanTrems_tv, loanRate_tv, installment_tv, total_insterest_tv, total_payment_tv;
     private LinearLayout loan_amount, loan_trems, loan_rate;
     private RecyclerView calcultor_recycleView;
+
+	@Override
+	public void onCreate(Bundle savedInstanceState)
+	{
+		// TODO: Implement this method
+		super.onCreate(savedInstanceState);
+		
+		Bundle mBundle = getArguments();
+
+		if(mBundle != null){
+			
+			Edit_Mode = mBundle.getString("EDIT_MODE");
+			int databasic_ID  = mBundle.getInt("DB_ID");
+
+			if(Edit_Mode == "true"){
+
+				Favourite_DataBasic databasic = new Favourite_DataBasic(getActivity());
+				
+				setLoanAmount = String.valueOf(databasic.query(databasic_ID).getLoan_Amount());
+				setLoanTrems = String.valueOf(databasic.query(databasic_ID).getTrems());
+				setLoanRate = String.valueOf(databasic.query(databasic_ID).getLoan_Rate());
+
+				edit_icon = getResources().getDrawable(R.drawable.ic_create_black_24dp);
+
+			}
+			
+			
+		}else{
+			
+			setLoanAmount = "10000.00";
+			setLoanTrems = "12";
+			setLoanRate = "54.00";
+			edit_icon = getResources().getDrawable(R.drawable.ic_add_black_24dp);
+			
+		}
+		
+	}
+
+
+	
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -53,7 +87,8 @@ public class Fragment_Calcultor extends Fragment {
 
         loan_amount = (LinearLayout) v.findViewById(R.id.loanAmount_linear);
         loan_amount.setOnClickListener(linearLayout_OnclickListener);
-
+		
+		
         loan_trems = (LinearLayout) v.findViewById(R.id.loanTrems_linear);
         loan_trems.setOnClickListener(linearLayout_OnclickListener);
 
@@ -61,6 +96,7 @@ public class Fragment_Calcultor extends Fragment {
         loan_rate.setOnClickListener(linearLayout_OnclickListener);
 
         addtofav_btn = (ImageView) v.findViewById(R.id.addtofav_btn);
+		addtofav_btn.setImageDrawable(edit_icon);
         addtofav_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,6 +113,7 @@ public class Fragment_Calcultor extends Fragment {
         });
 
         loanAmount_tv = (TextView) v.findViewById(R.id.loanAmount_tv);
+		loanAmount_tv.setText(setLoanAmount);
         loanTrems_tv = (TextView) v.findViewById(R.id.loanTrems_tv);
         loanRate_tv = (TextView) v.findViewById(R.id.loanRate_tv);
         installment_tv = (TextView) v.findViewById(R.id.installment_tv);
@@ -85,7 +122,13 @@ public class Fragment_Calcultor extends Fragment {
 
         calcultor_recycleView = (RecyclerView) v.findViewById(R.id.calcultor_recyclerView);
 
-
+		
+		if(Edit_Mode != null){
+			getMonthlyInstallment();
+			show_recyclerView();
+		}
+			
+		
         return v;
     }
 

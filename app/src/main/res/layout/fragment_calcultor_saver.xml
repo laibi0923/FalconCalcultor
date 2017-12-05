@@ -1,287 +1,334 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@color/fragment_bg"
-        android:padding="10dp">
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            android:elevation="4dp">
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="5dp">
-
-                <EditText
-                    android:singleLine="true"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:focusable="true"
-                    android:imeOptions="actionDone"
-                    android:textColor="@color/normal_textcolor"
-                    android:id="@+id/save_name" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:layout_margin="5dp">
+<ScrollView
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:fillViewport="true">
 
 
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:padding="10dp">
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:orientation="vertical"
+		android:background="@color/fragment_bg"
+		android:padding="10dp">
 
-                    <TextView
-                        android:singleLine="true"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceSmall"
-                        android:text="Apply Status"
-                        android:id="@+id/textView5"
-                        android:textColor="@color/accent"
-                        android:layout_weight="1" />
+		<LinearLayout
+			android:orientation="vertical"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:background="@color/colorPrimary"
+			android:elevation="4dp">
 
-                </LinearLayout>
+			<LinearLayout
+				android:orientation="horizontal"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_margin="5dp">
 
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/fragment_bg"
-                    android:layout_weight="1"
-                    android:padding="10dp">
+				<EditText
+					android:singleLine="true"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:focusable="true"
+					android:imeOptions="actionDone"
+					android:textColor="@color/normal_textcolor"
+					android:id="@+id/save_name"/>
 
-                    <Spinner
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/apply_status_spinner" />
-                </LinearLayout>
+			</LinearLayout>
 
-            </LinearLayout>
+			<LinearLayout
+				android:orientation="horizontal"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:padding="5dp"
+				android:layout_margin="5dp">
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:layout_margin="5dp">
+				<LinearLayout
+					android:orientation="horizontal"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_weight="2"
+					android:padding="10dp">
 
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:padding="10dp" >
+					<TextView
+						android:singleLine="true"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:textAppearance="?android:attr/textAppearanceSmall"
+						android:text="Apply Status"
+						android:id="@+id/textView5"
+						android:textColor="@color/accent"
+						android:layout_weight="1"/>
 
-                    <TextView
-                        android:singleLine="true"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceSmall"
-                        android:text="Loan Type"
-                        android:id="@+id/textView29"
-                        android:textColor="@color/accent"
-                        android:layout_weight="1" />
-                </LinearLayout>
+				</LinearLayout>
 
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/fragment_bg"
-                    android:layout_weight="1"
-                    android:padding="10dp" >
+				<LinearLayout
+					android:orientation="horizontal"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:background="@color/fragment_bg"
+					android:layout_weight="1"
+					android:padding="10dp">
 
-                    <Spinner
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/loan_type_spinner" />
-                </LinearLayout>
-            </LinearLayout>
+					<Spinner
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:id="@+id/apply_status_spinner"/>
 
-        </LinearLayout>
+				</LinearLayout>
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@color/colorPrimary"
-            android:elevation="4dp"
-            android:padding="10dp"
-            android:id="@+id/saver_details_linear">
+			</LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="First Due Date"
-                android:id="@+id/textView8"
-                android:textColor="@color/accent" />
+			<LinearLayout
+				android:orientation="horizontal"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:padding="5dp"
+				android:layout_margin="5dp">
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/fragment_bg"
-                android:layout_margin="10dp">
+				<LinearLayout
+					android:orientation="horizontal"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_weight="2"
+					android:padding="10dp">
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:padding="10dp"
-                    android:clickable="true"
-                    android:background="?attr/selectableItemBackground"
-                    android:id="@+id/saver_datepicker">
+					<TextView
+						android:singleLine="true"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:textAppearance="?android:attr/textAppearanceSmall"
+						android:text="Loan Type"
+						android:id="@+id/textView29"
+						android:textColor="@color/accent"
+						android:layout_weight="1"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="YYYY/MM/DD"
-                        android:id="@+id/saver_first_duedate"
-                        android:textColor="@color/accent" />
-                </RelativeLayout>
-            </LinearLayout>
+				</LinearLayout>
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:padding="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+				<LinearLayout
+					android:orientation="horizontal"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:background="@color/fragment_bg"
+					android:layout_weight="1"
+					android:padding="10dp">
 
-                <RadioGroup
-                    android:id="@+id/due_date_type"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
+					<Spinner
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:id="@+id/loan_type_spinner"/>
 
-                    <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Normal Date"
-                        android:id="@+id/normal_duedate_rb"
-                        android:layout_weight="1"
-                        android:checked="false" />
+				</LinearLayout>
 
-                    <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="End of Month"
-                        android:id="@+id/eom_duedate_rb"
-                        android:layout_weight="1"
-                        android:checked="false" />
+			</LinearLayout>
 
-                </RadioGroup>
+			<LinearLayout
+				android:layout_height="wrap_content"
+				android:layout_width="match_parent"
+				android:orientation="horizontal"
+				android:layout_margin="5dp">
 
+				<EditText
+					android:layout_height="wrap_content"
+					android:layout_width="match_parent"
+					android:ems="10"
+					android:hint="Loan Number"/>
 
+			</LinearLayout>
 
-            </LinearLayout>
+		</LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Final Due Date"
-                android:id="@+id/textView17"
-                android:textColor="@color/accent" />
+		<LinearLayout
+			android:orientation="vertical"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="10dp"
+			android:background="@color/colorPrimary"
+			android:elevation="4dp"
+			android:padding="10dp"
+			android:id="@+id/saver_details_linear">
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/fragment_bg"
-                android:layout_margin="10dp" >
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textAppearance="?android:attr/textAppearanceSmall"
+				android:text="First Due Date"
+				android:id="@+id/textView8"
+				android:textColor="@color/accent"/>
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:padding="10dp" >
+			<LinearLayout
+				android:orientation="horizontal"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:background="@color/fragment_bg"
+				android:layout_margin="10dp">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="YYYY/MM/DD"
-                        android:id="@+id/saver_final_duedate"
-                        android:textColor="@color/normal_textcolor" />
-                </RelativeLayout>
-            </LinearLayout>
+				<RelativeLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:gravity="center"
+					android:padding="10dp"
+					android:clickable="true"
+					android:background="?attr/selectableItemBackground"
+					android:id="@+id/saver_datepicker">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Alert Date"
-                android:id="@+id/textView26"
-                android:textColor="@color/accent" />
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:textAppearance="?android:attr/textAppearanceMedium"
+						android:text="YYYY/MM/DD"
+						android:id="@+id/saver_first_duedate"
+						android:textColor="@color/accent"/>
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/fragment_bg"
-                android:layout_margin="10dp">
+				</RelativeLayout>
 
-                <Spinner
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/alert_date_spinner" />
+			</LinearLayout>
 
-            </LinearLayout>
+			<LinearLayout
+				android:orientation="horizontal"
+				android:padding="10dp"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content">
 
-        </LinearLayout>
+				<RadioGroup
+					android:id="@+id/due_date_type"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:orientation="horizontal">
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@color/colorPrimary"
-            android:elevation="4dp"
-            android:padding="10dp">
+					<RadioButton
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:text="Normal Date"
+						android:id="@+id/normal_duedate_rb"
+						android:layout_weight="1"
+						android:checked="false"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Remarks"
-                android:id="@+id/textView28"
-                android:textColor="@color/accent" />
+					<RadioButton
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:text="End of Month"
+						android:id="@+id/eom_duedate_rb"
+						android:layout_weight="1"
+						android:checked="false"/>
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="10dp" >
+				</RadioGroup>
 
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textMultiLine"
-                    android:id="@+id/save_remarks"
-                    android:textColor="@color/normal_textcolor" />
-            </LinearLayout>
-        </LinearLayout>
-    </LinearLayout>
+			</LinearLayout>
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textAppearance="?android:attr/textAppearanceSmall"
+				android:text="Final Due Date"
+				android:id="@+id/textView17"
+				android:textColor="@color/accent"/>
+
+			<LinearLayout
+				android:orientation="horizontal"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:background="@color/fragment_bg"
+				android:layout_margin="10dp">
+
+				<RelativeLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:gravity="center"
+					android:padding="10dp">
+
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:textAppearance="?android:attr/textAppearanceMedium"
+						android:text="YYYY/MM/DD"
+						android:id="@+id/saver_final_duedate"
+						android:textColor="@color/normal_textcolor"/>
+
+				</RelativeLayout>
+
+			</LinearLayout>
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textAppearance="?android:attr/textAppearanceSmall"
+				android:text="Alert Date"
+				android:id="@+id/textView26"
+				android:textColor="@color/accent"/>
+
+			<LinearLayout
+				android:orientation="horizontal"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:background="@color/fragment_bg"
+				android:layout_margin="10dp">
+
+				<Spinner
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:id="@+id/alert_date_spinner"/>
+
+			</LinearLayout>
+
+		</LinearLayout>
+
+		<LinearLayout
+			android:orientation="vertical"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="10dp"
+			android:background="@color/colorPrimary"
+			android:elevation="4dp"
+			android:padding="10dp">
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textAppearance="?android:attr/textAppearanceSmall"
+				android:text="Remarks"
+				android:id="@+id/textView28"
+				android:textColor="@color/accent"/>
+
+			<LinearLayout
+				android:orientation="vertical"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:layout_margin="10dp">
+
+				<LinearLayout
+					android:layout_height="wrap_content"
+					android:layout_width="match_parent"
+					android:orientation="horizontal">
+
+					<EditText
+						android:layout_height="wrap_content"
+						android:layout_width="wrap_content"
+						android:ems="10"
+						android:layout_weight="1.0"
+						android:hint="Address"/>
+
+					<Button
+						style="?android:attr/buttonStyleSmall"
+						android:layout_height="wrap_content"
+						android:layout_width="wrap_content"
+						android:text="1"/>
+
+				</LinearLayout>
+
+				<EditText
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:inputType="textMultiLine"
+					android:id="@+id/save_remarks"
+					android:textColor="@color/normal_textcolor"/>
+
+			</LinearLayout>
+
+		</LinearLayout>
+
+	</LinearLayout>
+
 </ScrollView>
+

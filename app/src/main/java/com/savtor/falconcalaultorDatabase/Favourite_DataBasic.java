@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import com.savtor.falconcalcultorFavoutive.*;
 
 /**
  * Created by GhostLeo_DT on 30/11/2017.
@@ -28,11 +29,13 @@ public class Favourite_DataBasic {
     public static final String RATE_COULUMN = "LoanRate";
     public static final String APPLY_STATUS_COULUMN = "ApplyStatus";
     public static final String LOAN_TYPE_COULUMN = "LoanType";
-    public static final String FIRST_DUEDATE__COULUMN = "Firstduedate";
-    public static final String FINAL_DUEDATE__COULUMN = "Finalduedate";
-    public static final String DUEDATE_TYPE__COULUMN = "Duedatetype";
+    public static final String FIRST_DUEDATE_COULUMN = "Firstduedate";
+    public static final String FINAL_DUEDATE_COULUMN = "Finalduedate";
+    public static final String DUEDATE_TYPE_COULUMN = "Duedatetype";
     public static final String ALERT_DATE = "Alertdate";
-    public static final String REMARKS__COULUMN = "Remarks";
+    public static final String REMARKS_COULUMN = "Remarks";
+	public static final String LOAN_NUM_COULUMN = "LoanNum";
+	public static final String ADDRESS_COULUMN = "Address";
 
     // 新建 Table
     public static final String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + "(" +
@@ -44,11 +47,13 @@ public class Favourite_DataBasic {
             RATE_COULUMN + " DOUBLE," +
             APPLY_STATUS_COULUMN + " INTEGER," +
             LOAN_TYPE_COULUMN + " INTEGER," +
-            FIRST_DUEDATE__COULUMN + " TEXT," +
-            FINAL_DUEDATE__COULUMN + " TEXT," +
-            DUEDATE_TYPE__COULUMN + " TEXT," +
+            FIRST_DUEDATE_COULUMN + " TEXT," +
+            FINAL_DUEDATE_COULUMN + " TEXT," +
+            DUEDATE_TYPE_COULUMN + " TEXT," +
             ALERT_DATE + " INTEGER, " +
-            REMARKS__COULUMN + " TEXT)";
+            REMARKS_COULUMN + " TEXT," + 
+			LOAN_NUM_COULUMN + " TEXT," +
+			ADDRESS_COULUMN + " TEXT)";
 
     // 資料庫物件
     private SQLiteDatabase db;
@@ -77,11 +82,13 @@ public class Favourite_DataBasic {
         cv.put(RATE_COULUMN, values.getLoan_Rate());
         cv.put(APPLY_STATUS_COULUMN, values.getApply_status());
         cv.put(LOAN_TYPE_COULUMN, values.getLoan_Type());
-        cv.put(FIRST_DUEDATE__COULUMN, values.getFirst_dueddate());
-        cv.put(FINAL_DUEDATE__COULUMN, values.getFinal_dueddate());
-        cv.put(DUEDATE_TYPE__COULUMN, values.getDuedate_type());
+        cv.put(FIRST_DUEDATE_COULUMN, values.getFirst_dueddate());
+        cv.put(FINAL_DUEDATE_COULUMN, values.getFinal_dueddate());
+        cv.put(DUEDATE_TYPE_COULUMN, values.getDuedate_type());
         cv.put(ALERT_DATE, values.getAlert_date());
-        cv.put(REMARKS__COULUMN, values.getRemarks());
+        cv.put(REMARKS_COULUMN, values.getRemarks());
+		cv.put(LOAN_NUM_COULUMN, values.getLoanNum());
+		cv.put(ADDRESS_COULUMN, values.getAddress());
 
         db.insert(TABLE_NAME, null, cv);
         Log.e("DATA BASIC ACTION : ","數據庫新增1條紀錄");  // [Log.e]
@@ -116,15 +123,19 @@ public class Favourite_DataBasic {
         cv.put(RATE_COULUMN, item.getLoan_Rate());
         cv.put(RATE_COULUMN, item.getLoan_Rate());
         cv.put(APPLY_STATUS_COULUMN, item.getApply_status());
-        cv.put(FIRST_DUEDATE__COULUMN, item.getFirst_dueddate());
-        cv.put(FINAL_DUEDATE__COULUMN, item.getFinal_dueddate());
-        cv.put(DUEDATE_TYPE__COULUMN, item.getDuedate_type());
+        cv.put(FIRST_DUEDATE_COULUMN, item.getFirst_dueddate());
+        cv.put(FINAL_DUEDATE_COULUMN, item.getFinal_dueddate());
+        cv.put(DUEDATE_TYPE_COULUMN, item.getDuedate_type());
         cv.put(ALERT_DATE, item.getAlert_date());
-        cv.put(REMARKS__COULUMN, item.getRemarks());
+        cv.put(REMARKS_COULUMN, item.getRemarks());
+		cv.put(LOAN_NUM_COULUMN, item.getLoanNum());
+		cv.put(ADDRESS_COULUMN, item.getAddress());
 
 
         return db.update(TABLE_NAME, cv, where, null) > 0;
+		
     }
+	
 
     //=============================================================================================
     // 查詢
@@ -196,5 +207,25 @@ public class Favourite_DataBasic {
         return result;
     }
 
+	public ContentValues get_ContenValue(Favouite_Item item){
+		
+		ContentValues cv = new ContentValues();
+		
+		cv.put(CREATE_DATE_COULUMN, item.getCreate_date());
+        cv.put(NAME_COLUMN, item.getName());
+        cv.put(AMOUNT_COLUMN, item.getLoan_Amount());
+        cv.put(TREMS_COULUMN, item.getTrems());
+        cv.put(RATE_COULUMN, item.getLoan_Rate());
+        cv.put(APPLY_STATUS_COULUMN, item.getApply_status());
+        cv.put(FIRST_DUEDATE_COULUMN, item.getFirst_dueddate());
+        cv.put(FINAL_DUEDATE_COULUMN, item.getFinal_dueddate());
+        cv.put(DUEDATE_TYPE_COULUMN, item.getDuedate_type());
+        cv.put(ALERT_DATE, item.getAlert_date());
+        cv.put(REMARKS_COULUMN, item.getRemarks());
+		cv.put(LOAN_NUM_COULUMN, item.getLoanNum());
+		cv.put(ADDRESS_COULUMN, item.getAddress());
+		
+		return cv;
+	}
 
 }

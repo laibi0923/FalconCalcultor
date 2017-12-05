@@ -17,13 +17,15 @@ public class Favouite_Item {
     int apply_status, loan_type;
     String remarks;
     int alert_date_type;
+	String loan_num;
+	String address;
 
 
     public Favouite_Item(){
         String content = "";
     }
 
-    public Favouite_Item(String create_date, String name, double loan_amount, int loan_trems, double loan_rate, int apply_status, int loan_type, String first_duedate, String final_duedate, String duedate_type, int alert_date_type, String remarks) {
+    public Favouite_Item(String create_date, String name, double loan_amount, int loan_trems, double loan_rate, int apply_status, int loan_type, String first_duedate, String final_duedate, String duedate_type, int alert_date_type, String remarks, String loan_num, String address) {
         this.create_date = create_date;
         this.name = name;
         this.loan_amount = loan_amount;
@@ -36,6 +38,8 @@ public class Favouite_Item {
         this.duedate_type = duedate_type;
         this.alert_date_type = alert_date_type;
         this.remarks = remarks;
+		this.loan_num = loan_num;
+		this.address = address;
 
     }
 
@@ -167,6 +171,25 @@ public class Favouite_Item {
         this.remarks = remarks;
     }
 
+	//=============================================================================================
+    // 14.Loan Number
+    public String getLoanNum(){
+        return this.loan_num;
+    }
+
+    public void setLoanNum(String loan_num) {
+        this.loan_num = loan_num;
+    }
+	
+	//=============================================================================================
+    // 15.Adress
+    public String getAddress(){
+        return this.address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
 
 }
