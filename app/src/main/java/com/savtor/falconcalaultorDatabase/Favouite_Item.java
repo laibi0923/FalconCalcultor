@@ -44,7 +44,7 @@ public class Favouite_Item {
     }
 
     //=============================================================================================
-    // 1.item id
+    // [1] item id
     public int getid(){
         return this.id;
     }
@@ -53,7 +53,7 @@ public class Favouite_Item {
         this.id = id;
     }
     //=============================================================================================
-    // 2.Create date
+    // [2] Create date
     public String getCreate_date() {
         return this.create_date;
     }
@@ -62,7 +62,7 @@ public class Favouite_Item {
         this.create_date = create_date;
     }
     //=============================================================================================
-    // 3.Name
+    // [3] Name
     public String getName(){
         return this.name;
     }
@@ -72,7 +72,7 @@ public class Favouite_Item {
     }
 
     //=============================================================================================
-    // 4.Loan Amount
+    // [4] Loan Amount
     public double getLoan_Amount(){
         return this.loan_amount;
     }
@@ -82,7 +82,7 @@ public class Favouite_Item {
     }
 
     //=============================================================================================
-    // 5.Loan Trems
+    // [5] Loan Trems
     public int getTrems(){
         return this.loan_trems;
     }
@@ -92,7 +92,7 @@ public class Favouite_Item {
     }
 
     //=============================================================================================
-    // 6.Loan Rate
+    // [6] Loan Rate
     public double getLoan_Rate(){
         return this.loan_rate;
     }
@@ -102,7 +102,7 @@ public class Favouite_Item {
     }
 
     //=============================================================================================
-    // 7.Apply Status
+    // [7] Apply Status
     public int getApply_status(){
         return this.apply_status;
     }
@@ -112,7 +112,7 @@ public class Favouite_Item {
     }
 
     //=============================================================================================
-    // 8.Loan Type
+    // [8] Loan Type
     public int getLoan_Type(){
         return this.loan_type;
     }
@@ -122,7 +122,7 @@ public class Favouite_Item {
     }
 
     //=============================================================================================
-    // 9.First Due Date
+    // [9] First Due Date
     public String getFirst_dueddate(){
         return this.first_duedate;
     }
@@ -132,7 +132,7 @@ public class Favouite_Item {
     }
 
     //=============================================================================================
-    // 10.Final Due Date
+    // [10] Final Due Date
     public String getFinal_dueddate(){
         return this.final_duedate;
     }
@@ -142,7 +142,7 @@ public class Favouite_Item {
     }
 
     //=============================================================================================
-    // 11.Due Date Type
+    // [11] Due Date Type
     public String getDuedate_type(){
         return this.duedate_type;
     }
@@ -152,7 +152,7 @@ public class Favouite_Item {
     }
 
     //=============================================================================================
-    // 12.Alert date
+    // [12] Alert date
     public int getAlert_date(){
         return  this.alert_date_type;
     }
@@ -162,7 +162,7 @@ public class Favouite_Item {
     }
 
     //=============================================================================================
-    // 13.Remarks
+    // [13] Remarks
     public String getRemarks(){
         return this.remarks;
     }
@@ -172,7 +172,7 @@ public class Favouite_Item {
     }
 
 	//=============================================================================================
-    // 14.Loan Number
+    // [14] Loan Number
     public String getLoanNum(){
         return this.loan_num;
     }
@@ -182,7 +182,7 @@ public class Favouite_Item {
     }
 	
 	//=============================================================================================
-    // 15.Adress
+    // [15] Adress
     public String getAddress(){
         return this.address;
     }

@@ -37,36 +37,86 @@ import com.savtor.falconcalcultor.*;
  */
 public class Fragment_Saver extends Fragment {
 
-    private String Create_Date, Name, First_duedate, Final_duedate, Duedate_Type, Remarks;
+    private String This_Fragment_Name = "Fragment_Saver";
+
+    private String Create_Date, Name, Loan_Num, First_duedate, Final_duedate, Duedate_Type, Address, Remarks;
     private double Loan_Amount, Loan_Rate;
     private int Loan_Trems, Alert_date_Type, Apply_Status, Loan_Type;
     private int apply_status_position, alert_date_position, loan_type_position;
 
-
 	private EditText Name_ED, Remark_ED;
     private TextView First_duedate_TV;
     private TextView Final_duedate_TV;
+
+    private EditText Loan_num_ED, Address_ED;
+
     private RadioButton Duedate_Type_normal_RB, Duedate_Type_eom_RB;
     private RadioGroup rGroup;
     private Spinner Alert_Date_Spinner, Apply_Status_Spinner, Loan_Type_Spinner;
     RelativeLayout mDate_picker;
-    LinearLayout saver_details_linear;
+    LinearLayout saver_details_linear, loan_num_linear;
 	
 	private int bundle_trems;
     private float bundle_amount, bundle_rate;
+
+
+    private String init_Name, init_LoanType, init_ApplyStatus, init_LoanNum, init_FirstDueDate, init_FinalDueDate, init_DueDate_Type, init_AlertDate, init_Address, init_Remarks;
+    private String Edit_Mode;
+
+    private Favourite_DataBasic favourite_dataBasic;
 
     Calendar calendar_final_duedate;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+
         setHasOptionsMenu(true);
+
+        favourite_dataBasic = new Favourite_DataBasic(getActivity(), This_Fragment_Name);
+
 		
 		Bundle mBundle = getArguments();
 
         bundle_amount = mBundle.getFloat("loan_amount");
         bundle_trems = mBundle.getInt("loan_trems");
         bundle_rate = mBundle.getFloat("loan_rate");
+
+        Edit_Mode = mBundle.getString("EDIT_MODE");
+
+        if (Edit_Mode == "true"){
+
+            Log.e("Edit Mode : ", This_Fragment_Name + "Edit Mode On");
+
+            int databasic_ID  = mBundle.getInt("DB_ID");
+
+
+
+            init_Name = String.valueOf(favourite_dataBasic.query(databasic_ID).getName());
+            init_LoanType = String.valueOf(favourite_dataBasic.query(databasic_ID).getLoan_Type());
+            init_ApplyStatus = String.valueOf(favourite_dataBasic.query(databasic_ID).getApply_status());
+            init_LoanNum = String.valueOf(favourite_dataBasic.query(databasic_ID).getLoanNum());
+            init_FirstDueDate = String.valueOf(favourite_dataBasic.query(databasic_ID).getFirst_dueddate());
+            init_AlertDate = String.valueOf(favourite_dataBasic.query(databasic_ID).getAlert_date());
+            init_Address = String.valueOf(favourite_dataBasic.query(databasic_ID).getAddress());
+            init_Remarks = String.valueOf(favourite_dataBasic.query(databasic_ID).getRemarks());
+            init_DueDate_Type = String.valueOf(favourite_dataBasic.query(databasic_ID).getDuedate_type());
+
+        }else if (Edit_Mode == "false"){
+
+            Log.e("Edit Mode : ", This_Fragment_Name + "Edit Mode Off");
+
+            init_Name = "";
+            init_LoanType = "0";
+            init_ApplyStatus = "0";
+            init_LoanNum = "";
+            init_FirstDueDate = "Please Select your first duedate";
+            init_FinalDueDate = "Will display your final duedate";
+            init_AlertDate = "0";
+            init_Address ="";
+            init_Remarks = "";
+        }
 
     }
 
@@ -76,8 +126,9 @@ public class Fragment_Saver extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_calcultor_saver, container, false);
 
-        // [1]
-        Find_View(v);
+        Find_View(v);   // [1]
+
+        Find_View_Data();
 
         return v;
     }
@@ -104,55 +155,42 @@ public class Fragment_Saver extends Fragment {
 		return super.onOptionsItemSelected(item);
 	}
 
+    @Override
+    public void onDestroy() {
 
+        super.onDestroy();
 
+        if (favourite_dataBasic != null){
+            Log.e("DATA BASIC ACTION : ","數據庫關閉, 共" + favourite_dataBasic.getCount() + "條紀錄");  // [Log.e]
+            favourite_dataBasic.close();
+        }
+    }
 
-
-    // 1. 加入畫面內容
+    //=============================================================================================
+    // [?] 加入畫面內容
     public void Find_View(View v){
 
         Name_ED = (EditText) v.findViewById(R.id.save_name);
         Name_ED.setOnFocusChangeListener(edText_FocusChangeListener);
 
-        Remark_ED = (EditText) v.findViewById(R.id.save_remarks);
-        Remark_ED.setOnFocusChangeListener(edText_FocusChangeListener);
-
-        First_duedate_TV = (TextView) v.findViewById(R.id.saver_first_duedate);
-        First_duedate_TV.setText("Please Select your first duedate");
-
-        Final_duedate_TV = (TextView) v.findViewById(R.id.saver_final_duedate);
-        Final_duedate_TV.setText("Will display your final duedate");
-
-        rGroup = (RadioGroup) v.findViewById(R.id.due_date_type);
-        rGroup.setEnabled(false);
-
-        Duedate_Type_normal_RB = (RadioButton) v.findViewById(R.id.normal_duedate_rb);
-        Duedate_Type_normal_RB.setEnabled(false);
-
-        Duedate_Type_eom_RB = (RadioButton) v.findViewById(R.id.eom_duedate_rb);
-        Duedate_Type_eom_RB.setEnabled(false);
-
         Loan_Type_Spinner = (Spinner) v.findViewById(R.id.loan_type_spinner);
         ArrayAdapter<CharSequence> Loan_Type_list = ArrayAdapter.createFromResource(getActivity(), R.array.loan_type_spinner, android.R.layout.simple_spinner_dropdown_item);
         Loan_Type_Spinner.setAdapter(Loan_Type_list);
-        Loan_Type_Spinner.setSelection(0);
         Loan_Type_Spinner.setOnItemSelectedListener(Spinner_OnItemSelectedListener);    // [2]
-
-        Alert_Date_Spinner = (Spinner) v.findViewById(R.id.alert_date_spinner);
-        ArrayAdapter<CharSequence> Alert_Date_list = ArrayAdapter.createFromResource(getActivity(), R.array.alert_date_spinner, android.R.layout.simple_spinner_dropdown_item);
-        Alert_Date_Spinner.setAdapter(Alert_Date_list);
-        Alert_Date_Spinner.setOnItemSelectedListener(Spinner_OnItemSelectedListener);   // [2]
-
 
         Apply_Status_Spinner = (Spinner) v.findViewById(R.id.apply_status_spinner);
         ArrayAdapter<CharSequence> Apply_Status_list = ArrayAdapter.createFromResource(getActivity(), R.array.apply_status_spinner, android.R.layout.simple_spinner_dropdown_item);
         Apply_Status_Spinner.setAdapter(Apply_Status_list);
         Apply_Status_Spinner.setOnItemSelectedListener(Spinner_OnItemSelectedListener); // [2]
 
-        rGroup.setOnCheckedChangeListener(RG_onchecked_listener);   // [3]
+        loan_num_linear = (LinearLayout) v.findViewById(R.id.loan_num_linear);
+        loan_num_linear.setVisibility(View.GONE);
+        Loan_num_ED = (EditText) v.findViewById(R.id.save_loan_num);
 
         saver_details_linear = (LinearLayout) v.findViewById(R.id.saver_details_linear);
         saver_details_linear.setVisibility(View.GONE);
+
+        First_duedate_TV = (TextView) v.findViewById(R.id.saver_first_duedate);
 
         mDate_picker = (RelativeLayout) v.findViewById(R.id.saver_datepicker);
         mDate_picker.setOnClickListener(new View.OnClickListener() {
@@ -161,6 +199,100 @@ public class Fragment_Saver extends Fragment {
                 onCreateDialog(First_duedate_TV).show();
             }
         });
+
+        rGroup = (RadioGroup) v.findViewById(R.id.due_date_type);
+        rGroup.setOnCheckedChangeListener(RG_onchecked_listener);   // [3]
+        rGroup.setEnabled(false);
+
+        Duedate_Type_normal_RB = (RadioButton) v.findViewById(R.id.normal_duedate_rb);
+
+        Duedate_Type_eom_RB = (RadioButton) v.findViewById(R.id.eom_duedate_rb);
+
+        Final_duedate_TV = (TextView) v.findViewById(R.id.saver_final_duedate);
+
+        Alert_Date_Spinner = (Spinner) v.findViewById(R.id.alert_date_spinner);
+        ArrayAdapter<CharSequence> Alert_Date_list = ArrayAdapter.createFromResource(getActivity(), R.array.alert_date_spinner, android.R.layout.simple_spinner_dropdown_item);
+        Alert_Date_Spinner.setAdapter(Alert_Date_list);
+        Alert_Date_Spinner.setOnItemSelectedListener(Spinner_OnItemSelectedListener);   // [2]
+
+        Address_ED = (EditText) v.findViewById(R.id.save_address);
+
+        Remark_ED = (EditText) v.findViewById(R.id.save_remarks);
+        Remark_ED.setOnFocusChangeListener(edText_FocusChangeListener);
+
+
+
+    }
+
+    public void Find_View_Data(){
+
+        Name_ED.setText(init_Name);
+
+        // Loan Type
+        if (init_LoanType == "0"){
+            Loan_Type_Spinner.setSelection(0);
+        }else if(init_LoanType == "1"){
+            Loan_Type_Spinner.setSelection(1);
+        }else if (init_LoanType == "2"){
+            Loan_Type_Spinner.setSelection(2);
+
+        }
+
+        // Apply Status
+        if (init_ApplyStatus == "0"){
+
+            Apply_Status_Spinner.setSelection(0);
+
+        }else if(init_ApplyStatus == "1"){
+
+            Apply_Status_Spinner.setSelection(1);
+
+        }else if (init_ApplyStatus == "2" ){
+
+            Apply_Status_Spinner.setSelection(2);
+
+        }else if (init_ApplyStatus == "3"){
+
+            Apply_Status_Spinner.setSelection(3);
+
+        }
+
+
+        Loan_num_ED.setText(init_LoanNum);
+
+        First_duedate_TV.setText(init_FirstDueDate);
+
+
+
+
+        Final_duedate_TV.setText(init_FinalDueDate);
+
+        // Alert Spinner
+        if (init_AlertDate == "0"){
+            Alert_Date_Spinner.setSelection(0);
+        }else if (init_AlertDate == "1"){
+            Alert_Date_Spinner.setSelection(1);
+        }else if (init_AlertDate == "2"){
+            Alert_Date_Spinner.setSelection(2);
+        }else if (init_AlertDate == "3"){
+            Alert_Date_Spinner.setSelection(3);
+        }else if (init_AlertDate == "4"){
+            Alert_Date_Spinner.setSelection(4);
+        }
+
+
+        Address_ED.setText(init_Address);
+
+        Remark_ED.setText(init_Remarks);
+
+
+
+//        Duedate_Type_normal_RB.setEnabled(false);
+//        Duedate_Type_eom_RB.setEnabled(false);
+        Loan_Type_Spinner.setSelection(0);
+        Alert_Date_Spinner.setSelection(0);
+
+
     }
 
 
@@ -184,8 +316,10 @@ public class Fragment_Saver extends Fragment {
 
                     if(position == 2){
                         saver_details_linear.setVisibility(View.VISIBLE);
+                        loan_num_linear.setVisibility(View.VISIBLE);
                     }else {
                         saver_details_linear.setVisibility(View.GONE);
+                        loan_num_linear.setVisibility(View.GONE);
                     }
 
                     apply_status_position = position;
@@ -332,6 +466,8 @@ public class Fragment_Saver extends Fragment {
 
         Name = Name_ED.getText().toString();
 
+        Loan_Num = Loan_num_ED.getText().toString();
+
         // 由於 Loan Type, Apply Status, Alert Date 己於 Spinner 設置, 故不用再重新獲取
         Apply_Status = apply_status_position;
 
@@ -360,6 +496,8 @@ public class Fragment_Saver extends Fragment {
 
         Alert_date_Type = alert_date_position;
 
+        Address = Address_ED.getText().toString();
+
         Remarks = Remark_ED.getText().toString();
 
     }
@@ -370,10 +508,9 @@ public class Fragment_Saver extends Fragment {
         // [8]
         get_input_values();
 
-        Favouite_Item fav_item = new Favouite_Item(Create_Date, Name, Loan_Amount, Loan_Trems, Loan_Rate, Apply_Status, Loan_Type, First_duedate, Final_duedate, Duedate_Type, Alert_date_Type, Remarks);
-        Favourite_DataBasic favourite_dataBasic = new Favourite_DataBasic(getActivity());
+        Favouite_Item fav_item = new Favouite_Item(Create_Date, Name, Loan_Amount, Loan_Trems, Loan_Rate, Apply_Status, Loan_Type, First_duedate, Final_duedate, Duedate_Type, Alert_date_Type, Remarks, Loan_Num, Address);
+
         favourite_dataBasic.inster(fav_item);
-        favourite_dataBasic.close();
 
         getActivity().getSupportFragmentManager().popBackStack();
         Toast.makeText(getContext(), "This record have been save", Toast.LENGTH_LONG).show();

@@ -23,7 +23,7 @@ public class Fargement_DebitInfo extends Fragment
 
 		T01 = (TextView) v.findViewById(R.id.T01);
 
-		Favourite_DataBasic favourite_dataBasic = new Favourite_DataBasic(getContext());
+		Favourite_DataBasic favourite_dataBasic = new Favourite_DataBasic(getContext(), "Fragment_DebitInfo");
 
 		T01.setText("");
 
@@ -45,7 +45,10 @@ public class Fargement_DebitInfo extends Fragment
 			T01.append("Apply Status : " + i.getApply_status() + "\n");
 			T01.append("Loan Type :" + i.getLoan_Type() + "\n");
 			T01.append("Alert Date : " + i.getAlert_date() + "\n");
+			T01.append("LoanNum : " + i.getLoanNum() + "\n");
+			T01.append("Address :" + i.getAddress() + "\n");
 			T01.append("Remarks : \n" + i.getRemarks() + "\n \n");
+
 		}
 
 		favourite_dataBasic.close();

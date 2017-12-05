@@ -110,7 +110,7 @@ public class Favourite_Adapter extends RecyclerSwipeAdapter<Favourite_ViewHolder
             public void onClick(View v) {
 
                 // Del on database
-                Favourite_DataBasic favourite_dataBasic = new Favourite_DataBasic(v.getContext());
+                Favourite_DataBasic favourite_dataBasic = new Favourite_DataBasic(v.getContext(), "Favourite_Adapter");
                 favourite_dataBasic.delete(Integer.parseInt(list.get(position).getid()));
 
                 Log.e("Del Action", "Positino = " + position );
@@ -134,7 +134,8 @@ public class Favourite_Adapter extends RecyclerSwipeAdapter<Favourite_ViewHolder
 				mBundle.putString("EDIT_MODE", "true");
 				
 				mBundle.putInt("DB_ID",Integer.parseInt(list.get(position).getid()));
-				
+                Log.e("ID 1", Integer.parseInt(list.get(position).getid())+ "");
+
 				mFragment.setArguments(mBundle);
 				
 				mFragmentManager.beginTransaction().addToBackStack(null).replace(R.id.mFrameLayout, mFragment).commit();

@@ -30,21 +30,9 @@ public class Fragment_Favourite extends Fragment {
     Favourite_DataBasic favourite_dataBasic;
     Favourite_Adapter fav_adapter;
     List<Favourite_Data> favouriteData;
-
     TextView count_result_tv;
     RecyclerView favourite_recyclerview;
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-
-        if (favourite_dataBasic != null){
-            Log.e("DATA BASIC ACTION : ","數據庫關閉, 共" + favourite_dataBasic.getCount() + "條紀錄");  // [Log.e]
-            favourite_dataBasic.close();
-
-        }
-
-    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -72,6 +60,18 @@ public class Fragment_Favourite extends Fragment {
         Search(searchView);     // [3]
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        if (favourite_dataBasic != null){
+            Log.e("DATA BASIC ACTION : ","數據庫關閉, 共" + favourite_dataBasic.getCount() + "條紀錄");  // [Log.e]
+            favourite_dataBasic.close();
+
+        }
+
+    }
+
 
     // [1] 加入畫面內容
     private void Find_View(View v){
@@ -79,7 +79,7 @@ public class Fragment_Favourite extends Fragment {
         FragmentManager mFragmentManager = getFragmentManager();
 
         if (favourite_dataBasic == null){
-            favourite_dataBasic = new Favourite_DataBasic(getActivity());
+            favourite_dataBasic = new Favourite_DataBasic(getActivity(), "Fragment_Favourite");
             Log.e("DATA BASIC ACTION : ","數據庫開啟, 共" + favourite_dataBasic.getCount() + "條紀錄"); // [Log.e]
 
         }

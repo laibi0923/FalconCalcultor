@@ -5,11 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
-import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.List;
-import com.savtor.falconcalcultorFavoutive.*;
+
 
 /**
  * Created by GhostLeo_DT on 30/11/2017.
@@ -19,7 +17,7 @@ public class Favourite_DataBasic {
     // 表格名稱
     public static final String TABLE_NAME = "favourite";
 
-    // 編號表格欄位名稱，固定不變
+    // 編號表格欄位名稱，固定不變, 共15項
     public static final String KEY_ID = "_id";
 
     public static final String CREATE_DATE_COULUMN = "CreateDate";
@@ -56,48 +54,48 @@ public class Favourite_DataBasic {
 			ADDRESS_COULUMN + " TEXT)";
 
     // 資料庫物件
-    private SQLiteDatabase db;
+    public SQLiteDatabase db;
 
+    //=============================================================================================
     // 建構子，一般的應用都不需要修改
-    public Favourite_DataBasic(Context context){
+    public Favourite_DataBasic(Context context, String open_from){
+
         db = myDBhelper.getDatabase(context);
+
+        Log.e("DATA BASIC ACTION : ", "從" + open_from + "打開資料庫"); // [Log.e]
     }
 
-
-    // 關閉資料庫
-    public void close() {
-        db.close();
-    }
-
-    // 新增參數指定的物件
-    public Favouite_Item inster(Favouite_Item values){
+    //=============================================================================================
+    // [1] INSERT - 新增參數指定的物件
+    public Favouite_Item inster(Favouite_Item item){
 
         ContentValues cv = new ContentValues();
-
-        // KEY_ID 為 Autoincrement, 不用新增
-        cv.put(CREATE_DATE_COULUMN, values.getCreate_date());
-        cv.put(NAME_COLUMN, values.getName());
-        cv.put(AMOUNT_COLUMN, values.getLoan_Amount());
-        cv.put(TREMS_COULUMN, values.getTrems());
-        cv.put(RATE_COULUMN, values.getLoan_Rate());
-        cv.put(APPLY_STATUS_COULUMN, values.getApply_status());
-        cv.put(LOAN_TYPE_COULUMN, values.getLoan_Type());
-        cv.put(FIRST_DUEDATE_COULUMN, values.getFirst_dueddate());
-        cv.put(FINAL_DUEDATE_COULUMN, values.getFinal_dueddate());
-        cv.put(DUEDATE_TYPE_COULUMN, values.getDuedate_type());
-        cv.put(ALERT_DATE, values.getAlert_date());
-        cv.put(REMARKS_COULUMN, values.getRemarks());
-		cv.put(LOAN_NUM_COULUMN, values.getLoanNum());
-		cv.put(ADDRESS_COULUMN, values.getAddress());
+//
+        cv = get_ContenValue(item);
 
         db.insert(TABLE_NAME, null, cv);
         Log.e("DATA BASIC ACTION : ","數據庫新增1條紀錄");  // [Log.e]
 
-        return values;
+        return item;
     }
 
     //=============================================================================================
-    // 刪除
+    // [2] UPDATE - 修改
+    public boolean update(Favouite_Item item){
+
+        ContentValues cv = new ContentValues();
+
+        String where =  KEY_ID + "=" + item.getid();
+
+        cv = get_ContenValue(item);
+
+        Log.e("DATA BASIC ACTION : ", "更新 " + where + "的紀錄"); // [Log.e]
+
+        return db.update(TABLE_NAME, cv, where, null) > 0;
+    }
+
+    //=============================================================================================
+    // [3] DELETE - 刪除
     public boolean delete(int id){
 
         String where = KEY_ID + "=" + id;
@@ -108,37 +106,7 @@ public class Favourite_DataBasic {
     }
 
     //=============================================================================================
-    // 修改
-    public boolean update(Favouite_Item item){
-
-        ContentValues cv = new ContentValues();
-
-        String where =  KEY_ID + "=" + item.getid();
-
-        cv.put(CREATE_DATE_COULUMN, item.getCreate_date());
-        cv.put(NAME_COLUMN, item.getName());
-        cv.put(NAME_COLUMN, item.getName());
-        cv.put(AMOUNT_COLUMN, item.getLoan_Amount());
-        cv.put(TREMS_COULUMN, item.getTrems());
-        cv.put(RATE_COULUMN, item.getLoan_Rate());
-        cv.put(RATE_COULUMN, item.getLoan_Rate());
-        cv.put(APPLY_STATUS_COULUMN, item.getApply_status());
-        cv.put(FIRST_DUEDATE_COULUMN, item.getFirst_dueddate());
-        cv.put(FINAL_DUEDATE_COULUMN, item.getFinal_dueddate());
-        cv.put(DUEDATE_TYPE_COULUMN, item.getDuedate_type());
-        cv.put(ALERT_DATE, item.getAlert_date());
-        cv.put(REMARKS_COULUMN, item.getRemarks());
-		cv.put(LOAN_NUM_COULUMN, item.getLoanNum());
-		cv.put(ADDRESS_COULUMN, item.getAddress());
-
-
-        return db.update(TABLE_NAME, cv, where, null) > 0;
-		
-    }
-	
-
-    //=============================================================================================
-    // 查詢
+    // [4] QUERY - 查詢一條紀錄
     public Favouite_Item query(long id){
 
         Favouite_Item item = null;
@@ -152,9 +120,14 @@ public class Favourite_DataBasic {
         }
 
         cursor.close();
+
+        Log.e("DATA BASIC ACTION : ","查詢一條紀錄, 位於" + where);  // [Log.e]
+
         return item;
     }
 
+    //=============================================================================================
+    // [5] QUERY ALL - 查詢所有紀錄
     public List<Favouite_Item> query_all(){
 
         List <Favouite_Item> result = new ArrayList<Favouite_Item>();
@@ -166,9 +139,14 @@ public class Favourite_DataBasic {
         }
 
         cursor.close();
+
+        Log.e("DATA BASIC ACTION : ","查詢所有紀錄, 一共" + getCount() + "條");  // [Log.e]
+
         return result;
     }
 
+    //=============================================================================================
+    // [6] 被[5]所用
     public Favouite_Item get_database_record(Cursor cusor){
 
         Favouite_Item item = new Favouite_Item();
@@ -186,14 +164,38 @@ public class Favourite_DataBasic {
         item.setDuedate_type(cusor.getString(10));
         item.setAlert_date(cusor.getInt(11));
         item.setRemarks(cusor.getString(12));
-
+        item.setLoanNum(cusor.getString(13));
+        item.setAddress(cusor.getString(14));
 
         return item;
     }
 
+    //=============================================================================================
+    // [7] 被[1], [2]所用
+    public ContentValues get_ContenValue(Favouite_Item item){
+
+        ContentValues cv = new ContentValues();
+
+        cv.put(CREATE_DATE_COULUMN, item.getCreate_date());
+        cv.put(NAME_COLUMN, item.getName());
+        cv.put(AMOUNT_COLUMN, item.getLoan_Amount());
+        cv.put(TREMS_COULUMN, item.getTrems());
+        cv.put(RATE_COULUMN, item.getLoan_Rate());
+        cv.put(LOAN_TYPE_COULUMN, item.getLoan_Type());
+        cv.put(APPLY_STATUS_COULUMN, item.getApply_status());
+        cv.put(FIRST_DUEDATE_COULUMN, item.getFirst_dueddate());
+        cv.put(FINAL_DUEDATE_COULUMN, item.getFinal_dueddate());
+        cv.put(DUEDATE_TYPE_COULUMN, item.getDuedate_type());
+        cv.put(ALERT_DATE, item.getAlert_date());
+        cv.put(REMARKS_COULUMN, item.getRemarks());
+        cv.put(LOAN_NUM_COULUMN, item.getLoanNum());
+        cv.put(ADDRESS_COULUMN, item.getAddress());
+
+        return cv;
+    }
 
     //=============================================================================================
-    // 取得資料數量
+    // [8] 取得資料大小
     public int getCount() {
 
         int result = 0;
@@ -207,25 +209,11 @@ public class Favourite_DataBasic {
         return result;
     }
 
-	public ContentValues get_ContenValue(Favouite_Item item){
-		
-		ContentValues cv = new ContentValues();
-		
-		cv.put(CREATE_DATE_COULUMN, item.getCreate_date());
-        cv.put(NAME_COLUMN, item.getName());
-        cv.put(AMOUNT_COLUMN, item.getLoan_Amount());
-        cv.put(TREMS_COULUMN, item.getTrems());
-        cv.put(RATE_COULUMN, item.getLoan_Rate());
-        cv.put(APPLY_STATUS_COULUMN, item.getApply_status());
-        cv.put(FIRST_DUEDATE_COULUMN, item.getFirst_dueddate());
-        cv.put(FINAL_DUEDATE_COULUMN, item.getFinal_dueddate());
-        cv.put(DUEDATE_TYPE_COULUMN, item.getDuedate_type());
-        cv.put(ALERT_DATE, item.getAlert_date());
-        cv.put(REMARKS_COULUMN, item.getRemarks());
-		cv.put(LOAN_NUM_COULUMN, item.getLoanNum());
-		cv.put(ADDRESS_COULUMN, item.getAddress());
-		
-		return cv;
-	}
+    //=============================================================================================
+    // [9] 取得資料大小
+    public void close() {
+        db.close();
+    }
+
 
 }
