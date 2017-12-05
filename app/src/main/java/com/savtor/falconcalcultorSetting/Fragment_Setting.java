@@ -5,6 +5,7 @@ import android.support.v4.app.*;
 import android.view.*;
 import android.os.*;
 
+
 public class Fragment_Setting extends Fragment
 {
 
