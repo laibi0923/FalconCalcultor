@@ -6,9 +6,8 @@
     tools:context=".Activity_Main">
 
     <item
-        android:icon="@drawable/ic_save_black_24dp"
         android:id="@+id/save_to_fav"
-        android:title="Save"
+        android:title="儲存"
         android:orderInCategory="100"
         app:showAsAction="ifRoom" />
 

@@ -29,6 +29,9 @@ import android.widget.Toast;
 import java.util.Calendar;
 import com.savtor.falconcalaultorDatabase.*;
 import com.savtor.falconcalcultor.*;
+import android.widget.*;
+import android.text.*;
+import android.support.v4.content.*;
 
 
 
@@ -36,6 +39,14 @@ import com.savtor.falconcalcultor.*;
  * Created by GhostLeo_DT on 27/11/2017.
  */
 public class Fragment_Saver extends Fragment {
+	
+	EditText loanname_edittext, loannum_edittext, address_edittext, phone_edittext, remarks_edittext;
+	View subview_loantype, subview_applytype, subview_loannum, subview_firstdue, subview_finaldue, subview_alertdate, subview_address, subview_phone, subview_remarks;
+	ImageView loantype_icon, applytype_icon, loannum_icon, firstdue_icon, finaldue_icon, alert_icon, address_icon, phone_icon, remarks_icon;
+	TextView loantype_textview, applytype_textview, firstdue_textview, firstdue_result_textview, finaldue_textview, finaldue_result_textview, alert_textview;
+	
+	
+	
 
     private String This_Fragment_Name = "Fragment_Saver";
 
@@ -52,7 +63,7 @@ public class Fragment_Saver extends Fragment {
 
     private RadioButton Duedate_Type_normal_RB, Duedate_Type_eom_RB;
     private RadioGroup rGroup;
-    private Spinner Alert_Date_Spinner, Apply_Status_Spinner, Loan_Type_Spinner;
+    
     RelativeLayout mDate_picker;
     LinearLayout saver_details_linear, loan_num_linear;
 	
@@ -127,9 +138,7 @@ public class Fragment_Saver extends Fragment {
         View v = inflater.inflate(R.layout.fragment_calcultor_saver, container, false);
 
         Find_View(v);   // [1]
-
-        Find_View_Data();
-
+		
         return v;
     }
 
@@ -166,197 +175,82 @@ public class Fragment_Saver extends Fragment {
         }
     }
 
+	
+	
     //=============================================================================================
     // [?] 加入畫面內容
     public void Find_View(View v){
-
-        Name_ED = (EditText) v.findViewById(R.id.save_name);
-        Name_ED.setOnFocusChangeListener(edText_FocusChangeListener);
-
-        Loan_Type_Spinner = (Spinner) v.findViewById(R.id.loan_type_spinner);
-        ArrayAdapter<CharSequence> Loan_Type_list = ArrayAdapter.createFromResource(getActivity(), R.array.loan_type_spinner, android.R.layout.simple_spinner_dropdown_item);
-        Loan_Type_Spinner.setAdapter(Loan_Type_list);
-        Loan_Type_Spinner.setOnItemSelectedListener(Spinner_OnItemSelectedListener);    // [2]
-
-        Apply_Status_Spinner = (Spinner) v.findViewById(R.id.apply_status_spinner);
-        ArrayAdapter<CharSequence> Apply_Status_list = ArrayAdapter.createFromResource(getActivity(), R.array.apply_status_spinner, android.R.layout.simple_spinner_dropdown_item);
-        Apply_Status_Spinner.setAdapter(Apply_Status_list);
-        Apply_Status_Spinner.setOnItemSelectedListener(Spinner_OnItemSelectedListener); // [2]
-
-        loan_num_linear = (LinearLayout) v.findViewById(R.id.loan_num_linear);
-        loan_num_linear.setVisibility(View.GONE);
-        Loan_num_ED = (EditText) v.findViewById(R.id.save_loan_num);
-
-        saver_details_linear = (LinearLayout) v.findViewById(R.id.saver_details_linear);
-        saver_details_linear.setVisibility(View.GONE);
-
-        First_duedate_TV = (TextView) v.findViewById(R.id.saver_first_duedate);
-
-        mDate_picker = (RelativeLayout) v.findViewById(R.id.saver_datepicker);
-        mDate_picker.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onCreateDialog(First_duedate_TV).show();
-            }
-        });
-
-        rGroup = (RadioGroup) v.findViewById(R.id.due_date_type);
-        rGroup.setOnCheckedChangeListener(RG_onchecked_listener);   // [3]
-        rGroup.setEnabled(false);
-
-        Duedate_Type_normal_RB = (RadioButton) v.findViewById(R.id.normal_duedate_rb);
-
-        Duedate_Type_eom_RB = (RadioButton) v.findViewById(R.id.eom_duedate_rb);
-
-        Final_duedate_TV = (TextView) v.findViewById(R.id.saver_final_duedate);
-
-        Alert_Date_Spinner = (Spinner) v.findViewById(R.id.alert_date_spinner);
-        ArrayAdapter<CharSequence> Alert_Date_list = ArrayAdapter.createFromResource(getActivity(), R.array.alert_date_spinner, android.R.layout.simple_spinner_dropdown_item);
-        Alert_Date_Spinner.setAdapter(Alert_Date_list);
-        Alert_Date_Spinner.setOnItemSelectedListener(Spinner_OnItemSelectedListener);   // [2]
-
-        Address_ED = (EditText) v.findViewById(R.id.save_address);
-
-        Remark_ED = (EditText) v.findViewById(R.id.save_remarks);
-        Remark_ED.setOnFocusChangeListener(edText_FocusChangeListener);
-
-
-
+		
+		loanname_edittext = (EditText) v.findViewById(R.id.save_name);
+		loanname_edittext.setOnFocusChangeListener(edText_FocusChangeListener);
+		
+		subview_loantype = v.findViewById(R.id.subview_loantype);
+		loantype_icon = (ImageView) subview_loantype.findViewById(R.id.sub_image);
+		loantype_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_add_black_24dp));
+		loantype_textview = (TextView) subview_loantype.findViewById(R.id.sub_textview);
+		loantype_textview.setText("私人貸款");
+		
+		subview_applytype = v.findViewById(R.id.subview_applytype);
+		applytype_icon = (ImageView) subview_applytype.findViewById(R.id.sub_image);
+		applytype_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_add_black_24dp));
+		applytype_textview = (TextView) subview_applytype.findViewById(R.id.sub_textview);
+		applytype_textview.setText("批核狀況");
+		
+		subview_loannum = v.findViewById(R.id.subview_loannum);
+		loannum_icon = (ImageView) subview_loannum.findViewById(R.id.sub_image);
+		loannum_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_add_black_24dp));
+		loannum_edittext = (EditText) subview_loannum.findViewById(R.id.sub_edittext);
+		loannum_edittext.setSingleLine(true);
+		loannum_edittext.setOnFocusChangeListener(edText_FocusChangeListener);
+		loannum_edittext.setHint("貸款編號");
+		
+		subview_firstdue = v.findViewById(R.id.subview_firstdue);
+		firstdue_icon = (ImageView) subview_firstdue.findViewById(R.id.sub_image);
+		firstdue_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_add_black_24dp));
+		firstdue_textview = (TextView) subview_firstdue.findViewById(R.id.sub_textview);
+		firstdue_textview.setText("首期供款日");
+		firstdue_result_textview = (TextView) subview_firstdue.findViewById(R.id.sub_textview_result);
+		firstdue_result_textview.setText("");
+		
+		subview_finaldue = v.findViewById(R.id.subview_finaldue);
+		finaldue_icon = (ImageView) subview_finaldue.findViewById(R.id.sub_image);
+		finaldue_icon.setColorFilter(getContext().getResources().getColor(R.color.colorPrimary), android.graphics.PorterDuff.Mode.MULTIPLY);
+		finaldue_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_add_black_24dp));
+		finaldue_textview = (TextView) subview_finaldue.findViewById(R.id.sub_textview);
+		finaldue_textview.setText("最後供款日");
+		finaldue_result_textview = (TextView) subview_finaldue.findViewById(R.id.sub_textview_result);
+		finaldue_result_textview.setText("");
+		
+		subview_alertdate = v.findViewById(R.id.subview_alertdate);
+		alert_icon = (ImageView) subview_alertdate.findViewById(R.id.sub_image);
+		alert_icon.setImageResource(R.drawable.ic_alarm_black_24dp);
+		alert_textview = (TextView) subview_alertdate.findViewById(R.id.sub_textview);
+		alert_textview.setText("設置提醒");
+		
+		subview_address = v.findViewById(R.id.subview_address);
+		address_icon = (ImageView) subview_address.findViewById(R.id.sub_image);
+		address_icon.setImageResource(R.drawable.ic_location_on_black_24dp);
+		address_edittext = (EditText) subview_address.findViewById(R.id.sub_edittext);
+		address_edittext.setSingleLine(true);
+		address_edittext.setOnFocusChangeListener(edText_FocusChangeListener);
+		address_edittext.setHint("地址");
+		
+		subview_phone = v.findViewById(R.id.subview_phone);
+		phone_icon = (ImageView) subview_phone.findViewById(R.id.sub_image);
+		phone_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_add_black_24dp));
+		phone_edittext = (EditText) subview_phone.findViewById(R.id.sub_edittext);
+		phone_edittext.setSingleLine(true);
+		phone_edittext.setInputType(InputType.TYPE_CLASS_PHONE);
+		phone_edittext.setOnFocusChangeListener(edText_FocusChangeListener);
+		phone_edittext.setHint("電話");
+		
+		subview_remarks = v.findViewById(R.id.subview_remarks);
+		remarks_icon = (ImageView) subview_remarks.findViewById(R.id.sub_image);
+		remarks_icon.setImageResource(R.drawable.ic_create_black_24dp);
+		remarks_edittext = (EditText) subview_remarks.findViewById(R.id.sub_edittext);
+		remarks_edittext.setOnFocusChangeListener(edText_FocusChangeListener);
+		remarks_edittext.setHint("備註");
     }
-
-    public void Find_View_Data(){
-
-        Name_ED.setText(init_Name);
-
-        // Loan Type
-        if (init_LoanType == "0"){
-            Loan_Type_Spinner.setSelection(0);
-        }else if(init_LoanType == "1"){
-            Loan_Type_Spinner.setSelection(1);
-        }else if (init_LoanType == "2"){
-            Loan_Type_Spinner.setSelection(2);
-
-        }
-
-        // Apply Status
-        if (init_ApplyStatus == "0"){
-
-            Apply_Status_Spinner.setSelection(0);
-
-        }else if(init_ApplyStatus == "1"){
-
-            Apply_Status_Spinner.setSelection(1);
-
-        }else if (init_ApplyStatus == "2" ){
-
-            Apply_Status_Spinner.setSelection(2);
-
-        }else if (init_ApplyStatus == "3"){
-
-            Apply_Status_Spinner.setSelection(3);
-
-        }
-
-
-        Loan_num_ED.setText(init_LoanNum);
-
-        First_duedate_TV.setText(init_FirstDueDate);
-
-
-
-
-        Final_duedate_TV.setText(init_FinalDueDate);
-
-        // Alert Spinner
-        if (init_AlertDate == "0"){
-            Alert_Date_Spinner.setSelection(0);
-        }else if (init_AlertDate == "1"){
-            Alert_Date_Spinner.setSelection(1);
-        }else if (init_AlertDate == "2"){
-            Alert_Date_Spinner.setSelection(2);
-        }else if (init_AlertDate == "3"){
-            Alert_Date_Spinner.setSelection(3);
-        }else if (init_AlertDate == "4"){
-            Alert_Date_Spinner.setSelection(4);
-        }
-
-
-        Address_ED.setText(init_Address);
-
-        Remark_ED.setText(init_Remarks);
-
-
-
-//        Duedate_Type_normal_RB.setEnabled(false);
-//        Duedate_Type_eom_RB.setEnabled(false);
-        Loan_Type_Spinner.setSelection(0);
-        Alert_Date_Spinner.setSelection(0);
-
-
-    }
-
-
-    // 2. 處理 Spinner
-    public AdapterView.OnItemSelectedListener Spinner_OnItemSelectedListener = new AdapterView.OnItemSelectedListener() {
-
-        @Override
-        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-            switch (parent.getId()){
-
-                case R.id.loan_type_spinner:
-                    loan_type_position = position;
-                    break;
-
-                case R.id.alert_date_spinner:
-                    alert_date_position = position;
-                    break;
-
-                case R.id.apply_status_spinner:
-
-                    if(position == 2){
-                        saver_details_linear.setVisibility(View.VISIBLE);
-                        loan_num_linear.setVisibility(View.VISIBLE);
-                    }else {
-                        saver_details_linear.setVisibility(View.GONE);
-                        loan_num_linear.setVisibility(View.GONE);
-                    }
-
-                    apply_status_position = position;
-
-                    break;
-            }
-
-        }
-
-        @Override
-        public void onNothingSelected(AdapterView<?> parent) {
-            loan_type_position = 99;
-            alert_date_position = 99;
-            apply_status_position = 99;
-        }
-
-    };
-
-
-    // 3. 處理 RadioGroup
-    private RadioGroup.OnCheckedChangeListener RG_onchecked_listener = new RadioGroup.OnCheckedChangeListener(){
-        @Override
-        public void onCheckedChanged(RadioGroup group, int checkedId) {
-
-            switch (checkedId){
-
-                case R.id.normal_duedate_rb:
-                    Final_duedate_TV.setText(calendar_final_duedate.get(Calendar.YEAR) + "/" + (calendar_final_duedate.get(Calendar.MONTH) + 1) + "/" + calendar_final_duedate.get(Calendar.DAY_OF_MONTH));
-                    break;
-
-                case R.id.eom_duedate_rb:
-                    Final_duedate_TV.setText(calendar_final_duedate.get(Calendar.YEAR) + "/" + (calendar_final_duedate.get(Calendar.MONTH) + 1) + "/" + calendar_final_duedate.getActualMaximum(Calendar.DAY_OF_MONTH));
-                    break;
-            }
-
-        }
-    };
 
 
     // 4.處理 Fist Due Date 及計算 Final Due Date
@@ -402,7 +296,7 @@ public class Fragment_Saver extends Fragment {
                     Duedate_Type_normal_RB.setEnabled(false);
                     Duedate_Type_eom_RB.setEnabled(true);
 					
-                    rGroup.check(R.id.eom_duedate_rb);
+                    //rGroup.check(R.id.eom_duedate_rb);
 
                     Final_duedate_TV.setText(calendar_final_duedate.get(Calendar.YEAR) + "/" + (calendar_final_duedate.get(Calendar.MONTH) + 1) + "/" + calendar_final_duedate.getActualMaximum(Calendar.DAY_OF_MONTH));
 
@@ -440,7 +334,6 @@ public class Fragment_Saver extends Fragment {
                 // [6]
 				hideKeyboard(v);
 			}
-			
 		}
 	};
 
@@ -451,58 +344,27 @@ public class Fragment_Saver extends Fragment {
     }
 
 
+	String get_createdate, get_name, get_loantype, get_applystatus, get_loannum, get_firstdue, get_finaldue, get_alertdate, get_address, get_phone, get_remark;
     // 7.獲取用戶輸入資料
     public void get_input_values(){
 
         final Calendar today =  Calendar.getInstance();
-        String CreateDate = today.get(Calendar.YEAR) + "/" + (today.get(Calendar.MONTH) +1) + "/" + today.get(Calendar.DAY_OF_MONTH);
-        Create_Date = CreateDate;
-
-        Loan_Amount = bundle_amount;
-
-        Loan_Trems = bundle_trems;
-
-        Loan_Rate = bundle_rate;
-
-        Name = Name_ED.getText().toString();
-
-        Loan_Num = Loan_num_ED.getText().toString();
-
-        // 由於 Loan Type, Apply Status, Alert Date 己於 Spinner 設置, 故不用再重新獲取
-        Apply_Status = apply_status_position;
-
-        Loan_Type = loan_type_position;
-
-        if(First_duedate_TV.getText().toString() == "Please Select your first duedate"){
-            First_duedate = "";
-        }else {
-            First_duedate = First_duedate_TV.getText().toString();
-        }
-
-        if(Final_duedate_TV.getText().toString() == "Will display your final duedate"){
-            Final_duedate = "";
-        }else {
-            Final_duedate = Final_duedate_TV.getText().toString();
-        }
-
-
-        if(Duedate_Type_normal_RB.isChecked()){
-            Duedate_Type = "1";
-        }else if(Duedate_Type_eom_RB.isChecked()){
-            Duedate_Type = "2";
-        }else {
-            Duedate_Type = "0";
-        }
-
-        Alert_date_Type = alert_date_position;
-
-        Address = Address_ED.getText().toString();
-
-        Remarks = Remark_ED.getText().toString();
-
+        get_createdate = today.get(Calendar.YEAR) + "/" + (today.get(Calendar.MONTH) +1) + "/" + today.get(Calendar.DAY_OF_MONTH);
+		
+		get_name = loanname_edittext.getText().toString();
+		get_loantype = loantype_textview.getText().toString();
+		get_applystatus = applytype_textview.getText().toString();
+		get_loannum = Loan_num_ED.getText().toString();
+		get_firstdue = firstdue_result_textview.getText().toString();
+		get_finaldue = finaldue_result_textview.getText().toString();
+		get_alertdate = alert_textview.getText().toString();
+		get_address = address_edittext.getText().toString();
+		get_phone = phone_edittext.getText().toString();
+		get_remark = Remark_ED.getText().toString();
+		
     }
 
-    // 8.用戶輸入資料加入 Favourite Data Base
+    // [8] 用戶輸入資料加入 Favourite Data Base
     public void insert_to_fav_DB(){
 
         // [8]
