@@ -22,36 +22,46 @@ public class Favourite_DataBasic {
 
     public static final String CREATE_DATE_COULUMN = "CreateDate";
     public static final String NAME_COLUMN = "Name";
+    public static final String LOAN_TYPE_COULUMN = "LoanType";
+    public static final String APPLY_STATUS_COULUMN = "ApplyStatus";
+    public static final String LOAN_NUM_COULUMN = "LoanNum";
+
     public static final String AMOUNT_COLUMN = "LoanAmount";
     public static final String TREMS_COULUMN = "LoanTrems";
     public static final String RATE_COULUMN = "LoanRate";
-    public static final String APPLY_STATUS_COULUMN = "ApplyStatus";
-    public static final String LOAN_TYPE_COULUMN = "LoanType";
+
     public static final String FIRST_DUEDATE_COULUMN = "Firstduedate";
     public static final String FINAL_DUEDATE_COULUMN = "Finalduedate";
     public static final String DUEDATE_TYPE_COULUMN = "Duedatetype";
     public static final String ALERT_DATE = "Alertdate";
-    public static final String REMARKS_COULUMN = "Remarks";
-	public static final String LOAN_NUM_COULUMN = "LoanNum";
+
+
 	public static final String ADDRESS_COULUMN = "Address";
+    public static final String PHONE_COULUMN = "Phone";
+    public static final String REMARKS_COULUMN = "Remarks";
 
     // 新建 Table
     public static final String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + "(" +
             KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             CREATE_DATE_COULUMN + " TEXT, " +
             NAME_COLUMN + " TEXT," +
+            LOAN_TYPE_COULUMN + " TEXT," +
+            APPLY_STATUS_COULUMN + " TEXT," +
+            LOAN_NUM_COULUMN + " TEXT," +
+
             AMOUNT_COLUMN + " DOUBLE," +
             TREMS_COULUMN + " INTEGER," +
             RATE_COULUMN + " DOUBLE," +
-            APPLY_STATUS_COULUMN + " INTEGER," +
-            LOAN_TYPE_COULUMN + " INTEGER," +
+
             FIRST_DUEDATE_COULUMN + " TEXT," +
             FINAL_DUEDATE_COULUMN + " TEXT," +
             DUEDATE_TYPE_COULUMN + " TEXT," +
-            ALERT_DATE + " INTEGER, " +
-            REMARKS_COULUMN + " TEXT," + 
-			LOAN_NUM_COULUMN + " TEXT," +
-			ADDRESS_COULUMN + " TEXT)";
+            ALERT_DATE + " TEXT, " +
+
+            ADDRESS_COULUMN + " TEXT," +
+			PHONE_COULUMN + " TEXT," +
+            REMARKS_COULUMN + " TEXT)";
+
 
     // 資料庫物件
     public SQLiteDatabase db;
@@ -153,19 +163,26 @@ public class Favourite_DataBasic {
 
         item.setid(cusor.getInt(0));
         item.setCreate_date(cusor.getString(1));
+
         item.setName(cusor.getString(2));
-        item.setLaon_Amount(cusor.getDouble(3));
-        item.setTrems(cusor.getInt(4));
-        item.setLoan_Rate(cusor.getDouble(5));
-        item.setApply_status(cusor.getInt(6));
-        item.setLoan_Type(cusor.getInt(7));
-        item.setFirst_duedate(cusor.getString(8));
-        item.setFinal_duedate(cusor.getString(9));
-        item.setDuedate_type(cusor.getString(10));
-        item.setAlert_date(cusor.getInt(11));
-        item.setRemarks(cusor.getString(12));
-        item.setLoanNum(cusor.getString(13));
-        item.setAddress(cusor.getString(14));
+        item.setApply_status(cusor.getString(3));
+        item.setLoan_Type(cusor.getString(4));
+        item.setLoanNum(cusor.getString(5));
+
+        item.setLaon_Amount(cusor.getDouble(6));
+        item.setTrems(cusor.getInt(7));
+        item.setLoan_Rate(cusor.getDouble(8));
+
+        item.setFirst_duedate(cusor.getString(9));
+        item.setFinal_duedate(cusor.getString(10));
+        item.setDuedate_type(cusor.getString(11));
+        item.setAlert_date(cusor.getString(12));
+
+        item.setAddress(cusor.getString(13));
+        item.setPhone(cusor.getString(14));
+        item.setRemarks(cusor.getString(15));
+
+
 
         return item;
     }
@@ -177,19 +194,27 @@ public class Favourite_DataBasic {
         ContentValues cv = new ContentValues();
 
         cv.put(CREATE_DATE_COULUMN, item.getCreate_date());
+
         cv.put(NAME_COLUMN, item.getName());
+        cv.put(LOAN_TYPE_COULUMN, item.getLoan_Type());
+        cv.put(APPLY_STATUS_COULUMN, item.getApply_status());
+        cv.put(LOAN_NUM_COULUMN, item.getLoanNum());
+
         cv.put(AMOUNT_COLUMN, item.getLoan_Amount());
         cv.put(TREMS_COULUMN, item.getTrems());
         cv.put(RATE_COULUMN, item.getLoan_Rate());
-        cv.put(LOAN_TYPE_COULUMN, item.getLoan_Type());
-        cv.put(APPLY_STATUS_COULUMN, item.getApply_status());
+
+
         cv.put(FIRST_DUEDATE_COULUMN, item.getFirst_dueddate());
         cv.put(FINAL_DUEDATE_COULUMN, item.getFinal_dueddate());
         cv.put(DUEDATE_TYPE_COULUMN, item.getDuedate_type());
         cv.put(ALERT_DATE, item.getAlert_date());
-        cv.put(REMARKS_COULUMN, item.getRemarks());
-        cv.put(LOAN_NUM_COULUMN, item.getLoanNum());
+
         cv.put(ADDRESS_COULUMN, item.getAddress());
+        cv.put(PHONE_COULUMN, item.getPhone());
+        cv.put(REMARKS_COULUMN, item.getRemarks());
+
+
 
         return cv;
     }

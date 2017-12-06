@@ -3,6 +3,9 @@ package com.savtor.falconcalcultorCalcultor;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -39,44 +42,33 @@ import android.support.v4.content.*;
  * Created by GhostLeo_DT on 27/11/2017.
  */
 public class Fragment_Saver extends Fragment {
-	
-	EditText loanname_edittext, loannum_edittext, address_edittext, phone_edittext, remarks_edittext;
-	View subview_loantype, subview_applytype, subview_loannum, subview_firstdue, subview_finaldue, subview_alertdate, subview_address, subview_phone, subview_remarks;
-	ImageView loantype_icon, applytype_icon, loannum_icon, firstdue_icon, finaldue_icon, alert_icon, address_icon, phone_icon, remarks_icon;
-	TextView loantype_textview, applytype_textview, firstdue_textview, firstdue_result_textview, finaldue_textview, finaldue_result_textview, alert_textview;
-	
-	
-	
 
     private String This_Fragment_Name = "Fragment_Saver";
 
-    private String Create_Date, Name, Loan_Num, First_duedate, Final_duedate, Duedate_Type, Address, Remarks;
-    private double Loan_Amount, Loan_Rate;
-    private int Loan_Trems, Alert_date_Type, Apply_Status, Loan_Type;
-    private int apply_status_position, alert_date_position, loan_type_position;
+    private View subview_loantype, subview_applytype, subview_loannum, subview_firstdue, subview_finaldue, subview_alertdate, subview_address, subview_phone, subview_remarks;
+	private EditText loanname_edittext, loannum_edittext, address_edittext, phone_edittext, remarks_edittext;
+	private ImageView loantype_icon, applytype_icon, loannum_icon, firstdue_icon, finaldue_icon, alert_icon, address_icon, phone_icon, remarks_icon;
+	private TextView loantype_textview, applytype_textview, firstdue_textview, firstdue_result_textview, finaldue_textview, finaldue_result_textview, alert_textview;
+    private  LinearLayout duedate_linear, firstdue_linear, finaldue_linear;
 
-	private EditText Name_ED, Remark_ED;
-    private TextView First_duedate_TV;
-    private TextView Final_duedate_TV;
+    private Calendar Calendar_finaldue;
 
-    private EditText Loan_num_ED, Address_ED;
-
-    private RadioButton Duedate_Type_normal_RB, Duedate_Type_eom_RB;
-    private RadioGroup rGroup;
-    
-    RelativeLayout mDate_picker;
-    LinearLayout saver_details_linear, loan_num_linear;
+    private String get_createdate, get_name, get_loantype, get_applystatus, get_loannum, get_firstdue, get_finaldue, get_alertdate, get_address, get_phone, get_remark,  get_alerdate_type;
+    private double get_loanamount, get_loanrate;
+    private int get_loantrems;
 	
+	
+
 	private int bundle_trems;
     private float bundle_amount, bundle_rate;
 
 
-    private String init_Name, init_LoanType, init_ApplyStatus, init_LoanNum, init_FirstDueDate, init_FinalDueDate, init_DueDate_Type, init_AlertDate, init_Address, init_Remarks;
+    private String init_Name, init_LoanType, init_ApplyStatus, init_LoanNum, init_FirstDueDate, init_FinalDueDate, init_DueDate_Type, init_AlertDate, init_Address, init_Phone, init_Remarks;
     private String Edit_Mode;
 
     private Favourite_DataBasic favourite_dataBasic;
 
-    Calendar calendar_final_duedate;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -87,7 +79,6 @@ public class Fragment_Saver extends Fragment {
 
         favourite_dataBasic = new Favourite_DataBasic(getActivity(), This_Fragment_Name);
 
-		
 		Bundle mBundle = getArguments();
 
         bundle_amount = mBundle.getFloat("loan_amount");
@@ -118,15 +109,18 @@ public class Fragment_Saver extends Fragment {
 
             Log.e("Edit Mode : ", This_Fragment_Name + "Edit Mode Off");
 
-            init_Name = "";
-            init_LoanType = "0";
-            init_ApplyStatus = "0";
-            init_LoanNum = "";
-            init_FirstDueDate = "Please Select your first duedate";
-            init_FinalDueDate = "Will display your final duedate";
-            init_AlertDate = "0";
-            init_Address ="";
-            init_Remarks = "";
+            init_Name = getResources().getString(R.string.init_loanname);
+            init_LoanType = getResources().getString(R.string.init_loantype);
+            init_ApplyStatus = getResources().getString(R.string.init_applystatuse);
+            init_LoanNum = getResources().getString(R.string.init_loannum);
+            init_FirstDueDate = getResources().getString(R.string.init_firstdue);
+            init_FinalDueDate = getResources().getString(R.string.init_finalduee);
+//            init_DueDate_Type = getResources().getString(R.string.init);
+            init_AlertDate = getResources().getString(R.string.init_alertdate);
+            init_Address = getResources().getString(R.string.init_address);
+            init_Phone = getResources().getString(R.string.init_phone);
+            init_Remarks = getResources().getString(R.string.init_remark);
+
         }
 
     }
@@ -183,49 +177,67 @@ public class Fragment_Saver extends Fragment {
 		
 		loanname_edittext = (EditText) v.findViewById(R.id.save_name);
 		loanname_edittext.setOnFocusChangeListener(edText_FocusChangeListener);
+        loanname_edittext.requestFocus();
 		
 		subview_loantype = v.findViewById(R.id.subview_loantype);
 		loantype_icon = (ImageView) subview_loantype.findViewById(R.id.sub_image);
 		loantype_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_add_black_24dp));
 		loantype_textview = (TextView) subview_loantype.findViewById(R.id.sub_textview);
-		loantype_textview.setText("私人貸款");
+		loantype_textview.setText(init_LoanType);
 		
 		subview_applytype = v.findViewById(R.id.subview_applytype);
 		applytype_icon = (ImageView) subview_applytype.findViewById(R.id.sub_image);
 		applytype_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_add_black_24dp));
 		applytype_textview = (TextView) subview_applytype.findViewById(R.id.sub_textview);
-		applytype_textview.setText("批核狀況");
+		applytype_textview.setText(init_ApplyStatus);
 		
 		subview_loannum = v.findViewById(R.id.subview_loannum);
+//        subview_loannum.setVisibility(View.GONE);
 		loannum_icon = (ImageView) subview_loannum.findViewById(R.id.sub_image);
 		loannum_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_add_black_24dp));
 		loannum_edittext = (EditText) subview_loannum.findViewById(R.id.sub_edittext);
 		loannum_edittext.setSingleLine(true);
 		loannum_edittext.setOnFocusChangeListener(edText_FocusChangeListener);
-		loannum_edittext.setHint("貸款編號");
-		
-		subview_firstdue = v.findViewById(R.id.subview_firstdue);
-		firstdue_icon = (ImageView) subview_firstdue.findViewById(R.id.sub_image);
+		loannum_edittext.setHint(init_LoanNum);
+
+        duedate_linear = (LinearLayout) v.findViewById(R.id.duedate_linear);
+//        duedate_linear.setVisibility(View.GONE);
+
+
+        subview_firstdue = v.findViewById(R.id.subview_firstdue);
+
+        firstdue_icon = (ImageView) subview_firstdue.findViewById(R.id.sub_image);
 		firstdue_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_add_black_24dp));
 		firstdue_textview = (TextView) subview_firstdue.findViewById(R.id.sub_textview);
-		firstdue_textview.setText("首期供款日");
+		firstdue_textview.setText(init_FirstDueDate);
 		firstdue_result_textview = (TextView) subview_firstdue.findViewById(R.id.sub_textview_result);
-		firstdue_result_textview.setText("");
-		
+		firstdue_result_textview.setText(get_today());
+
+        firstdue_linear = (LinearLayout) subview_firstdue.findViewById(R.id.sub_linear);
+        firstdue_linear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog(1);
+//                Toast.makeText(getContext(), "HI", Toast.LENGTH_LONG).show();
+            }
+        });
+
 		subview_finaldue = v.findViewById(R.id.subview_finaldue);
 		finaldue_icon = (ImageView) subview_finaldue.findViewById(R.id.sub_image);
-		finaldue_icon.setColorFilter(getContext().getResources().getColor(R.color.colorPrimary), android.graphics.PorterDuff.Mode.MULTIPLY);
-		finaldue_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_add_black_24dp));
 		finaldue_textview = (TextView) subview_finaldue.findViewById(R.id.sub_textview);
-		finaldue_textview.setText("最後供款日");
+		finaldue_textview.setText(init_FinalDueDate);
 		finaldue_result_textview = (TextView) subview_finaldue.findViewById(R.id.sub_textview_result);
 		finaldue_result_textview.setText("");
+        finaldue_result_textview.setTextColor(getResources().getColor(R.color.accent));
+
+        finaldue_linear = (LinearLayout) subview_finaldue.findViewById(R.id.sub_linear);
+        finaldue_linear.setClickable(false);
 		
 		subview_alertdate = v.findViewById(R.id.subview_alertdate);
 		alert_icon = (ImageView) subview_alertdate.findViewById(R.id.sub_image);
 		alert_icon.setImageResource(R.drawable.ic_alarm_black_24dp);
 		alert_textview = (TextView) subview_alertdate.findViewById(R.id.sub_textview);
-		alert_textview.setText("設置提醒");
+		alert_textview.setText(init_AlertDate);
 		
 		subview_address = v.findViewById(R.id.subview_address);
 		address_icon = (ImageView) subview_address.findViewById(R.id.sub_image);
@@ -233,24 +245,94 @@ public class Fragment_Saver extends Fragment {
 		address_edittext = (EditText) subview_address.findViewById(R.id.sub_edittext);
 		address_edittext.setSingleLine(true);
 		address_edittext.setOnFocusChangeListener(edText_FocusChangeListener);
-		address_edittext.setHint("地址");
+		address_edittext.setHint(init_Address);
 		
 		subview_phone = v.findViewById(R.id.subview_phone);
 		phone_icon = (ImageView) subview_phone.findViewById(R.id.sub_image);
-		phone_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_add_black_24dp));
+		phone_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_call_black_24dp));
 		phone_edittext = (EditText) subview_phone.findViewById(R.id.sub_edittext);
 		phone_edittext.setSingleLine(true);
 		phone_edittext.setInputType(InputType.TYPE_CLASS_PHONE);
 		phone_edittext.setOnFocusChangeListener(edText_FocusChangeListener);
-		phone_edittext.setHint("電話");
+		phone_edittext.setHint(init_Phone);
 		
 		subview_remarks = v.findViewById(R.id.subview_remarks);
 		remarks_icon = (ImageView) subview_remarks.findViewById(R.id.sub_image);
 		remarks_icon.setImageResource(R.drawable.ic_create_black_24dp);
 		remarks_edittext = (EditText) subview_remarks.findViewById(R.id.sub_edittext);
 		remarks_edittext.setOnFocusChangeListener(edText_FocusChangeListener);
-		remarks_edittext.setHint("備註");
+		remarks_edittext.setHint(init_Remarks);
     }
+
+    public String get_today(){
+
+        Calendar mCalendar = Calendar.getInstance();
+        String today = mCalendar.get(Calendar.YEAR) + "/" + mCalendar.get(Calendar.MONTH) + "/" + mCalendar.get(Calendar.DAY_OF_MONTH);
+        return today;
+
+    }
+
+
+    protected Dialog showDialog(int CaseID){
+
+        switch (CaseID){
+
+            case 1:
+
+                show_date_dialog().show();
+
+                break;
+
+        }
+
+        return null;
+    }
+
+
+    protected Dialog show_date_dialog(){
+
+        Dialog mDialog = null;
+
+        final Calendar mCalendar = Calendar.getInstance();
+
+
+        mDialog = new DatePickerDialog(getActivity(), R.style.myDateDialogTheme, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+
+                mCalendar.set(Calendar.YEAR, year);
+                mCalendar.set(Calendar.MONTH, month);
+                mCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+                firstdue_result_textview.setText(mCalendar.get(Calendar.YEAR) + "/" + (mCalendar.get(Calendar.MONTH) + 1) + "/" + mCalendar.get(Calendar.DAY_OF_MONTH));
+
+                Calendar_finaldue = mCalendar;
+
+                if (month == 1 && dayOfMonth == mCalendar.getActualMaximum(Calendar.DAY_OF_MONTH) || dayOfMonth == 30){
+
+                    Calendar_finaldue.add(Calendar.MONTH, bundle_trems - 1);
+
+                    finaldue_result_textview.setText(Calendar_finaldue.get(Calendar.YEAR) + "/" + (Calendar_finaldue.get(Calendar.MONTH) + 1) + "/" + Calendar_finaldue.get(Calendar.DAY_OF_MONTH));
+
+                }else if(dayOfMonth == 31){
+
+                    Calendar_finaldue.add(Calendar.MONTH, bundle_trems - 1);
+                    finaldue_result_textview.setText(Calendar_finaldue.get(Calendar.YEAR) + "/" + (Calendar_finaldue.get(Calendar.MONTH) + 1) + "/" + Calendar_finaldue.get(Calendar.DAY_OF_MONTH));
+
+                }else {
+
+                    Calendar_finaldue.add(Calendar.MONTH, bundle_trems - 1);
+                    finaldue_result_textview.setText(Calendar_finaldue.get(Calendar.YEAR) + "/" + (Calendar_finaldue.get(Calendar.MONTH) + 1) + "/" + Calendar_finaldue.get(Calendar.DAY_OF_MONTH));
+                }
+
+            }
+        },mCalendar.get(Calendar.YEAR), mCalendar.get(Calendar.MONTH), mCalendar.get(Calendar.DAY_OF_MONTH));
+
+        return mDialog;
+    }
+
+
+
 
 
     // 4.處理 Fist Due Date 及計算 Final Due Date
@@ -270,7 +352,7 @@ public class Fragment_Saver extends Fragment {
                 c.set(Calendar.MONTH, month);
                 c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
-                calendar_final_duedate = c;
+//                calendar_final_duedate = c;
                 
 				
 				Toast.makeText(getContext(), c.get(Calendar.MONTH) + "," + dayOfMonth + "," + year + "/" + c.getActualMaximum(Calendar.DAY_OF_MONTH), Toast.LENGTH_LONG).show();
@@ -279,47 +361,44 @@ public class Fragment_Saver extends Fragment {
                 if (month == 1 && dayOfMonth == c.getActualMaximum(Calendar.DAY_OF_MONTH) || dayOfMonth == 30){
 					
 					// 28 Feb & duedate = 30
-					calendar_final_duedate.add(Calendar.MONTH, bundle_trems - 1);
+//					calendar_final_duedate.add(Calendar.MONTH, bundle_trems - 1);
 					
-                    Duedate_Type_normal_RB.setEnabled(true);
-                    Duedate_Type_eom_RB.setEnabled(true);
-					
-					rGroup.clearCheck();
-                    
-                    Final_duedate_TV.setText("Will display your final duedate");
+//                    Duedate_Type_normal_RB.setEnabled(true);
+//                    Duedate_Type_eom_RB.setEnabled(true);
+//
+//					rGroup.clearCheck();
+//
+//                    Final_duedate_TV.setText("Will display your final duedate");
 
                 }else if(dayOfMonth == 31){
 
 					// duedate = 31
-					calendar_final_duedate.add(Calendar.MONTH, bundle_trems - 1);
+//					calendar_final_duedate.add(Calendar.MONTH, bundle_trems - 1);
 					
-                    Duedate_Type_normal_RB.setEnabled(false);
-                    Duedate_Type_eom_RB.setEnabled(true);
-					
-                    //rGroup.check(R.id.eom_duedate_rb);
-
-                    Final_duedate_TV.setText(calendar_final_duedate.get(Calendar.YEAR) + "/" + (calendar_final_duedate.get(Calendar.MONTH) + 1) + "/" + calendar_final_duedate.getActualMaximum(Calendar.DAY_OF_MONTH));
+//                    Duedate_Type_normal_RB.setEnabled(false);
+//                    Duedate_Type_eom_RB.setEnabled(true);
+//
+//                    //rGroup.check(R.id.eom_duedate_rb);
+//
+//                    Final_duedate_TV.setText(calendar_final_duedate.get(Calendar.YEAR) + "/" + (calendar_final_duedate.get(Calendar.MONTH) + 1) + "/" + calendar_final_duedate.getActualMaximum(Calendar.DAY_OF_MONTH));
 
                 }
                 else{
 					
 					// other due date
-					calendar_final_duedate.add(Calendar.MONTH, bundle_trems - 1);
+//					calendar_final_duedate.add(Calendar.MONTH, bundle_trems - 1);
 					
-                    Duedate_Type_normal_RB.setEnabled(false);
-                    Duedate_Type_eom_RB.setEnabled(false);
-                    
-					rGroup.clearCheck();
-					
-                    Final_duedate_TV.setText(calendar_final_duedate.get(Calendar.YEAR) + "/" + (calendar_final_duedate.get(Calendar.MONTH) + 1) + "/" + calendar_final_duedate.get(Calendar.DAY_OF_MONTH));
+//                    Duedate_Type_normal_RB.setEnabled(false);
+//                    Duedate_Type_eom_RB.setEnabled(false);
+//
+//					rGroup.clearCheck();
+//
+//                    Final_duedate_TV.setText(calendar_final_duedate.get(Calendar.YEAR) + "/" + (calendar_final_duedate.get(Calendar.MONTH) + 1) + "/" + calendar_final_duedate.get(Calendar.DAY_OF_MONTH));
                 }
 
             }
 
-        }, c.get(Calendar.YEAR), // 年份
-                c.get(Calendar.MONTH), // 月份
-                c.get(Calendar.DAY_OF_MONTH) // 天数
-        );
+        }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
 
         return mDialog;
     }
@@ -343,8 +422,6 @@ public class Fragment_Saver extends Fragment {
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
-
-	String get_createdate, get_name, get_loantype, get_applystatus, get_loannum, get_firstdue, get_finaldue, get_alertdate, get_address, get_phone, get_remark;
     // 7.獲取用戶輸入資料
     public void get_input_values(){
 
@@ -354,23 +431,37 @@ public class Fragment_Saver extends Fragment {
 		get_name = loanname_edittext.getText().toString();
 		get_loantype = loantype_textview.getText().toString();
 		get_applystatus = applytype_textview.getText().toString();
-		get_loannum = Loan_num_ED.getText().toString();
+		get_loannum = loannum_edittext.getText().toString();
 		get_firstdue = firstdue_result_textview.getText().toString();
 		get_finaldue = finaldue_result_textview.getText().toString();
 		get_alertdate = alert_textview.getText().toString();
 		get_address = address_edittext.getText().toString();
 		get_phone = phone_edittext.getText().toString();
-		get_remark = Remark_ED.getText().toString();
-		
+		get_remark = remarks_edittext.getText().toString();
+
     }
 
     // [8] 用戶輸入資料加入 Favourite Data Base
     public void insert_to_fav_DB(){
 
-        // [8]
         get_input_values();
 
-        Favouite_Item fav_item = new Favouite_Item(Create_Date, Name, Loan_Amount, Loan_Trems, Loan_Rate, Apply_Status, Loan_Type, First_duedate, Final_duedate, Duedate_Type, Alert_date_Type, Remarks, Loan_Num, Address);
+        Favouite_Item fav_item = new Favouite_Item(
+                get_createdate,
+                get_name,
+                get_loantype,
+                get_applystatus,
+                get_loannum,
+                get_loanamount,
+                get_loantrems,
+                get_loanrate,
+                get_firstdue,
+                get_finaldue,
+                get_alertdate,
+                get_alerdate_type,
+                get_address,
+                get_phone,
+                get_remark);
 
         favourite_dataBasic.inster(fav_item);
 

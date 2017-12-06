@@ -14,33 +14,37 @@ public class Favouite_Item {
     String first_duedate;
     String final_duedate;
     String duedate_type;
-    int apply_status, loan_type;
+    String apply_status, loan_type;
     String remarks;
-    int alert_date_type;
+    String alert_date_type;
 	String loan_num;
 	String address;
+    String phone;
 
 
     public Favouite_Item(){
         String content = "";
     }
 
-    public Favouite_Item(String create_date, String name, double loan_amount, int loan_trems, double loan_rate, int apply_status, int loan_type, String first_duedate, String final_duedate, String duedate_type, int alert_date_type, String remarks, String loan_num, String address) {
+    public Favouite_Item(String create_date, String name, String loan_type, String apply_status, String loan_num,  double loan_amount, int loan_trems, double loan_rate,  String first_duedate, String final_duedate, String duedate_type, String alert_date_type, String address, String phone,  String remarks ) {
         this.create_date = create_date;
         this.name = name;
+        this.loan_type = loan_type;
+        this.apply_status = apply_status;
+        this.loan_num = loan_num;
+
         this.loan_amount = loan_amount;
         this.loan_trems = loan_trems;
         this.loan_rate = loan_rate;
-        this.apply_status = apply_status;
-        this.loan_type = loan_type;
+
         this.first_duedate = first_duedate;
         this.final_duedate = final_duedate;
         this.duedate_type = duedate_type;
         this.alert_date_type = alert_date_type;
-        this.remarks = remarks;
-		this.loan_num = loan_num;
-		this.address = address;
 
+		this.address = address;
+        this.phone = phone;
+        this.remarks = remarks;
     }
 
     //=============================================================================================
@@ -72,7 +76,37 @@ public class Favouite_Item {
     }
 
     //=============================================================================================
-    // [4] Loan Amount
+    // [4] Loan Type
+    public String getLoan_Type(){
+        return this.loan_type;
+    }
+
+    public void setLoan_Type(String loan_type){
+        this.loan_type = loan_type;
+    }
+
+    //=============================================================================================
+    // [5] Apply Status
+    public String getApply_status(){
+        return this.apply_status;
+    }
+
+    public void setApply_status(String apply_status){
+        this.apply_status = apply_status;
+    }
+
+    //=============================================================================================
+    // [6] Loan Number
+    public String getLoanNum(){
+        return this.loan_num;
+    }
+
+    public void setLoanNum(String loan_num) {
+        this.loan_num = loan_num;
+    }
+
+    //=============================================================================================
+    // [7] Loan Amount
     public double getLoan_Amount(){
         return this.loan_amount;
     }
@@ -82,7 +116,7 @@ public class Favouite_Item {
     }
 
     //=============================================================================================
-    // [5] Loan Trems
+    // [8] Loan Trems
     public int getTrems(){
         return this.loan_trems;
     }
@@ -92,7 +126,7 @@ public class Favouite_Item {
     }
 
     //=============================================================================================
-    // [6] Loan Rate
+    // [9] Loan Rate
     public double getLoan_Rate(){
         return this.loan_rate;
     }
@@ -102,27 +136,7 @@ public class Favouite_Item {
     }
 
     //=============================================================================================
-    // [7] Apply Status
-    public int getApply_status(){
-        return this.apply_status;
-    }
-
-    public void setApply_status(int apply_status){
-        this.apply_status = apply_status;
-    }
-
-    //=============================================================================================
-    // [8] Loan Type
-    public int getLoan_Type(){
-        return this.loan_type;
-    }
-
-    public void setLoan_Type(int loan_type){
-        this.loan_type = loan_type;
-    }
-
-    //=============================================================================================
-    // [9] First Due Date
+    // [10] First Due Date
     public String getFirst_dueddate(){
         return this.first_duedate;
     }
@@ -132,7 +146,7 @@ public class Favouite_Item {
     }
 
     //=============================================================================================
-    // [10] Final Due Date
+    // [11] Final Due Date
     public String getFinal_dueddate(){
         return this.final_duedate;
     }
@@ -142,7 +156,7 @@ public class Favouite_Item {
     }
 
     //=============================================================================================
-    // [11] Due Date Type
+    // [12] Due Date Type
     public String getDuedate_type(){
         return this.duedate_type;
     }
@@ -152,36 +166,16 @@ public class Favouite_Item {
     }
 
     //=============================================================================================
-    // [12] Alert date
-    public int getAlert_date(){
+    // [13] Alert date
+    public String getAlert_date(){
         return  this.alert_date_type;
     }
 
-    public void setAlert_date(int alert_date){
+    public void setAlert_date(String alert_date){
         this.alert_date_type = alert_date;
     }
 
     //=============================================================================================
-    // [13] Remarks
-    public String getRemarks(){
-        return this.remarks;
-    }
-
-    public void setRemarks(String remarks) {
-        this.remarks = remarks;
-    }
-
-	//=============================================================================================
-    // [14] Loan Number
-    public String getLoanNum(){
-        return this.loan_num;
-    }
-
-    public void setLoanNum(String loan_num) {
-        this.loan_num = loan_num;
-    }
-	
-	//=============================================================================================
     // [15] Adress
     public String getAddress(){
         return this.address;
@@ -189,6 +183,26 @@ public class Favouite_Item {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    //=============================================================================================
+    // [14] Phone
+    public String getPhone(){
+        return this.phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    //=============================================================================================
+    // [15] Remarks
+    public String getRemarks(){
+        return this.remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
     }
 
 

@@ -53,5 +53,19 @@
         <item>Car Loan</item>
     </string-array>
 
+    <!--==============================================================================================-->
+    <!--for Saver page-->
+    <string name="init_loanname">輸入名稱</string>
+    <string name="init_loantype">私人貸款</string>
+    <string name="init_applystatuse">批核狀況</string>
+    <string name="init_loannum">貸款編號</string>
+    <string name="init_firstdue">首期供款日</string>
+    <string name="init_finalduee">最後供款日</string>
+    <string name="init_alertdate">設置提醒</string>
+    <string name="init_address">地址</string>
+    <string name="init_phone">電話</string>
+    <string name="init_remark">備註</string>
+
+
 </resources>
 
