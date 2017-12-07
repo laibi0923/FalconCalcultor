@@ -2,14 +2,17 @@ package com.savtor.falconcalcultor;
 
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 
+import com.savtor.falconcalaultorDatabase.Favourite_DataBasic;
 import com.savtor.falconcalcultorCalcultor.*;
 import com.savtor.falconcalcultorDebitInfo.*;
 import com.savtor.falconcalcultorSetting.*;
@@ -20,6 +23,7 @@ public class Activity_Main extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private Toolbar mToolbar;
     private NavigationView mNavigationView;
+    private Favourite_DataBasic favourite_dataBasic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +36,15 @@ public class Activity_Main extends AppCompatActivity {
 
         init_navigationview();
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+//        if (favourite_dataBasic != null){
+//            Log.e("DATA BASIC ACTION : ","數據庫關閉, 共" + favourite_dataBasic.getCount() + "條紀錄");  // [Log.e]
+//            favourite_dataBasic.close();
+//        }
     }
 
     final void init_toolbar(){
@@ -60,22 +73,24 @@ public class Activity_Main extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
+                Fragment mFragment = null;
+
                 switch (item.getItemId()){
 
                     case R.id.nav_item1:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.mFrameLayout, new Fargement_DebitInfo()).commit();
+                        mFragment = new Fragement_DebitInfo();
                         break;
 
                     case R.id.nav_item2:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.mFrameLayout, new Fragment_Calcultor()).commit();
+                        mFragment = new Fragment_Calcultor();
                         break;
 
                     case R.id.nav_item3:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.mFrameLayout, new Fragment_Favourite()).commit();
+                        mFragment = new Fragment_Favourite();
                         break;
 
                     case R.id.nav_item4:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.mFrameLayout, new Fragment_Setting()).commit();
+                        mFragment = new Fragment_Setting();
                         break;
 
                     case R.id.nav_item5:
@@ -84,6 +99,8 @@ public class Activity_Main extends AppCompatActivity {
                     case R.id.nav_item6:
                         break;
                 }
+
+                getSupportFragmentManager().beginTransaction().replace(R.id.mFrameLayout,mFragment).commit();
 
                 item.setChecked(true);
                 mDrawerLayout.closeDrawers();

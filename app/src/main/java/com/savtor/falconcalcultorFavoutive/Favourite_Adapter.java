@@ -16,6 +16,7 @@ import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
 import com.savtor.falconcalaultorDatabase.Favourite_DataBasic;
 import com.savtor.falconcalcultor.*;
 import com.savtor.falconcalcultorCalcultor.Fragment_Calcultor;
+import com.savtor.falconcalaultorDatabase.Favouite_Item;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -31,11 +32,11 @@ import android.support.v4.app.*;
 
 public class Favourite_Adapter extends RecyclerSwipeAdapter<Favourite_ViewHolder> {
 
-    List<Favourite_Data> list = Collections.emptyList();
+    List<Favouite_Item> list = Collections.emptyList();
     Context context;
     FragmentManager mFragmentManager;
 
-    public Favourite_Adapter(List<Favourite_Data> list, Context context, FragmentManager mFragmentManager) {
+    public Favourite_Adapter(List<Favouite_Item> list, Context context, FragmentManager mFragmentManager) {
         this.list = list;
         this.context = context;
         this.mFragmentManager = mFragmentManager;
@@ -54,52 +55,32 @@ public class Favourite_Adapter extends RecyclerSwipeAdapter<Favourite_ViewHolder
     @Override
     public void onBindViewHolder(final Favourite_ViewHolder holder, final int position) {
 
-        holder.create_date_tv.setText(list.get(position).create_date);
+        holder.create_date_tv.setText(list.get(position).getCreate_date());
 
-        if(list.get(position).name.isEmpty()){
+        if(list.get(position).getName().isEmpty()){
             holder.name_tv.setText("-");
         }else {
-            holder.name_tv.setText(list.get(position).name);
+            holder.name_tv.setText(list.get(position).getName());
         }
+		
+		holder.loan_amount_tv.setText(String.valueOf(list.get(position).getLoan_Amount()));
 
-        if(list.get(position).loan_amount.isEmpty()){
-            holder.loan_amount_tv.setText("-");
-        }else {
-            holder.loan_amount_tv.setText(list.get(position).loan_amount);
-        }
+        holder.loan_trems_tv.setText(String.valueOf( list.get(position).getTrems() ));
 
-        if(list.get(position).loan_trems.isEmpty()){
-            holder.loan_trems_tv.setText("-");
-        }else {
-            holder.loan_trems_tv.setText(list.get(position).loan_trems);
-        }
+		holder.loan_rate_tv.setText(String.valueOf( list.get(position).getLoan_Rate()));
+        
+		holder.apply_status_tv.setText(list.get(position).getApply_status());
+       
 
-        if(list.get(position).loan_rate.isEmpty()){
-            holder.loan_rate_tv.setText("-");
-        }else {
-            holder.loan_rate_tv.setText(list.get(position).loan_rate);
-        }
-
-        if (list.get(position).apply_status == "0"){
-            holder.apply_status_tv.setText("");
-        }else if(list.get(position).apply_status == "1"){
-            holder.apply_status_tv.setText("Pending");
-        }else  if(list.get(position).apply_status == "2"){
-            holder.apply_status_tv.setText("Approval");
-        }else  if(list.get(position).apply_status == "3"){
-            holder.apply_status_tv.setText("Reject");
-        }
-
-
-        if(list.get(position).loan_type == "0"){
+        if(list.get(position).getLoan_Type() == "0"){
             holder.loan_type_icon.setBackgroundResource(R.drawable.ic_person_black_24dp);
-        }else if(list.get(position).loan_type == "1" || list.get(position).loan_type.equals("1")){
+        }else if(list.get(position).getLoan_Type() == "1" || list.get(position).getLoan_Type().equals("1")){
             holder.loan_type_icon.setBackgroundResource(R.drawable.ic_domain_black_24dp);
-        }else if(list.get(position).loan_type == "2"){
+        }else if(list.get(position).getLoan_Type() == "2"){
             holder.loan_type_icon.setBackgroundResource(R.drawable.ic_directions_car_black_24dp);
         }
 
-        if (list.get(position).alert_date == "0"){
+        if (list.get(position).getAlert_date() == ""){
             holder.alert_icon_im.setVisibility(View.GONE);
         }else {
             holder.alert_icon_im.setVisibility(View.VISIBLE);
@@ -111,7 +92,7 @@ public class Favourite_Adapter extends RecyclerSwipeAdapter<Favourite_ViewHolder
 
                 // Del on database
                 Favourite_DataBasic favourite_dataBasic = new Favourite_DataBasic(v.getContext(), "Favourite_Adapter");
-                favourite_dataBasic.delete(Integer.parseInt(list.get(position).getid()));
+                favourite_dataBasic.delete(list.get(position).getid());
 
                 Log.e("Del Action", "Positino = " + position );
                 // Del on list
@@ -133,8 +114,8 @@ public class Favourite_Adapter extends RecyclerSwipeAdapter<Favourite_ViewHolder
 				
 				mBundle.putString("EDIT_MODE", "true");
 				
-				mBundle.putInt("DB_ID",Integer.parseInt(list.get(position).getid()));
-                Log.e("ID 1", Integer.parseInt(list.get(position).getid())+ "");
+				mBundle.putInt("DB_ID", list.get(position).getid());
+                Log.e("ID 1", list.get(position).getid() + "");
 
 				mFragment.setArguments(mBundle);
 				
@@ -143,8 +124,8 @@ public class Favourite_Adapter extends RecyclerSwipeAdapter<Favourite_ViewHolder
         });
 
 
-        Fragment_Calcultor fc = new Fragment_Calcultor();
-        double result = fc.getMonthlyInstallment(Float.parseFloat(list.get(position).loan_amount), Float.parseFloat(list.get(position).loan_rate),Integer.parseInt(list.get(position).loan_trems));
+        Fragment_Calcultor fc = new Fragment_Calcultor(); 
+        double result = fc.getMonthlyInstallment(Float.parseFloat(String.valueOf( list.get(position).getLoan_Amount() )), Float.parseFloat( String.valueOf( list.get(position).getLoan_Rate() )),list.get(position).getTrems());
         holder.installment_tv.setText(String.format("%.2f",result));
 
         holder.swipeLayout.setShowMode(SwipeLayout.ShowMode.LayDown);
@@ -209,7 +190,7 @@ public class Favourite_Adapter extends RecyclerSwipeAdapter<Favourite_ViewHolder
     }
 
 
-    public void setFilter(List<Favourite_Data> countryModels) {
+    public void setFilter(List<Favouite_Item> countryModels) {
         list = new ArrayList<>();
         list.addAll(countryModels);
         notifyDataSetChanged();

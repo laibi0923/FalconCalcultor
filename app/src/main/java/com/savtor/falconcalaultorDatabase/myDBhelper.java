@@ -15,7 +15,7 @@ public class myDBhelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "falcon_db_dummyy.db";
 
     // Data base 版本
-    public static final int VERSION = 3;
+    public static final int VERSION = 4;
 
     private static SQLiteDatabase database;
 

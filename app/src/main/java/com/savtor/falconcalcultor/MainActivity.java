@@ -4,7 +4,6 @@ import com.savtor.falconcalcultorSetting.*;
 import com.savtor.falconcalcultorDebitInfo.*;
 import com.savtor.falconcalcultorCalcultor.*;
 
-import android.app.*;
 import android.os.*;
 import android.support.design.widget.*;
 import android.support.v4.widget.*;
@@ -29,7 +28,7 @@ public class MainActivity extends AppCompatActivity
 		init_drawerlayout();
 		init_navigationview();
 
-		getSupportFragmentManager().beginTransaction().replace(R.id.mFrameLayout, new Fargement_DebitInfo()).commit();
+		getSupportFragmentManager().beginTransaction().replace(R.id.mFrameLayout, new Fragement_DebitInfo()).commit();
     }
 
 
@@ -73,7 +72,7 @@ public class MainActivity extends AppCompatActivity
 					switch (p1.getItemId()){
 
 						case R.id.nav_item1:
-							mFragment = new Fargement_DebitInfo();
+							mFragment = new Fragement_DebitInfo();
 							break;
 
 						case R.id.nav_item2:

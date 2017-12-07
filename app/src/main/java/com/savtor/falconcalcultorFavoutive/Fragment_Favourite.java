@@ -30,7 +30,7 @@ public class Fragment_Favourite extends Fragment {
 
     Favourite_DataBasic favourite_dataBasic;
     Favourite_Adapter fav_adapter;
-    List<Favourite_Data> favouriteData;
+    List<Favouite_Item> favouriteData;
     TextView count_result_tv;
     RecyclerView favourite_recyclerview;
 
@@ -64,12 +64,12 @@ public class Fragment_Favourite extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-
-        if (favourite_dataBasic != null){
-            Log.e("DATA BASIC ACTION : ","數據庫關閉, 共" + favourite_dataBasic.getCount() + "條紀錄");  // [Log.e]
-            favourite_dataBasic.close();
-
-        }
+//
+//        if (favourite_dataBasic != null){
+//            Log.e("DATA BASIC ACTION : ","數據庫關閉, 共" + favourite_dataBasic.getCount() + "條紀錄");  // [Log.e]
+//            favourite_dataBasic.close();
+//
+//        }
 
     }
 
@@ -103,25 +103,32 @@ public class Fragment_Favourite extends Fragment {
     }
 
     // [2] 從 Sqlite Databasic 取出所有紀錄
-    public List<Favourite_Data> getDataBase_Data() {
+    public List<Favouite_Item> getDataBase_Data() {
 
         List<Favouite_Item> items = favourite_dataBasic.query_all();
 
-        favouriteData = new ArrayList<Favourite_Data>();
+        favouriteData = new ArrayList<Favouite_Item>();
 
         for(Favouite_Item i : items){
 
-            favouriteData.add(new Favourite_Data(
-                    String.valueOf(i.getid()),
-                    String.valueOf(i.getCreate_date()),
-                    String.valueOf(i.getName()),
-                    String.valueOf(i.getLoan_Amount()),
-                    String.valueOf(i.getTrems()),
-                    String.valueOf(i.getLoan_Rate()),
-                    String.valueOf(i.getApply_status()),
-                    String.valueOf(i.getLoan_Type()),
-                    String.valueOf(i.getid()), // 改 installment
-                    String.valueOf(i.getAlert_date())));
+            favouriteData.add(new Favouite_Item(
+				i.getid(),
+				i.getCreate_date(),
+				i.getName(),
+				i.getLoan_Type(),
+				i.getApply_status(),
+				i.getLoanNum(),
+				i.getLoan_Amount(),
+				i.getTrems(),
+				i.getLoan_Rate(),
+				i.getFirst_dueddate(),
+				i.getFinal_dueddate(),
+				i.getDuedate_type(),
+				i.getAlert_date(),
+				i.getAddress(),
+				i.getPhone(),
+				i.getRemarks()));
+                   
         }
         return  favouriteData;
     }
@@ -138,7 +145,7 @@ public class Fragment_Favourite extends Fragment {
             @Override
             public boolean onQueryTextChange(String newText) {
 
-                final List<Favourite_Data> search_list = filter(getDataBase_Data() ,newText);    // [4]
+                final List<Favouite_Item> search_list = filter(getDataBase_Data() ,newText);    // [4]
                 fav_adapter.setFilter(search_list);
 
 //                update_count_text();
@@ -149,13 +156,13 @@ public class Fragment_Favourite extends Fragment {
     }
 
     // [4] 與現有內容對比
-    private List<Favourite_Data> filter (List<Favourite_Data> models, String query){
+    private List<Favouite_Item> filter (List<Favouite_Item> models, String query){
 
         query.toLowerCase().toString();
 
-        final List<Favourite_Data> filterList = new ArrayList<>();
+        final List<Favouite_Item> filterList = new ArrayList<>();
 
-        for (Favourite_Data fav_data : models){
+        for (Favouite_Item fav_data : models){
 
             if(fav_data.getName().toLowerCase().contains(query)){
                 filterList.add(fav_data);

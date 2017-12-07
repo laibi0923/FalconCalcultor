@@ -26,8 +26,10 @@ public class Favouite_Item {
         String content = "";
     }
 
-    public Favouite_Item(String create_date, String name, String loan_type, String apply_status, String loan_num,  double loan_amount, int loan_trems, double loan_rate,  String first_duedate, String final_duedate, String duedate_type, String alert_date_type, String address, String phone,  String remarks ) {
-        this.create_date = create_date;
+    public Favouite_Item(int id, String create_date, String name, String loan_type, String apply_status, String loan_num,  double loan_amount, int loan_trems, double loan_rate,  String first_duedate, String final_duedate, String duedate_type, String alert_date_type, String address, String phone,  String remarks ) {
+        
+		this.id = id;
+		this.create_date = create_date;
         this.name = name;
         this.loan_type = loan_type;
         this.apply_status = apply_status;

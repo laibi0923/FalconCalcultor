@@ -28,7 +28,8 @@ public class Fragment_Calcultor extends Fragment {
     private Double result_installment;
     private Float result_total_installment, result_total_payment;
     private int myCaseID;
-    private Float getLoanAmount, getLoanTrems, getLoanRate, getInstallment;
+    private Float getLoanAmount, getLoanRate, getInstallment;
+    private int getLoanTrems;
     private float x = 0;
 
 
@@ -265,10 +266,12 @@ public class Fragment_Calcultor extends Fragment {
     private void get_Value(){
         try {
             getLoanAmount = Float.parseFloat(loanAmount_tv.getText().toString());
-            getLoanTrems = Float.parseFloat(loanTrems_tv.getText().toString());
+            getLoanTrems = Integer.parseInt(loanTrems_tv.getText().toString());
             getLoanRate = Float.parseFloat(loanRate_tv.getText().toString());
             getInstallment = Float.parseFloat(installment_tv.getText().toString());
             even_balance = getLoanAmount;
+
+            Log.e("X", getLoanAmount + "," + getLoanTrems + "," + getLoanRate);
 
         } catch (NumberFormatException ee){
             Toast.makeText(getActivity(), ee.toString(), Toast.LENGTH_SHORT);
@@ -386,6 +389,7 @@ public class Fragment_Calcultor extends Fragment {
             cal_even_interest();
             cal_even_principle();
             cal_even_balance();
+
             paymentScheduleData.add(new Schedule_Data((i + 1) + "", interest_string, princople_string, balance_string));
         }
 
