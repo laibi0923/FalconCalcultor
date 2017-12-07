@@ -17,7 +17,7 @@ public class myDBhelper extends SQLiteOpenHelper {
     // Data base 版本
     public static final int VERSION = 4;
 
-    private static SQLiteDatabase database;
+    public static SQLiteDatabase database;
 
     public myDBhelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);

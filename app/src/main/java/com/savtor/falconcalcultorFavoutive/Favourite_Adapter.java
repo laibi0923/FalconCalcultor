@@ -15,6 +15,7 @@ import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
 import com.savtor.falconcalaultorDatabase.Favourite_DataBasic;
 import com.savtor.falconcalcultor.*;
+import com.savtor.falconcalcultorCalcultor.Calcultor;
 import com.savtor.falconcalcultorCalcultor.Fragment_Calcultor;
 import com.savtor.falconcalaultorDatabase.Favouite_Item;
 
@@ -124,8 +125,8 @@ public class Favourite_Adapter extends RecyclerSwipeAdapter<Favourite_ViewHolder
         });
 
 
-        Fragment_Calcultor fc = new Fragment_Calcultor(); 
-        double result = fc.getMonthlyInstallment(Float.parseFloat(String.valueOf( list.get(position).getLoan_Amount() )), Float.parseFloat( String.valueOf( list.get(position).getLoan_Rate() )),list.get(position).getTrems());
+        Calcultor mCalcultor = new Calcultor();
+        double result = mCalcultor.getMonthlyInstallment(list.get(position).getLoan_Amount(), list.get(position).getTrems(), list.get(position).getLoan_Rate());
         holder.installment_tv.setText(String.format("%.2f",result));
 
         holder.swipeLayout.setShowMode(SwipeLayout.ShowMode.LayDown);
