@@ -2,6 +2,7 @@ package com.savtor.falconcalcultorCalcultor;
 
 import android.content.*;
 import android.os.*;
+import android.renderscript.Sampler;
 import android.support.annotation.*;
 import android.support.design.widget.*;
 import android.support.v4.app.*;
@@ -23,18 +24,16 @@ import android.graphics.drawable.*;
 public class Fragment_Calcultor extends Fragment {
 
     double even_interest,  even_balance,  even_principle;
-    String interest_string, princople_string, balance_string;
     private String Dialog_Title, Sub_Title;
     private Double result_installment;
-    private Float result_total_installment, result_total_payment;
     private int myCaseID;
-    private Float getLoanAmount, getLoanRate, getInstallment;
+    private double getLoanAmount, getLoanRate, getInstallment;
     private int getLoanTrems;
     private float x = 0;
 
 
     private String init_Loan_Amount, init_Loan_Trems, init_Loan_Rate;
-
+    String dec_point = "%.0f";
 	
 	Drawable edit_icon;
 	
@@ -42,15 +41,19 @@ public class Fragment_Calcultor extends Fragment {
     private TextView loanAmount_tv, loanTrems_tv, loanRate_tv, installment_tv, total_insterest_tv, total_payment_tv;
     private LinearLayout loan_amount, loan_trems, loan_rate;
     private RecyclerView calcultor_recycleView;
-//1
+
     int databasic_ID;
     private String Edit_Mode;
+
+    Calcultor mCalcultor = new Calcultor();
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
 		// TODO: Implement this method
 		super.onCreate(savedInstanceState);
+
+
 		
 		Bundle mBundle = getArguments();
 
@@ -145,7 +148,10 @@ public class Fragment_Calcultor extends Fragment {
         calcultor_recycleView = (RecyclerView) v.findViewById(R.id.calcultor_recyclerView);
 
         if(Edit_Mode != null && loanAmount_tv.getText() != "0.0"){
-            getMonthlyInstallment();
+
+            get_Value();
+            result_installment = mCalcultor.getMonthlyInstallment(getLoanAmount, getLoanTrems, getLoanRate);
+
             show_recyclerView();
         }
     }
@@ -219,7 +225,7 @@ public class Fragment_Calcultor extends Fragment {
                                     break;
                                 }else {
                                     try {
-                                        loanAmount_tv.setText(String.format("%.2f",Float.parseFloat(calcul_EdTExt.getText().toString())));
+                                        loanAmount_tv.setText(String.format(dec_point, Float.parseFloat(calcul_EdTExt.getText().toString())));
                                     }catch (NumberFormatException ee){ee.printStackTrace();}
                                 }
 
@@ -245,14 +251,19 @@ public class Fragment_Calcultor extends Fragment {
                                     Toast.makeText(getActivity(), "Proo Value", Toast.LENGTH_SHORT).show();
                                 }else {
                                     try {
-                                        loanRate_tv.setText(String.format("%.2f",Float.parseFloat(calcul_EdTExt.getText().toString())));
+                                        loanRate_tv.setText(String.format(dec_point, Float.parseFloat(calcul_EdTExt.getText().toString())));
                                     }catch (NumberFormatException ee){ee.printStackTrace();}
                                 }
 
                                 break;
 
                         }
-                        getMonthlyInstallment();
+
+                        get_Value();
+                        result_installment = mCalcultor.getMonthlyInstallment(getLoanAmount, getLoanTrems, getLoanRate);
+                        total_insterest_tv.setText(String.format(dec_point, mCalcultor.getTotalInsterest(getLoanAmount, getLoanTrems, result_installment)));
+                        total_payment_tv.setText(String.format(dec_point, mCalcultor.getTotalPayment(result_installment,getLoanTrems)));
+                        randomAnim();
                         show_recyclerView();
                     }
                 });
@@ -269,9 +280,7 @@ public class Fragment_Calcultor extends Fragment {
             getLoanTrems = Integer.parseInt(loanTrems_tv.getText().toString());
             getLoanRate = Float.parseFloat(loanRate_tv.getText().toString());
             getInstallment = Float.parseFloat(installment_tv.getText().toString());
-            even_balance = getLoanAmount;
 
-            Log.e("X", getLoanAmount + "," + getLoanTrems + "," + getLoanRate);
 
         } catch (NumberFormatException ee){
             Toast.makeText(getActivity(), ee.toString(), Toast.LENGTH_SHORT);
@@ -314,14 +323,18 @@ public class Fragment_Calcultor extends Fragment {
             if(msg.what == 1) {
 
                 if(x > result_installment){
-                    installment_tv.setText(String.format("%.2f",result_installment));
-                    getTotalInsterest();
-                    getTotalPayment();
+
+                    get_Value();
+                    installment_tv.setText(String.format(dec_point,result_installment));
+
+                    mCalcultor.getTotalInsterest(getLoanAmount, getLoanTrems, getInstallment);
+                    mCalcultor.getTotalPayment(getInstallment, getLoanTrems);
+
                 }else {
-                    installment_tv.setText(String.format("%.2f",x));
+                    installment_tv.setText(String.format(dec_point,x));
                 }
             }else if(msg.what == 2){
-                installment_tv.setText(String.format("%.2f",result_installment));
+                installment_tv.setText(String.format(dec_point,result_installment));
             }
 
             super.handleMessage(msg);
@@ -339,97 +352,34 @@ public class Fragment_Calcultor extends Fragment {
     }
 
     //=============================================================================================
-    // [8] 計算每月還款額
-    private void getMonthlyInstallment(){
-        get_Value();
-        float monthlyRate = getMonthlyRate(getLoanRate);
-        result_installment = (getLoanAmount * monthlyRate * Math.pow(1 + monthlyRate, getLoanTrems)) / (Math.pow(1 + monthlyRate, getLoanTrems) - 1);
-        randomAnim();
-    }
-
-    //=============================================================================================
-    // [9] 計算每月還款額 (從外部)
-    public double getMonthlyInstallment(float loanamount, float rate, int month){
-        float monthlyRate = getMonthlyRate(rate);
-        result_installment = (loanamount * monthlyRate * Math.pow(1 + monthlyRate, month)) / (Math.pow(1 + monthlyRate, month) - 1);
-        return result_installment;
-    }
-
-    //=============================================================================================
-    // [10] 計算全期利
-    private void getTotalInsterest(){
-        get_Value();
-        result_total_installment = (getInstallment * getLoanTrems) - getLoanAmount;
-        total_insterest_tv.setText(String.format("%.2f", result_total_installment));
-    }
-
-    //=============================================================================================
-    // [11] 計算本利和
-    private void getTotalPayment(){
-        get_Value();
-        result_total_payment = getInstallment * getLoanTrems;
-        total_payment_tv.setText(String.format("%.2f", result_total_payment));
-
-    }
-
-    //=============================================================================================
-    // [12] 計算月平息
-    private float getMonthlyRate(float loanRate){
-        return loanRate / 12 / 100;
-    }
-
-    //=============================================================================================
     // [13] 將每期本金, 利息, 結餘 加入 List<Schedule_Data>
     public List<Schedule_Data> fill_width_date(){
 
         List<Schedule_Data> paymentScheduleData = new ArrayList<Schedule_Data>();
 
+        get_Value();
+
+        double even_balance = getLoanAmount;
+        mCalcultor = new Calcultor();
+
         for (int i = 0; i < getLoanTrems; i++) {
 
-            cal_even_interest();
-            cal_even_principle();
-            cal_even_balance();
+            even_interest = mCalcultor.cal_even_interest(getLoanRate, even_balance);
+            even_principle = mCalcultor.cal_even_principle(result_installment, even_interest);
+            even_balance = mCalcultor.cal_even_balance(even_balance, result_installment, even_interest);
 
-            paymentScheduleData.add(new Schedule_Data((i + 1) + "", interest_string, princople_string, balance_string));
+            paymentScheduleData.add(new Schedule_Data((i + 1) + "", Decimal_Point_changer(even_interest), String.format(dec_point, even_principle), String.format(dec_point, even_balance)));
         }
 
         return paymentScheduleData;
     }
 
     //=============================================================================================
-    // [14] 每利息
-    private void cal_even_interest(){
-        float monthlyRate = getMonthlyRate(getLoanRate);
-        even_interest = even_balance * monthlyRate;
+    // [13] 小數點轉換
+    public String Decimal_Point_changer(double value){
 
-        interest_string = String.format("%.2f", even_interest);
+        return String.format(dec_point, value);
     }
-
-    //=============================================================================================
-    // [15] 每期本金
-    private void cal_even_principle(){
-
-        even_principle = result_installment - even_interest;
-
-        princople_string = String.format("%.2f", even_principle);
-    }
-
-    //=============================================================================================
-    // [16] 每期結餘
-    private void cal_even_balance(){
-
-        double x = 0;
-        x = even_balance - (result_installment - even_interest);
-
-        if( x < 0){
-            even_balance = 0;
-        }else{
-            even_balance = x;
-        }
-
-        balance_string = String.format("%.2f", even_balance);
-    }
-
 
 }
 
