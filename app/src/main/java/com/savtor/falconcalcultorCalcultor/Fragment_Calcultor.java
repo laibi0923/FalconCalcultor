@@ -192,7 +192,7 @@ public class Fragment_Calcultor extends Fragment {
     // [3] 利用 Alert Dialog 處理用戶輸入資料
     private void show_alert_dialog(View v, String Dialog_Title, String Sub_Title, final int myCaseID){
 
-        final View dialog_view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_calcultor_dialog,null);
+        final View dialog_view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_calcultor_dialog, null);
 
         final TextInputLayout dialog_Textinput = (TextInputLayout) dialog_view.findViewById(R.id.calcultor_textinput);
         dialog_Textinput.setHint(Sub_Title);

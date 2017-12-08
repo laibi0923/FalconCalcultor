@@ -3,12 +3,14 @@ package com.savtor.falconcalcultorCalcultor;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -49,7 +51,7 @@ public class Fragment_Saver extends Fragment {
 	private EditText loanname_edittext, loannum_edittext, address_edittext, phone_edittext, remarks_edittext;
 	private ImageView loantype_icon, applytype_icon, loannum_icon, firstdue_icon, finaldue_icon, alert_icon, address_icon, phone_icon, remarks_icon;
 	private TextView loantype_textview, applytype_textview, firstdue_textview, firstdue_result_textview, finaldue_textview, finaldue_result_textview, alert_textview;
-    private  LinearLayout duedate_linear, firstdue_linear, finaldue_linear;
+    private LinearLayout duedate_linear, firstdue_linear, finaldue_linear, loantype_linear, applytype_linear, alert_linear;
 
     private Calendar Calendar_finaldue;
 
@@ -66,6 +68,13 @@ public class Fragment_Saver extends Fragment {
 
     private Favourite_DataBasic favourite_dataBasic;
 
+
+    View dialog_view;
+
+    LinearLayout choose_one, choose_two, choose_three, choose_four, choose_five;
+    TextView choose_one_text, choose_two_text , choose_three_text, choose_four_text, choose_five_text, choose_dialog_title, choose_dialog_cancellbtn;
+    ImageView choose_one_image, choose_two_image, choose_three_image, choose_four_image, choose_five_image;
+    String choose_result;
 
 
     @Override
@@ -187,7 +196,7 @@ public class Fragment_Saver extends Fragment {
     //=============================================================================================
     // [?] 加入畫面內容
     public void Find_View(View v){
-		
+
 		loanname_edittext = (EditText) v.findViewById(R.id.save_name);
 		loanname_edittext.setOnFocusChangeListener(edText_FocusChangeListener);
         loanname_edittext.requestFocus();
@@ -196,20 +205,66 @@ public class Fragment_Saver extends Fragment {
 		
 		subview_loantype = v.findViewById(R.id.subview_loantype);
 		loantype_icon = (ImageView) subview_loantype.findViewById(R.id.sub_image);
-		loantype_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_add_black_24dp));
+		loantype_icon.setImageResource(R.drawable.ic_person_black_24dp);
 		loantype_textview = (TextView) subview_loantype.findViewById(R.id.sub_textview);
 		loantype_textview.setText(init_LoanType);
-		
-		subview_applytype = v.findViewById(R.id.subview_applytype);
+        loantype_linear = (LinearLayout) subview_loantype.findViewById(R.id.sub_linear);
+        loantype_linear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                find_dialog_view();
+
+                choose_one_text.setText(getResources().getString(R.string.loantype_personal));
+                choose_one_image.setImageResource(R.drawable.ic_person_black_24dp);
+
+                choose_two_text.setText(getResources().getString(R.string.loantype_mort));
+                choose_two_image.setImageResource(R.drawable.ic_domain_black_24dp);
+
+                choose_three_text.setText(getResources().getString(R.string.loantype_car));
+                choose_three_image.setImageResource(R.drawable.ic_directions_car_black_24dp);
+
+                choose_four.setVisibility(View.GONE);
+
+                choose_five.setVisibility(View.GONE);
+
+                show_alert_dialog("貸款類別", dialog_view, loantype_textview, loantype_icon, 1);
+
+            }
+        });
+
+        subview_applytype = v.findViewById(R.id.subview_applytype);
 		applytype_icon = (ImageView) subview_applytype.findViewById(R.id.sub_image);
-		applytype_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_add_black_24dp));
+		applytype_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_assignment_black_24dp));
 		applytype_textview = (TextView) subview_applytype.findViewById(R.id.sub_textview);
 		applytype_textview.setText(init_ApplyStatus);
-		
-		subview_loannum = v.findViewById(R.id.subview_loannum);
+        applytype_linear = (LinearLayout) subview_applytype.findViewById(R.id.sub_linear);
+        applytype_linear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                find_dialog_view();
+
+                choose_one_text.setText("未申請");
+
+                choose_two_text.setText(getResources().getString(R.string.applytype_pending));
+
+                choose_three_text.setText(getResources().getString(R.string.applytype_approval));
+
+                choose_four_text.setText(getResources().getString(R.string.applytype_reject));
+
+                choose_five_text.setText(getResources().getString(R.string.applytype_cancel));
+
+
+                show_alert_dialog("批核狀況", dialog_view, applytype_textview, applytype_icon, 1);
+
+            }
+        });
+
+        subview_loannum = v.findViewById(R.id.subview_loannum);
 //        subview_loannum.setVisibility(View.GONE);
 		loannum_icon = (ImageView) subview_loannum.findViewById(R.id.sub_image);
-		loannum_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_add_black_24dp));
+		loannum_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_all_inclusive_black_24dp));
 		loannum_edittext = (EditText) subview_loannum.findViewById(R.id.sub_edittext);
 		loannum_edittext.setSingleLine(true);
 		loannum_edittext.setOnFocusChangeListener(edText_FocusChangeListener);
@@ -223,7 +278,7 @@ public class Fragment_Saver extends Fragment {
         subview_firstdue = v.findViewById(R.id.subview_firstdue);
 
         firstdue_icon = (ImageView) subview_firstdue.findViewById(R.id.sub_image);
-		firstdue_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_add_black_24dp));
+		firstdue_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_event_black_24dp));
 		firstdue_textview = (TextView) subview_firstdue.findViewById(R.id.sub_textview);
 		firstdue_textview.setText(init_FirstDueDate);
 		firstdue_result_textview = (TextView) subview_firstdue.findViewById(R.id.sub_textview_result);
@@ -233,8 +288,7 @@ public class Fragment_Saver extends Fragment {
         firstdue_linear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDialog(1);
-//                Toast.makeText(getContext(), "HI", Toast.LENGTH_LONG).show();
+                show_date_dialog().show();
             }
         });
 
@@ -254,6 +308,29 @@ public class Fragment_Saver extends Fragment {
 		alert_icon.setImageResource(R.drawable.ic_alarm_black_24dp);
 		alert_textview = (TextView) subview_alertdate.findViewById(R.id.sub_textview);
 		alert_textview.setText(init_AlertDate);
+        alert_linear = (LinearLayout) subview_alertdate.findViewById(R.id.sub_linear);
+        alert_linear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                find_dialog_view();
+
+
+                choose_one_text.setText("不用提醒我");
+
+                choose_two_text.setText(getResources().getString(R.string.alertdate_3day));
+
+                choose_three_text.setText(getResources().getString(R.string.alertdate_5day));
+
+                choose_four_text.setText(getResources().getString(R.string.alertdate_7day));
+
+                choose_five.setVisibility(View.GONE);
+
+                show_alert_dialog("設置提醒", dialog_view, alert_textview, alert_icon, 1);
+
+            }
+        });
+
 		
 		subview_address = v.findViewById(R.id.subview_address);
 		address_icon = (ImageView) subview_address.findViewById(R.id.sub_image);
@@ -283,6 +360,173 @@ public class Fragment_Saver extends Fragment {
 		remarks_edittext.setText(init_Remarks_Text);
     }
 
+    //=============================================================================================
+    // [?]
+    public void find_dialog_view(){
+
+        dialog_view = LayoutInflater.from(getActivity()).inflate(R.layout.saver_dialog, null);
+
+        choose_dialog_title = (TextView) dialog_view.findViewById(R.id.dialog_sav_title);
+
+        choose_one = (LinearLayout) dialog_view.findViewById(R.id.dialog_sav_ch1);
+        choose_one_text = (TextView) dialog_view.findViewById(R.id.dialog_sav_ch1_textview1);
+        choose_one_image = (ImageView) dialog_view.findViewById(R.id.dialog_sav_ch1_image1);
+
+        choose_two = (LinearLayout) dialog_view.findViewById(R.id.dialog_sav_ch2);
+        choose_two_text = (TextView) dialog_view.findViewById(R.id.dialog_sav_ch1_textview2);
+        choose_two_image = (ImageView) dialog_view.findViewById(R.id.dialog_sav_ch1_image2);
+
+        choose_three = (LinearLayout) dialog_view.findViewById(R.id.dialog_sav_ch3);
+        choose_three_text = (TextView) dialog_view.findViewById(R.id.dialog_sav_ch1_textview3);
+        choose_three_image = (ImageView) dialog_view.findViewById(R.id.dialog_sav_ch1_image3);
+
+        choose_four = (LinearLayout) dialog_view.findViewById(R.id.dialog_sav_ch4);
+        choose_four_text = (TextView) dialog_view.findViewById(R.id.dialog_sav_ch1_textview4);
+        choose_four_image = (ImageView) dialog_view.findViewById(R.id.dialog_sav_ch1_image4);
+
+
+        choose_five = (LinearLayout) dialog_view.findViewById(R.id.dialog_sav_ch5);
+        choose_five_text = (TextView) dialog_view.findViewById(R.id.dialog_sav_ch1_textview5);
+        choose_five_image = (ImageView) dialog_view.findViewById(R.id.dialog_sav_ch1_image5);
+
+        choose_dialog_cancellbtn = (TextView) dialog_view.findViewById(R.id.dialog_sav_cancelbtn);
+
+    }
+
+    //=============================================================================================
+    // [?]
+    private void show_alert_dialog(String Dialog_Title, View Dialogview, final TextView text, final ImageView icon, final int Case_id){
+
+        final AlertDialog mAlertDialog = new AlertDialog.Builder(getContext()).create();
+        mAlertDialog.setView(Dialogview);
+
+        choose_dialog_title.setText(Dialog_Title);
+
+        choose_one.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                switch (Case_id){
+
+                    case 1:
+                        choose_result = choose_one_text.getText().toString();
+                        text.setText(choose_result);
+                        if (choose_one_image.getDrawable() != null){
+                            icon.setImageResource(R.drawable.ic_person_black_24dp);
+                        }
+                        break;
+
+                    case 2:
+                        break;
+
+                }
+
+                mAlertDialog.dismiss();
+
+            }
+        });
+
+        choose_two.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                switch (Case_id){
+
+                    case 1:
+                        choose_result = choose_two_text.getText().toString();
+                        text.setText(choose_result);
+
+                        if (choose_two_image.getDrawable() != null){
+                            icon.setImageResource(R.drawable.ic_domain_black_24dp);
+                        }
+                        break;
+
+                    case 2:
+                        break;
+
+                }
+                mAlertDialog.dismiss();
+            }
+        });
+
+        choose_three.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (Case_id){
+
+                    case 1:
+                        choose_result = choose_three_text.getText().toString();
+                        text.setText(choose_result);
+
+                        if (choose_three_image.getDrawable() != null){
+                            icon.setImageResource(R.drawable.ic_directions_car_black_24dp);
+                        }
+                        break;
+
+                    case 2:
+                        break;
+
+                }
+                mAlertDialog.dismiss();
+            }
+        });
+
+        choose_four.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (Case_id){
+
+                    case 1:
+                        choose_result = choose_four_text.getText().toString();
+                        text.setText(choose_result);
+
+                        if (choose_four_image.getDrawable() != null){
+                            icon.setImageResource(R.drawable.ic_domain_black_24dp);
+                        }
+                        break;
+
+                    case 2:
+                        break;
+
+                }
+                mAlertDialog.dismiss();
+            }
+        });
+
+        choose_five.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (Case_id){
+
+                    case 1:
+                        choose_result = choose_five_text.getText().toString();
+                        text.setText(choose_result);
+
+                        if (choose_five_image.getDrawable() != null){
+                            icon.setImageResource(R.drawable.ic_domain_black_24dp);
+                        }
+                        break;
+
+                    case 2:
+                        break;
+
+                }
+                mAlertDialog.dismiss();
+            }
+        });
+
+        choose_dialog_cancellbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAlertDialog.dismiss();
+            }
+        });
+
+        mAlertDialog.show();
+    }
+
+    //=============================================================================================
+    // [?] 取出本日日子
     public String get_today(){
 
         Calendar mCalendar = Calendar.getInstance();
@@ -291,23 +535,8 @@ public class Fragment_Saver extends Fragment {
 
     }
 
-
-    protected Dialog showDialog(int CaseID){
-
-        switch (CaseID){
-
-            case 1:
-
-                show_date_dialog().show();
-
-                break;
-
-        }
-
-        return null;
-    }
-
-
+    //=============================================================================================
+    // [?]
     protected Dialog show_date_dialog(){
 
         Dialog mDialog = null;
@@ -350,7 +579,8 @@ public class Fragment_Saver extends Fragment {
         return mDialog;
     }
 
-    // 5.當畫而失去焦點時處理動作
+    //=============================================================================================
+    // [?] 當畫而失去焦點時處理動作
 	public View.OnFocusChangeListener edText_FocusChangeListener = new View.OnFocusChangeListener(){
 		@Override
 		public void onFocusChange(View v, boolean hasFocus)
@@ -363,13 +593,15 @@ public class Fragment_Saver extends Fragment {
 		}
 	};
 
-    // 6.處理 Keyboard
+    //=============================================================================================
+    // [?] 處理 Keyboard
     public void hideKeyboard(View view) {
         InputMethodManager inputMethodManager =(InputMethodManager)getContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
-    // 7.獲取用戶輸入資料
+    //=============================================================================================
+    // [?] 獲取用戶輸入資料
     public void get_input_values(){
 
         final Calendar today =  Calendar.getInstance();
@@ -394,6 +626,7 @@ public class Fragment_Saver extends Fragment {
 
     }
 
+    //=============================================================================================
     // [8] 用戶輸入資料加入 Favourite Data Base
     public void insert_to_fav_DB(){
 
