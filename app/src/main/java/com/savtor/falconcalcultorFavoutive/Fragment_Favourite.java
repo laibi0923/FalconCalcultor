@@ -47,7 +47,6 @@ public class Fragment_Favourite extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_favourite, container, false);
         Find_View(v);   // [1]
-
         return v;
     }
 
@@ -61,32 +60,13 @@ public class Fragment_Favourite extends Fragment {
         Search(searchView);     // [3]
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-//
-//        if (favourite_dataBasic != null){
-//            Log.e("DATA BASIC ACTION : ","數據庫關閉, 共" + favourite_dataBasic.getCount() + "條紀錄");  // [Log.e]
-//            favourite_dataBasic.close();
-//
-//        }
-
-    }
-
 
     // [1] 加入畫面內容
     private void Find_View(View v){
 
         FragmentManager mFragmentManager = getFragmentManager();
 
-        if (favourite_dataBasic == null){
-            favourite_dataBasic = new Favourite_DataBasic(getActivity(), "Fragment_Favourite");
-            Log.e("DATA BASIC ACTION : ","數據庫開啟, 共" + favourite_dataBasic.getCount() + "條紀錄"); // [Log.e]
-
-        }
-
         favourite_recyclerview = (RecyclerView) v.findViewById(R.id.favourite_recyclerView);
-
 
         favouriteData = getDataBase_Data();     // [2]
         fav_adapter = new Favourite_Adapter(favouriteData, getActivity(), mFragmentManager);
@@ -104,6 +84,10 @@ public class Fragment_Favourite extends Fragment {
 
     // [2] 從 Sqlite Databasic 取出所有紀錄
     public List<Favouite_Item> getDataBase_Data() {
+
+        favourite_dataBasic = new Favourite_DataBasic(getActivity(), "Fragment_Favourite");
+
+        Log.e("DATA BASIC ACTION : ","數據庫開啟, 共" + favourite_dataBasic.getCount() + "條紀錄"); // [Log.e]
 
         List<Favouite_Item> items = favourite_dataBasic.query_all();
 
@@ -130,6 +114,8 @@ public class Fragment_Favourite extends Fragment {
 				i.getRemarks()));
                    
         }
+
+        favourite_dataBasic.close();
         return  favouriteData;
     }
 

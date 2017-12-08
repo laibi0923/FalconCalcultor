@@ -53,8 +53,6 @@ public class Fragment_Calcultor extends Fragment {
 		// TODO: Implement this method
 		super.onCreate(savedInstanceState);
 
-
-		
 		Bundle mBundle = getArguments();
 
 		if(mBundle != null){
@@ -97,6 +95,8 @@ public class Fragment_Calcultor extends Fragment {
 
         return v;
     }
+
+
 
     //=============================================================================================
     // [1] 加入畫面內容
@@ -155,7 +155,6 @@ public class Fragment_Calcultor extends Fragment {
             show_recyclerView();
         }
     }
-
 
     //=============================================================================================
     // [2] 點擊事件
