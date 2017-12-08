@@ -724,7 +724,7 @@ public class Fragment_Saver extends Fragment {
         finaldue_result_textview.setText("");
         alert_textview.setText(getResources().getString(R.string.init_alertdate));
     }
-    
+
     //=============================================================================================
     // [?]
     public void Edit_Mode_On(int databasic_ID){

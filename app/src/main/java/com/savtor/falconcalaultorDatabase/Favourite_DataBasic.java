@@ -165,8 +165,8 @@ public class Favourite_DataBasic {
         item.setCreate_date(cusor.getString(1));
 
         item.setName(cusor.getString(2));
-        item.setApply_status(cusor.getString(3));
-        item.setLoan_Type(cusor.getString(4));
+        item.setLoan_Type(cusor.getString(3));
+        item.setApply_status(cusor.getString(4));
         item.setLoanNum(cusor.getString(5));
 
         item.setLaon_Amount(cusor.getDouble(6));
