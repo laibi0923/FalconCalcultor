@@ -76,6 +76,7 @@ public class Fragment_Saver extends Fragment {
     ImageView choose_one_image, choose_two_image, choose_three_image, choose_four_image, choose_five_image;
     String choose_result;
 
+    String db_get_applystatus, db_get_alertdate;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -94,54 +95,11 @@ public class Fragment_Saver extends Fragment {
 
         if (Edit_Mode == "true"){
 
-            Log.e("Edit Mode : ", This_Fragment_Name + "Edit Mode On");
-            favourite_dataBasic = new Favourite_DataBasic(getActivity(), This_Fragment_Name);
-
-            int databasic_ID  = mBundle.getInt("DB_ID");
-
-			init_Name = getResources().getString(R.string.init_loanname);
-            init_Name_text = String.valueOf(favourite_dataBasic.query(databasic_ID).getName());
-			
-            init_LoanType = String.valueOf(favourite_dataBasic.query(databasic_ID).getLoan_Type());
-            init_ApplyStatus = String.valueOf(favourite_dataBasic.query(databasic_ID).getApply_status());
-            init_LoanNum = getResources().getString(R.string.init_loannum);
-			init_LoanNum_text = String.valueOf(favourite_dataBasic.query(databasic_ID).getLoanNum());
-			
-			init_FirstDueDate = getResources().getString(R.string.init_firstdue);
-            init_FirstDueDate_Result = String.valueOf(favourite_dataBasic.query(databasic_ID).getFirst_dueddate());
-			init_FinalDueDate = getResources().getString(R.string.init_finalduee);
-			init_FinalDueDate_Result = String.valueOf(favourite_dataBasic.query(databasic_ID).getFinal_dueddate());
-            init_AlertDate = String.valueOf(favourite_dataBasic.query(databasic_ID).getAlert_date());
-			init_DueDate_Type = String.valueOf(favourite_dataBasic.query(databasic_ID).getDuedate_type());
-			
-            init_Address = getResources().getString(R.string.init_address);
-            init_Phone = getResources().getString(R.string.init_phone);
-            init_Remarks = getResources().getString(R.string.init_remark);
-			
-			init_Addrrss_Text = String.valueOf(favourite_dataBasic.query(databasic_ID).getAddress());
-			init_Phone_Text = String.valueOf(favourite_dataBasic.query(databasic_ID).getPhone());
-			init_Remarks_Text = String.valueOf(favourite_dataBasic.query(databasic_ID).getRemarks());
-
-            favourite_dataBasic.close();
+            Edit_Mode_On(mBundle.getInt("DB_ID"));
 			
         }else if (Edit_Mode == "false"){
 
-            Log.e("Edit Mode : ", This_Fragment_Name + "Edit Mode Off");
-
-            init_Name = getResources().getString(R.string.init_loanname);
-            init_LoanType = getResources().getString(R.string.init_loantype);
-            init_ApplyStatus = getResources().getString(R.string.init_applystatuse);
-            init_LoanNum = getResources().getString(R.string.init_loannum);
-			
-            init_FirstDueDate = getResources().getString(R.string.init_firstdue);
-			init_FirstDueDate_Result = get_today();
-            init_FinalDueDate = getResources().getString(R.string.init_finalduee);
-//            init_DueDate_Type = getResources().getString(R.string.init);
-            init_AlertDate = getResources().getString(R.string.init_alertdate);
-			
-            init_Address = getResources().getString(R.string.init_address);
-            init_Phone = getResources().getString(R.string.init_phone);
-            init_Remarks = getResources().getString(R.string.init_remark);
+            Edit_Mode_Off();
 
         }
 
@@ -153,7 +111,7 @@ public class Fragment_Saver extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_calcultor_saver, container, false);
 
-        Find_View(v);   // [1]
+        Find_View(v);
 		
         return v;
     }
@@ -184,11 +142,6 @@ public class Fragment_Saver extends Fragment {
     public void onDestroy() {
 
         super.onDestroy();
-
-//        if (favourite_dataBasic != null){
-//            Log.e("DATA BASIC ACTION : ","數據庫關閉, 共" + favourite_dataBasic.getCount() + "條紀錄");  // [Log.e]
-//            favourite_dataBasic.close();
-//        }
     }
 
 	
@@ -256,13 +209,13 @@ public class Fragment_Saver extends Fragment {
                 choose_five_text.setText(getResources().getString(R.string.applytype_cancel));
 
 
-                show_alert_dialog("批核狀況", dialog_view, applytype_textview, applytype_icon, 1);
+                show_alert_dialog("批核狀況", dialog_view, applytype_textview, applytype_icon, 2);
 
             }
         });
 
         subview_loannum = v.findViewById(R.id.subview_loannum);
-//        subview_loannum.setVisibility(View.GONE);
+        subview_loannum.setVisibility(View.GONE);
 		loannum_icon = (ImageView) subview_loannum.findViewById(R.id.sub_image);
 		loannum_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_all_inclusive_black_24dp));
 		loannum_edittext = (EditText) subview_loannum.findViewById(R.id.sub_edittext);
@@ -272,11 +225,10 @@ public class Fragment_Saver extends Fragment {
 		loannum_edittext.setText(init_LoanNum_text);
 
         duedate_linear = (LinearLayout) v.findViewById(R.id.duedate_linear);
-//        duedate_linear.setVisibility(View.GONE);
+        duedate_linear.setVisibility(View.GONE);
 
 
         subview_firstdue = v.findViewById(R.id.subview_firstdue);
-
         firstdue_icon = (ImageView) subview_firstdue.findViewById(R.id.sub_image);
 		firstdue_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_event_black_24dp));
 		firstdue_textview = (TextView) subview_firstdue.findViewById(R.id.sub_textview);
@@ -326,7 +278,7 @@ public class Fragment_Saver extends Fragment {
 
                 choose_five.setVisibility(View.GONE);
 
-                show_alert_dialog("設置提醒", dialog_view, alert_textview, alert_icon, 1);
+                show_alert_dialog("設置提醒", dialog_view, alert_textview, alert_icon, 3);
 
             }
         });
@@ -358,6 +310,19 @@ public class Fragment_Saver extends Fragment {
 		remarks_edittext.setOnFocusChangeListener(edText_FocusChangeListener);
 		remarks_edittext.setHint(init_Remarks);
 		remarks_edittext.setText(init_Remarks_Text);
+
+        if(db_get_applystatus.equals("2")){
+            subview_Visibility();
+        }else {
+            subview_Gone();
+        }
+
+        if (db_get_alertdate.equals("0")){
+            alert_textview.setTextColor(getResources().getColor(R.color.normal_textcolor));
+        }else{
+            alert_textview.setTextColor(getResources().getColor(R.color.accent));
+        }
+
     }
 
     //=============================================================================================
@@ -410,15 +375,25 @@ public class Fragment_Saver extends Fragment {
 
                     case 1:
                         choose_result = choose_one_text.getText().toString();
+                        icon.setImageResource(R.drawable.ic_person_black_24dp);
                         text.setText(choose_result);
-                        if (choose_one_image.getDrawable() != null){
-                            icon.setImageResource(R.drawable.ic_person_black_24dp);
-                        }
                         break;
 
                     case 2:
+                        choose_result = getResources().getString(R.string.init_applystatuse);
+                        text.setText(choose_result);
+                        subview_Gone();
                         break;
 
+                    case 3:
+                        choose_result = getResources().getString(R.string.init_alertdate);
+                        text.setText(choose_result);
+                        text.setTextColor(getResources().getColor(R.color.normal_textcolor));
+                        break;
+
+                    case 4:
+                        finaldue_result_textview.setText(Calendar_finaldue.get(Calendar.YEAR) + "/" + (Calendar_finaldue.get(Calendar.MONTH) + 1) + "/" + Calendar_finaldue.get(Calendar.DAY_OF_MONTH));
+                        break;
                 }
 
                 mAlertDialog.dismiss();
@@ -434,16 +409,25 @@ public class Fragment_Saver extends Fragment {
 
                     case 1:
                         choose_result = choose_two_text.getText().toString();
+                        icon.setImageResource(R.drawable.ic_domain_black_24dp);
                         text.setText(choose_result);
-
-                        if (choose_two_image.getDrawable() != null){
-                            icon.setImageResource(R.drawable.ic_domain_black_24dp);
-                        }
                         break;
 
                     case 2:
+                        choose_result = choose_two_text.getText().toString();
+                        text.setText(choose_result);
+                        subview_Gone();
                         break;
 
+                    case 3:
+                        choose_result = choose_two_text.getText().toString();
+                        text.setText(choose_result);
+                        text.setTextColor(getResources().getColor(R.color.accent));
+                        break;
+
+                    case 4:
+                        finaldue_result_textview.setText(Calendar_finaldue.get(Calendar.YEAR) + "/" + (Calendar_finaldue.get(Calendar.MONTH) + 1) + "/" + Calendar_finaldue.getActualMaximum(Calendar.DAY_OF_MONTH));
+                        break;
                 }
                 mAlertDialog.dismiss();
             }
@@ -456,16 +440,24 @@ public class Fragment_Saver extends Fragment {
 
                     case 1:
                         choose_result = choose_three_text.getText().toString();
+                        icon.setImageResource(R.drawable.ic_directions_car_black_24dp);
                         text.setText(choose_result);
-
-                        if (choose_three_image.getDrawable() != null){
-                            icon.setImageResource(R.drawable.ic_directions_car_black_24dp);
-                        }
                         break;
 
                     case 2:
+                        choose_result = choose_three_text.getText().toString();
+                        text.setText(choose_result);
+                        subview_Visibility();
                         break;
 
+                    case 3:
+                        choose_result = choose_three_text.getText().toString();
+                        text.setText(choose_result);
+                        text.setTextColor(getResources().getColor(R.color.accent));
+                        break;
+
+                    case 4:
+                        break;
                 }
                 mAlertDialog.dismiss();
             }
@@ -478,14 +470,23 @@ public class Fragment_Saver extends Fragment {
 
                     case 1:
                         choose_result = choose_four_text.getText().toString();
+                        icon.setImageResource(R.drawable.ic_domain_black_24dp);
                         text.setText(choose_result);
-
-                        if (choose_four_image.getDrawable() != null){
-                            icon.setImageResource(R.drawable.ic_domain_black_24dp);
-                        }
                         break;
 
                     case 2:
+                        choose_result = choose_four_text.getText().toString();
+                        text.setText(choose_result);
+                        subview_Gone();
+                        break;
+
+                    case 3:
+                        choose_result = choose_four_text.getText().toString();
+                        text.setText(choose_result);
+                        text.setTextColor(getResources().getColor(R.color.accent));
+                        break;
+
+                    case 4:
                         break;
 
                 }
@@ -500,14 +501,22 @@ public class Fragment_Saver extends Fragment {
 
                     case 1:
                         choose_result = choose_five_text.getText().toString();
+                        icon.setImageResource(R.drawable.ic_domain_black_24dp);
                         text.setText(choose_result);
-
-                        if (choose_five_image.getDrawable() != null){
-                            icon.setImageResource(R.drawable.ic_domain_black_24dp);
-                        }
                         break;
 
                     case 2:
+                        choose_result = choose_five_text.getText().toString();
+                        text.setText(choose_result);
+                        subview_Gone();
+                        break;
+
+                    case 3:
+                        choose_result = choose_five_text.getText().toString();
+                        text.setText(choose_result);
+                        break;
+
+                    case 4:
                         break;
 
                 }
@@ -560,7 +569,14 @@ public class Fragment_Saver extends Fragment {
 
                     Calendar_finaldue.add(Calendar.MONTH, bundle_trems - 1);
 
-                    //finaldue_result_textview.setText(Calendar_finaldue.get(Calendar.YEAR) + "/" + (Calendar_finaldue.get(Calendar.MONTH) + 1) + "/" + Calendar_finaldue.get(Calendar.DAY_OF_MONTH));
+                    find_dialog_view();
+                    choose_one_text.setText("Normal");
+                    choose_two_text.setText("End of months");
+                    choose_three.setVisibility(View.GONE);
+                    choose_four.setVisibility(View.GONE);;
+                    choose_five.setVisibility(View.GONE);
+
+                    show_alert_dialog("日期設置", dialog_view, finaldue_result_textview, finaldue_icon, 4);
 
                 }else if(dayOfMonth == 31){
 
@@ -608,8 +624,29 @@ public class Fragment_Saver extends Fragment {
         get_createdate = today.get(Calendar.YEAR) + "/" + (today.get(Calendar.MONTH) +1) + "/" + today.get(Calendar.DAY_OF_MONTH);
 		
 		get_name = loanname_edittext.getText().toString();
-		get_loantype = loantype_textview.getText().toString();
-		get_applystatus = applytype_textview.getText().toString();
+
+        if(loantype_textview.getText() == getResources().getString(R.string.init_loantype)){
+            get_loantype = "0";
+        }else if (loantype_textview.getText() == getResources().getString(R.string.loantype_personal)){
+            get_loantype = "1";
+        }else if (loantype_textview.getText() == getResources().getString(R.string.loantype_mort)){
+            get_loantype = "2";
+        }else if (loantype_textview.getText() == getResources().getString(R.string.loantype_car)){
+            get_loantype = "3";
+        }
+
+        if (applytype_textview.getText() == getResources().getString(R.string.init_applystatuse)){
+            get_applystatus = "0";
+        }else if(applytype_textview.getText() == getResources().getString(R.string.applytype_pending)){
+            get_applystatus = "1";
+        }else if(applytype_textview.getText() == getResources().getString(R.string.applytype_approval)){
+            get_applystatus = "2";
+        }else if(applytype_textview.getText() == getResources().getString(R.string.applytype_reject)){
+            get_applystatus = "3";
+        }else if(applytype_textview.getText() == getResources().getString(R.string.applytype_cancel)){
+            get_applystatus = "4";
+        }
+
 		get_loannum = loannum_edittext.getText().toString();
 		
 		get_loanamount = bundle_amount;
@@ -618,8 +655,17 @@ public class Fragment_Saver extends Fragment {
 		
 		get_firstdue = firstdue_result_textview.getText().toString();
 		get_finaldue = finaldue_result_textview.getText().toString();
-		
-		get_alertdate = alert_textview.getText().toString();
+
+        if(alert_textview.getText() == getResources().getString(R.string.init_alertdate)){
+            get_alertdate = "0";
+        }else if(alert_textview.getText() == getResources().getString(R.string.alertdate_3day)){
+            get_alertdate = "1";
+        }else if(alert_textview.getText() == getResources().getString(R.string.alertdate_5day)){
+            get_alertdate = "2";
+        }else if(alert_textview.getText() == getResources().getString(R.string.alertdate_7day)){
+            get_alertdate = "3";
+        }
+
 		get_address = address_edittext.getText().toString();
 		get_phone = phone_edittext.getText().toString();
 		get_remark = remarks_edittext.getText().toString();
@@ -659,4 +705,114 @@ public class Fragment_Saver extends Fragment {
         getActivity().getSupportFragmentManager().popBackStack();
         Toast.makeText(getContext(), "This record have been save", Toast.LENGTH_LONG).show();
     }
+
+    //=============================================================================================
+    // [?] 判斷用戶是否選取 "已批核" 選項
+    public void subview_Visibility(){
+        subview_loannum.setVisibility(View.VISIBLE);
+        duedate_linear.setVisibility(View.VISIBLE);
+        firstdue_result_textview.setText(get_today());
+    }
+
+    //=============================================================================================
+    // [?] 判斷用戶是否選取 "已批核" 以外選項
+    public void subview_Gone(){
+        subview_loannum.setVisibility(View.GONE);
+        duedate_linear.setVisibility(View.GONE);
+        loannum_edittext.setText("");
+        firstdue_result_textview.setText("");
+        finaldue_result_textview.setText("");
+        alert_textview.setText(getResources().getString(R.string.init_alertdate));
+    }
+    
+    //=============================================================================================
+    // [?]
+    public void Edit_Mode_On(int databasic_ID){
+
+        Log.e("Edit Mode : ", This_Fragment_Name + "Edit Mode On");
+        favourite_dataBasic = new Favourite_DataBasic(getActivity(), This_Fragment_Name);
+
+        init_Name = getResources().getString(R.string.init_loanname);
+        init_Name_text = String.valueOf(favourite_dataBasic.query(databasic_ID).getName());
+
+        String db_get_loantype = favourite_dataBasic.query(databasic_ID).getLoan_Type();
+
+        if (db_get_loantype.equals("0")){
+            init_LoanType = getResources().getString(R.string.init_loantype);
+        }else  if(db_get_loantype.equals("1")){
+            init_LoanType = getResources().getString(R.string.loantype_personal);
+        }else if(db_get_loantype.equals("2")){
+            init_LoanType = getResources().getString(R.string.loantype_mort);
+        }else if(db_get_loantype.equals("3")){
+            init_LoanType = getResources().getString(R.string.loantype_car);
+        }
+
+        db_get_applystatus = String.valueOf(favourite_dataBasic.query(databasic_ID).getApply_status());
+        if (db_get_applystatus.equals("0")){
+            init_ApplyStatus = getResources().getString(R.string.init_applystatuse);
+        }else if(db_get_applystatus.equals("1")){
+            init_ApplyStatus = getResources().getString(R.string.applytype_pending);
+        }else if(db_get_applystatus.equals("2")){
+            init_ApplyStatus = getResources().getString(R.string.applytype_approval);
+        }else if(db_get_applystatus.equals("3")){
+            init_ApplyStatus = getResources().getString(R.string.applytype_reject);
+        }else if(db_get_applystatus.equals("4")){
+            init_ApplyStatus = getResources().getString(R.string.applytype_cancel);
+        }
+
+        init_LoanNum = getResources().getString(R.string.init_loannum);
+        init_LoanNum_text = String.valueOf(favourite_dataBasic.query(databasic_ID).getLoanNum());
+
+        init_FirstDueDate = getResources().getString(R.string.init_firstdue);
+        init_FirstDueDate_Result = String.valueOf(favourite_dataBasic.query(databasic_ID).getFirst_dueddate());
+        init_FinalDueDate = getResources().getString(R.string.init_finalduee);
+        init_FinalDueDate_Result = String.valueOf(favourite_dataBasic.query(databasic_ID).getFinal_dueddate());
+
+        db_get_alertdate = String.valueOf(favourite_dataBasic.query(databasic_ID).getAlert_date());
+        if(db_get_alertdate.equals("0")){
+            init_AlertDate = getResources().getString(R.string.init_alertdate);
+        }else if(db_get_alertdate.equals("1")){
+            init_AlertDate = getResources().getString(R.string.alertdate_3day);
+        }else if(db_get_alertdate.equals("2")){
+            init_AlertDate = getResources().getString(R.string.alertdate_5day);
+        }else if(db_get_alertdate.equals("3")){
+            init_AlertDate = getResources().getString(R.string.alertdate_7day);
+        }
+
+        init_DueDate_Type = String.valueOf(favourite_dataBasic.query(databasic_ID).getDuedate_type());
+
+        init_Address = getResources().getString(R.string.init_address);
+        init_Phone = getResources().getString(R.string.init_phone);
+        init_Remarks = getResources().getString(R.string.init_remark);
+
+        init_Addrrss_Text = String.valueOf(favourite_dataBasic.query(databasic_ID).getAddress());
+        init_Phone_Text = String.valueOf(favourite_dataBasic.query(databasic_ID).getPhone());
+        init_Remarks_Text = String.valueOf(favourite_dataBasic.query(databasic_ID).getRemarks());
+
+        favourite_dataBasic.close();
+
+    }
+
+    //=============================================================================================
+    // [?]
+    public void Edit_Mode_Off(){
+
+        Log.e("Edit Mode : ", This_Fragment_Name + "Edit Mode Off");
+
+        init_Name = getResources().getString(R.string.init_loanname);
+        init_LoanType = getResources().getString(R.string.init_loantype);
+        init_ApplyStatus = getResources().getString(R.string.init_applystatuse);
+        init_LoanNum = getResources().getString(R.string.init_loannum);
+
+        init_FirstDueDate = getResources().getString(R.string.init_firstdue);
+        init_FinalDueDate = getResources().getString(R.string.init_finalduee);
+//            init_DueDate_Type = getResources().getString(R.string.init);
+        init_AlertDate = getResources().getString(R.string.init_alertdate);
+
+        init_Address = getResources().getString(R.string.init_address);
+        init_Phone = getResources().getString(R.string.init_phone);
+        init_Remarks = getResources().getString(R.string.init_remark);
+
+    }
+
 }
