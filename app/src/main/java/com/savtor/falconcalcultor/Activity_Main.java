@@ -17,7 +17,7 @@ import com.savtor.falconcalcultorCalcultor.*;
 import com.savtor.falconcalcultorDebitInfo.*;
 import com.savtor.falconcalcultorSetting.*;
 import com.savtor.falconcalcultorFavoutive.*;
-//1
+
 public class Activity_Main extends AppCompatActivity {
 
     private DrawerLayout mDrawerLayout;

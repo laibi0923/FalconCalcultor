@@ -3,10 +3,6 @@ package com.savtor.falconcalcultorCalcultor;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -19,16 +15,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Adapter;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.RelativeLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.util.Calendar;
@@ -36,11 +25,9 @@ import com.savtor.falconcalaultorDatabase.*;
 import com.savtor.falconcalcultor.*;
 import android.widget.*;
 import android.text.*;
-import android.support.v4.content.*;
 
 
-
-/**1
+/**
  * Created by GhostLeo_DT on 27/11/2017.
  */
 public class Fragment_Saver extends Fragment {
@@ -114,7 +101,7 @@ public class Fragment_Saver extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.fragment_calcultor_saver, container, false);
+        View v = inflater.inflate(R.layout.saver_main, container, false);
 
         Find_View(v);
 		
@@ -796,69 +783,83 @@ public class Fragment_Saver extends Fragment {
     // [13] 用戶輸入資料加入 Favourite Data Base
     public void insert_to_fav_DB(){
 
-        favourite_dataBasic = new Favourite_DataBasic(getActivity(), This_Fragment_Name);
-
         get_input_values();
 
-        Favouite_Item fav_item = new Favouite_Item(
-                1,
-                get_createdate,
-                get_name,
-                get_loantype,
-                get_applystatus,
-                get_loannum,
-                get_loanamount,
-                get_loantrems,
-                get_loanrate,
-                get_firstdue,
-                get_finaldue,
-                get_duedate_type,
-                get_alertdate,
-                get_address,
-                get_phone,
-                get_remark);
+        if (get_name.isEmpty()){
+            Toast.makeText(getContext(), "Please enter name", Toast.LENGTH_LONG).show();
+        }else{
 
-        favourite_dataBasic.inster(fav_item);
+            favourite_dataBasic = new Favourite_DataBasic(getActivity(), This_Fragment_Name);
 
-        favourite_dataBasic.close();
+            Favouite_Item fav_item = new Favouite_Item(
+                    1,
+                    get_createdate,
+                    get_name,
+                    get_loantype,
+                    get_applystatus,
+                    get_loannum,
+                    get_loanamount,
+                    get_loantrems,
+                    get_loanrate,
+                    get_firstdue,
+                    get_finaldue,
+                    get_duedate_type,
+                    get_alertdate,
+                    get_address,
+                    get_phone,
+                    get_remark);
 
-        getActivity().getSupportFragmentManager().popBackStack();
-        Toast.makeText(getContext(), "This record have been save", Toast.LENGTH_LONG).show();
+            favourite_dataBasic.inster(fav_item);
+
+            favourite_dataBasic.close();
+
+            getActivity().getSupportFragmentManager().popBackStack();
+
+            Toast.makeText(getContext(), "This record have been save", Toast.LENGTH_LONG).show();
+        }
     }
 
     //=============================================================================================
     // [14] 用戶輸入資料修改 Favourite Data Base
     public void update_to_fav_DB(){
 
-        favourite_dataBasic = new Favourite_DataBasic(getActivity(), This_Fragment_Name);
-
         get_input_values();
 
-        Favouite_Item fav_item = new Favouite_Item(
-                DB_ID,
-                get_createdate,
-                get_name,
-                get_loantype,
-                get_applystatus,
-                get_loannum,
-                get_loanamount,
-                get_loantrems,
-                get_loanrate,
-                get_firstdue,
-                get_finaldue,
-                get_duedate_type,
-                get_alertdate,
-                get_address,
-                get_phone,
-                get_remark);
+        if (get_name.isEmpty()){
+            Toast.makeText(getContext(), "Please enter name", Toast.LENGTH_LONG).show();
+        }else {
 
-        favourite_dataBasic.update(fav_item);
+            favourite_dataBasic = new Favourite_DataBasic(getActivity(), This_Fragment_Name);
 
-        favourite_dataBasic.close();
+            Favouite_Item fav_item = new Favouite_Item(
+                    DB_ID,
+                    get_createdate,
+                    get_name,
+                    get_loantype,
+                    get_applystatus,
+                    get_loannum,
+                    get_loanamount,
+                    get_loantrems,
+                    get_loanrate,
+                    get_firstdue,
+                    get_finaldue,
+                    get_duedate_type,
+                    get_alertdate,
+                    get_address,
+                    get_phone,
+                    get_remark);
 
-        getActivity().getSupportFragmentManager().popBackStack();
-        Toast.makeText(getContext(), "This record have been updated", Toast.LENGTH_LONG).show();
+            favourite_dataBasic.update(fav_item);
+
+            favourite_dataBasic.close();
+
+            getActivity().getSupportFragmentManager().popBackStack();
+            Toast.makeText(getContext(), "This record have been updated", Toast.LENGTH_LONG).show();
+        }
     }
+
+
+
 }
 
 

@@ -1,7 +1,6 @@
 package com.savtor.falconcalcultorFavoutive;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentManager;
@@ -46,7 +45,7 @@ public class Favourite_Adapter extends RecyclerSwipeAdapter<Favourite_ViewHolder
     @Override
     public Favourite_ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.favourite_item_view, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.favourite_recycleview_item, parent, false);
 
         Favourite_ViewHolder holder = new Favourite_ViewHolder(v);
 
@@ -116,7 +115,6 @@ public class Favourite_Adapter extends RecyclerSwipeAdapter<Favourite_ViewHolder
 				mBundle.putString("EDIT_MODE", "true");
 				
 				mBundle.putInt("DB_ID", list.get(position).getid());
-                Log.e("ID 1", list.get(position).getid() + "");
 
 				mFragment.setArguments(mBundle);
 				

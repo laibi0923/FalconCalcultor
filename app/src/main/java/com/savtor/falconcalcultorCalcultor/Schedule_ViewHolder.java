@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-/**1
+/**
  * Created by GhostLeo_DT on 26/11/2017.
  */
 public class Schedule_ViewHolder extends RecyclerView.ViewHolder {

@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-/**1
+/**
  * Created by GhostLeo_DT on 21/11/2017.
  */
 public class Fragment1 extends Fragment {
@@ -15,7 +15,7 @@ public class Fragment1 extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_1, container, false);
+        View v = inflater.inflate(R.layout.tesing_fragment_1, container, false);
         return v;
     }
 }

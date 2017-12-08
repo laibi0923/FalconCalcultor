@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 13s1
  * Created by GhostLeo_DT on 2/12/2017.
  */
 public class Fragment_Favourite extends Fragment {
@@ -45,7 +44,7 @@ public class Fragment_Favourite extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.fragment_favourite, container, false);
+        View v = inflater.inflate(R.layout.favourite_main, container, false);
         Find_View(v);   // [1]
         return v;
     }

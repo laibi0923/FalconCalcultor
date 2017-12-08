@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import java.util.Collections;
 import java.util.List;
 
-/**1
+/**
  * Created by GhostLeo_DT on 26/11/2017.
  */
 public class Schedule_Adapter extends RecyclerView.Adapter<Schedule_ViewHolder>{
@@ -23,7 +23,7 @@ public class Schedule_Adapter extends RecyclerView.Adapter<Schedule_ViewHolder>{
 
     @Override
     public Schedule_ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.schedule_item_view, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.cal_recycleview_item, parent, false);
         Schedule_ViewHolder holder = new Schedule_ViewHolder(v);
         return holder;
     }

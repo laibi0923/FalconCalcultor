@@ -1,6 +1,6 @@
 package com.savtor.falconcalcultorCalcultor;
 
-/**1
+/**
  * Created by GhostLeo_DT on 26/11/2017.
  */
 public class Schedule_Data {

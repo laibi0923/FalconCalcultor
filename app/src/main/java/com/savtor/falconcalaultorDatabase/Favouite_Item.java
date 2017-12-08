@@ -1,6 +1,6 @@
 package com.savtor.falconcalaultorDatabase;
 
-/**1
+/**
  * Created by GhostLeo_DT on 30/11/2017.
  */
 public class Favouite_Item {

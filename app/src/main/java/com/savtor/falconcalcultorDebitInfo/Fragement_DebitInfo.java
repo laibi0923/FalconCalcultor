@@ -1,6 +1,5 @@
 package com.savtor.falconcalcultorDebitInfo;
 import android.support.v4.app.*;
-import android.util.Log;
 import android.view.*;
 import android.os.*;
 import android.widget.TextView;
@@ -10,7 +9,7 @@ import com.savtor.falconcalaultorDatabase.*;
 
 import java.util.List;
 
-//
+
 public class Fragement_DebitInfo extends Fragment
 {
 
@@ -19,7 +18,7 @@ public class Fragement_DebitInfo extends Fragment
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
 		// TODO: Implement this method
-		View v = inflater.inflate(R.layout.fragment_1, container, false);
+		View v = inflater.inflate(R.layout.tesing_fragment_1, container, false);
 
 		T01 = (TextView) v.findViewById(R.id.T01);
 
