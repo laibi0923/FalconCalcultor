@@ -47,11 +47,18 @@ public class Fragment_Saver extends Fragment {
 
     private String This_Fragment_Name = "Fragment_Saver";
 
+//    For Find View
     private View subview_loantype, subview_applytype, subview_loannum, subview_firstdue, subview_finaldue, subview_alertdate, subview_address, subview_phone, subview_remarks;
 	private EditText loanname_edittext, loannum_edittext, address_edittext, phone_edittext, remarks_edittext;
 	private ImageView loantype_icon, applytype_icon, loannum_icon, firstdue_icon, finaldue_icon, alert_icon, address_icon, phone_icon, remarks_icon;
 	private TextView loantype_textview, applytype_textview, firstdue_textview, firstdue_result_textview, finaldue_textview, finaldue_result_textview, alert_textview;
     private LinearLayout duedate_linear, firstdue_linear, finaldue_linear, loantype_linear, applytype_linear, alert_linear;
+
+    //    For Find Dialog View
+    private LinearLayout choose_one, choose_two, choose_three, choose_four, choose_five;
+    private TextView choose_one_text, choose_two_text , choose_three_text, choose_four_text, choose_five_text, choose_dialog_title, choose_dialog_cancellbtn;
+    private ImageView choose_one_image, choose_two_image, choose_three_image, choose_four_image, choose_five_image;
+    private String choose_result;
 
     private Calendar Calendar_finaldue;
 
@@ -59,8 +66,6 @@ public class Fragment_Saver extends Fragment {
     private double get_loanamount, get_loanrate;
     private int get_loantrems;
 
-    private float bundle_amount, bundle_rate;
-	private int bundle_trems;
 
     private String init_Name, init_LoanType, init_ApplyStatus, init_LoanNum, init_FirstDueDate, init_FirstDueDate_Result, init_FinalDueDate, init_FinalDueDate_Result, init_DueDate_Type, init_AlertDate, init_Address, init_Phone, init_Remarks;
     private String init_Name_text, init_LoanNum_text, init_Addrrss_Text, init_Phone_Text, init_Remarks_Text;
@@ -68,15 +73,14 @@ public class Fragment_Saver extends Fragment {
 
     private Favourite_DataBasic favourite_dataBasic;
 
+    private double bundle_amount, bundle_rate;
+    private int bundle_trems;
+    private int DB_ID;
+    private String db_get_applystatus, db_get_alertdate, db_get_loantype;
 
-    View dialog_view;
+    private View dialog_view;
 
-    LinearLayout choose_one, choose_two, choose_three, choose_four, choose_five;
-    TextView choose_one_text, choose_two_text , choose_three_text, choose_four_text, choose_five_text, choose_dialog_title, choose_dialog_cancellbtn;
-    ImageView choose_one_image, choose_two_image, choose_three_image, choose_four_image, choose_five_image;
-    String choose_result;
 
-    String db_get_applystatus, db_get_alertdate;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -87,15 +91,16 @@ public class Fragment_Saver extends Fragment {
 
 		Bundle mBundle = getArguments();
 
-        bundle_amount = mBundle.getFloat("loan_amount");
+        bundle_amount = mBundle.getDouble("loan_amount");
         bundle_trems = mBundle.getInt("loan_trems");
-        bundle_rate = mBundle.getFloat("loan_rate");
+        bundle_rate = mBundle.getDouble("loan_rate");
 
         Edit_Mode = mBundle.getString("EDIT_MODE");
+        DB_ID = mBundle.getInt("DB_ID");
 
         if (Edit_Mode == "true"){
 
-            Edit_Mode_On(mBundle.getInt("DB_ID"));
+            Edit_Mode_On(DB_ID);
 			
         }else if (Edit_Mode == "false"){
 
@@ -129,9 +134,12 @@ public class Fragment_Saver extends Fragment {
 		switch(item.getItemId()){
 			
 			case R.id.save_to_fav:
-
                 // [8]
-                insert_to_fav_DB();
+                if (Edit_Mode == "true"){
+                    update_to_fav_DB();
+                }else if (Edit_Mode == "false"){
+                    insert_to_fav_DB();
+                }
 
 				break;
 		}
@@ -144,10 +152,10 @@ public class Fragment_Saver extends Fragment {
         super.onDestroy();
     }
 
-	
+
 	
     //=============================================================================================
-    // [?] 加入畫面內容
+    // [1] 加入畫面內容
     public void Find_View(View v){
 
 		loanname_edittext = (EditText) v.findViewById(R.id.save_name);
@@ -326,7 +334,7 @@ public class Fragment_Saver extends Fragment {
     }
 
     //=============================================================================================
-    // [?]
+    // [2] 加入 Dialog 畫面內容
     public void find_dialog_view(){
 
         dialog_view = LayoutInflater.from(getActivity()).inflate(R.layout.saver_dialog, null);
@@ -359,7 +367,7 @@ public class Fragment_Saver extends Fragment {
     }
 
     //=============================================================================================
-    // [?]
+    // [3] 點擊 Loan Type, Apply Type, Alert Date 時顯示此 Dialog
     private void show_alert_dialog(String Dialog_Title, View Dialogview, final TextView text, final ImageView icon, final int Case_id){
 
         final AlertDialog mAlertDialog = new AlertDialog.Builder(getContext()).create();
@@ -535,17 +543,7 @@ public class Fragment_Saver extends Fragment {
     }
 
     //=============================================================================================
-    // [?] 取出本日日子
-    public String get_today(){
-
-        Calendar mCalendar = Calendar.getInstance();
-        String today = mCalendar.get(Calendar.YEAR) + "/" + (mCalendar.get(Calendar.MONTH) + 1) + "/" + mCalendar.get(Calendar.DAY_OF_MONTH);
-        return today;
-
-    }
-
-    //=============================================================================================
-    // [?]
+    // [4] 點擊 First Due Date 時顯示此 Dialog
     protected Dialog show_date_dialog(){
 
         Dialog mDialog = null;
@@ -596,7 +594,7 @@ public class Fragment_Saver extends Fragment {
     }
 
     //=============================================================================================
-    // [?] 當畫而失去焦點時處理動作
+    // [5] 當畫而失去焦點時處理動作
 	public View.OnFocusChangeListener edText_FocusChangeListener = new View.OnFocusChangeListener(){
 		@Override
 		public void onFocusChange(View v, boolean hasFocus)
@@ -610,14 +608,24 @@ public class Fragment_Saver extends Fragment {
 	};
 
     //=============================================================================================
-    // [?] 處理 Keyboard
+    // [6] 取出本日日子
+    public String get_today(){
+
+        Calendar mCalendar = Calendar.getInstance();
+        String today = mCalendar.get(Calendar.YEAR) + "/" + (mCalendar.get(Calendar.MONTH) + 1) + "/" + mCalendar.get(Calendar.DAY_OF_MONTH);
+        return today;
+
+    }
+
+    //=============================================================================================
+    // [7] 處理 Keyboard
     public void hideKeyboard(View view) {
         InputMethodManager inputMethodManager =(InputMethodManager)getContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
     //=============================================================================================
-    // [?] 獲取用戶輸入資料
+    // [8] 獲取用戶輸入資料
     public void get_input_values(){
 
         final Calendar today =  Calendar.getInstance();
@@ -673,41 +681,7 @@ public class Fragment_Saver extends Fragment {
     }
 
     //=============================================================================================
-    // [8] 用戶輸入資料加入 Favourite Data Base
-    public void insert_to_fav_DB(){
-
-        favourite_dataBasic = new Favourite_DataBasic(getActivity(), This_Fragment_Name);
-
-        get_input_values();
-
-        Favouite_Item fav_item = new Favouite_Item(
-				1,
-                get_createdate,
-                get_name,
-                get_loantype,
-                get_applystatus,
-                get_loannum,
-                get_loanamount,
-                get_loantrems,
-                get_loanrate,
-                get_firstdue,
-                get_finaldue,
-                get_duedate_type,
-				get_alertdate,
-                get_address,
-                get_phone,
-                get_remark);
-
-        favourite_dataBasic.inster(fav_item);
-
-        favourite_dataBasic.close();
-
-        getActivity().getSupportFragmentManager().popBackStack();
-        Toast.makeText(getContext(), "This record have been save", Toast.LENGTH_LONG).show();
-    }
-
-    //=============================================================================================
-    // [?] 判斷用戶是否選取 "已批核" 選項
+    // [9] 判斷用戶是否選取 "已批核" 選項
     public void subview_Visibility(){
         subview_loannum.setVisibility(View.VISIBLE);
         duedate_linear.setVisibility(View.VISIBLE);
@@ -715,7 +689,7 @@ public class Fragment_Saver extends Fragment {
     }
 
     //=============================================================================================
-    // [?] 判斷用戶是否選取 "已批核" 以外選項
+    // [10] 判斷用戶是否選取 "已批核" 以外選項
     public void subview_Gone(){
         subview_loannum.setVisibility(View.GONE);
         duedate_linear.setVisibility(View.GONE);
@@ -726,7 +700,7 @@ public class Fragment_Saver extends Fragment {
     }
 
     //=============================================================================================
-    // [?]
+    // [11] 開啟修改模式
     public void Edit_Mode_On(int databasic_ID){
 
         Log.e("Edit Mode : ", This_Fragment_Name + "Edit Mode On");
@@ -735,7 +709,7 @@ public class Fragment_Saver extends Fragment {
         init_Name = getResources().getString(R.string.init_loanname);
         init_Name_text = String.valueOf(favourite_dataBasic.query(databasic_ID).getName());
 
-        String db_get_loantype = favourite_dataBasic.query(databasic_ID).getLoan_Type();
+        db_get_loantype = favourite_dataBasic.query(databasic_ID).getLoan_Type();
 
         if (db_get_loantype.equals("0")){
             init_LoanType = getResources().getString(R.string.init_loantype);
@@ -794,7 +768,7 @@ public class Fragment_Saver extends Fragment {
     }
 
     //=============================================================================================
-    // [?]
+    // [12] 關閉修改模式
     public void Edit_Mode_Off(){
 
         Log.e("Edit Mode : ", This_Fragment_Name + "Edit Mode Off");
@@ -813,6 +787,78 @@ public class Fragment_Saver extends Fragment {
         init_Phone = getResources().getString(R.string.init_phone);
         init_Remarks = getResources().getString(R.string.init_remark);
 
+        db_get_loantype = "0";
+        db_get_alertdate = "0";
+        db_get_applystatus = "0";
     }
 
+    //=============================================================================================
+    // [13] 用戶輸入資料加入 Favourite Data Base
+    public void insert_to_fav_DB(){
+
+        favourite_dataBasic = new Favourite_DataBasic(getActivity(), This_Fragment_Name);
+
+        get_input_values();
+
+        Favouite_Item fav_item = new Favouite_Item(
+                1,
+                get_createdate,
+                get_name,
+                get_loantype,
+                get_applystatus,
+                get_loannum,
+                get_loanamount,
+                get_loantrems,
+                get_loanrate,
+                get_firstdue,
+                get_finaldue,
+                get_duedate_type,
+                get_alertdate,
+                get_address,
+                get_phone,
+                get_remark);
+
+        favourite_dataBasic.inster(fav_item);
+
+        favourite_dataBasic.close();
+
+        getActivity().getSupportFragmentManager().popBackStack();
+        Toast.makeText(getContext(), "This record have been save", Toast.LENGTH_LONG).show();
+    }
+
+    //=============================================================================================
+    // [14] 用戶輸入資料修改 Favourite Data Base
+    public void update_to_fav_DB(){
+
+        favourite_dataBasic = new Favourite_DataBasic(getActivity(), This_Fragment_Name);
+
+        get_input_values();
+
+        Favouite_Item fav_item = new Favouite_Item(
+                DB_ID,
+                get_createdate,
+                get_name,
+                get_loantype,
+                get_applystatus,
+                get_loannum,
+                get_loanamount,
+                get_loantrems,
+                get_loanrate,
+                get_firstdue,
+                get_finaldue,
+                get_duedate_type,
+                get_alertdate,
+                get_address,
+                get_phone,
+                get_remark);
+
+        favourite_dataBasic.update(fav_item);
+
+        favourite_dataBasic.close();
+
+        getActivity().getSupportFragmentManager().popBackStack();
+        Toast.makeText(getContext(), "This record have been updated", Toast.LENGTH_LONG).show();
+    }
 }
+
+

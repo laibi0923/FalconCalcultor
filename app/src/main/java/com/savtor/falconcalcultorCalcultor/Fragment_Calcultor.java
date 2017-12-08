@@ -119,9 +119,9 @@ public class Fragment_Calcultor extends Fragment {
             public void onClick(View v) {
                 Fragment x = new Fragment_Saver();
                 Bundle mBundle = new Bundle();
-                mBundle.putFloat("loan_amount", Float.parseFloat(loanAmount_tv.getText().toString()));
+                mBundle.putDouble("loan_amount", Double.parseDouble(loanAmount_tv.getText().toString()));
                 mBundle.putInt("loan_trems", Integer.parseInt(loanTrems_tv.getText().toString()));
-                mBundle.putFloat("loan_rate", Float.parseFloat(loanRate_tv.getText().toString()));
+                mBundle.putDouble("loan_rate", Double.parseDouble(loanRate_tv.getText().toString()));
                 mBundle.putString("EDIT_MODE", Edit_Mode);
                 mBundle.putInt("DB_ID", databasic_ID);
                 x.setArguments(mBundle);
@@ -225,7 +225,7 @@ public class Fragment_Calcultor extends Fragment {
                                     break;
                                 }else {
                                     try {
-                                        loanAmount_tv.setText(String.format(dec_point, Float.parseFloat(calcul_EdTExt.getText().toString())));
+                                        loanAmount_tv.setText(String.format("%.2f", Double.parseDouble(calcul_EdTExt.getText().toString())));
                                     }catch (NumberFormatException ee){ee.printStackTrace();}
                                 }
 
@@ -247,11 +247,11 @@ public class Fragment_Calcultor extends Fragment {
 
                                 if(calcul_EdTExt.getText().toString().isEmpty()){
                                     break;
-                                }else if(Float.parseFloat(calcul_EdTExt.getText().toString()) > 60 || Float.parseFloat(calcul_EdTExt.getText().toString()) < 1 ){
+                                }else if(Double.parseDouble(calcul_EdTExt.getText().toString()) > 60 || Double.parseDouble(calcul_EdTExt.getText().toString()) < 1 ){
                                     Toast.makeText(getActivity(), "Proo Value", Toast.LENGTH_SHORT).show();
                                 }else {
                                     try {
-                                        loanRate_tv.setText(String.format(dec_point, Float.parseFloat(calcul_EdTExt.getText().toString())));
+                                        loanRate_tv.setText(String.format("%.2f", Double.parseDouble(calcul_EdTExt.getText().toString())));
                                     }catch (NumberFormatException ee){ee.printStackTrace();}
                                 }
 
@@ -276,10 +276,10 @@ public class Fragment_Calcultor extends Fragment {
     // [4] 取出 Loan Amount, Loan Trems, Loan Rate, Installment
     private void get_Value(){
         try {
-            getLoanAmount = Float.parseFloat(loanAmount_tv.getText().toString());
+            getLoanAmount = Double.parseDouble(loanAmount_tv.getText().toString());
             getLoanTrems = Integer.parseInt(loanTrems_tv.getText().toString());
-            getLoanRate = Float.parseFloat(loanRate_tv.getText().toString());
-            getInstallment = Float.parseFloat(installment_tv.getText().toString());
+            getLoanRate = Double.parseDouble(loanRate_tv.getText().toString());
+            getInstallment = Double.parseDouble(installment_tv.getText().toString());
 
 
         } catch (NumberFormatException ee){
