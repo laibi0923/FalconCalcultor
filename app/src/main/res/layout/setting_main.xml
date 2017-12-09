@@ -1,238 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:background="@color/fragment_bg"
-	android:orientation="vertical">
+	android:background="@color/fragment_bg">
 
 	<LinearLayout
-		android:orientation="vertical"
+		android:layout_height="match_parent"
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:clipToPadding="false"
-		android:elevation="4dp"
-		android:background="@color/colorPrimary">
+		android:orientation="vertical">
 
 		<LinearLayout
-			android:orientation="horizontal"
-			android:layout_width="match_parent"
+			android:background="@color/colorPrimary"
 			android:layout_height="wrap_content"
-			android:padding="10dp">
+			android:layout_width="match_parent"
+			android:elevation="4dp"
+			android:orientation="vertical">
 
 			<TextView
-				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:textAppearance="?android:attr/textAppearanceSmall"
-				android:text="Security"
-				android:textColor="@color/accent"/>
-
-		</LinearLayout>
-
-		<LinearLayout
-			android:orientation="horizontal"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:background="?attr/selectableItemBackground"
-			android:clickable="true"
-			android:focusable="true"
-			android:paddingLeft="10dp"
-			android:paddingTop="5dp"
-			android:paddingBottom="5dp">
-
-			<ImageView
 				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:id="@+id/lock_img_view"
-				android:src="@drawable/ic_lock_black_24dp"
-				android:paddingLeft="15dp"
-				android:paddingTop="15dp"
-				android:paddingRight="15dp"
-				android:paddingBottom="30dp"
-				android:tint="@color/accent"/>
-
-			<LinearLayout
-				android:orientation="vertical"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:gravity="center">
-
-				<TextView
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:textAppearance="?android:attr/textAppearanceSmall"
-					android:text="Setup Password"
-					android:id="@+id/setup_pw_text"
-					android:paddingTop="20dp"
-					android:paddingBottom="30dp"
-					android:textColor="#ffffff"
-					android:paddingLeft="10dp"/>
-
-				<View
-					android:layout_width="match_parent"
-					android:layout_height="0.5dp"
-					android:background="#999999">
-
-				</View>
-
-			</LinearLayout>
-
-		</LinearLayout>
-
-		<LinearLayout
-			android:orientation="horizontal"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:background="?attr/selectableItemBackground"
-			android:clickable="true"
-			android:focusable="true"
-			android:paddingLeft="10dp"
-			android:paddingTop="5dp">
-
-			<ImageView
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:id="@+id/unlock_img_view"
-				android:src="@drawable/ic_lock_open_black_24dp"
-				android:paddingLeft="15dp"
-				android:paddingTop="15dp"
-				android:paddingRight="15dp"
-				android:paddingBottom="30dp"
-				android:tint="@color/accent"/>
-
-			<LinearLayout
-				android:orientation="vertical"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:gravity="center">
-
-				<TextView
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:textAppearance="?android:attr/textAppearanceSmall"
-					android:text="Reset Password"
-					android:id="@+id/unlock_pw_text"
-					android:paddingTop="20dp"
-					android:paddingBottom="30dp"
-					android:textColor="#ffffff"
-					android:paddingLeft="10dp"/>
-
-			</LinearLayout>
-
-		</LinearLayout>
-
-	</LinearLayout>
-
-	<LinearLayout
-		android:orientation="vertical"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:background="@color/colorPrimary"
-		android:elevation="4dp"
-		android:layout_marginTop="10dp">
-
-		<LinearLayout
-			android:orientation="horizontal"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:padding="10dp">
-
-			<TextView
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:textAppearance="?android:attr/textAppearanceSmall"
-				android:text="Language"
+				android:text="Small Text"
 				android:textColor="@color/accent"
-				android:id="@+id/textView6"/>
+				android:padding="10dp"
+				android:id="@+id/password_title"/>
+
+			<include
+				android:layout_height="wrap_content"
+				android:layout_width="match_parent"
+				layout="@layout/setting_sub_tv"
+				android:id="@+id/password_lock"/>
+
+			<include
+				android:layout_height="wrap_content"
+				android:layout_width="match_parent"
+				layout="@layout/setting_sub_tv"
+				android:id="@+id/password_clear"/>
 
 		</LinearLayout>
 
 		<LinearLayout
-			android:orientation="horizontal"
-			android:layout_width="match_parent"
+			android:background="@color/colorPrimary"
+			android:layout_marginTop="10dp"
 			android:layout_height="wrap_content"
-			android:background="?attr/selectableItemBackground"
-			android:clickable="true"
-			android:focusable="true"
-			android:paddingLeft="10dp"
-			android:paddingTop="5dp">
+			android:layout_width="match_parent"
+			android:elevation="4dp"
+			android:orientation="vertical">
 
-			<ImageView
+			<TextView
+				android:layout_height="wrap_content"
+				android:textAppearance="?android:attr/textAppearanceSmall"
 				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:id="@+id/eng_img_view"
-				android:src="@drawable/ic_translate_black_24dp"
-				android:padding="15dp"
-				android:tint="@color/accent"/>
+				android:text="Small Text"
+				android:textColor="@color/accent"
+				android:padding="10dp"
+				android:id="@+id/laug_title"/>
 
-			<LinearLayout
-				android:orientation="vertical"
+			<include
+				android:layout_height="wrap_content"
 				android:layout_width="match_parent"
+				layout="@layout/setting_sub_tv"
+				android:id="@+id/laug_eng"/>
+
+			<include
 				android:layout_height="wrap_content"
-				android:gravity="center">
-
-				<TextView
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:textAppearance="?android:attr/textAppearanceSmall"
-					android:text="English"
-					android:id="@+id/eng_text"
-					android:paddingTop="20dp"
-					android:paddingBottom="30dp"
-					android:textColor="#ffffff"
-					android:paddingLeft="10dp"/>
-
-				<View
-					android:layout_width="match_parent"
-					android:layout_height="0.5dp"
-					android:background="#999999">
-
-				</View>
-
-			</LinearLayout>
+				android:layout_width="match_parent"
+				layout="@layout/setting_sub_tv"
+				android:id="@+id/laug_cht"/>
 
 		</LinearLayout>
 
 		<LinearLayout
-			android:orientation="horizontal"
-			android:layout_width="match_parent"
+			android:background="@color/colorPrimary"
+			android:layout_marginTop="10dp"
 			android:layout_height="wrap_content"
-			android:background="?attr/selectableItemBackground"
-			android:clickable="true"
-			android:focusable="true"
-			android:paddingLeft="10dp"
-			android:paddingTop="5dp">
+			android:layout_width="match_parent"
+			android:layout_marginBottom="20dp"
+			android:elevation="4dp"
+			android:orientation="vertical">
 
-			<ImageView
+			<TextView
+				android:layout_height="wrap_content"
+				android:textAppearance="?android:attr/textAppearanceSmall"
 				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:id="@+id/ch_img_view"
-				android:src="@drawable/ic_translate_black_24dp"
-				android:padding="15dp"
-				android:tint="@color/accent"/>
+				android:text="Small Text"
+				android:textColor="@color/accent"
+				android:padding="10dp"
+				android:id="@+id/die_title"/>
 
-			<LinearLayout
-				android:orientation="vertical"
+			<include
+				android:layout_height="wrap_content"
 				android:layout_width="match_parent"
+				layout="@layout/setting_sub_tv"
+				android:id="@+id/die_0"/>
+
+			<include
 				android:layout_height="wrap_content"
-				android:gravity="center">
-
-				<TextView
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:textAppearance="?android:attr/textAppearanceSmall"
-					android:text="繁體"
-					android:id="@+id/ch_text"
-					android:paddingTop="20dp"
-					android:paddingBottom="30dp"
-					android:textColor="#ffffff"
-					android:paddingLeft="10dp"/>
-
-			</LinearLayout>
+				android:layout_width="match_parent"
+				layout="@layout/setting_sub_tv"
+				android:id="@+id/die_2"/>
 
 		</LinearLayout>
 
 	</LinearLayout>
 
-</LinearLayout>
+</ScrollView>
 

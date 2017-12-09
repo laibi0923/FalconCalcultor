@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:gravity="top">
+
+	<LinearLayout
+		android:orientation="horizontal"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:background="?attr/selectableItemBackground"
+		android:clickable="true"
+		android:focusable="true">
+
+		<ImageView
+			android:layout_width="30dp"
+			android:layout_height="30dp"
+			android:id="@+id/lock_img_view"
+			android:src="@drawable/ic_falcon_white"
+			android:tint="@color/accent"
+			android:layout_marginLeft="20dp"
+			android:layout_marginRight="20dp"
+			android:layout_marginTop="20dp"
+			android:layout_marginBottom="20dp"/>
+
+		<LinearLayout
+			android:orientation="vertical"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:gravity="center">
+
+			<TextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:textAppearance="?android:attr/textAppearanceSmall"
+				android:text="content"
+				android:id="@+id/setup_pw_text"
+				android:textColor="#ffffff"
+				android:layout_marginTop="20dp"
+				android:layout_marginBottom="20dp"/>
+
+			<View
+				android:layout_width="match_parent"
+				android:layout_height="0.5dp"
+				android:background="#999999">
+
+			</View>
+
+		</LinearLayout>
+
+	</LinearLayout>
+
+</LinearLayout>
+

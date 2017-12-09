@@ -459,6 +459,7 @@ public class Fragment_Calcultor extends Fragment {
         edit_icon = getResources().getDrawable(R.drawable.ic_add_black_24dp);
 
     }
+	
 
 }
 

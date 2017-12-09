@@ -2,7 +2,6 @@ package com.savtor.falconcalcultorCalcultor;
 
 import java.util.ArrayList;
 import java.util.List;
-
 /**
  * Created by GhostLeo_DT on 8/12/2017.
  */
