@@ -10,8 +10,8 @@
     <string name="nav_menu_one">Debit Info</string>
     <string name="nav_menu_two">Calcultor</string>
     <string name="nav_menu_three">Favourite</string>
-    <string name="nav_menu_four">Setting</string>
-    <string name="nav_menu_five">Advertising</string>
+    <string name="nav_menu_four">Advertising</string>
+    <string name="nav_menu_five">Setting</string>
     <string name="nav_menu_six">Version</string>
 
     <!--Fragment Calcultor-->

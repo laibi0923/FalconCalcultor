@@ -212,7 +212,7 @@ public class Fragment_Saver extends Fragment {
         subview_loannum = v.findViewById(R.id.subview_loannum);
         subview_loannum.setVisibility(View.GONE);
 		loannum_icon = (ImageView) subview_loannum.findViewById(R.id.sub_image);
-		loannum_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_all_inclusive_black_24dp));
+		loannum_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_count));
 		loannum_edittext = (EditText) subview_loannum.findViewById(R.id.sub_edittext);
 		loannum_edittext.setSingleLine(true);
 		loannum_edittext.setOnFocusChangeListener(edText_FocusChangeListener);

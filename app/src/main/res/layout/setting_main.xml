@@ -55,19 +55,19 @@
 				android:text="Small Text"
 				android:textColor="@color/accent"
 				android:padding="10dp"
-				android:id="@+id/laug_title"/>
+				android:id="@+id/language_title"/>
 
 			<include
 				android:layout_height="wrap_content"
 				android:layout_width="match_parent"
 				layout="@layout/setting_sub_tv"
-				android:id="@+id/laug_eng"/>
+				android:id="@+id/language_eng"/>
 
 			<include
 				android:layout_height="wrap_content"
 				android:layout_width="match_parent"
 				layout="@layout/setting_sub_tv"
-				android:id="@+id/laug_cht"/>
+				android:id="@+id/language_cht"/>
 
 		</LinearLayout>
 
@@ -87,19 +87,19 @@
 				android:text="Small Text"
 				android:textColor="@color/accent"
 				android:padding="10dp"
-				android:id="@+id/die_title"/>
+				android:id="@+id/decimal_point_title"/>
 
 			<include
 				android:layout_height="wrap_content"
 				android:layout_width="match_parent"
 				layout="@layout/setting_sub_tv"
-				android:id="@+id/die_0"/>
+				android:id="@+id/decimal_point_0"/>
 
 			<include
 				android:layout_height="wrap_content"
 				android:layout_width="match_parent"
 				layout="@layout/setting_sub_tv"
-				android:id="@+id/die_2"/>
+				android:id="@+id/decimal_point_2"/>
 
 		</LinearLayout>
 

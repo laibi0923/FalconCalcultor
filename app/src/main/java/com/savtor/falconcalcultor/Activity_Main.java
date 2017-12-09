@@ -78,7 +78,7 @@ public class Activity_Main extends AppCompatActivity {
                 switch (item.getItemId()){
 
                     case R.id.nav_item1:
-                        mFragment = new Fragement_DebitInfo();
+                        mFragment = new Fragment1();
                         break;
 
                     case R.id.nav_item2:
@@ -90,13 +90,15 @@ public class Activity_Main extends AppCompatActivity {
                         break;
 
                     case R.id.nav_item4:
-                        mFragment = new Fragment_Setting();
+                        mFragment = new Fragment1();
                         break;
 
                     case R.id.nav_item5:
+                        mFragment = new Fragment_Setting();
                         break;
 
                     case R.id.nav_item6:
+                        mFragment = new Fragment_DebitInfo();
                         break;
                 }
 

@@ -250,9 +250,11 @@ public class Fragment_Calcultor extends Fragment {
 
                         if(calcul_EdTExt.getText().toString().isEmpty()){
                             break;
-                        }else {
+                        }else if(calcul_EdTExt.getText().length() > 8){
+                            Toast.makeText(getActivity(), "Proo Value", Toast.LENGTH_SHORT).show();
+                        }else{
                             try {
-                                loanAmount_tv.setText(String.format("%.2f", Double.parseDouble(calcul_EdTExt.getText().toString())));
+                                loanAmount_tv.setText(String.format("%1$.2f", Double.parseDouble(calcul_EdTExt.getText().toString())));
                             }catch (NumberFormatException ee){ee.printStackTrace();}
                         }
 
@@ -262,6 +264,8 @@ public class Fragment_Calcultor extends Fragment {
 
                         if(calcul_EdTExt.getText().toString().isEmpty()){
                             break;
+                        }else if(calcul_EdTExt.getText().toString().length() > 8){
+                            Toast.makeText(getActivity(), "Proo Value", Toast.LENGTH_SHORT).show();
                         }else if(Integer.parseInt(calcul_EdTExt.getText().toString()) < 3 || Integer.parseInt(calcul_EdTExt.getText().toString()) > 96) {
                             Toast.makeText(getActivity(), "Proo Value", Toast.LENGTH_SHORT).show();
                         }else {

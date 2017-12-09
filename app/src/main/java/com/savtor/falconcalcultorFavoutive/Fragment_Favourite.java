@@ -46,6 +46,8 @@ public class Fragment_Favourite extends Fragment {
 
         View v = inflater.inflate(R.layout.favourite_main, container, false);
         Find_View(v);   // [1]
+
+        update_count_text();
         return v;
     }
 
@@ -133,10 +135,22 @@ public class Fragment_Favourite extends Fragment {
                 final List<Favouite_Item> search_list = filter(getDataBase_Data() ,newText);    // [4]
                 fav_adapter.setFilter(search_list);
 
-//                update_count_text();
+                update_count_text();
                 return true;
             }
         });
+
+    }
+
+    public void update_count_text() {
+
+        if (fav_adapter.getItemCount() == 0){
+            count_result_tv.setText("沒有任何紀錄");
+        }else
+        {
+            String count_text = String.valueOf(fav_adapter.getItemCount());
+            count_result_tv.setText("一共搜索共" + count_text + "條紀錄");
+        }
 
     }
 
@@ -155,22 +169,6 @@ public class Fragment_Favourite extends Fragment {
         }
         return filterList;
     }
-
-
-
-    // [7]
-//    public void update_count_text(){
-//
-//        String count = favourite_dataBasic.getCount() + "";
-//        count_result_tv.setText("一共搜索共" + count + "筆紀錄");
-//
-//    }
-
-    // [5] 刪除一條紀錄
-
-
-    // [6] 修改一條紀錄
-
 
 
 

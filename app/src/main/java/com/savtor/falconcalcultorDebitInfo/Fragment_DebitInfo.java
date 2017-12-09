@@ -10,7 +10,7 @@ import com.savtor.falconcalaultorDatabase.*;
 import java.util.List;
 
 
-public class Fragement_DebitInfo extends Fragment
+public class Fragment_DebitInfo extends Fragment
 {
 
 	private TextView T01;

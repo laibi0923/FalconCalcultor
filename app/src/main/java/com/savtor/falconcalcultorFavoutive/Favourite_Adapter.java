@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -62,29 +61,50 @@ public class Favourite_Adapter extends RecyclerSwipeAdapter<Favourite_ViewHolder
         }else {
             holder.name_tv.setText(list.get(position).getName());
         }
-		
-		holder.loan_amount_tv.setText(String.valueOf(list.get(position).getLoan_Amount()));
+
+//        String.format("%1$.2f", totalvalue);
+		holder.loan_amount_tv.setText(String.format("%1$.2f", list.get(position).getLoan_Amount()));
 
         holder.loan_trems_tv.setText(String.valueOf( list.get(position).getTrems() ));
 
 		holder.loan_rate_tv.setText(String.valueOf( list.get(position).getLoan_Rate()));
-        
-		holder.apply_status_tv.setText(list.get(position).getApply_status());
-       
 
-        if(list.get(position).getLoan_Type() == "0"){
-            holder.loan_type_icon.setBackgroundResource(R.drawable.ic_person_black_24dp);
-        }else if(list.get(position).getLoan_Type() == "1" || list.get(position).getLoan_Type().equals("1")){
-            holder.loan_type_icon.setBackgroundResource(R.drawable.ic_domain_black_24dp);
-        }else if(list.get(position).getLoan_Type() == "2"){
-            holder.loan_type_icon.setBackgroundResource(R.drawable.ic_directions_car_black_24dp);
+        if (list.get(position).getApply_status().equals("0")){
+            holder.apply_status_tv.setText("Not Applying");
+        }else if (list.get(position).getApply_status().equals("1")){
+            holder.apply_status_tv.setText("Applying");
+        }else if (list.get(position).getApply_status().equals("2")){
+            holder.apply_status_tv.setText("Approval");
+        }else if (list.get(position).getApply_status().equals("3")){
+            holder.apply_status_tv.setText("Reject");
+        }else if (list.get(position).getApply_status().equals("4")){
+            holder.apply_status_tv.setText("Cancel");
         }
 
-        if (list.get(position).getAlert_date() == ""){
+
+
+        if(list.get(position).getLoan_Type() == "0"){
+            holder.loan_type_icon.setImageResource(R.drawable.ic_person_black_24dp);
+        }else if (list.get(position).getLoan_Type().equals("1")){
+            holder.loan_type_icon.setImageResource(R.drawable.ic_person_black_24dp);
+        }else if(list.get(position).getLoan_Type().equals("2")){
+            holder.loan_type_icon.setImageResource(R.drawable.ic_domain_black_24dp);
+        }else if(list.get(position).getLoan_Type().equals("3")){
+            holder.loan_type_icon.setImageResource(R.drawable.ic_directions_car_black_24dp);
+        }
+
+        if (list.get(position).getAlert_date().equals("0")){
             holder.alert_icon_im.setVisibility(View.GONE);
         }else {
             holder.alert_icon_im.setVisibility(View.VISIBLE);
         }
+
+        if (list.get(position).getRemarks().equals("")){
+            holder.remarks_tv.setText("未有輸入");
+        }else {
+            holder.remarks_tv.setText(list.get(position).getRemarks().toString());
+        }
+
 
         holder.Del_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,12 +114,18 @@ public class Favourite_Adapter extends RecyclerSwipeAdapter<Favourite_ViewHolder
                 Favourite_DataBasic favourite_dataBasic = new Favourite_DataBasic(v.getContext(), "Favourite_Adapter");
                 favourite_dataBasic.delete(list.get(position).getid());
 
-                Log.e("Del Action", "Positino = " + position );
                 // Del on list
                 list.remove(position);
 
                 notifyItemRemoved(position);
                 notifyItemRangeChanged(position, getItemCount()); //加埋呢句先唔會 IndexOutOfIndexException
+
+                // 防止用戶過快駛用刪除按鈕 (未完成)
+//                try {
+//                    Thread.sleep(5000);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
 
             }
         });
