@@ -64,7 +64,6 @@ public class Fragment_Favourite extends Fragment {
         for(int i = 0; i < menu.size(); i++){
             Drawable drawable = menu.getItem(i).getIcon();
             if(drawable != null) {
-                Log.e("", "sdsadasd");
                 drawable.mutate();
                 drawable.setColorFilter(getResources().getColor(R.color.accent), PorterDuff.Mode.SRC_ATOP);
             }
