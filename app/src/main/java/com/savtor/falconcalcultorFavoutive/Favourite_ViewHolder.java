@@ -9,7 +9,6 @@ import android.widget.TextView;
 import com.daimajia.swipe.SwipeLayout;
 import com.savtor.falconcalcultor.*;
 
-
 /**
  * Created by GhostLeo_DT on 2/12/2017.
  */
