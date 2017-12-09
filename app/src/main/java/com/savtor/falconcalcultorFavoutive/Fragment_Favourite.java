@@ -4,6 +4,8 @@ import com.savtor.falconcalaultorDatabase.Favouite_Item;
 import com.savtor.falconcalaultorDatabase.Favourite_DataBasic;
 import com.savtor.falconcalcultor.*;
 
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -46,8 +48,6 @@ public class Fragment_Favourite extends Fragment {
 
         View v = inflater.inflate(R.layout.favourite_main, container, false);
         Find_View(v);   // [1]
-
-        update_count_text();
         return v;
     }
 
@@ -55,13 +55,28 @@ public class Fragment_Favourite extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 
         super.onCreateOptionsMenu(menu, inflater);
-
+        
         inflater.inflate(R.menu.fav_toolbar_menu, menu);
         final SearchView searchView = (SearchView) menu.findItem(R.id.search_view).getActionView();
         Search(searchView);     // [3]
+
+        //        改 menu icon 顏色
+        for(int i = 0; i < menu.size(); i++){
+            Drawable drawable = menu.getItem(i).getIcon();
+            if(drawable != null) {
+                Log.e("", "sdsadasd");
+                drawable.mutate();
+                drawable.setColorFilter(getResources().getColor(R.color.accent), PorterDuff.Mode.SRC_ATOP);
+            }
+        }
+
+
+
     }
 
 
+
+    //=============================================================================================
     // [1] 加入畫面內容
     private void Find_View(View v){
 
@@ -83,6 +98,7 @@ public class Fragment_Favourite extends Fragment {
 //        update_count_text();
     }
 
+    //=============================================================================================
     // [2] 從 Sqlite Databasic 取出所有紀錄
     public List<Favouite_Item> getDataBase_Data() {
 
@@ -120,6 +136,7 @@ public class Fragment_Favourite extends Fragment {
         return  favouriteData;
     }
 
+    //=============================================================================================
     // [3] 搜尋用戶輸入內容
     private void Search(SearchView searchView){
 
@@ -142,18 +159,7 @@ public class Fragment_Favourite extends Fragment {
 
     }
 
-    public void update_count_text() {
-
-        if (fav_adapter.getItemCount() == 0){
-            count_result_tv.setText("沒有任何紀錄");
-        }else
-        {
-            String count_text = String.valueOf(fav_adapter.getItemCount());
-            count_result_tv.setText("一共搜索共" + count_text + "條紀錄");
-        }
-
-    }
-
+    //=============================================================================================
     // [4] 與現有內容對比
     private List<Favouite_Item> filter (List<Favouite_Item> models, String query){
 
@@ -170,6 +176,19 @@ public class Fragment_Favourite extends Fragment {
         return filterList;
     }
 
+    //=============================================================================================
+    // [5] 顯示有幾條紀錄 (未完成)
+    public void update_count_text() {
+
+        if (fav_adapter.getItemCount() == 0){
+            count_result_tv.setText("沒有任何紀錄");
+        }else
+        {
+            String count_text = String.valueOf(fav_adapter.getItemCount());
+            count_result_tv.setText("一共搜索共" + count_text + "條紀錄");
+        }
+
+    }
 
 
 }

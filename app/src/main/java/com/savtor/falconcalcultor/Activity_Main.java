@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import com.savtor.falconcalaultorDatabase.Favourite_DataBasic;
 import com.savtor.falconcalcultorCalcultor.*;
 import com.savtor.falconcalcultorDebitInfo.*;
+import com.savtor.falconcalcultorPasswordgate.Fragment_Passwordgate;
 import com.savtor.falconcalcultorSetting.*;
 import com.savtor.falconcalcultorFavoutive.*;
 

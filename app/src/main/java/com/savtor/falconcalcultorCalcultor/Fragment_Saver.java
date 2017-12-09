@@ -3,6 +3,8 @@ package com.savtor.falconcalcultorCalcultor;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -25,6 +27,8 @@ import com.savtor.falconcalaultorDatabase.*;
 import com.savtor.falconcalcultor.*;
 import android.widget.*;
 import android.text.*;
+
+import org.w3c.dom.Text;
 
 
 /**

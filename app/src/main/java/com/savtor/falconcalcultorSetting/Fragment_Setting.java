@@ -1,6 +1,9 @@
 package com.savtor.falconcalcultorSetting;
 
 import com.savtor.falconcalcultor.*;
+import com.savtor.falconcalcultorPasswordgate.Fragment_Passwordgate;
+import com.savtor.falconcalcultorPasswordgate.*;
+
 import android.support.v4.app.*;
 import android.view.*;
 import android.os.*;
@@ -41,7 +44,7 @@ public class Fragment_Setting extends Fragment
 		password_lock_linear.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Toast.makeText(getContext(), "testing click", Toast.LENGTH_LONG).show();
+				getFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.mFrameLayout, new Fragment_Passwordgate()).commit();
 			}
 		});
 		password_lock_text = (TextView) password_lock_subview.findViewById(R.id.sub_text);
@@ -49,12 +52,13 @@ public class Fragment_Setting extends Fragment
 		password_lock_icon = (ImageView) password_lock_subview.findViewById(R.id.sub_image);
 		password_lock_icon.setImageResource(R.drawable.ic_lock_black_24dp);
 
+
 		password_clear_subview = v.findViewById(R.id.password_clear);
 		password_clear_linear = (LinearLayout) password_clear_subview.findViewById(R.id.sub_linear);
 		password_clear_linear.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Toast.makeText(getContext(), "testing click", Toast.LENGTH_LONG).show();
+				getFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.mFrameLayout, new Fragment_Passwordgate()).commit();
 			}
 		});
 		password_clear_text = (TextView) password_clear_subview.findViewById(R.id.sub_text);
@@ -65,7 +69,9 @@ public class Fragment_Setting extends Fragment
 		underline = password_clear_subview.findViewById(R.id.sub_underline);
 		underline.setVisibility(View.GONE);
 
-//=====
+
+
+
 		language_title = (TextView) v.findViewById(R.id.language_title);
 		language_title.setText("Language");
 
@@ -74,7 +80,8 @@ public class Fragment_Setting extends Fragment
 		language_eng_linear.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Toast.makeText(getContext(), "testing click", Toast.LENGTH_LONG).show();
+				language_cht_text.setTextColor(getResources().getColor(R.color.normal_textcolor));
+				language_eng_text.setTextColor(getResources().getColor(R.color.accent));
 			}
 		});
 		language_eng_text = (TextView) language_eng_subview.findViewById(R.id.sub_text);
@@ -82,12 +89,14 @@ public class Fragment_Setting extends Fragment
 		language_eng_icon = (ImageView) language_eng_subview.findViewById(R.id.sub_image);
 		language_eng_icon.setImageResource(R.drawable.ic_translate_black_24dp);
 
+
 		language_cht_subview = v.findViewById(R.id.language_cht);
 		language_cht_linear = (LinearLayout) language_cht_subview.findViewById(R.id.sub_linear);
 		language_cht_linear.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Toast.makeText(getContext(), "testing click", Toast.LENGTH_LONG).show();
+				language_cht_text.setTextColor(getResources().getColor(R.color.accent));
+				language_eng_text.setTextColor(getResources().getColor(R.color.normal_textcolor));
 			}
 		});
 		language_cht_text = (TextView) language_cht_subview.findViewById(R.id.sub_text);
@@ -99,6 +108,8 @@ public class Fragment_Setting extends Fragment
 		underline.setVisibility(View.GONE);
 
 
+
+
 		decimal_point_title = (TextView) v.findViewById(R.id.decimal_point_title);
 		decimal_point_title.setText("小數點");
 
@@ -107,7 +118,8 @@ public class Fragment_Setting extends Fragment
 		decimal_point_0_linear.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Toast.makeText(getContext(), "testing click", Toast.LENGTH_LONG).show();
+				decimal_point_0_text.setTextColor(getResources().getColor(R.color.accent));
+				decimal_point_2_text.setTextColor(getResources().getColor(R.color.normal_textcolor));
 			}
 		});
 		decimal_point_0_text = (TextView) decimal_point_0_subview.findViewById(R.id.sub_text);
@@ -115,12 +127,14 @@ public class Fragment_Setting extends Fragment
 		decimal_point_0_icon = (ImageView) decimal_point_0_subview.findViewById(R.id.sub_image);
 		decimal_point_0_icon.setImageResource(R.drawable.ic_increase_decimal);
 
+
 		decimal_point_2_subview = v.findViewById(R.id.decimal_point_2);
 		decimal_point_2_linear = (LinearLayout) decimal_point_2_subview.findViewById(R.id.sub_linear);
 		decimal_point_2_linear.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Toast.makeText(getContext(), "testing click", Toast.LENGTH_LONG).show();
+				decimal_point_0_text.setTextColor(getResources().getColor(R.color.normal_textcolor));
+				decimal_point_2_text.setTextColor(getResources().getColor(R.color.accent));
 			}
 		});
 		decimal_point_2_text = (TextView) decimal_point_2_subview.findViewById(R.id.sub_text);
