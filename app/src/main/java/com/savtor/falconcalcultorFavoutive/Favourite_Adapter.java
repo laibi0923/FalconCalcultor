@@ -62,6 +62,13 @@ public class Favourite_Adapter extends RecyclerSwipeAdapter<Favourite_ViewHolder
             holder.name_tv.setText(list.get(position).getName());
         }
 
+        if (list.get(position).getLoanNum().equals("")){
+            holder.loan_number_tv.setText("");
+        }else {
+            holder.loan_number_tv.setText("(" + list.get(position).getLoanNum() + ")");
+        }
+
+
 //        String.format("%1$.2f", totalvalue);
 		holder.loan_amount_tv.setText(String.format("%1$.2f", list.get(position).getLoan_Amount()));
 

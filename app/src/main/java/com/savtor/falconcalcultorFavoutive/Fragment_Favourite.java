@@ -55,7 +55,7 @@ public class Fragment_Favourite extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 
         super.onCreateOptionsMenu(menu, inflater);
-        
+
         inflater.inflate(R.menu.fav_toolbar_menu, menu);
         final SearchView searchView = (SearchView) menu.findItem(R.id.search_view).getActionView();
         Search(searchView);     // [3]
@@ -69,9 +69,6 @@ public class Fragment_Favourite extends Fragment {
                 drawable.setColorFilter(getResources().getColor(R.color.accent), PorterDuff.Mode.SRC_ATOP);
             }
         }
-
-
-
     }
 
 

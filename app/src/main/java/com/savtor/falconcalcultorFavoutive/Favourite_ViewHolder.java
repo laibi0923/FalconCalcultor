@@ -15,7 +15,7 @@ import com.savtor.falconcalcultor.*;
  */
 public class Favourite_ViewHolder extends RecyclerView.ViewHolder {
 
-    TextView  create_date_tv, name_tv, loan_amount_tv, loan_trems_tv, loan_rate_tv, installment_tv, apply_status_tv, remarks_tv;
+    TextView  create_date_tv, name_tv, loan_amount_tv, loan_trems_tv, loan_rate_tv, installment_tv, apply_status_tv, remarks_tv, loan_number_tv;
 
     ImageView alert_icon_im, loan_type_icon;
 
@@ -43,6 +43,6 @@ public class Favourite_ViewHolder extends RecyclerView.ViewHolder {
         Edit_btn = (RelativeLayout) itemView.findViewById(R.id.edit_btn);
         Del_btn = (RelativeLayout) itemView.findViewById(R.id.del_btn);
         remarks_tv = (TextView) itemView.findViewById(R.id.remarks_tv);
-
+        loan_number_tv = (TextView) itemView.findViewById(R.id.loan_number_tv);
     }
 }
