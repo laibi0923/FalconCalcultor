@@ -42,10 +42,6 @@ public class Activity_Main extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-//        if (favourite_dataBasic != null){
-//            Log.e("DATA BASIC ACTION : ","數據庫關閉, 共" + favourite_dataBasic.getCount() + "條紀錄");  // [Log.e]
-//            favourite_dataBasic.close();
-//        }
     }
 
     final void init_toolbar(){
