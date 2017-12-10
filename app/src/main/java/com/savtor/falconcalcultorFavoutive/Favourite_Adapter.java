@@ -1,6 +1,7 @@
 package com.savtor.falconcalcultorFavoutive;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentManager;
@@ -31,14 +32,22 @@ import android.support.v4.app.*;
 
 public class Favourite_Adapter extends RecyclerSwipeAdapter<Favourite_ViewHolder> {
 
-    List<Favouite_Item> list = Collections.emptyList();
-    Context context;
-    FragmentManager mFragmentManager;
+    private List<Favouite_Item> list = Collections.emptyList();
+    private Context context;
+    private FragmentManager mFragmentManager;
+
+    private int get_setting_password, get_setting_language, get_setting_decimal;
+    private SharedPreferences mSharedPreferences;
+    private String dec_point = "%1$.2f";
+
 
     public Favourite_Adapter(List<Favouite_Item> list, Context context, FragmentManager mFragmentManager) {
         this.list = list;
         this.context = context;
         this.mFragmentManager = mFragmentManager;
+
+        mSharedPreferences = context.getSharedPreferences("Setting", Context.MODE_PRIVATE);
+        get_sharedpreferences();
     }
 
     @Override
@@ -53,14 +62,10 @@ public class Favourite_Adapter extends RecyclerSwipeAdapter<Favourite_ViewHolder
 
     @Override
     public void onBindViewHolder(final Favourite_ViewHolder holder, final int position) {
-
+        
         holder.create_date_tv.setText(list.get(position).getCreate_date());
 
-        if(list.get(position).getName().isEmpty()){
-            holder.name_tv.setText("-");
-        }else {
-            holder.name_tv.setText(list.get(position).getName());
-        }
+        holder.name_tv.setText(list.get(position).getName());
 
         if (list.get(position).getLoanNum().equals("")){
             holder.loan_number_tv.setText("");
@@ -70,7 +75,7 @@ public class Favourite_Adapter extends RecyclerSwipeAdapter<Favourite_ViewHolder
 
 
 //        String.format("%1$.2f", totalvalue);
-		holder.loan_amount_tv.setText(String.format("%1$.2f", list.get(position).getLoan_Amount()));
+		holder.loan_amount_tv.setText(String.format(dec_point, list.get(position).getLoan_Amount()));
 
         holder.loan_trems_tv.setText(String.valueOf( list.get(position).getTrems() ));
 
@@ -158,7 +163,7 @@ public class Favourite_Adapter extends RecyclerSwipeAdapter<Favourite_ViewHolder
 
         Calcultor mCalcultor = new Calcultor();
         double result = mCalcultor.getMonthlyInstallment(list.get(position).getLoan_Amount(), list.get(position).getTrems(), list.get(position).getLoan_Rate());
-        holder.installment_tv.setText(String.format("%.2f",result));
+        holder.installment_tv.setText(String.format(dec_point, result));
 
         holder.swipeLayout.setShowMode(SwipeLayout.ShowMode.LayDown);
 
@@ -232,6 +237,22 @@ public class Favourite_Adapter extends RecyclerSwipeAdapter<Favourite_ViewHolder
     public void openItem(int position) {
         super.openItem(position);
     }
+
+    //=============================================================================================
+    // []
+    public void get_sharedpreferences(){
+        get_setting_password = mSharedPreferences.getInt("Setting_password", 1);
+        get_setting_language = mSharedPreferences.getInt("Setting_language", 1);
+        get_setting_decimal = mSharedPreferences.getInt("Setting_decimal" , 1);
+
+        if (get_setting_decimal == 1){
+            dec_point = "%1$.0f";
+        }else if(get_setting_decimal == 2){
+            dec_point = "%1$.2f";
+        }
+    }
+
+
 }
 
 

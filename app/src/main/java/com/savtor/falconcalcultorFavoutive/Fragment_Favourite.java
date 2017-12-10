@@ -4,6 +4,7 @@ import com.savtor.falconcalaultorDatabase.Favouite_Item;
 import com.savtor.falconcalaultorDatabase.Favourite_DataBasic;
 import com.savtor.falconcalcultor.*;
 
+import android.content.SharedPreferences;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -187,6 +188,7 @@ public class Fragment_Favourite extends Fragment {
         }
 
     }
+
 
 
 }

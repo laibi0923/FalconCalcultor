@@ -1,5 +1,7 @@
 package com.savtor.falconcalcultorCalcultor;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.*;
 import android.support.annotation.*;
 import android.support.design.widget.*;
@@ -29,8 +31,7 @@ public class Fragment_Calcultor extends Fragment {
     private float x = 0;
 
     private String init_Loan_Amount, init_Loan_Trems, init_Loan_Rate;
-    String dec_point = "%.0f";
-	
+
 	Drawable edit_icon;
 	
     private ImageView addtofav_btn;
@@ -48,11 +49,19 @@ public class Fragment_Calcultor extends Fragment {
 
     Calcultor mCalcultor = new Calcultor();
 
+    private int get_setting_password, get_setting_language, get_setting_decimal;
+    private SharedPreferences mSharedPreferences;
+
+    private String dec_point = "%.0f";
+
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
 		// TODO: Implement this method
 		super.onCreate(savedInstanceState);
+
+        mSharedPreferences = this.getActivity().getSharedPreferences("Setting", Context.MODE_PRIVATE);
+        get_sharedpreferences();
 
 		Bundle mBundle = getArguments();
 
@@ -463,7 +472,19 @@ public class Fragment_Calcultor extends Fragment {
         edit_icon = getResources().getDrawable(R.drawable.ic_add_black_24dp);
 
     }
-	
 
+    //=============================================================================================
+    // []
+    public void get_sharedpreferences(){
+        get_setting_password = mSharedPreferences.getInt("Setting_password", 1);
+        get_setting_language = mSharedPreferences.getInt("Setting_language", 1);
+        get_setting_decimal = mSharedPreferences.getInt("Setting_decimal" , 1);
+
+        if (get_setting_decimal == 1){
+            dec_point = "%.0f";
+        }else if(get_setting_decimal == 2){
+            dec_point = "%.2f";
+        }
+    }
 }
 
