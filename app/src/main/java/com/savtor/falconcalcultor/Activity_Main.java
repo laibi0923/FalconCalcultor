@@ -111,7 +111,7 @@ public class Activity_Main extends AppCompatActivity {
                         break;
                 }
 
-                getSupportFragmentManager().beginTransaction().replace(R.id.mFrameLayout,mFragment).commit();
+                getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left).replace(R.id.mFrameLayout,mFragment).commit();
 
                 item.setChecked(true);
                 mDrawerLayout.closeDrawers();
