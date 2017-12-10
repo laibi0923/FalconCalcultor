@@ -19,6 +19,6 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Falcon Calcultor"
         android:id="@+id/textView"
-        android:textColor="@color/normal_textcolor"
+        android:textColor="@color/TextColor_White"
         android:layout_gravity="center" />
 </LinearLayout>

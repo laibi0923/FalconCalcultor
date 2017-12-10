@@ -15,7 +15,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Fragment 1"
             android:id="@+id/T01"
-            android:textColor="@color/normal_textcolor"
+            android:textColor="@color/TextColor_White"
             android:layout_gravity="center_vertical" />
 
     </LinearLayout>

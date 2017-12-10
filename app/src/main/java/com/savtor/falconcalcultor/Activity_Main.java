@@ -41,11 +41,12 @@ public class Activity_Main extends AppCompatActivity {
 
         init_navigationview();
 
+        // 修改 statusbar, navigationbar 顏色
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
-            window.setNavigationBarColor(getResources().getColor(R.color.colorPrimaryDark));
+            window.setStatusBarColor(getResources().getColor(R.color.StatusBarColor));
+            window.setNavigationBarColor(getResources().getColor(R.color.NavigationBarColor));
         }
 
     }

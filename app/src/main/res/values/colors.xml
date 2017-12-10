@@ -2,12 +2,15 @@
 <resources>
 	<color name="colorPrimary">#424242</color>
 	<color name="colorPrimaryDark">#263238</color>
-	<color name="accent">#80CBC4</color>
-	<color name="normal_textcolor">#FFFFFF</color>
-	
 	<color name="fragment_bg">#2E2E2E</color>
 
-	<!--Calcultor Saver 內 Spinner Textcolor-->
-	<color name="my_spinner_text_color">#80CBC4</color>
+
+	<!--=====================================================================================-->
+	<color name="StatusBarColor">#263238</color>
+	<color name="NavigationBarColor">#263238</color>
+
+	<color name="TextColor_White">#FFFFFF</color>
+	<color name="TextColor_TiffanyBule">#FFFFFF</color>
+
 </resources>
 

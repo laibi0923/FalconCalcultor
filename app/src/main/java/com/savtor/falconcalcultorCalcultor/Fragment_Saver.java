@@ -249,7 +249,7 @@ public class Fragment_Saver extends Fragment {
 		finaldue_textview.setText(init_FinalDueDate);
 		finaldue_result_textview = (TextView) subview_finaldue.findViewById(R.id.sub_textview_result);
 		finaldue_result_textview.setText(init_FinalDueDate_Result);
-        finaldue_result_textview.setTextColor(getResources().getColor(R.color.accent));
+        finaldue_result_textview.setTextColor(getResources().getColor(R.color.TextColor_TiffanyBule));
 
         finaldue_linear = (LinearLayout) subview_finaldue.findViewById(R.id.sub_linear);
         finaldue_linear.setClickable(false);
@@ -317,9 +317,9 @@ public class Fragment_Saver extends Fragment {
         }
 
         if (db_get_alertdate.equals("0")){
-            alert_textview.setTextColor(getResources().getColor(R.color.normal_textcolor));
+            alert_textview.setTextColor(getResources().getColor(R.color.TextColor_White));
         }else{
-            alert_textview.setTextColor(getResources().getColor(R.color.accent));
+            alert_textview.setTextColor(getResources().getColor(R.color.TextColor_TiffanyBule));
         }
 
     }
@@ -387,7 +387,7 @@ public class Fragment_Saver extends Fragment {
                     case 3:
                         choose_result = getResources().getString(R.string.init_alertdate);
                         text.setText(choose_result);
-                        text.setTextColor(getResources().getColor(R.color.normal_textcolor));
+                        text.setTextColor(getResources().getColor(R.color.TextColor_White));
                         break;
 
                     case 4:
@@ -421,7 +421,7 @@ public class Fragment_Saver extends Fragment {
                     case 3:
                         choose_result = choose_two_text.getText().toString();
                         text.setText(choose_result);
-                        text.setTextColor(getResources().getColor(R.color.accent));
+                        text.setTextColor(getResources().getColor(R.color.TextColor_TiffanyBule));
                         break;
 
                     case 4:
@@ -452,7 +452,7 @@ public class Fragment_Saver extends Fragment {
                     case 3:
                         choose_result = choose_three_text.getText().toString();
                         text.setText(choose_result);
-                        text.setTextColor(getResources().getColor(R.color.accent));
+                        text.setTextColor(getResources().getColor(R.color.TextColor_TiffanyBule));
                         break;
 
                     case 4:
@@ -482,7 +482,7 @@ public class Fragment_Saver extends Fragment {
                     case 3:
                         choose_result = choose_four_text.getText().toString();
                         text.setText(choose_result);
-                        text.setTextColor(getResources().getColor(R.color.accent));
+                        text.setTextColor(getResources().getColor(R.color.TextColor_TiffanyBule));
                         break;
 
                     case 4:

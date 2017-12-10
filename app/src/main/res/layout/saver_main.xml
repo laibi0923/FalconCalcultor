@@ -20,11 +20,11 @@
 			android:layout_height="wrap_content"
 			android:focusable="true"
 			android:imeOptions="actionDone"
-			android:textColor="@color/normal_textcolor"
+			android:textColor="@color/TextColor_White"
 			android:id="@+id/save_name"
 			android:hint="輸入名稱"
 			android:padding="15dp"
-			android:textColorHint="@color/normal_textcolor"
+			android:textColorHint="@color/TextColor_White"
 			android:background="@color/colorPrimaryDark"/>
 
 	</LinearLayout>
@@ -87,7 +87,7 @@
 					android:textAppearance="?android:attr/textAppearanceSmall"
 					android:text="First Due Date"
 					android:id="@+id/textView8"
-					android:textColor="@color/accent"
+					android:textColor="@color/TextColor_TiffanyBule"
 					android:layout_margin="10dp"/>
 
 				<include
@@ -131,7 +131,7 @@
 					android:textAppearance="?android:attr/textAppearanceSmall"
 					android:text="Remarks"
 					android:id="@+id/textView28"
-					android:textColor="@color/accent"
+					android:textColor="@color/TextColor_TiffanyBule"
 					android:layout_margin="10dp"/>
 
 				<include

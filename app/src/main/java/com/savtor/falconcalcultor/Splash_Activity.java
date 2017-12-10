@@ -3,11 +3,14 @@ package com.savtor.falconcalcultor;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.savtor.falconcalcultorPasswordgate.Fragment_Passwordgate;
 
@@ -24,6 +27,15 @@ public class Splash_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.splash_activity);
+
+        // 修改 statusbar, navigationbar 顏色
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(getResources().getColor(R.color.StatusBarColor));
+            window.setNavigationBarColor(getResources().getColor(R.color.NavigationBarColor));
+        }
+
 
         SharedPreferences mSharedPreferences = getSharedPreferences("Setting", Context.MODE_PRIVATE);
         PASSWORD = mSharedPreferences.getString("PASSWORD", "");

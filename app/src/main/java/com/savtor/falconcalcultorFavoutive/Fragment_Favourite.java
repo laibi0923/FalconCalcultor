@@ -68,7 +68,7 @@ public class Fragment_Favourite extends Fragment {
             Drawable drawable = menu.getItem(i).getIcon();
             if(drawable != null) {
                 drawable.mutate();
-                drawable.setColorFilter(getResources().getColor(R.color.accent), PorterDuff.Mode.SRC_ATOP);
+                drawable.setColorFilter(getResources().getColor(R.color.TextColor_TiffanyBule), PorterDuff.Mode.SRC_ATOP);
             }
         }
     }

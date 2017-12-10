@@ -20,7 +20,7 @@
 			android:layout_height="30dp"
 			android:id="@+id/sub_image"
 			android:src="@drawable/ic_falcon_white"
-			android:tint="@color/accent"
+			android:tint="@color/TextColor_TiffanyBule"
 			android:layout_marginLeft="20dp"
 			android:layout_marginRight="20dp"
 			android:layout_marginTop="20dp"
