@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-	<style name="AppTheme" parent="android:Theme.Material.NoActionBar">
+	<style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
 
 		<item name="colorPrimary">#424242</item>
 		<item name="colorPrimaryDark">#ffffff</item>
@@ -47,23 +47,6 @@
 		<item name="android:colorControlNormal">@color/accent</item>
 	</style>
 
-	<style name="AppTheme" parent="android:Theme.Material.NoActionBar">
-
-
-		<item name="colorPrimary">#424242</item>
-		<item name="colorPrimaryDark">#263238</item>
-		<item name="colorAccent">#80CBC4</item>
-		<item name="android:windowActionBar">false</item>
-		<item name="android:windowActionModeOverlay">true</item>
-		<item name="android:windowDrawsSystemBarBackgrounds">false</item>
-		<item name="android:statusBarColor">@android:color/transparent</item>
-
-
-		<!--Calcultor Saver 內 Spinner Textcolor-->
-		<item name="android:spinnerDropDownItemStyle">@style/mySpinnerItemStyle</item>
-		<item name="android:spinnerItemStyle">@style/spinnerItemStyle</item>
-
-	</style>
 
 </resources>
 

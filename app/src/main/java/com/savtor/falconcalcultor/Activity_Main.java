@@ -1,5 +1,6 @@
 package com.savtor.falconcalcultor;
 
+import android.app.Activity;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
