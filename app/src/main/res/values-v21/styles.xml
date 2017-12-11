@@ -3,8 +3,9 @@
 	<style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
 
 		<item name="colorPrimary">#424242</item>
-		<item name="colorPrimaryDark">#ffffff</item>
+		<item name="colorPrimaryDark">#263238</item>
 		<item name="colorAccent">#80CBC4</item>
+		<item name="android:windowContentTransitions">true</item>
 
 		<!--Calcultor Saver 內 Spinner Textcolor-->
 	</style>

@@ -15,8 +15,27 @@
     <string name="nav_menu_six">Version</string>
 
     <!--Fragment Calcultor-->
+    <string name="cal_installment_title">Installment</string>
+    <string name="cal_totalinsterestt_title">Total Insterest</string>
+    <string name="cal_totalpayment_title">Total Payment</string>
+
+    <string name="cal_loanamount_title">Loan Amount</string>
+    <string name="cal_loanamount_subtitle">Hong Kong Dollar</string>
+
+    <string name="cal_loantreams_title">Loan Trems</string>
+    <string name="cal_loantreams_subtitle">By The Months</string>
+
+    <string name="cal_loanrate_title">Loan Rate</string>
+    <string name="cal_loanrate_subtitle">Per Annum</string>
+
+    <string name="cal_loanamount_pun">($)</string>
+    <string name="cal_loantreams_pun">(Mths)</string>
+    <string name="cal_loanrate_pun">(%)</string>
+
+
+    <!--Fragment Calcultor dialog-->
     <string name="calcultor_loanamount_title">輸入貸款額</string>
-    <string name="calcultor_loanamount_subtitle">由 $0 - $1,000,000</string>
+    <string name="calcultor_loanamount_subtitle">由 $1 - $10,000,000</string>
 
     <string name="calcultor_loantrems_title">輸入期數</string>
     <string name="calcultor_loantrems_subtitle">由 3 - 90 期</string>
@@ -24,9 +43,10 @@
     <string name="calcultor_loanrate_title">輸入實際年利率</string>
     <string name="calcultor_loanrate_subtitle">由 1% - 60%</string>
 
-    <!--Fragment Calcultor dialog-->
     <string name="calcultor_dialog_PositiveButton">Done</string>
     <string name="calcultor_dialog_NegativeButton">Cancel</string>
+
+    <string name="schedule_btn_text">Schedule</string>
 
     <!--==============================================================================================-->
     <!--for Saver page-->

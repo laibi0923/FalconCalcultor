@@ -1,5 +1,6 @@
 package com.savtor.falconcalcultorCalcultor;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.*;
@@ -9,11 +10,16 @@ import android.support.v4.app.*;
 import android.support.v7.app.*;
 import android.support.v7.widget.*;
 import android.text.*;
+import android.transition.ChangeBounds;
+import android.transition.ChangeImageTransform;
+import android.transition.ChangeTransform;
+import android.transition.TransitionSet;
 import android.view.*;
 import android.widget.*;
 import com.savtor.falconcalaultorDatabase.Favourite_DataBasic;
 import com.savtor.falconcalcultor.*;
-import java.util.*;
+import com.savtor.falconcalcultorSchedule.Schedule_Fragment;
+
 import android.graphics.drawable.*;
 
 
@@ -22,7 +28,6 @@ import android.graphics.drawable.*;
  */
 public class Fragment_Calcultor extends Fragment {
 
-    double even_interest,  even_balance,  even_principle;
     private String Dialog_Title, Sub_Title;
     private Double result_installment;
     private int myCaseID;
@@ -38,6 +43,7 @@ public class Fragment_Calcultor extends Fragment {
     private TextView loanAmount_tv, loanTrems_tv, loanRate_tv, installment_tv, total_insterest_tv, total_payment_tv;
     private LinearLayout loan_amount, loan_trems, loan_rate;
     private RecyclerView calcultor_recycleView;
+    private LinearLayout schedule_btn;
 
     private int DB_ID;
     private String Edit_Mode;
@@ -115,22 +121,31 @@ public class Fragment_Calcultor extends Fragment {
             public void onClick(View v) {
 
                 if(Double.parseDouble(total_insterest_tv.getText().toString()) > 1){
-                    Fragment x = new Fragment_Saver();
+
+
                     Bundle mBundle = new Bundle();
                     mBundle.putDouble("loan_amount", Double.parseDouble(loanAmount_tv.getText().toString()));
                     mBundle.putInt("loan_trems", Integer.parseInt(loanTrems_tv.getText().toString()));
                     mBundle.putDouble("loan_rate", Double.parseDouble(loanRate_tv.getText().toString()));
                     mBundle.putString("EDIT_MODE", Edit_Mode);
                     mBundle.putInt("DB_ID", DB_ID);
-                    x.setArguments(mBundle);
 
-                    getFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.mFrameLayout, x).commit();
+                    Fragment mFragment = new Fragment_Saver();
+                    mFragment.setArguments(mBundle);
+
+                    FragmentManager mFragmentManager = getFragmentManager();
+                    FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
+                    mFragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right);
+                    mFragmentTransaction.replace(R.id.mFrameLayout, mFragment);
+                    mFragmentTransaction.addToBackStack(null);
+                    mFragmentTransaction.commit();
+
                 }else {
                     Toast.makeText(getContext(), "請先計算供款", Toast.LENGTH_LONG).show();
                 }
 
             }
-        });  //[?]
+        });
 
         loanAmount_tv = (TextView) v.findViewById(R.id.loanAmount_tv);
         loanAmount_tv.setText(init_Loan_Amount);
@@ -147,7 +162,39 @@ public class Fragment_Calcultor extends Fragment {
 
         total_payment_tv = (TextView) v.findViewById(R.id.total_payment_tv);
 
-        calcultor_recycleView = (RecyclerView) v.findViewById(R.id.calcultor_recyclerView);
+        schedule_btn = (LinearLayout) v.findViewById(R.id.schedule_btn);
+        schedule_btn.setOnClickListener(new View.OnClickListener() {
+            @TargetApi(Build.VERSION_CODES.KITKAT)
+            @Override
+            public void onClick(View v) {
+
+                if(Double.parseDouble(total_insterest_tv.getText().toString()) > 1){
+
+                    Bundle mBundle = new Bundle();
+
+                    mBundle.putDouble("loan_amount", Double.parseDouble(loanAmount_tv.getText().toString()));
+                    mBundle.putInt("loan_trems", Integer.parseInt(loanTrems_tv.getText().toString()));
+                    mBundle.putDouble("loan_rate", Double.parseDouble(loanRate_tv.getText().toString()));
+                    mBundle.putDouble("loan_installment", Double.parseDouble(installment_tv.getText().toString()));
+
+                    Fragment mFragment = new Schedule_Fragment();
+                    mFragment.setArguments(mBundle);
+
+                    FragmentManager mFragmentManager = getFragmentManager();
+                    FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
+                    mFragmentTransaction.setCustomAnimations(R.anim.enter_form_bottom, R.anim.exit_from_top, R.anim.enter_form_top, R.anim.exit_form_down);
+                    mFragmentTransaction.replace(R.id.mFrameLayout, mFragment);
+                    mFragmentTransaction.addToBackStack(null);
+                    mFragmentTransaction.commit();
+
+                }else {
+
+                    Toast.makeText(getContext(), "請先計算供款", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        });
+
 
         if(Edit_Mode == "true"){
 
@@ -171,11 +218,10 @@ public class Fragment_Calcultor extends Fragment {
                 calcultor_recycleView.setVisibility(View.GONE);
             }else {
                 randomAnim();
-                show_recyclerView();
             }
 
+        } //End of if
 
-        }
     }
 
     //=============================================================================================
@@ -259,7 +305,7 @@ public class Fragment_Calcultor extends Fragment {
 
                         if(calcul_EdTExt.getText().toString().isEmpty()){
                             break;
-                        }else if(calcul_EdTExt.getText().length() > 8){
+                        }else if(Double.parseDouble(calcul_EdTExt.getText().toString()) > 10000000){
                             Toast.makeText(getActivity(), "Proo Value", Toast.LENGTH_SHORT).show();
                         }else{
                             try {
@@ -316,10 +362,8 @@ public class Fragment_Calcultor extends Fragment {
 
                 if (result_installment < 1){
                     installment_tv.setText("0.00");
-                    calcultor_recycleView.setVisibility(View.GONE);
                 }else {
                     randomAnim();
-                    show_recyclerView();
                 }
 
                 mAlertDialog.dismiss();
@@ -401,42 +445,6 @@ public class Fragment_Calcultor extends Fragment {
     };
 
     //=============================================================================================
-    // [7] 顯示 Recycle View
-    public void show_recyclerView(){
-
-        calcultor_recycleView.setVisibility(View.VISIBLE);
-
-        calcultor_recycleView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
-        List<Schedule_Data> paymentScheduleData = fill_width_date();
-        Schedule_Adapter sc_adapter = new Schedule_Adapter(paymentScheduleData, getActivity());
-        calcultor_recycleView.setAdapter(sc_adapter);
-
-    }
-
-    //=============================================================================================
-    // [13] 將每期本金, 利息, 結餘 加入 List<Schedule_Data>
-    public List<Schedule_Data> fill_width_date(){
-
-        List<Schedule_Data> paymentScheduleData = new ArrayList<Schedule_Data>();
-
-        get_Value();
-
-        double even_balance = getLoanAmount;
-        mCalcultor = new Calcultor();
-
-        for (int i = 0; i < getLoanTrems; i++) {
-
-            even_interest = mCalcultor.cal_even_interest(getLoanRate, even_balance);
-            even_principle = mCalcultor.cal_even_principle(result_installment, even_interest);
-            even_balance = mCalcultor.cal_even_balance(even_balance, result_installment, even_interest);
-
-            paymentScheduleData.add(new Schedule_Data((i + 1) + "", Decimal_Point_changer(even_interest), String.format(dec_point, even_principle), String.format(dec_point, even_balance)));
-        }
-
-        return paymentScheduleData;
-    }
-
-    //=============================================================================================
     // [13] 小數點轉換
     public String Decimal_Point_changer(double value){
 
@@ -486,5 +494,6 @@ public class Fragment_Calcultor extends Fragment {
             dec_point = "%.2f";
         }
     }
+
 }
 

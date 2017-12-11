@@ -66,12 +66,13 @@
             android:background="?attr/selectableItemBackground"
             android:clickable="true"
             android:orientation="vertical"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:paddingTop="15dp"
-            android:paddingBottom="15dp">
+            android:paddingBottom="15dp"
+            android:layout_weight="1">
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -79,7 +80,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
-                android:gravity="top">
+                android:gravity="center">
 
                 <ImageView
                     android:layout_width="35dp"
@@ -137,20 +138,45 @@
 
                 </LinearLayout>
 
-                <ImageView
+                <LinearLayout
+                    android:orientation="horizontal"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/alert_icon_im"
-                    android:src="@drawable/ic_alarm_black_24dp"
-                    android:tint="@color/TextColor_TiffanyBule" />
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="54"
+                        android:id="@+id/loan_rate_tv"
+                        android:textAlignment="center"
+                        android:textSize="15dp"
+                        android:layout_weight="1"
+                        android:textColor="@color/switch_thumb_normal_material_dark"
+                        android:singleLine="true"
+                        android:ellipsize="end" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="%"
+                        android:id="@+id/textView5"
+                        android:textAlignment="center"
+                        android:textSize="15dp"
+                        android:layout_weight="1"
+                        android:textColor="@color/switch_thumb_normal_material_dark"
+                        android:ellipsize="end"
+                        android:layout_marginLeft="5dp" />
+                </LinearLayout>
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/imageView4"
                     android:src="@drawable/ic_more_vert_black_24dp"
-                    android:layout_marginLeft="15dp"
-                    android:tint="@color/TextColor_TiffanyBule" />
+                    android:tint="@color/TextColor_TiffanyBule"
+                    android:layout_marginLeft="5dp" />
 
             </LinearLayout>
 
@@ -158,88 +184,64 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="bottom|center"
+                android:gravity="center"
                 android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp">
-
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:layout_weight="1">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="$"
-                        android:id="@+id/textView16"
-                        android:textAlignment="center"
-                        android:textSize="25dp"
-                        android:textColor="@color/TextColor_TiffanyBule" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="5,00000000.00"
-                        android:id="@+id/loan_amount_tv"
-                        android:textAlignment="center"
-                        android:textSize="25dp"
-                        android:layout_weight="1"
-                        android:textColor="@color/TextColor_TiffanyBule"
-                        android:singleLine="true"
-                        android:focusable="false"
-                        android:focusableInTouchMode="false"
-                        android:scrollHorizontally="true"
-                        android:ellipsize="end" />
-                </LinearLayout>
+                android:layout_marginBottom="5dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp">
 
                 <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:paddingRight="10dp"
+                    android:gravity="left"
                     android:layout_weight="1">
 
                     <LinearLayout
                         android:orientation="horizontal"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="5dp">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:text="54"
-                            android:id="@+id/loan_rate_tv"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:text="$"
+                            android:id="@+id/textView16"
                             android:textAlignment="center"
-                            android:textSize="12dp"
+                            android:textSize="15dp"
+                            android:textColor="@color/switch_thumb_normal_material_dark"
+                            android:layout_marginRight="5dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:text="99999999.99"
+                            android:id="@+id/loan_amount_tv"
+                            android:textSize="15dp"
                             android:layout_weight="1"
                             android:textColor="@color/switch_thumb_normal_material_dark"
                             android:singleLine="true"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:scrollHorizontally="true"
                             android:ellipsize="end" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:text="%"
-                            android:id="@+id/textView5"
-                            android:textAlignment="center"
-                            android:textSize="12dp"
-                            android:layout_weight="1"
-                            android:textColor="@color/switch_thumb_normal_material_dark"
-                            android:ellipsize="end"
-                            android:layout_marginLeft="5dp" />
                     </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="#999999"
+                        android:id="@+id/sub_underline2"
+                        android:visibility="visible" />
 
                     <LinearLayout
                         android:orientation="horizontal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -248,7 +250,7 @@
                             android:text="6 "
                             android:id="@+id/loan_trems_tv"
                             android:textAlignment="center"
-                            android:textSize="12dp"
+                            android:textSize="15dp"
                             android:textColor="@color/switch_thumb_normal_material_dark"
                             android:singleLine="true"
                             android:ellipsize="end" />
@@ -260,7 +262,7 @@
                             android:text="Trems"
                             android:id="@+id/textView20"
                             android:textAlignment="center"
-                            android:textSize="12dp"
+                            android:textSize="15dp"
                             android:textColor="@color/switch_thumb_normal_material_dark"
                             android:ellipsize="end"
                             android:layout_marginLeft="5dp" />
@@ -271,13 +273,14 @@
                     android:layout_width="0.5dp"
                     android:layout_height="match_parent"
                     android:background="#999999"
-                    android:id="@+id/sub_underline" />
+                    android:id="@+id/sub_underline"
+                    android:visibility="visible" />
 
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="left"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical|right"
                     android:layout_weight="1">
 
                     <TextView
@@ -288,7 +291,7 @@
                         android:id="@+id/textView15"
                         android:textAlignment="center"
                         android:textSize="25dp"
-                        android:textColor="@color/TextColor_White"
+                        android:textColor="@color/TextColor_TiffanyBule"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp" />
 
@@ -296,11 +299,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="1933339.00000"
+                        android:text="193939.00"
                         android:id="@+id/installment_tv"
                         android:textAlignment="center"
                         android:textSize="25dp"
-                        android:textColor="@color/TextColor_White"
+                        android:textColor="@color/TextColor_TiffanyBule"
                         android:singleLine="true"
                         android:focusable="false"
                         android:focusableInTouchMode="false"
@@ -313,54 +316,82 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp">
+                android:visibility="visible">
 
-                <TextView
+                <LinearLayout
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:id="@+id/remarks_tv"
-                    android:minLines="1"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:ellipsize="end"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="Last Modify : "
+                        android:id="@+id/textView11"
+                        android:textColor="@color/switch_thumb_normal_material_dark"
+                        android:textSize="13dp"
+                        android:visibility="visible" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="2017/11/09"
+                        android:id="@+id/create_date_tv"
+                        android:textColor="@color/switch_thumb_normal_material_dark"
+                        android:textSize="13dp"
+                        android:singleLine="true"
+                        android:ellipsize="end" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:visibility="visible"
-                    android:text="This is fucking company , loan limited too low and proof manager"
-                    android:textColor="@color/switch_thumb_normal_material_dark"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false" />
-            </LinearLayout>
+                    android:layout_weight="1"
+                    android:gravity="right">
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:id="@+id/remarks_tv"
+                        android:minLines="1"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:ellipsize="end"
+                        android:visibility="gone"
+                        android:text="This is fucking company , loan limited too low and proof manager"
+                        android:textColor="@color/switch_thumb_normal_material_dark"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="Last Modify : "
-                    android:id="@+id/textView11"
-                    android:textColor="@color/switch_thumb_normal_material_dark"
-                    android:textSize="13dp" />
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:id="@+id/alert_icon_im"
+                        android:src="@drawable/ic_alarm_black_24dp"
+                        android:tint="@color/TextColor_TiffanyBule"
+                        android:layout_marginRight="10dp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="2017/11/09"
-                    android:id="@+id/create_date_tv"
-                    android:textColor="@color/switch_thumb_normal_material_dark"
-                    android:textSize="13dp"
-                    android:singleLine="true"
-                    android:ellipsize="end" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="2017/11/09"
+                        android:id="@+id/textView4"
+                        android:textColor="@color/switch_thumb_normal_material_dark"
+                        android:textSize="13dp"
+                        android:singleLine="true"
+                        android:ellipsize="end" />
+
+                </LinearLayout>
             </LinearLayout>
 
         </LinearLayout>
-
 
 
     </LinearLayout>

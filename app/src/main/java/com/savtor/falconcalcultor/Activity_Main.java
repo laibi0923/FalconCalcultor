@@ -1,18 +1,24 @@
 package com.savtor.falconcalcultor;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Build;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -51,6 +57,7 @@ public class Activity_Main extends AppCompatActivity {
 
     }
 
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -82,36 +89,32 @@ public class Activity_Main extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-                Fragment mFragment = null;
-
                 switch (item.getItemId()){
 
                     case R.id.nav_item1:
-                        mFragment = new Fragment1();
+                        Fragment_Transaction(new Fragment1());
                         break;
 
                     case R.id.nav_item2:
-                        mFragment = new Fragment_Calcultor();
+                        Fragment_Transaction(new Fragment_Calcultor());
                         break;
 
                     case R.id.nav_item3:
-                        mFragment = new Fragment_Favourite();
+                        Fragment_Transaction(new Fragment_Favourite());
                         break;
 
                     case R.id.nav_item4:
-                        mFragment = new Fragment1();
+                        Fragment_Transaction(new Fragment1());
                         break;
 
                     case R.id.nav_item5:
-                        mFragment = new Fragment_Setting();
+                        Fragment_Transaction(new Fragment_Setting());
                         break;
 
                     case R.id.nav_item6:
-                        mFragment = new Fragment_DebitInfo();
+                        Fragment_Transaction(new Fragment_DebitInfo());
                         break;
                 }
-
-                getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left).replace(R.id.mFrameLayout,mFragment).commit();
 
                 item.setChecked(true);
                 mDrawerLayout.closeDrawers();
@@ -119,8 +122,26 @@ public class Activity_Main extends AppCompatActivity {
             }
         });
 
-        mNavigationView.getMenu().getItem(0).setChecked(true);
         getSupportFragmentManager().beginTransaction().replace(R.id.mFrameLayout, new Fragment1()).commit();
+        mNavigationView.getMenu().getItem(0).setChecked(true);
+    }
+
+    public void Fragment_Transaction(final Fragment mFragment){
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                FragmentManager mFragmentManager = getSupportFragmentManager();
+                FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
+
+                mFragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
+                mFragmentTransaction.replace(R.id.mFrameLayout, mFragment);
+                mFragmentTransaction.commit();
+
+            }
+        },800);
+
     }
 
 }
