@@ -381,7 +381,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceSmall"
-                        android:text="2017/11/09"
                         android:id="@+id/textView4"
                         android:textColor="@color/switch_thumb_normal_material_dark"
                         android:textSize="13dp"
