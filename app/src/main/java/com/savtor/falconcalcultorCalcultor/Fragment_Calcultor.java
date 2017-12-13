@@ -21,6 +21,9 @@ import com.savtor.falconcalcultor.*;
 import com.savtor.falconcalcultorSchedule.Schedule_Fragment;
 
 import android.graphics.drawable.*;
+import android.support.v4.view.*;
+import android.view.animation.*;
+import android.animation.*;
 
 
 /**
@@ -29,20 +32,17 @@ import android.graphics.drawable.*;
 public class Fragment_Calcultor extends Fragment {
 
     private String Dialog_Title, Sub_Title;
-    private Double result_installment;
+    private double result_installment, result_total_interest, result_total_payment;
     private int myCaseID;
-    private double getLoanAmount, getLoanRate, getInstallment;
-    private int getLoanTrems;
+    private double current_LoanAmount, current_LoanRate;
+    private int current_LoanTrems;
     private float x = 0;
-
-    private String init_Loan_Amount, init_Loan_Trems, init_Loan_Rate;
 
 	Drawable edit_icon;
 	
     private ImageView addtofav_btn;
     private TextView loanAmount_tv, loanTrems_tv, loanRate_tv, installment_tv, total_insterest_tv, total_payment_tv;
     private LinearLayout loan_amount, loan_trems, loan_rate;
-    private RecyclerView calcultor_recycleView;
     private LinearLayout schedule_btn;
 
     private int DB_ID;
@@ -81,11 +81,13 @@ public class Fragment_Calcultor extends Fragment {
             }else if (Edit_Mode == "false"){
                 Edit_Mode_Off();
             }
+			
         }else {
             Edit_Mode_Off();
         }
 
 	}
+	
 
     @Nullable
     @Override
@@ -97,11 +99,69 @@ public class Fragment_Calcultor extends Fragment {
 
         return v;
     }
+	
+	
+	
+	
+	
+	
+	
 
+	//=============================================================================================
+    // [?] Edit Mode On
+    private void Edit_Mode_On(int databasic_ID){
+
+        Edit_Mode = "true";
+
+        Favourite_DataBasic databasic = new Favourite_DataBasic(getActivity(), "Fragment_Calcultor");
+
+        current_LoanAmount = databasic.query(databasic_ID).getLoan_Amount();
+        current_LoanTrems = databasic.query(databasic_ID).getTrems();
+        current_LoanRate = databasic.query(databasic_ID).getLoan_Rate();
+		result_installment = mCalcultor.getMonthlyInstallment(current_LoanAmount, current_LoanTrems, current_LoanRate);
+		result_total_interest = mCalcultor.getTotalInsterest(current_LoanAmount, current_LoanTrems, result_installment);
+		result_total_payment = mCalcultor.getTotalPayment(result_installment,current_LoanTrems);
+
+		randomAnim();
+
+        edit_icon = getResources().getDrawable(R.drawable.ic_create_black_24dp);
+
+    }
+
+    //=============================================================================================
+    // [?] Edit Mode Off
+    private void Edit_Mode_Off(){
+
+        Edit_Mode = "false";
+
+        current_LoanAmount = 0;
+        current_LoanTrems = 12;
+        current_LoanRate = 54;
+		result_installment = 0;
+		result_total_interest = 0;
+		result_total_payment = 0;
+
+        edit_icon = getResources().getDrawable(R.drawable.ic_add_black_24dp);
+
+    }
+
+    //=============================================================================================
+    // [?] Get setting value in sharedpreferences
+    public void get_sharedpreferences(){
+        get_setting_password = mSharedPreferences.getInt("Setting_password", 1);
+        get_setting_language = mSharedPreferences.getInt("Setting_language", 1);
+        get_setting_decimal = mSharedPreferences.getInt("Setting_decimal" , 1);
+
+        if (get_setting_decimal == 1){
+            dec_point = "%.0f";
+        }else if(get_setting_decimal == 2){
+            dec_point = "%.2f";
+        }
+    }
 
 
     //=============================================================================================
-    // [1] 加入畫面內容
+    // [?] 加入畫面內容
     public void Find_View(View v){
 
         loan_amount = (LinearLayout) v.findViewById(R.id.loanAmount_linear);
@@ -124,16 +184,16 @@ public class Fragment_Calcultor extends Fragment {
 
 
                     Bundle mBundle = new Bundle();
-                    mBundle.putDouble("loan_amount", Double.parseDouble(loanAmount_tv.getText().toString()));
-                    mBundle.putInt("loan_trems", Integer.parseInt(loanTrems_tv.getText().toString()));
-                    mBundle.putDouble("loan_rate", Double.parseDouble(loanRate_tv.getText().toString()));
+                    mBundle.putDouble("loan_amount", current_LoanAmount);
+                    mBundle.putInt("loan_trems", current_LoanTrems);
+                    mBundle.putDouble("loan_rate", current_LoanRate);
                     mBundle.putString("EDIT_MODE", Edit_Mode);
                     mBundle.putInt("DB_ID", DB_ID);
 
                     Fragment mFragment = new Fragment_Saver();
                     mFragment.setArguments(mBundle);
 
-                    FragmentManager mFragmentManager = getFragmentManager();
+                    FragmentManager mFragmentManager = getActivity().getSupportFragmentManager();
                     FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
                     mFragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right);
                     mFragmentTransaction.replace(R.id.mFrameLayout, mFragment);
@@ -148,23 +208,28 @@ public class Fragment_Calcultor extends Fragment {
         });
 
         loanAmount_tv = (TextView) v.findViewById(R.id.loanAmount_tv);
-        loanAmount_tv.setText(init_Loan_Amount);
+        loanAmount_tv.setText(String.format("%1$.2f", current_LoanAmount));
 
         loanTrems_tv = (TextView) v.findViewById(R.id.loanTrems_tv);
-        loanTrems_tv.setText(init_Loan_Trems);
+        loanTrems_tv.setText(String.valueOf(current_LoanTrems));
 
         loanRate_tv = (TextView) v.findViewById(R.id.loanRate_tv);
-        loanRate_tv.setText(init_Loan_Rate);
+        loanRate_tv.setText(String.format("%.2f", current_LoanRate));
 
         installment_tv = (TextView) v.findViewById(R.id.installment_tv);
-
+		installment_tv.setText(String.format(dec_point, result_installment));
+		
+		
+		
         total_insterest_tv = (TextView) v.findViewById(R.id.total_interest_tv);
-
+		total_insterest_tv.setText(String.format(dec_point, result_total_interest));
+		
         total_payment_tv = (TextView) v.findViewById(R.id.total_payment_tv);
+		total_payment_tv.setText(String.format(dec_point, result_total_payment));
 
         schedule_btn = (LinearLayout) v.findViewById(R.id.schedule_btn);
         schedule_btn.setOnClickListener(new View.OnClickListener() {
-            @TargetApi(Build.VERSION_CODES.KITKAT)
+            
             @Override
             public void onClick(View v) {
 
@@ -172,10 +237,10 @@ public class Fragment_Calcultor extends Fragment {
 
                     Bundle mBundle = new Bundle();
 
-                    mBundle.putDouble("loan_amount", Double.parseDouble(loanAmount_tv.getText().toString()));
-                    mBundle.putInt("loan_trems", Integer.parseInt(loanTrems_tv.getText().toString()));
-                    mBundle.putDouble("loan_rate", Double.parseDouble(loanRate_tv.getText().toString()));
-                    mBundle.putDouble("loan_installment", Double.parseDouble(installment_tv.getText().toString()));
+                    mBundle.putDouble("loan_amount", current_LoanAmount);
+                    mBundle.putInt("loan_trems", current_LoanTrems);
+                    mBundle.putDouble("loan_rate", current_LoanRate);
+                    mBundle.putDouble("loan_installment", result_installment);
 
                     Fragment mFragment = new Schedule_Fragment();
                     mFragment.setArguments(mBundle);
@@ -196,36 +261,10 @@ public class Fragment_Calcultor extends Fragment {
         });
 
 
-        if(Edit_Mode == "true"){
-
-            get_Value();
-            result_installment = mCalcultor.getMonthlyInstallment(getLoanAmount, getLoanTrems, getLoanRate);
-
-            if (mCalcultor.getTotalInsterest(getLoanAmount, getLoanTrems, result_installment) < 1){
-                total_insterest_tv.setText("0.00");
-            }else {
-                total_insterest_tv.setText(String.format(dec_point, mCalcultor.getTotalInsterest(getLoanAmount, getLoanTrems, result_installment)));
-            }
-
-            if (mCalcultor.getTotalPayment(result_installment,getLoanTrems) < 1) {
-                total_payment_tv.setText("0.00");
-            }else {
-                total_payment_tv.setText(String.format(dec_point, mCalcultor.getTotalPayment(result_installment,getLoanTrems)));
-            }
-
-            if (result_installment < 1){
-                installment_tv.setText("0.00");
-                calcultor_recycleView.setVisibility(View.GONE);
-            }else {
-                randomAnim();
-            }
-
-        } //End of if
-
     }
 
     //=============================================================================================
-    // [1] 加入 Dialog 畫面內容
+    // [?] 加入 Dialog 畫面內容
     public void find_dialog_view(){
 
         dialog_view = LayoutInflater.from(getActivity()).inflate(R.layout.cal_dialog, null);
@@ -244,7 +283,7 @@ public class Fragment_Calcultor extends Fragment {
     }
 
     //=============================================================================================
-    // [2] 點擊事件
+    // [?] 點擊事件
     private View.OnClickListener linearLayout_OnclickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -276,10 +315,8 @@ public class Fragment_Calcultor extends Fragment {
 
 
     //=============================================================================================
-    // [3] 利用 Alert Dialog 處理用戶輸入資料
+    // [?] 利用 Alert Dialog 處理用戶輸入資料
     private void show_alert_dialog(String Dialog_Title, String Sub_Title, final int myCaseID, View Dialogview){
-
-//        final View dialog_view = LayoutInflater.from(getActivity()).inflate(R.layout.cal_dialog, null);
 
         final AlertDialog mAlertDialog = new AlertDialog.Builder(getContext()).create();
         mAlertDialog.setView(Dialogview);
@@ -309,7 +346,8 @@ public class Fragment_Calcultor extends Fragment {
                             Toast.makeText(getActivity(), "Proo Value", Toast.LENGTH_SHORT).show();
                         }else{
                             try {
-                                loanAmount_tv.setText(String.format("%1$.2f", Double.parseDouble(calcul_EdTExt.getText().toString())));
+								current_LoanAmount = Double.parseDouble(calcul_EdTExt.getText().toString());
+                                loanAmount_tv.setText(String.format("%1$.2f", current_LoanAmount));
                             }catch (NumberFormatException ee){ee.printStackTrace();}
                         }
 
@@ -324,7 +362,8 @@ public class Fragment_Calcultor extends Fragment {
                         }else if(Integer.parseInt(calcul_EdTExt.getText().toString()) < 3 || Integer.parseInt(calcul_EdTExt.getText().toString()) > 96) {
                             Toast.makeText(getActivity(), "Proo Value", Toast.LENGTH_SHORT).show();
                         }else {
-                            loanTrems_tv.setText(calcul_EdTExt.getText().toString());
+							current_LoanTrems = Integer.parseInt(calcul_EdTExt.getText().toString());
+                            loanTrems_tv.setText(String.valueOf(current_LoanTrems));
                         }
 
                         break;
@@ -337,7 +376,8 @@ public class Fragment_Calcultor extends Fragment {
                             Toast.makeText(getActivity(), "Proo Value", Toast.LENGTH_SHORT).show();
                         }else {
                             try {
-                                loanRate_tv.setText(String.format("%.2f", Double.parseDouble(calcul_EdTExt.getText().toString())));
+								current_LoanRate = Double.parseDouble(calcul_EdTExt.getText().toString());
+                                loanRate_tv.setText(String.format("%.2f", current_LoanRate));
                             }catch (NumberFormatException ee){ee.printStackTrace();}
                         }
 
@@ -345,19 +385,21 @@ public class Fragment_Calcultor extends Fragment {
 
                 }
 
-                get_Value();
-                result_installment = mCalcultor.getMonthlyInstallment(getLoanAmount, getLoanTrems, getLoanRate);
-
-                if (mCalcultor.getTotalInsterest(getLoanAmount, getLoanTrems, result_installment) < 1){
+                result_installment = mCalcultor.getMonthlyInstallment(current_LoanAmount, current_LoanTrems, current_LoanRate);
+				result_total_interest = mCalcultor.getTotalInsterest(current_LoanAmount, current_LoanTrems, result_installment);
+				result_total_payment = mCalcultor.getTotalPayment(result_installment, current_LoanTrems);
+				
+				
+                if (result_total_interest < 1){
                     total_insterest_tv.setText("0.00");
                 }else {
-                    total_insterest_tv.setText(String.format(dec_point, mCalcultor.getTotalInsterest(getLoanAmount, getLoanTrems, result_installment)));
+                    total_insterest_tv.setText(String.format(dec_point, result_total_interest));
                 }
 
-                if (mCalcultor.getTotalPayment(result_installment,getLoanTrems) < 1) {
+                if (result_total_payment < 1) {
                     total_payment_tv.setText("0.00");
                 }else {
-                    total_payment_tv.setText(String.format(dec_point, mCalcultor.getTotalPayment(result_installment,getLoanTrems)));
+                    total_payment_tv.setText(String.format(dec_point, result_total_payment));
                 }
 
                 if (result_installment < 1){
@@ -375,22 +417,7 @@ public class Fragment_Calcultor extends Fragment {
     }
 
     //=============================================================================================
-    // [4] 取出 Loan Amount, Loan Trems, Loan Rate, Installment
-    private void get_Value(){
-        try {
-            getLoanAmount = Double.parseDouble(loanAmount_tv.getText().toString());
-            getLoanTrems = Integer.parseInt(loanTrems_tv.getText().toString());
-            getLoanRate = Double.parseDouble(loanRate_tv.getText().toString());
-            getInstallment = Double.parseDouble(installment_tv.getText().toString());
-
-
-        } catch (NumberFormatException ee){
-            Toast.makeText(getActivity(), ee.toString(), Toast.LENGTH_SHORT);
-        }
-    }
-
-    //=============================================================================================
-    // [5] 計算完畢後動畫
+    // [?] 計算完畢後動畫
     private void randomAnim(){
 
         x = 0;
@@ -404,7 +431,7 @@ public class Fragment_Calcultor extends Fragment {
 
                 while (x <= result_installment){
                     Message msg = mHandler.obtainMessage();
-                    x += result_installment/getLoanTrems;
+                    x += result_installment/current_LoanTrems;
                     msg.what = 1;
                     msg.sendToTarget();
 
@@ -419,19 +446,15 @@ public class Fragment_Calcultor extends Fragment {
     }
 
     //=============================================================================================
-    // [6] 計算完畢後動畫
+    // [?] 計算完畢後動畫
     private Handler mHandler = new Handler(){
 
         public void handleMessage(Message msg){
             if(msg.what == 1) {
 
                 if(x > result_installment){
-
-                    get_Value();
+                    
                     installment_tv.setText(String.format(dec_point,result_installment));
-
-                    mCalcultor.getTotalInsterest(getLoanAmount, getLoanTrems, getInstallment);
-                    mCalcultor.getTotalPayment(getInstallment, getLoanTrems);
 
                 }else {
                     installment_tv.setText(String.format(dec_point,x));
@@ -444,56 +467,9 @@ public class Fragment_Calcultor extends Fragment {
         }
     };
 
-    //=============================================================================================
-    // [13] 小數點轉換
-    public String Decimal_Point_changer(double value){
-
-        return String.format(dec_point, value);
-    }
-
-    //=============================================================================================
-    // [13] Edit Mode
-    private void Edit_Mode_On(int databasic_ID){
-
-        Edit_Mode = "true";
-
-        Favourite_DataBasic databasic = new Favourite_DataBasic(getActivity(), "Fragment_Calcultor");
-
-        init_Loan_Amount = String.valueOf(databasic.query(databasic_ID).getLoan_Amount());
-        init_Loan_Trems = String.valueOf(databasic.query(databasic_ID).getTrems());
-        init_Loan_Rate = String.valueOf(databasic.query(databasic_ID).getLoan_Rate());
-
-        edit_icon = getResources().getDrawable(R.drawable.ic_create_black_24dp);
-
-    }
-
-    //=============================================================================================
-    // [13] Edit Mode
-    private void Edit_Mode_Off(){
-
-        Edit_Mode = "false";
-
-        init_Loan_Amount = "0.00";
-        init_Loan_Trems = "12";
-        init_Loan_Rate = "54.00";
-
-        edit_icon = getResources().getDrawable(R.drawable.ic_add_black_24dp);
-
-    }
-
-    //=============================================================================================
-    // []
-    public void get_sharedpreferences(){
-        get_setting_password = mSharedPreferences.getInt("Setting_password", 1);
-        get_setting_language = mSharedPreferences.getInt("Setting_language", 1);
-        get_setting_decimal = mSharedPreferences.getInt("Setting_decimal" , 1);
-
-        if (get_setting_decimal == 1){
-            dec_point = "%.0f";
-        }else if(get_setting_decimal == 2){
-            dec_point = "%.2f";
-        }
-    }
+    
+	
+    
 
 }
 

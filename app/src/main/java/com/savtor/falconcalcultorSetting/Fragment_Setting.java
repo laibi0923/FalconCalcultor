@@ -81,8 +81,16 @@ public class Fragment_Setting extends Fragment
 					Bundle mBundle = new Bundle();
 					mBundle.putInt("setup_password_mode", 1);
 					mFragment.setArguments(mBundle);
+					
 
-					getFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.mFrameLayout, mFragment).commit();
+                    FragmentManager mFragmentManager = getActivity().getSupportFragmentManager();
+                    FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
+                    mFragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right);
+                    mFragmentTransaction.replace(R.id.mFrameLayout, mFragment);
+                    mFragmentTransaction.addToBackStack(null);
+                    mFragmentTransaction.commit();
+
+					//getFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.mFrameLayout, mFragment).commit();
 
 				}else if(get_setting_password == 2){
 					Toast.makeText(getContext(), "Yoy have setup password yet", Toast.LENGTH_LONG).show();
@@ -116,8 +124,15 @@ public class Fragment_Setting extends Fragment
 					Bundle mBundle = new Bundle();
 					mBundle.putInt("setup_password_mode", 2);
 					mFragment.setArguments(mBundle);
+					
+					FragmentManager mFragmentManager = getActivity().getSupportFragmentManager();
+                    FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
+                    mFragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right);
+                    mFragmentTransaction.replace(R.id.mFrameLayout, mFragment);
+                    mFragmentTransaction.addToBackStack(null);
+                    mFragmentTransaction.commit();
 
-					getFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.mFrameLayout, mFragment).commit();
+					//getFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.mFrameLayout, mFragment).commit();
 
 				}
 
