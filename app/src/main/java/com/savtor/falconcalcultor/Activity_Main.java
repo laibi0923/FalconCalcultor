@@ -36,7 +36,6 @@ public class Activity_Main extends AppCompatActivity {
     private Toolbar mToolbar;
     private DrawerLayout mDrawerLayout;
     public NavigationView mNavView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,6 +79,8 @@ public class Activity_Main extends AppCompatActivity {
 
 
     final void init_navigationview() {
+
+        mNavView = (NavigationView) findViewById(R.id.mNavView);
 
         mNavView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
