@@ -220,6 +220,46 @@ public class Fragment_Calcultor extends Fragment {
 		installment_tv.setText(String.format(dec_point, result_installment));
 		
 		
+		ObjectAnimator tx = ObjectAnimator.ofFloat(loan_amount, "X", -30f, 0.0f);
+		ObjectAnimator tap = ObjectAnimator.ofFloat(loan_amount, View.ALPHA, 0.0f, 1.0f);
+		
+		AnimatorSet amount_set = new AnimatorSet();
+		amount_set.playTogether(tap, tx);
+		amount_set.setDuration(1000);
+		//amount_set.setStartDelay(100);
+		
+		
+		ObjectAnimator tremsx = ObjectAnimator.ofFloat(loan_trems, "X", -30f, 0.0f);
+		ObjectAnimator trmsap = ObjectAnimator.ofFloat(loan_trems, View.ALPHA, 0.0f, 1.0f);
+
+		AnimatorSet trems_set = new AnimatorSet();
+		trems_set.playTogether(trmsap, tremsx);
+		trems_set.setDuration(1200);
+		//trems_set.setStartDelay(200);
+		
+		ObjectAnimator ratex = ObjectAnimator.ofFloat(loan_rate, "X", -30f, 0.0f);
+		ObjectAnimator rateap = ObjectAnimator.ofFloat(loan_rate, View.ALPHA, 0.0f, 1.0f);
+
+		AnimatorSet rate_set = new AnimatorSet();
+		rate_set.playTogether(rateap, ratex);
+		rate_set.setDuration(1400);
+		//rate_set.setStartDelay(300);
+		
+		ObjectAnimator actionbutton_alpha = ObjectAnimator.ofFloat(addtofav_btn, View.ALPHA, 0.2f, 1.0f);
+		ObjectAnimator actionbutton_scaleX = ObjectAnimator.ofFloat(addtofav_btn, "scaleX", 0.0f, 1.0f);
+		ObjectAnimator actionbutton_scaleY = ObjectAnimator.ofFloat(addtofav_btn, "scaleY", 0.0f, 1.0f);
+		
+		AnimatorSet actionbutton_set = new AnimatorSet();
+		actionbutton_set.playTogether(actionbutton_alpha, actionbutton_scaleX, actionbutton_scaleY);
+		actionbutton_set.setDuration(300);
+		actionbutton_set.setStartDelay(500);
+		
+		
+		AnimatorSet testing = new AnimatorSet();
+		testing.playTogether(trems_set, amount_set, rate_set, actionbutton_set);
+		testing.start();
+		
+		
 		
         total_insterest_tv = (TextView) v.findViewById(R.id.total_interest_tv);
 		total_insterest_tv.setText(String.format(dec_point, result_total_interest));
