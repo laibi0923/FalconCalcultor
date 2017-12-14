@@ -80,42 +80,7 @@ public class Fragment_Passwordgate extends Fragment {
         });
 
 
-        // 清除按鈕
-        password_clear_btn = (LinearLayout) v.findViewById(R.id.password_clear_btn);
-        password_clear_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                password_edittext.setText("");
-            }
-        });
-
-
-        // 按鈕內文字
-        password_confirm_text = (TextView) v.findViewById(R.id.password_confirm_text);
-        if (get_password_mode == 1){
-            password_confirm_text.setText("Confirmed");
-        }else if(get_password_mode == 2){
-            password_confirm_text.setText("Clear password");
-        }
-
-
-        // 按鈕
-        password_confirm_btn = (LinearLayout) v.findViewById(R.id.password_confirm_btn);
-        password_confirm_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if(get_password_mode == 1){
-                    Password_Save_mode();
-                }else if (get_password_mode == 2){
-                    Password_Clear_mode();
-                }else if (get_password_mode == 3){
-                    Log.e("Mode", "Login");
-                    Login_mode();
-                }
-
-            }
-        });
+ 
 
     }
 

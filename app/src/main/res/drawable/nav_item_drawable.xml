@@ -2,6 +2,6 @@
 
 <!-- change color when you select nav item -->
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@color/colorPrimaryDark" android:state_checked="true"></item>
+    <item android:drawable="@color/nav_selected_color" android:state_checked="true"></item>
     <!--<item android:drawable="@color/nav_default_bg" android:state_checked="false"></item>-->
 </selector>

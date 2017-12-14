@@ -38,7 +38,7 @@ public class Fragment_Saver extends Fragment {
 
     private String This_Fragment_Name = "Fragment_Saver";
 
-//    For Find View
+	//    For Find View
     private View subview_loantype, subview_applytype, subview_loannum, subview_firstdue, subview_finaldue, subview_alertdate, subview_address, subview_phone, subview_remarks;
 	private EditText loanname_edittext, loannum_edittext, address_edittext, phone_edittext, remarks_edittext;
 	private ImageView loantype_icon, applytype_icon, loannum_icon, firstdue_icon, finaldue_icon, alert_icon, address_icon, phone_icon, remarks_icon;
@@ -142,7 +142,6 @@ public class Fragment_Saver extends Fragment {
 
         super.onDestroy();
     }
-
 
 	
     //=============================================================================================

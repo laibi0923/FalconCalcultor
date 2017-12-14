@@ -67,7 +67,7 @@ public class Fragment_Setting extends Fragment
 	public void Find_View(View v){
 
 		password_title = (TextView) v.findViewById(R.id.password_title);
-		password_title.setText("Password");
+		password_title.setText(getResources().getString(R.string.password_title));
 
 		password_lock_subview = v.findViewById(R.id.password_lock);
 		password_lock_linear = (LinearLayout) password_lock_subview.findViewById(R.id.sub_linear);
@@ -82,7 +82,15 @@ public class Fragment_Setting extends Fragment
 					mBundle.putInt("setup_password_mode", 1);
 					mFragment.setArguments(mBundle);
 
-					getFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.mFrameLayout, mFragment).commit();
+
+                    FragmentManager mFragmentManager = getActivity().getSupportFragmentManager();
+                    FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
+                    mFragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right);
+                    mFragmentTransaction.replace(R.id.mFrameLayout, mFragment);
+                    mFragmentTransaction.addToBackStack(null);
+                    mFragmentTransaction.commit();
+
+					//getFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.mFrameLayout, mFragment).commit();
 
 				}else if(get_setting_password == 2){
 					Toast.makeText(getContext(), "Yoy have setup password yet", Toast.LENGTH_LONG).show();
@@ -91,7 +99,7 @@ public class Fragment_Setting extends Fragment
 			}
 		});
 		password_lock_text = (TextView) password_lock_subview.findViewById(R.id.sub_text);
-		password_lock_text.setText("Setup Password");
+		password_lock_text.setText(getResources().getString(R.string.setup_password_title));
 		password_lock_icon = (ImageView) password_lock_subview.findViewById(R.id.sub_image);
 		password_lock_icon.setImageResource(R.drawable.ic_lock_black_24dp);
 
@@ -117,14 +125,21 @@ public class Fragment_Setting extends Fragment
 					mBundle.putInt("setup_password_mode", 2);
 					mFragment.setArguments(mBundle);
 
-					getFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.mFrameLayout, mFragment).commit();
+					FragmentManager mFragmentManager = getActivity().getSupportFragmentManager();
+                    FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
+                    mFragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right);
+                    mFragmentTransaction.replace(R.id.mFrameLayout, mFragment);
+                    mFragmentTransaction.addToBackStack(null);
+                    mFragmentTransaction.commit();
+
+					//getFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.mFrameLayout, mFragment).commit();
 
 				}
 
 			}
 		});
 		password_clear_text = (TextView) password_clear_subview.findViewById(R.id.sub_text);
-		password_clear_text.setText("Clear Password");
+		password_clear_text.setText(getResources().getString(R.string.reset_password_title));
 		password_clear_icon = (ImageView) password_clear_subview.findViewById(R.id.sub_image);
 		password_clear_icon.setImageResource(R.drawable.ic_lock_open_black_24dp);
 
@@ -135,7 +150,7 @@ public class Fragment_Setting extends Fragment
 
 
 		language_title = (TextView) v.findViewById(R.id.language_title);
-		language_title.setText("Language");
+		language_title.setText(getResources().getString(R.string.language_title));
 
 		language_eng_subview = v.findViewById(R.id.language_eng);
 		language_eng_linear = (LinearLayout) language_eng_subview.findViewById(R.id.sub_linear);
@@ -148,7 +163,7 @@ public class Fragment_Setting extends Fragment
 			}
 		});
 		language_eng_text = (TextView) language_eng_subview.findViewById(R.id.sub_text);
-		language_eng_text.setText("ENG");
+		language_eng_text.setText(getResources().getString(R.string.language_eng_title));
 		language_eng_icon = (ImageView) language_eng_subview.findViewById(R.id.sub_image);
 		language_eng_icon.setImageResource(R.drawable.ic_translate_black_24dp);
 
@@ -164,7 +179,7 @@ public class Fragment_Setting extends Fragment
 			}
 		});
 		language_cht_text = (TextView) language_cht_subview.findViewById(R.id.sub_text);
-		language_cht_text.setText("繁體");
+		language_cht_text.setText(getResources().getString(R.string.language_cht_title));
 		language_cht_icon = (ImageView) language_cht_subview.findViewById(R.id.sub_image);
 		language_cht_icon.setImageResource(R.drawable.ic_translate_black_24dp);
 
@@ -181,7 +196,7 @@ public class Fragment_Setting extends Fragment
 
 
 		decimal_point_title = (TextView) v.findViewById(R.id.decimal_point_title);
-		decimal_point_title.setText("小數點");
+		decimal_point_title.setText(getResources().getString(R.string.decimal_point_title));
 
 		decimal_point_0_subview = v.findViewById(R.id.decimal_point_0);
 		decimal_point_0_linear = (LinearLayout) decimal_point_0_subview.findViewById(R.id.sub_linear);
@@ -194,7 +209,7 @@ public class Fragment_Setting extends Fragment
 			}
 		});
 		decimal_point_0_text = (TextView) decimal_point_0_subview.findViewById(R.id.sub_text);
-		decimal_point_0_text.setText("不顯示小數點");
+		decimal_point_0_text.setText(getResources().getString(R.string.decimal_point_0_title));
 		decimal_point_0_icon = (ImageView) decimal_point_0_subview.findViewById(R.id.sub_image);
 		decimal_point_0_icon.setImageResource(R.drawable.ic_increase_decimal);
 
@@ -210,7 +225,7 @@ public class Fragment_Setting extends Fragment
 			}
 		});
 		decimal_point_2_text = (TextView) decimal_point_2_subview.findViewById(R.id.sub_text);
-		decimal_point_2_text.setText("顯示小數點後兩位");
+		decimal_point_2_text.setText(getResources().getString(R.string.decimal_point_2_title));
 		decimal_point_2_icon = (ImageView) decimal_point_2_subview.findViewById(R.id.sub_image);
 		decimal_point_2_icon.setImageResource(R.drawable.ic_decrease_decimal);
 

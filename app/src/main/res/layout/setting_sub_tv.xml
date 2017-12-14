@@ -16,15 +16,15 @@
 		android:id="@+id/sub_linear">
 
 		<ImageView
-			android:layout_width="30dp"
-			android:layout_height="30dp"
+			android:layout_width="25dp"
+			android:layout_height="25dp"
 			android:id="@+id/sub_image"
 			android:src="@drawable/ic_falcon_white"
 			android:tint="@color/TextColor_TiffanyBule"
-			android:layout_marginLeft="20dp"
-			android:layout_marginRight="20dp"
-			android:layout_marginTop="20dp"
-			android:layout_marginBottom="20dp"/>
+			android:layout_marginLeft="30dp"
+			android:layout_marginRight="30dp"
+			android:layout_marginTop="30dp"
+			android:layout_marginBottom="30dp"/>
 
 		<LinearLayout
 			android:orientation="vertical"
@@ -39,8 +39,8 @@
 				android:text="content"
 				android:id="@+id/sub_text"
 				android:textColor="#ffffff"
-				android:layout_marginTop="20dp"
-				android:layout_marginBottom="20dp"/>
+				android:layout_marginTop="30dp"
+				android:layout_marginBottom="30dp"/>
 
 			<View
 				android:layout_width="match_parent"

@@ -2,8 +2,9 @@
 <resources>
 	<color name="colorPrimary">#424242</color>
 	<color name="colorPrimaryDark">#263238</color>
-	<color name="fragment_bg">#2E2E2E</color>
+	<color name="fragment_bg">#2e2e2e</color>
 
+	<color name="nav_selected_color">#37474f</color>
 
 	<!--=====================================================================================-->
 	<color name="StatusBarColor">#263238</color>
