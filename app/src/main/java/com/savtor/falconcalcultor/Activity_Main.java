@@ -88,36 +88,39 @@ public class Activity_Main extends AppCompatActivity {
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                
+				if(!item.isChecked()){
+					switch (item.getItemId()){
 
-                switch (item.getItemId()){
+						case R.id.nav_item1:
+							Fragment_Transaction(new Fragment1());
+							break;
 
-                    case R.id.nav_item1:
-                        Fragment_Transaction(new Fragment1());
-                        break;
+						case R.id.nav_item2:
+							Fragment_Transaction(new Fragment_Calcultor());
+							break;
 
-                    case R.id.nav_item2:
-                        Fragment_Transaction(new Fragment_Calcultor());
-                        break;
+						case R.id.nav_item3:
+							Fragment_Transaction(new Fragment_Favourite());
+							break;
 
-                    case R.id.nav_item3:
-                        Fragment_Transaction(new Fragment_Favourite());
-                        break;
+						case R.id.nav_item4:
+							Fragment_Transaction(new Fragment1());
+							break;
 
-                    case R.id.nav_item4:
-                        Fragment_Transaction(new Fragment1());
-                        break;
+						case R.id.nav_item5:
+							Fragment_Transaction(new Fragment_Setting());
+							break;
 
-                    case R.id.nav_item5:
-                        Fragment_Transaction(new Fragment_Setting());
-                        break;
-
-                    case R.id.nav_item6:
-                        Fragment_Transaction(new Fragment_DebitInfo());
-                        break;
-                }
-
-                item.setChecked(true);
-                mDrawerLayout.closeDrawers();
+						case R.id.nav_item6:
+							Fragment_Transaction(new Fragment_DebitInfo());
+							break;
+					}
+					
+					item.setChecked(true);
+				}
+                
+				mDrawerLayout.closeDrawers();
                 return true;
             }
         });
@@ -132,13 +135,13 @@ public class Activity_Main extends AppCompatActivity {
             @Override
             public void run() {
 
-                FragmentManager mFragmentManager = getSupportFragmentManager();
-                FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
+				FragmentManager mFragmentManager = getSupportFragmentManager();
+				FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
 
-                mFragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
-                mFragmentTransaction.replace(R.id.mFrameLayout, mFragment);
-                mFragmentTransaction.commit();
-
+				mFragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
+				mFragmentTransaction.replace(R.id.mFrameLayout, mFragment);
+				mFragmentTransaction.commit();
+				
             }
         },800);
 
