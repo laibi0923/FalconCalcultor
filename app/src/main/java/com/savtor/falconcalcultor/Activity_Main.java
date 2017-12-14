@@ -23,22 +23,25 @@ import com.savtor.falconcalcultorDebitInfo.Fragment_DebitInfo;
 import com.savtor.falconcalcultorFavoutive.Fragment_Favourite;
 import com.savtor.falconcalcultorSetting.Fragment_Setting;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+//import butterknife.BindView;
+//import butterknife.ButterKnife;
 
 public class Activity_Main extends AppCompatActivity {
 
 
-    @BindView(R.id.mToolbar)Toolbar mToolbar;
-    @BindView(R.id.mFrameLayout)FrameLayout mFrameLayout;
-    @BindView(R.id.mNavView)NavigationView mNavView;
-    @BindView(R.id.mDrawerLayout)DrawerLayout mDrawerLayout;
+//    @BindView(R.id.mToolbar)Toolbar mToolbar;
+//    @BindView(R.id.mFrameLayout)FrameLayout mFrameLayout;
+//    @BindView(R.id.mNavView)NavigationView mNavView;
+//    @BindView(R.id.mDrawerLayout)DrawerLayout mDrawerLayout;
+    private Toolbar mToolbar;
+    private DrawerLayout mDrawerLayout;
+    public NavigationView mNavView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
+//        ButterKnife.bind(this);
 
         init_toolbar();
 
