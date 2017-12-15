@@ -61,7 +61,7 @@ public class Favourite_Adapter extends RecyclerSwipeAdapter<Favourite_ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(final Favourite_ViewHolder holder, final int position) {
+    public void onBindViewHolder(final Favourite_ViewHolder holder, final int position ) {
         
         holder.create_date_tv.setText(list.get(position).getCreate_date());
 
@@ -82,15 +82,15 @@ public class Favourite_Adapter extends RecyclerSwipeAdapter<Favourite_ViewHolder
 		holder.loan_rate_tv.setText(String.valueOf( list.get(position).getLoan_Rate()));
 
         if (list.get(position).getApply_status().equals("0")){
-            holder.apply_status_tv.setText("Not Applying");
+            holder.apply_status_tv.setText(context.getResources().getString(R.string.favourite_status_notapply));
         }else if (list.get(position).getApply_status().equals("1")){
-            holder.apply_status_tv.setText("Applying");
+            holder.apply_status_tv.setText(context.getResources().getString(R.string.favourite_status_pending));
         }else if (list.get(position).getApply_status().equals("2")){
-            holder.apply_status_tv.setText("Approval");
+            holder.apply_status_tv.setText(context.getResources().getString(R.string.favourite_status_approval));
         }else if (list.get(position).getApply_status().equals("3")){
-            holder.apply_status_tv.setText("Reject");
+            holder.apply_status_tv.setText(context.getResources().getString(R.string.favourite_status_reject));
         }else if (list.get(position).getApply_status().equals("4")){
-            holder.apply_status_tv.setText("Cancel");
+            holder.apply_status_tv.setText(context.getResources().getString(R.string.favourite_status_cancel));
         }
 
 
@@ -117,6 +117,7 @@ public class Favourite_Adapter extends RecyclerSwipeAdapter<Favourite_ViewHolder
             holder.remarks_tv.setText(list.get(position).getRemarks().toString());
         }
 
+		holder.last_modify.setText(context.getResources().getString(R.string.favourite_lastmodify));
 
         holder.Del_btn.setOnClickListener(new View.OnClickListener() {
             @Override

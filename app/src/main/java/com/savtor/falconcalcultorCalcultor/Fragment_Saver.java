@@ -254,6 +254,7 @@ public class Fragment_Saver extends Fragment {
         finaldue_linear.setClickable(false);
 		
 		subview_alertdate = v.findViewById(R.id.subview_alertdate);
+		subview_alertdate.setVisibility(View.GONE);
 		alert_icon = (ImageView) subview_alertdate.findViewById(R.id.sub_image);
 		alert_icon.setImageResource(R.drawable.ic_alarm_black_24dp);
 		alert_textview = (TextView) subview_alertdate.findViewById(R.id.sub_textview);
@@ -558,10 +559,10 @@ public class Fragment_Saver extends Fragment {
                     Calendar_finaldue.add(Calendar.MONTH, bundle_trems - 1);
 
                     find_dialog_view();
-                    choose_one_text.setText("Normal");
-                    choose_two_text.setText("End of months");
+                    choose_one_text.setText(getResources().getString(R.string.calcultor_dialog_normal));
+                    choose_two_text.setText(getResources().getString(R.string.calcultor_dialog_endofmonth));
                     choose_three.setVisibility(View.GONE);
-                    choose_four.setVisibility(View.GONE);;
+                    choose_four.setVisibility(View.GONE);
                     choose_five.setVisibility(View.GONE);
 
                     show_alert_dialog("日期設置", dialog_view, finaldue_result_textview, finaldue_icon, 4);

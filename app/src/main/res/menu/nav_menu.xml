@@ -2,11 +2,12 @@
 
 	<group android:checkableBehavior="single">
 
+		<!--
 		<item
 			android:icon="@drawable/ic_data_usage_black_24dp"
 			android:id="@+id/nav_item1"
 			android:title="@string/nav_menu_one"/>
-
+		-->
 		<item
 			android:icon="@drawable/ic_exposure_black_24dp"
 			android:id="@+id/nav_item2"
@@ -16,22 +17,23 @@
 			android:icon="@drawable/ic_favorite_black_24dp"
 			android:id="@+id/nav_item3"
 			android:title="@string/nav_menu_three"/>
-
+<!--
 		<item
 			android:icon="@drawable/ic_grade_black_24dp"
 			android:id="@+id/nav_item4"
 			android:title="@string/nav_menu_four"/>
-
+-->
 		<item
 			android:icon="@drawable/ic_settings_black_24dp"
 			android:id="@+id/nav_item5"
 			android:title="@string/nav_menu_five"/>
 
+		<!--
 		<item
 			android:icon="@drawable/ic_developer_mode_black_24dp"
 			android:id="@+id/nav_item6"
 			android:title="@string/nav_menu_six"/>
-
+-->
 
 	</group>
 

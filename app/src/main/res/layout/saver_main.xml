@@ -7,7 +7,7 @@
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:background="@color/fragment_bg">
- 
+
 	<LinearLayout
 		android:orientation="horizontal"
 		android:layout_width="match_parent"
@@ -88,7 +88,8 @@
 					android:text="First Due Date"
 					android:id="@+id/textView8"
 					android:textColor="@color/TextColor_TiffanyBule"
-					android:layout_margin="10dp"/>
+					android:layout_margin="10dp"
+					android:visibility="gone"/>
 
 				<include
 					layout="@layout/saver_dialog_sub_tv"
@@ -132,7 +133,8 @@
 					android:text="Remarks"
 					android:id="@+id/textView28"
 					android:textColor="@color/TextColor_TiffanyBule"
-					android:layout_margin="10dp"/>
+					android:layout_margin="10dp"
+					android:visibility="gone"/>
 
 				<include
 					layout="@layout/saver_dialog_sub_ed"
