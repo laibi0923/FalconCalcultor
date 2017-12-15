@@ -54,7 +54,7 @@
 					android:layout_height="wrap_content"
 					android:text="$"
 					android:id="@+id/textView2"
-					android:textColor="#FFFFFF"
+					android:textColor="@color/TextColor_TiffanyBule"
 					android:textSize="50sp"
 					android:layout_marginRight="15dp"/>
 
@@ -63,7 +63,7 @@
 					android:layout_height="wrap_content"
 					android:text="0.00"
 					android:id="@+id/installment_tv"
-					android:textColor="#FFFFFF"
+					android:textColor="@color/TextColor_TiffanyBule"
 					android:textSize="50sp"/>
 
 			</LinearLayout>
@@ -74,7 +74,7 @@
 				android:textAppearance="?android:attr/textAppearanceMedium"
 				android:text="@string/cal_installment_title"
 				android:id="@+id/textView7"
-				android:textColor="#FFFFFF"
+				android:textColor="@color/TextColor_TiffanyBule"
 				android:textSize="30sp"/>
 
 		</LinearLayout>
@@ -105,7 +105,7 @@
 						android:textAppearance="?android:attr/textAppearanceSmall"
 						android:text="$"
 						android:id="@+id/textView5"
-						android:textColor="#FFFFFF"/>
+						android:textColor="@color/TextColor_Gray"/>
 
 					<TextView
 						android:layout_width="wrap_content"
@@ -113,7 +113,7 @@
 						android:textAppearance="?android:attr/textAppearanceSmall"
 						android:text="0.00"
 						android:id="@+id/total_interest_tv"
-						android:textColor="#FFFFFF"/>
+						android:textColor="@color/TextColor_Gray"/>
 
 				</LinearLayout>
 
@@ -123,7 +123,7 @@
 					android:textAppearance="?android:attr/textAppearanceSmall"
 					android:text="@string/cal_totalinsterestt_title"
 					android:id="@+id/textView9"
-					android:textColor="#FFFFFF"/>
+					android:textColor="@color/TextColor_Gray"/>
 
 			</LinearLayout>
 
@@ -147,7 +147,7 @@
 						android:textAppearance="?android:attr/textAppearanceSmall"
 						android:text="$"
 						android:id="@+id/textView17"
-						android:textColor="#FFFFFF"/>
+						android:textColor="@color/TextColor_Gray"/>
 
 					<TextView
 						android:layout_width="wrap_content"
@@ -155,7 +155,7 @@
 						android:textAppearance="?android:attr/textAppearanceSmall"
 						android:text="0.00"
 						android:id="@+id/total_payment_tv"
-						android:textColor="#FFFFFF"/>
+						android:textColor="@color/TextColor_Gray"/>
 
 				</LinearLayout>
 
@@ -165,7 +165,7 @@
 					android:textAppearance="?android:attr/textAppearanceSmall"
 					android:text="@string/cal_totalpayment_title"
 					android:id="@+id/textView11"
-					android:textColor="#FFFFFF"/>
+					android:textColor="@color/TextColor_Gray"/>
 
 			</LinearLayout>
 
@@ -211,7 +211,7 @@
 					android:textAppearance="?android:attr/textAppearanceSmall"
 					android:text="@string/cal_loanamount_title"
 					android:id="@+id/textView12"
-					android:textColor="#FFFFFF"/>
+					android:textColor="@color/TextColor_Gray"/>
 
 				<TextView
 					android:layout_width="wrap_content"
@@ -219,7 +219,7 @@
 					android:textAppearance="?android:attr/textAppearanceSmall"
 					android:text="@string/cal_loanamount_subtitle"
 					android:id="@+id/textView13"
-					android:textColor="#FFFFFF"/>
+					android:textColor="@color/TextColor_Gray"/>
 
 			</LinearLayout>
 
@@ -235,7 +235,7 @@
 					android:textAppearance="?android:attr/textAppearanceSmall"
 					android:text="0.00"
 					android:id="@+id/loanAmount_tv"
-					android:textColor="#FFFFFF"
+					android:textColor="@color/TextColor_Gray"
 					android:paddingLeft="10dp"/>
 
 				<TextView
@@ -244,7 +244,7 @@
 					android:textAppearance="?android:attr/textAppearanceSmall"
 					android:text="@string/cal_loanamount_pun"
 					android:id="@+id/textView22"
-					android:textColor="#FFFFFF"
+					android:textColor="@color/TextColor_Gray"
 					android:paddingLeft="10dp"/>
 
 			</LinearLayout>
@@ -281,7 +281,7 @@
 					android:textAppearance="?android:attr/textAppearanceSmall"
 					android:text="@string/cal_loantreams_title"
 					android:id="@+id/textView15"
-					android:textColor="#FFFFFF"/>
+					android:textColor="@color/TextColor_Gray"/>
 
 				<TextView
 					android:layout_width="wrap_content"
@@ -289,7 +289,7 @@
 					android:textAppearance="?android:attr/textAppearanceSmall"
 					android:text="@string/cal_loantreams_subtitle"
 					android:id="@+id/textView16"
-					android:textColor="#FFFFFF"/>
+					android:textColor="@color/TextColor_Gray"/>
 
 			</LinearLayout>
 
@@ -305,7 +305,7 @@
 					android:textAppearance="?android:attr/textAppearanceSmall"
 					android:text="12"
 					android:id="@+id/loanTrems_tv"
-					android:textColor="#FFFFFF"
+					android:textColor="@color/TextColor_Gray"
 					android:paddingLeft="10dp"/>
 
 				<TextView
@@ -314,7 +314,7 @@
 					android:textAppearance="?android:attr/textAppearanceSmall"
 					android:text="@string/cal_loantreams_pun"
 					android:id="@+id/textView23"
-					android:textColor="#FFFFFF"
+					android:textColor="@color/TextColor_Gray"
 					android:paddingLeft="10dp"/>
 
 			</LinearLayout>
@@ -351,7 +351,7 @@
 					android:textAppearance="?android:attr/textAppearanceSmall"
 					android:text="@string/cal_loanrate_title"
 					android:id="@+id/textView18"
-					android:textColor="#FFFFFF"/>
+					android:textColor="@color/TextColor_Gray"/>
 
 				<TextView
 					android:layout_width="wrap_content"
@@ -359,7 +359,7 @@
 					android:textAppearance="?android:attr/textAppearanceSmall"
 					android:text="@string/cal_loanrate_subtitle"
 					android:id="@+id/textView19"
-					android:textColor="#FFFFFF"/>
+					android:textColor="@color/TextColor_Gray"/>
 
 			</LinearLayout>
 
@@ -375,7 +375,7 @@
 					android:textAppearance="?android:attr/textAppearanceSmall"
 					android:text="54.00"
 					android:id="@+id/loanRate_tv"
-					android:textColor="#FFFFFF"
+					android:textColor="@color/TextColor_Gray"
 					android:paddingLeft="10dp"/>
 
 				<TextView
@@ -384,7 +384,7 @@
 					android:textAppearance="?android:attr/textAppearanceSmall"
 					android:text="@string/cal_loanrate_pun"
 					android:id="@+id/textView24"
-					android:textColor="#FFFFFF"
+					android:textColor="@color/TextColor_Gray"
 					android:paddingLeft="10dp"/>
 
 			</LinearLayout>
@@ -418,7 +418,7 @@
 				android:text="@string/schedule_btn_text"
 				android:id="@+id/textView21"
 				android:paddingTop="5dp"
-				android:textColor="#FFFFFF"/>
+				android:textColor="@color/TextColor_Gray"/>
 
 			<ImageView
 				android:layout_width="wrap_content"

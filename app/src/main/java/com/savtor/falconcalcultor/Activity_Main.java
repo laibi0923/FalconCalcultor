@@ -37,6 +37,7 @@ public class Activity_Main extends AppCompatActivity {
     private Toolbar mToolbar;
     private DrawerLayout mDrawerLayout;
     public NavigationView mNavView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -137,8 +138,8 @@ public class Activity_Main extends AppCompatActivity {
             public void run() {
 
                 FragmentManager mFragmentManager = getSupportFragmentManager();
+                mFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                 FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
-
                 mFragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
                 mFragmentTransaction.replace(R.id.mFrameLayout, mFragment);
                 mFragmentTransaction.commit();

@@ -24,7 +24,7 @@
 			android:id="@+id/save_name"
 			android:hint="輸入名稱"
 			android:padding="15dp"
-			android:textColorHint="@color/TextColor_White"
+			android:textColorHint="@color/TextColor_Gray"
 			android:background="@color/colorPrimaryDark"/>
 
 	</LinearLayout>

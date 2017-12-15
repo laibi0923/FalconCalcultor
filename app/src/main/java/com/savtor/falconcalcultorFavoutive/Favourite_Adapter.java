@@ -142,7 +142,7 @@ public class Favourite_Adapter extends RecyclerSwipeAdapter<Favourite_ViewHolder
 
             }
         });
-//
+
         holder.Edit_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -156,8 +156,12 @@ public class Favourite_Adapter extends RecyclerSwipeAdapter<Favourite_ViewHolder
 				mBundle.putInt("DB_ID", list.get(position).getid());
 
 				mFragment.setArguments(mBundle);
-				
-				mFragmentManager.beginTransaction().addToBackStack(null).replace(R.id.mFrameLayout, mFragment).commit();
+
+				mFragmentManager.beginTransaction()
+                        .addToBackStack(null)
+                        .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right)
+                        .replace(R.id.mFrameLayout, mFragment)
+                        .commit();
             }
         });
 
@@ -168,13 +172,12 @@ public class Favourite_Adapter extends RecyclerSwipeAdapter<Favourite_ViewHolder
 
         holder.swipeLayout.setShowMode(SwipeLayout.ShowMode.LayDown);
 
-
         holder.swipeLayout.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
 
 //                ====================================================
-//                設置5秒後自動關閉
+//                設置2秒後自動關閉
                 new Handler().postDelayed(new Runnable(){
 
                     @Override
@@ -197,7 +200,7 @@ public class Favourite_Adapter extends RecyclerSwipeAdapter<Favourite_ViewHolder
                 holder.swipeLayout.open();
 
 //                ====================================================
-//                設置5秒後自動關閉
+//                設置2秒後自動關閉
                 new Handler().postDelayed(new Runnable(){
 
                     @Override
@@ -252,6 +255,7 @@ public class Favourite_Adapter extends RecyclerSwipeAdapter<Favourite_ViewHolder
             dec_point = "%1$.2f";
         }
     }
+
 
 
 }

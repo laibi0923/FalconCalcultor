@@ -8,10 +8,10 @@
 
     <!--nav menu-->
     <string name="nav_menu_one">Debit Info</string>
-    <string name="nav_menu_two">Calcultor</string>
-    <string name="nav_menu_three">Favourite</string>
+    <string name="nav_menu_two">貸款計算機</string>
+    <string name="nav_menu_three">我的紀錄</string>
     <string name="nav_menu_four">Advertising</string>
-    <string name="nav_menu_five">Setting</string>
+    <string name="nav_menu_five">設定</string>
     <string name="nav_menu_six">Version</string>
 
     <!--==============================================================================================-->
@@ -101,6 +101,9 @@
     <string name="decimal_point_0_title">不顯示小數點</string>
     <string name="decimal_point_2_title">顯示小數點後兩位</string>
 
+    <string name="setting_hint_setupFirst">請先設置密碼</string>
+    <string name="setting_hint_setupAlready">密碼已設置</string>
+
 
     <!--==============================================================================================-->
     <!--for Favoutite Page-->
@@ -111,6 +114,21 @@
 	<string name="favourite_status_cancel">取消申請</string>
 	
 	<string name="favourite_lastmodify">最後修改日期 : </string>
-	
+
+    <!--==============================================================================================-->
+    <!--for Password Gate-->
+    <string name="password_hint_input"> 請輸入密碼 </string>
+    <string name="password_hint_overlength"> 密碼長度不可大於十位 </string>
+
+    <string name="password_hint_create"> 請再次輸入密碼 </string>
+    <string name="password_hint_create_success"> 密碼設置成功 </string>
+
+    <string name="password_hint_correct"> 輸入密碼正確 </string>
+    <string name="password_hint_notcorrect"> 輸入密碼不正確，請從重輸入 </string>
+
+    <string name="password_hint_resetfinish"> 密碼已清除 </string>
+
+
+
 </resources>
 

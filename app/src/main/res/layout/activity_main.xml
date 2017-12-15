@@ -41,6 +41,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="start"
+		android:background="@color/fragment_bg"
         app:headerLayout="@layout/activity_nav_header"
         app:menu="@menu/nav_menu"
         app:itemBackground="@drawable/nav_item_drawable"

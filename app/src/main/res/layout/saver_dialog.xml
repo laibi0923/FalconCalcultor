@@ -21,7 +21,7 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="Title"
             android:id="@+id/dialog_sav_title"
-            android:textColor="@color/TextColor_White" />
+            android:textColor="@color/TextColor_TiffanyBule" />
 
     </LinearLayout>
 
@@ -51,7 +51,7 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:layout_width="wrap_content"
             android:padding="10dp"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/TextColor_Gray"
             android:id="@+id/dialog_sav_ch1_textview1"
             android:layout_weight="1.0"
             android:text="TextView1" />
@@ -83,7 +83,7 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:layout_width="wrap_content"
             android:padding="10dp"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/TextColor_Gray"
             android:id="@+id/dialog_sav_ch1_textview2"
             android:layout_weight="1.0"
             android:text="TextView1" />
@@ -115,7 +115,7 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:layout_width="wrap_content"
             android:padding="10dp"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/TextColor_Gray"
             android:id="@+id/dialog_sav_ch1_textview3"
             android:layout_weight="1.0"
             android:text="TextView1" />
@@ -147,7 +147,7 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:layout_width="wrap_content"
             android:padding="10dp"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/TextColor_Gray"
             android:id="@+id/dialog_sav_ch1_textview4"
             android:layout_weight="1.0"
             android:text="TextView1" />
@@ -179,7 +179,7 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:layout_width="wrap_content"
             android:padding="10dp"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/TextColor_Gray"
             android:id="@+id/dialog_sav_ch1_textview5"
             android:layout_weight="1.0"
             android:text="TextView1" />
