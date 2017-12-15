@@ -58,7 +58,7 @@ public class Fragment_Setting extends Fragment
 	// []
 	public void get_sharedpreferences(){
 		get_setting_password = mSharedPreferences.getInt("Setting_password", 1);
-		get_setting_language = mSharedPreferences.getInt("Setting_language", 1);
+		get_setting_language = mSharedPreferences.getInt("Setting_language", 2);
 		get_setting_decimal = mSharedPreferences.getInt("Setting_decimal" , 1);
 	}
 
@@ -93,7 +93,7 @@ public class Fragment_Setting extends Fragment
 					//getFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.mFrameLayout, mFragment).commit();
 
 				}else if(get_setting_password == 2){
-					Toast.makeText(getContext(), "Yoy have setup password yet", Toast.LENGTH_LONG).show();
+					Toast.makeText(getContext(), getResources().getString(R.string.setting_hint_setupAlready), Toast.LENGTH_SHORT).show();
 				}
 
 			}
@@ -117,7 +117,7 @@ public class Fragment_Setting extends Fragment
 			public void onClick(View v) {
 
 				if (get_setting_password == 1){
-					Toast.makeText(getContext(), "Please setup your password first", Toast.LENGTH_LONG).show();
+					Toast.makeText(getContext(), getResources().getString(R.string.setting_hint_setupFirst), Toast.LENGTH_SHORT).show();
 				}else if (get_setting_password == 2){
 
 					Fragment mFragment = new Fragment_Passwordgate();
@@ -131,8 +131,6 @@ public class Fragment_Setting extends Fragment
                     mFragmentTransaction.replace(R.id.mFrameLayout, mFragment);
                     mFragmentTransaction.addToBackStack(null);
                     mFragmentTransaction.commit();
-
-					//getFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.mFrameLayout, mFragment).commit();
 
 				}
 
