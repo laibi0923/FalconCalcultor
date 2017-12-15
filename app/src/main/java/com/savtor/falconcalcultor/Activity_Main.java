@@ -22,13 +22,14 @@ import com.savtor.falconcalcultorCalcultor.Fragment_Calcultor;
 import com.savtor.falconcalcultorDebitInfo.Fragment_DebitInfo;
 import com.savtor.falconcalcultorFavoutive.Fragment_Favourite;
 import com.savtor.falconcalcultorSetting.Fragment_Setting;
+import android.widget.*;
 
 //import butterknife.BindView;
 //import butterknife.ButterKnife;
 
 public class Activity_Main extends AppCompatActivity {
 
-
+	
 //    @BindView(R.id.mToolbar)Toolbar mToolbar;
 //    @BindView(R.id.mFrameLayout)FrameLayout mFrameLayout;
 //    @BindView(R.id.mNavView)NavigationView mNavView;
@@ -61,8 +62,10 @@ public class Activity_Main extends AppCompatActivity {
 
     final void init_toolbar() {
         mToolbar = (Toolbar) findViewById(R.id.mToolbar);
+		TextView mToolbar_title = (TextView) mToolbar.findViewById(R.id.toolbar_TextView);
+		mToolbar_title.setText(getResources().getString(R.string.app_name));
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_USE_LOGO | ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_TITLE);
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_USE_LOGO | ActionBar.DISPLAY_HOME_AS_UP);
     }
 
     final void init_drawerlayout() {
@@ -89,9 +92,10 @@ public class Activity_Main extends AppCompatActivity {
                 if (!item.isChecked()) {
                     switch (item.getItemId()) {
 
+						/*
                         case R.id.nav_item1:
                             Fragment_Transaction(new Fragment1());
-                            break;
+                            break;*/
 
                         case R.id.nav_item2:
                             Fragment_Transaction(new Fragment_Calcultor());
@@ -101,17 +105,17 @@ public class Activity_Main extends AppCompatActivity {
                             Fragment_Transaction(new Fragment_Favourite());
                             break;
 
-                        case R.id.nav_item4:
+                        /*case R.id.nav_item4:
                             Fragment_Transaction(new Fragment1());
-                            break;
+                            break;*/
 
                         case R.id.nav_item5:
                             Fragment_Transaction(new Fragment_Setting());
                             break;
 
-                        case R.id.nav_item6:
+                        /*case R.id.nav_item6:
                             Fragment_Transaction(new Fragment_DebitInfo());
-                            break;
+                            break;*/
                     }
 
                     item.setChecked(true);
@@ -122,7 +126,7 @@ public class Activity_Main extends AppCompatActivity {
             }
         });
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.mFrameLayout, new Fragment1()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.mFrameLayout, new Fragment_Calcultor()).commit();
         mNavView.getMenu().getItem(0).setChecked(true);
     }
 

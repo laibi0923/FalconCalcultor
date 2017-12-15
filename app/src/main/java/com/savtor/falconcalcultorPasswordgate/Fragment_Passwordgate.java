@@ -65,6 +65,7 @@ public class Fragment_Passwordgate extends Fragment {
 
     private void Find_view(View v){
 
+		/*
         // 輸入框
         password_edittext = (EditText) v.findViewById(R.id.password_edittext);
         password_edittext.setHint("輸入密碼");
@@ -79,7 +80,7 @@ public class Fragment_Passwordgate extends Fragment {
             }
         });
 
-
+*/
  
 
     }

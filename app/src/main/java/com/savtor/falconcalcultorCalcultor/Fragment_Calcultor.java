@@ -203,7 +203,7 @@ public class Fragment_Calcultor extends Fragment {
                     mFragmentTransaction.commit();
 
                 }else {
-                    Toast.makeText(getContext(), "請先計算供款", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), getResources().getString(R.string.calcultor_toast_calfirst), Toast.LENGTH_LONG).show();
                 }
 
             }
@@ -254,7 +254,7 @@ public class Fragment_Calcultor extends Fragment {
 
                 }else {
 
-                    Toast.makeText(getContext(), "請先計算供款", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), getResources().getString(R.string.calcultor_toast_calfirst), Toast.LENGTH_SHORT).show();
 
                 }
             }
@@ -343,7 +343,7 @@ public class Fragment_Calcultor extends Fragment {
                         if(calcul_EdTExt.getText().toString().isEmpty()){
                             break;
                         }else if(Double.parseDouble(calcul_EdTExt.getText().toString()) > 10000000){
-                            Toast.makeText(getActivity(), "Proo Value", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), getResources().getString(R.string.calcultor_toast_poorvalue), Toast.LENGTH_SHORT).show();
                         }else{
                             try {
 								current_LoanAmount = Double.parseDouble(calcul_EdTExt.getText().toString());
@@ -358,9 +358,9 @@ public class Fragment_Calcultor extends Fragment {
                         if(calcul_EdTExt.getText().toString().isEmpty()){
                             break;
                         }else if(calcul_EdTExt.getText().toString().length() > 8){
-                            Toast.makeText(getActivity(), "Proo Value", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), getResources().getString(R.string.calcultor_toast_poorvalue), Toast.LENGTH_SHORT).show();
                         }else if(Integer.parseInt(calcul_EdTExt.getText().toString()) < 3 || Integer.parseInt(calcul_EdTExt.getText().toString()) > 96) {
-                            Toast.makeText(getActivity(), "Proo Value", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), getResources().getString(R.string.calcultor_toast_poorvalue), Toast.LENGTH_SHORT).show();
                         }else {
 							current_LoanTrems = Integer.parseInt(calcul_EdTExt.getText().toString());
                             loanTrems_tv.setText(String.valueOf(current_LoanTrems));
@@ -373,7 +373,7 @@ public class Fragment_Calcultor extends Fragment {
                         if(calcul_EdTExt.getText().toString().isEmpty()){
                             break;
                         }else if(Double.parseDouble(calcul_EdTExt.getText().toString()) > 60 || Double.parseDouble(calcul_EdTExt.getText().toString()) < 1 ){
-                            Toast.makeText(getActivity(), "Proo Value", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), getResources().getString(R.string.calcultor_toast_poorvalue), Toast.LENGTH_SHORT).show();
                         }else {
                             try {
 								current_LoanRate = Double.parseDouble(calcul_EdTExt.getText().toString());

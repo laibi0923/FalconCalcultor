@@ -153,6 +153,7 @@ public class Fragment_Setting extends Fragment
 		language_title.setText(getResources().getString(R.string.language_title));
 
 		language_eng_subview = v.findViewById(R.id.language_eng);
+		language_eng_subview.setVisibility(View.GONE);
 		language_eng_linear = (LinearLayout) language_eng_subview.findViewById(R.id.sub_linear);
 		language_eng_linear.setOnClickListener(new View.OnClickListener() {
 			@Override
