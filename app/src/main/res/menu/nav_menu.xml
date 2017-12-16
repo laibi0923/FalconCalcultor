@@ -28,12 +28,12 @@
 			android:id="@+id/nav_item5"
 			android:title="@string/nav_menu_five"/>
 
-		<!--
+
+
 		<item
 			android:icon="@drawable/ic_developer_mode_black_24dp"
 			android:id="@+id/nav_item6"
 			android:title="@string/nav_menu_six"/>
--->
 
 	</group>
 

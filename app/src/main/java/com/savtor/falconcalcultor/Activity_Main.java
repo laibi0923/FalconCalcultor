@@ -114,9 +114,9 @@ public class Activity_Main extends AppCompatActivity {
                             Fragment_Transaction(new Fragment_Setting());
                             break;
 
-                        /*case R.id.nav_item6:
+                        case R.id.nav_item6:
                             Fragment_Transaction(new Fragment_DebitInfo());
-                            break;*/
+                            break;
                     }
 
                     item.setChecked(true);

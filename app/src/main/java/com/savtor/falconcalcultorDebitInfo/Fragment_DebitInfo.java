@@ -26,7 +26,7 @@ public class Fragment_DebitInfo extends Fragment
 
 		T01.setText("");
 
-		List<Favouite_Item> items = favourite_dataBasic.query_all();
+		List<Favouite_Item> items = favourite_dataBasic.query_orderby_date();
 
 
 

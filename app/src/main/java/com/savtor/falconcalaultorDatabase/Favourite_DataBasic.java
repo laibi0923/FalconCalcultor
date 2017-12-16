@@ -40,10 +40,13 @@ public class Favourite_DataBasic {
     public static final String PHONE_COULUMN = "Phone";
     public static final String REMARKS_COULUMN = "Remarks";
 
+    // 資料庫物件
+    public SQLiteDatabase db;
+
     // 新建 Table
     public static final String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + "(" +
             KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            CREATE_DATE_COULUMN + " TEXT, " +
+            CREATE_DATE_COULUMN + " DATETIME DEFAULT (datetime('now', 'localtime')), " +
             NAME_COLUMN + " TEXT," +
             LOAN_TYPE_COULUMN + " TEXT," +
             APPLY_STATUS_COULUMN + " TEXT," +
@@ -63,8 +66,7 @@ public class Favourite_DataBasic {
             REMARKS_COULUMN + " TEXT)";
 
 
-    // 資料庫物件
-    public SQLiteDatabase db;
+
 
     //=============================================================================================
     // 建構子，一般的應用都不需要修改
@@ -143,6 +145,27 @@ public class Favourite_DataBasic {
         List <Favouite_Item> result = new ArrayList<Favouite_Item>();
 
         Cursor cursor = db.query(TABLE_NAME, null, null, null, null, null, null, null);
+
+        while (cursor.moveToNext()){
+            result.add(get_database_record(cursor));
+        }
+
+        cursor.close();
+
+        Log.e("DATA BASIC ACTION : ","查詢所有紀錄, 一共" + getCount() + "條");  // [Log.e]
+
+        return result;
+    }
+
+    //=============================================================================================
+    // [5] QUERY ALL ORDER BY DATE - 查詢所有紀錄
+    public List<Favouite_Item> query_orderby_date(){
+
+        List <Favouite_Item> result = new ArrayList<Favouite_Item>();
+
+        // ASC = 由小至大 ; DESC = 由大至小
+        Cursor cursor = db.query(TABLE_NAME, null, null, null, null, null, CREATE_DATE_COULUMN + "  DESC"); 
+
 
         while (cursor.moveToNext()){
             result.add(get_database_record(cursor));

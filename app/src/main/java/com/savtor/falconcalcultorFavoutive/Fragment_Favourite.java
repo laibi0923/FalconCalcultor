@@ -105,7 +105,7 @@ public class Fragment_Favourite extends Fragment {
 
         Log.e("DATA BASIC ACTION : ","數據庫開啟, 共" + favourite_dataBasic.getCount() + "條紀錄"); // [Log.e]
 
-        List<Favouite_Item> items = favourite_dataBasic.query_all();
+        List<Favouite_Item> items = favourite_dataBasic.query_orderby_date();
 
         favouriteData = new ArrayList<Favouite_Item>();
 
@@ -113,7 +113,7 @@ public class Fragment_Favourite extends Fragment {
 
             favouriteData.add(new Favouite_Item(
 				i.getid(),
-				i.getCreate_date(),
+				i.getCreate_date().substring(0, 10),
 				i.getName(),
 				i.getLoan_Type(),
 				i.getApply_status(),

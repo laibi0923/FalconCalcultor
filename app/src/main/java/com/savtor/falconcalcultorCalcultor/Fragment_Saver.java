@@ -12,6 +12,8 @@ import android.view.inputmethod.*;
 import android.widget.*;
 import com.savtor.falconcalaultorDatabase.*;
 import com.savtor.falconcalcultor.*;
+
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import android.support.v4.app.Fragment;
@@ -787,7 +789,7 @@ public class Fragment_Saver extends Fragment {
 
             Favouite_Item fav_item = new Favouite_Item(
                     1,
-                    get_createdate,
+                    new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()),
                     get_name,
                     get_loantype,
                     get_applystatus,
