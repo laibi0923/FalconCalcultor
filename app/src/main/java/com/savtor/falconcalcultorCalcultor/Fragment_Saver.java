@@ -1,34 +1,24 @@
 package com.savtor.falconcalcultorCalcultor;
 
-import android.app.Activity;
-import android.app.DatePickerDialog;
-import android.app.Dialog;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
-import java.util.Calendar;
+import android.app.*;
+import android.os.*;
+import android.support.annotation.*;
+import android.support.v4.app.*;
+import android.support.v7.app.*;
+import android.text.*;
+import android.util.*;
+import android.view.*;
+import android.view.inputmethod.*;
+import android.widget.*;
 import com.savtor.falconcalaultorDatabase.*;
 import com.savtor.falconcalcultor.*;
-import android.widget.*;
-import android.text.*;
+import java.util.*;
 
-import org.w3c.dom.Text;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
+import com.savtor.falconcalcultorFavoutive.*;
 
 
 /**
@@ -857,7 +847,15 @@ public class Fragment_Saver extends Fragment {
 
             favourite_dataBasic.close();
 
-            getActivity().getSupportFragmentManager().popBackStack();
+			
+			FragmentManager mFragmentManager = getActivity().getSupportFragmentManager();
+			mFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+			FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
+			mFragmentTransaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_left);
+			mFragmentTransaction.replace(R.id.mFrameLayout, new Fragment_Favourite());
+			mFragmentTransaction.commit();
+			
+            //getActivity().getSupportFragmentManager().popBackStack();
             Toast.makeText(getContext(), "This record have been updated", Toast.LENGTH_LONG).show();
         }
     }
