@@ -104,9 +104,9 @@ public class Fragment_Setting extends Fragment
 		password_lock_icon.setImageResource(R.drawable.ic_lock_black_24dp);
 
 		if(get_setting_password == 1){
-			password_lock_text.setTextColor(getResources().getColor(R.color.TextColor_White));
+			password_lock_text.setTextColor(getResources().getColor(R.color.TextColor_Gray));
 		}else if(get_setting_password == 2){
-			password_lock_text.setTextColor(getResources().getColor(R.color.TextColor_TiffanyBule));
+			password_lock_text.setTextColor(getResources().getColor(R.color.deep_teal_200));
 		}
 
 
@@ -156,8 +156,8 @@ public class Fragment_Setting extends Fragment
 		language_eng_linear.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				language_cht_text.setTextColor(getResources().getColor(R.color.TextColor_White));
-				language_eng_text.setTextColor(getResources().getColor(R.color.TextColor_TiffanyBule));
+				language_cht_text.setTextColor(getResources().getColor(R.color.TextColor_Gray));
+				language_eng_text.setTextColor(getResources().getColor(R.color.deep_teal_200));
 				mEditor.putInt("Setting_language", 1).commit();
 			}
 		});
@@ -172,8 +172,8 @@ public class Fragment_Setting extends Fragment
 		language_cht_linear.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				language_cht_text.setTextColor(getResources().getColor(R.color.TextColor_TiffanyBule));
-				language_eng_text.setTextColor(getResources().getColor(R.color.TextColor_White));
+				language_cht_text.setTextColor(getResources().getColor(R.color.deep_teal_200));
+				language_eng_text.setTextColor(getResources().getColor(R.color.TextColor_Gray));
 				mEditor.putInt("Setting_language", 2).commit();
 			}
 		});
@@ -186,9 +186,9 @@ public class Fragment_Setting extends Fragment
 		underline.setVisibility(View.GONE);
 
 		if (get_setting_language == 1){
-			language_eng_text.setTextColor(getResources().getColor(R.color.TextColor_TiffanyBule));
+			language_eng_text.setTextColor(getResources().getColor(R.color.deep_teal_200));
 		}else if (get_setting_language == 2){
-			language_cht_text.setTextColor(getResources().getColor(R.color.TextColor_TiffanyBule));
+			language_cht_text.setTextColor(getResources().getColor(R.color.deep_teal_200));
 		}
 
 
@@ -202,8 +202,8 @@ public class Fragment_Setting extends Fragment
 		decimal_point_0_linear.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				decimal_point_0_text.setTextColor(getResources().getColor(R.color.TextColor_TiffanyBule));
-				decimal_point_2_text.setTextColor(getResources().getColor(R.color.TextColor_White));
+				decimal_point_0_text.setTextColor(getResources().getColor(R.color.deep_teal_200));
+				decimal_point_2_text.setTextColor(getResources().getColor(R.color.TextColor_Gray));
 				mEditor.putInt("Setting_decimal", 1).commit();
 			}
 		});
@@ -218,8 +218,8 @@ public class Fragment_Setting extends Fragment
 		decimal_point_2_linear.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				decimal_point_0_text.setTextColor(getResources().getColor(R.color.TextColor_White));
-				decimal_point_2_text.setTextColor(getResources().getColor(R.color.TextColor_TiffanyBule));
+				decimal_point_0_text.setTextColor(getResources().getColor(R.color.TextColor_Gray));
+				decimal_point_2_text.setTextColor(getResources().getColor(R.color.deep_teal_200));
 				mEditor.putInt("Setting_decimal", 2).commit();
 			}
 		});
@@ -233,9 +233,9 @@ public class Fragment_Setting extends Fragment
 
 
 		if (get_setting_decimal == 1){
-			decimal_point_0_text.setTextColor(getResources().getColor(R.color.TextColor_TiffanyBule));
+			decimal_point_0_text.setTextColor(getResources().getColor(R.color.deep_teal_200));
 		}else if (get_setting_decimal == 2){
-			decimal_point_2_text.setTextColor(getResources().getColor(R.color.TextColor_TiffanyBule));
+			decimal_point_2_text.setTextColor(getResources().getColor(R.color.deep_teal_200));
 		}
 
 	}

@@ -115,6 +115,8 @@
 	
 	<string name="favourite_lastmodify">最後修改日期 : </string>
 
+    <string name="favourite_month"> 個月供款期 </string>
+
     <!--==============================================================================================-->
     <!--for Password Gate-->
     <string name="password_hint_input"> 請輸入密碼 </string>

@@ -2,14 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorPrimary"
+    android:background="@color/blue_grey_900"
     android:orientation="vertical">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryDark"
+        android:background="@color/blue_grey_800"
         android:paddingTop="20dp"
         android:paddingBottom="20dp"
         android:paddingLeft="15dp"
@@ -21,7 +21,7 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="Title"
             android:id="@+id/dialog_cal_title"
-            android:textColor="@color/TextColor_White" />
+            android:textColor="@color/TextColor_Gray" />
 
     </LinearLayout>
 
@@ -35,9 +35,9 @@
             android:id="@+id/calcultor_dialog_edittext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
+            android:background="@color/blue_grey_900"
             android:padding="15dp"
-            android:textColor="@color/TextColor_White" />
+            android:textColor="@color/TextColor_Gray" />
 
     </android.support.design.widget.TextInputLayout>
 
@@ -53,7 +53,7 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="Done"
             android:id="@+id/dialog_cal_btn"
-            android:textColor="@color/TextColor_TiffanyBule"
+            android:textColor="@color/deep_teal_200"
             android:clickable="true"
             android:background="?attr/selectableItemBackground"
             android:paddingLeft="25dp"

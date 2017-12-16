@@ -10,7 +10,7 @@
 		android:orientation="horizontal"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:background="?attr/selectableItemBackground"
+		android:background="?attr/selectableItemBackgroundBorderless"
 		android:clickable="true"
 		android:focusable="true"
 		android:id="@+id/sub_linear">
@@ -20,7 +20,7 @@
 			android:layout_height="25dp"
 			android:id="@+id/sub_image"
 			android:src="@drawable/ic_falcon_white"
-			android:tint="@color/TextColor_TiffanyBule"
+			android:tint="@color/deep_teal_200"
 			android:layout_marginLeft="30dp"
 			android:layout_marginRight="30dp"
 			android:layout_marginTop="30dp"

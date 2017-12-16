@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/swipe_layout"
-    android:layout_marginBottom="10dp"
-    android:elevation="4dp" >
+    android:layout_marginBottom="10dp">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -17,7 +16,7 @@
         <RelativeLayout
             android:id="@+id/edit_btn"
             android:clickable="true"
-            android:background="@color/colorPrimaryDark"
+            android:background="@color/blue_grey_900"
             android:gravity="center"
             android:layout_width="90dp"
             android:layout_height="wrap_content"
@@ -59,7 +58,7 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorPrimary">
+        android:background="@color/blue_grey_900">
 
         <LinearLayout
             android:id="@+id/top_warp"
@@ -70,9 +69,9 @@
             android:layout_height="wrap_content"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp">
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -88,7 +87,7 @@
                     android:id="@+id/loan_type_icon"
                     android:src="@drawable/ic_person_black_24dp"
                     android:layout_marginRight="15dp"
-                    android:tint="@color/TextColor_TiffanyBule" />
+                    android:tint="@color/deep_teal_200" />
 
                 <LinearLayout
                     android:orientation="vertical"
@@ -175,7 +174,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/imageView4"
                     android:src="@drawable/ic_more_vert_black_24dp"
-                    android:tint="@color/TextColor_TiffanyBule"
+                    android:tint="@color/deep_teal_200"
                     android:layout_marginLeft="5dp" />
 
             </LinearLayout>
@@ -259,10 +258,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:text="Trems"
+                            android:text="@string/favourite_month"
                             android:id="@+id/textView20"
                             android:textAlignment="center"
-                            android:textSize="15dp"
+                            android:textSize="12dp"
                             android:textColor="@color/switch_thumb_normal_material_dark"
                             android:ellipsize="end"
                             android:layout_marginLeft="5dp" />
@@ -291,7 +290,7 @@
                         android:id="@+id/textView15"
                         android:textAlignment="center"
                         android:textSize="25dp"
-                        android:textColor="@color/TextColor_TiffanyBule"
+                        android:textColor="@color/deep_teal_200"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp" />
 
@@ -303,7 +302,7 @@
                         android:id="@+id/installment_tv"
                         android:textAlignment="center"
                         android:textSize="25dp"
-                        android:textColor="@color/TextColor_TiffanyBule"
+                        android:textColor="@color/deep_teal_200"
                         android:singleLine="true"
                         android:focusable="false"
                         android:focusableInTouchMode="false"
@@ -316,7 +315,9 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:visibility="visible">
+                android:visibility="visible"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp">
 
                 <LinearLayout
                     android:orientation="horizontal"
@@ -342,7 +343,8 @@
                         android:textColor="@color/switch_thumb_normal_material_dark"
                         android:textSize="13dp"
                         android:singleLine="true"
-                        android:ellipsize="end" />
+                        android:ellipsize="end"
+                        android:layout_marginLeft="5dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -373,7 +375,7 @@
                         android:layout_height="15dp"
                         android:id="@+id/alert_icon_im"
                         android:src="@drawable/ic_alarm_black_24dp"
-                        android:tint="@color/TextColor_TiffanyBule"
+                        android:tint="@color/deep_teal_200"
                         android:layout_marginRight="10dp" />
 
                     <TextView

@@ -23,7 +23,7 @@
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:id="@+id/sub_image"
-            android:tint="@color/TextColor_TiffanyBule"
+            android:tint="@color/deep_teal_200"
             android:layout_marginRight="20dp"
             android:layout_marginLeft="10dp"/>
 

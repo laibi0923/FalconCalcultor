@@ -3,7 +3,7 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:background="@color/fragment_bg">
+	android:background="@color/blue_grey_950">
 
 	
 	<LinearLayout
@@ -12,7 +12,7 @@
 		android:orientation="vertical">
 
 		<LinearLayout
-			android:background="@color/colorPrimary"
+			android:background="@color/blue_grey_900"
 			android:layout_height="wrap_content"
 			android:layout_width="match_parent"
 			android:elevation="4dp"
@@ -23,7 +23,7 @@
 				android:textAppearance="?android:attr/textAppearanceSmall"
 				android:layout_width="wrap_content"
 				android:text="Small Text"
-				android:textColor="@color/TextColor_TiffanyBule"
+				android:textColor="@color/deep_teal_200"
 				android:padding="10dp"
 				android:id="@+id/password_title"/>
 
@@ -42,7 +42,7 @@
 		</LinearLayout>
 
 		<LinearLayout
-			android:background="@color/colorPrimary"
+			android:background="@color/blue_grey_900"
 			android:layout_marginTop="10dp"
 			android:layout_height="wrap_content"
 			android:layout_width="match_parent"
@@ -54,7 +54,7 @@
 				android:textAppearance="?android:attr/textAppearanceSmall"
 				android:layout_width="wrap_content"
 				android:text="Small Text"
-				android:textColor="@color/TextColor_TiffanyBule"
+				android:textColor="@color/deep_teal_200"
 				android:padding="10dp"
 				android:id="@+id/language_title"/>
 
@@ -73,7 +73,7 @@
 		</LinearLayout>
 
 		<LinearLayout
-			android:background="@color/colorPrimary"
+			android:background="@color/blue_grey_900"
 			android:layout_marginTop="10dp"
 			android:layout_height="wrap_content"
 			android:layout_width="match_parent"
@@ -86,7 +86,7 @@
 				android:textAppearance="?android:attr/textAppearanceSmall"
 				android:layout_width="wrap_content"
 				android:text="Small Text"
-				android:textColor="@color/TextColor_TiffanyBule"
+				android:textColor="@color/deep_teal_200"
 				android:padding="10dp"
 				android:id="@+id/decimal_point_title"/>
 

@@ -11,7 +11,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:background="@color/colorPrimary">
+        android:background="@color/blue_grey_900">
 
         <LinearLayout
             android:orientation="horizontal"
@@ -27,14 +27,14 @@
                 android:text="100"
                 android:id="@+id/recycle_trems_tv"
                 android:textStyle="bold"
-                android:textColor="@color/TextColor_TiffanyBule" />
+                android:textColor="@color/deep_teal_200" />
 
         </LinearLayout>
 
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="@color/TextColor_TiffanyBule"/>
+            android:background="@color/deep_teal_200"/>
 
         <LinearLayout
             android:orientation="vertical"

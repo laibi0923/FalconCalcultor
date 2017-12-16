@@ -3,7 +3,7 @@
 	<style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
 
 		<item name="colorPrimary">#424242</item>
-		<item name="colorPrimaryDark">#263238</item>
+		<item name="colorPrimaryDark">#ff37474f</item>
 		<item name="colorAccent">#80CBC4</item>
 		<item name="android:windowContentTransitions">true</item>
 
@@ -20,9 +20,9 @@
 	<style name="myDateDialogStyle" parent="@android:style/Widget.Material.Light.DatePicker">
 		<item name="colorAccent">@color/colorPrimaryDark</item>
 		<item name="android:dayOfWeekBackground">@color/colorPrimaryDark</item>
-		<item name="android:colorControlHighlight">@color/TextColor_TiffanyBule</item>
-		<item name="android:colorControlActivated">@color/TextColor_TiffanyBule</item>
-		<item name="android:colorControlNormal">@color/TextColor_TiffanyBule</item>
+		<item name="android:colorControlHighlight">@color/deep_teal_200</item>
+		<item name="android:colorControlActivated">@color/deep_teal_200</item>
+		<item name="android:colorControlNormal">@color/deep_teal_200</item>
 	</style>
 
 

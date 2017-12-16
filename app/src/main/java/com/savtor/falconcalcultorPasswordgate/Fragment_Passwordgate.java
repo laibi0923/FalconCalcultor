@@ -261,9 +261,6 @@ public class Fragment_Passwordgate extends Fragment {
 
             Password_create_secord = current_input_password;
 
-            Log.e("first password", Password_create_first);
-            Log.e("secord_password", Password_create_secord);
-
             if (Password_create_first.equals(Password_create_secord)){
 
                 mEditor = mSharedPreferences.edit();
