@@ -133,6 +133,12 @@
 
     <string name="password_hint_resetfinish"> 密碼已清除 </string>
 
+    <!--==============================================================================================-->
+    <!--For Schedule Recycle View Item-->
+    <string name="schedule_interest"> 利息 </string>
+    <string name="schedule_principle"> 本金 </string>
+    <string name="schedule_balance"> 結餘 </string>
+    <string name="schedule_cumulative_interest"> 本期累計利息支出 </string>
 
 
 </resources>

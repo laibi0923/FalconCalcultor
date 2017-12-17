@@ -251,7 +251,7 @@ public class Fragment_Saver extends Fragment {
 //        ******************************************************************************************
 
         subview_alertdate = v.findViewById(R.id.subview_alertdate);
-//		subview_alertdate.setVisibility(View.GONE);
+		subview_alertdate.setVisibility(View.GONE);
 		alert_icon = (ImageView) subview_alertdate.findViewById(R.id.sub_image);
 		alert_icon.setImageResource(R.drawable.ic_alarm_black_24dp);
 
@@ -284,15 +284,21 @@ public class Fragment_Saver extends Fragment {
 
 
         subview_time = v.findViewById(R.id.subview_alerTime);
-
+        subview_time.setVisibility(View.GONE);
         time_textview = (TextView) subview_time.findViewById(R.id.sub_textview);
         time_textview.setText("提醒時間");
 
         time_result_textview = (TextView) subview_time.findViewById(R.id.sub_textview_result);
-        time_result_textview.setText("00:00");
 
         time_linear = (LinearLayout) subview_time.findViewById(R.id.sub_linear);
-        time_linear.setVisibility(View.GONE);
+        time_linear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                show_time_dialog().show();
+
+            }
+        });
 
 
 //        ******************************************************************************************
@@ -438,7 +444,7 @@ public class Fragment_Saver extends Fragment {
                         choose_result = choose_two_text.getText().toString();
                         text.setText(choose_result);
                         text.setTextColor(getResources().getColor(R.color.deep_teal_200));
-                        time_linear.setVisibility(View.VISIBLE);
+                        subview_time.setVisibility(View.VISIBLE);
                         break;
 
                     case 4:
@@ -470,7 +476,7 @@ public class Fragment_Saver extends Fragment {
                         choose_result = choose_three_text.getText().toString();
                         text.setText(choose_result);
                         text.setTextColor(getResources().getColor(R.color.deep_teal_200));
-                        time_linear.setVisibility(View.VISIBLE);
+                        subview_time.setVisibility(View.VISIBLE);
                         break;
 
                     case 4:
@@ -501,7 +507,7 @@ public class Fragment_Saver extends Fragment {
                         choose_result = choose_four_text.getText().toString();
                         text.setText(choose_result);
                         text.setTextColor(getResources().getColor(R.color.deep_teal_200));
-                        time_linear.setVisibility(View.VISIBLE);
+                        subview_time.setVisibility(View.VISIBLE);
                         break;
 
                     case 4:
@@ -532,7 +538,7 @@ public class Fragment_Saver extends Fragment {
                     case 3:
                         choose_result = choose_five_text.getText().toString();
                         text.setText(choose_result);
-                        time_linear.setVisibility(View.VISIBLE);
+                        subview_time.setVisibility(View.VISIBLE);
                         break;
 
                     case 4:
@@ -561,7 +567,6 @@ public class Fragment_Saver extends Fragment {
 
         final Calendar mCalendar = Calendar.getInstance();
 
-
         mDialog = new DatePickerDialog(getActivity(), R.style.myDateDialogTheme, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -586,20 +591,49 @@ public class Fragment_Saver extends Fragment {
                     choose_five.setVisibility(View.GONE);
 
                     show_alert_dialog("日期設置", dialog_view, finaldue_result_textview, finaldue_icon, 4);
+//                    subview_alertdate.setVisibility(View.VISIBLE);
 
                 }else if(dayOfMonth == 31){
 
                     Calendar_finaldue.add(Calendar.MONTH, bundle_trems - 1);
                     finaldue_result_textview.setText(Calendar_finaldue.get(Calendar.YEAR) + "/" + (Calendar_finaldue.get(Calendar.MONTH) + 1) + "/" + Calendar_finaldue.getActualMaximum(Calendar.DAY_OF_MONTH));
+//                    subview_alertdate.setVisibility(View.VISIBLE);
 
                 }else {
 
                     Calendar_finaldue.add(Calendar.MONTH, bundle_trems - 1);
                     finaldue_result_textview.setText(Calendar_finaldue.get(Calendar.YEAR) + "/" + (Calendar_finaldue.get(Calendar.MONTH) + 1) + "/" + Calendar_finaldue.get(Calendar.DAY_OF_MONTH));
+//                    subview_alertdate.setVisibility(View.VISIBLE);
+
                 }
 
             }
         },mCalendar.get(Calendar.YEAR), mCalendar.get(Calendar.MONTH), mCalendar.get(Calendar.DAY_OF_MONTH));
+
+        return mDialog;
+    }
+
+    //=============================================================================================
+    // []
+    protected Dialog show_time_dialog(){
+
+        Dialog mDialog = null;
+
+        final Calendar mCalendar = Calendar.getInstance();
+
+        mDialog = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+
+                mCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                mCalendar.set(Calendar.MINUTE, minute);
+
+                SimpleDateFormat SDF = new SimpleDateFormat("HH:mm");
+                String gettime = SDF.format(mCalendar.getTime());
+                time_result_textview.setText(gettime);
+
+            }
+        }, mCalendar.get(Calendar.HOUR_OF_DAY), mCalendar.get(Calendar.MINUTE), true);
 
         return mDialog;
     }

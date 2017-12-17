@@ -34,6 +34,7 @@ public class Schedule_Adapter extends RecyclerView.Adapter<Schedule_ViewHolder>{
         holder.scheldule_loan_interest.setText(list.get(position).sc_data_insterest);
         holder.scheldule_loan_principle.setText(list.get(position).sc_data_principle);
         holder.scheldule_loan_balance.setText(list.get(position).sc_data_balance);
+        holder.schedule_cumulative_Interest.setText(list.get(position).cumulative_Interest);
     }
 
     @Override

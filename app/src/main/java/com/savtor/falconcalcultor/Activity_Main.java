@@ -95,10 +95,10 @@ public class Activity_Main extends AppCompatActivity {
                 if (!item.isChecked()) {
                     switch (item.getItemId()) {
 
-						/*
-                        case R.id.nav_item1:
-                            Fragment_Transaction(new Fragment1());
-                            break;*/
+
+//                        case R.id.nav_item1:
+//                            Fragment_Transaction(new Fragment1());
+//                            break;
 
                         case R.id.nav_item2:
                             Fragment_Transaction(new Fragment_Calcultor());
@@ -108,17 +108,17 @@ public class Activity_Main extends AppCompatActivity {
                             Fragment_Transaction(new Fragment_Favourite());
                             break;
 
-                        /*case R.id.nav_item4:
-                            Fragment_Transaction(new Fragment1());
-                            break;*/
+//                        case R.id.nav_item4:
+//                            Fragment_Transaction(new Fragment1());
+//                            break;
 
                         case R.id.nav_item5:
                             Fragment_Transaction(new Fragment_Setting());
                             break;
 
-                        case R.id.nav_item6:
-                            Fragment_Transaction(new Fragment_DebitInfo());
-                            break;
+//                        case R.id.nav_item6:
+//                            Fragment_Transaction(new Fragment_DebitInfo());
+//                            break;
                     }
 
                     item.setChecked(true);

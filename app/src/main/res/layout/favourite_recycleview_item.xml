@@ -332,7 +332,8 @@
                         android:id="@+id/last_modify"
                         android:textColor="@color/switch_thumb_normal_material_dark"
                         android:textSize="13dp"
-                        android:visibility="visible" />
+                        android:visibility="visible"
+                        android:text="Last Modify : " />
 
                     <TextView
                         android:layout_width="wrap_content"

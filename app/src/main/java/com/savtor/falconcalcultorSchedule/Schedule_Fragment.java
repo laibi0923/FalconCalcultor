@@ -32,6 +32,8 @@ public class Schedule_Fragment extends Fragment {
     private double laonamount, loanrate;
     private int loantrems;
 
+    private double Cumulative_Interest = 0;
+
     private SharedPreferences mSharedPreferences;
 
     private int get_setting_password, get_setting_language, get_setting_decimal;
@@ -113,7 +115,13 @@ public class Schedule_Fragment extends Fragment {
             even_principle = mCalcultor.cal_even_principle(loaninstallment, even_interest);
             even_balance = mCalcultor.cal_even_balance(even_balance, loaninstallment, even_interest);
 
-            paymentScheduleData.add(new Schedule_Data((i + 1) + "", Decimal_Point_changer(even_interest), String.format(dec_point, even_principle), String.format(dec_point, even_balance)));
+            if (Cumulative_Interest == 0){
+                Cumulative_Interest = even_interest;
+            }else {
+                Cumulative_Interest = Cumulative_Interest + even_interest;
+            }
+
+            paymentScheduleData.add(new Schedule_Data((i + 1) + "", Decimal_Point_changer(even_interest), String.format(dec_point, even_principle), String.format(dec_point, even_balance), String.format(dec_point, Cumulative_Interest)));
         }
 
         return paymentScheduleData;

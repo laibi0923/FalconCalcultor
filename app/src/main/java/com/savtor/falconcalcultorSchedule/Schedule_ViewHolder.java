@@ -11,7 +11,7 @@ import android.widget.TextView;
  */
 public class Schedule_ViewHolder extends RecyclerView.ViewHolder {
 
-    TextView scheldule_loan_trems, scheldule_loan_interest, scheldule_loan_principle, scheldule_loan_balance;
+    TextView scheldule_loan_trems, scheldule_loan_interest, scheldule_loan_principle, scheldule_loan_balance, schedule_cumulative_Interest;
 
     Schedule_ViewHolder(View view){
         super (view);
@@ -20,6 +20,7 @@ public class Schedule_ViewHolder extends RecyclerView.ViewHolder {
         scheldule_loan_interest = (TextView) view.findViewById(R.id.recycle_interest_tv);
         scheldule_loan_trems = (TextView) view.findViewById(R.id.recycle_trems_tv);
         scheldule_loan_principle = (TextView) view.findViewById(R.id.recycle_principle_tv);
+        schedule_cumulative_Interest = (TextView) view.findViewById(R.id.recycle_cumulative_Interest_tv);
 
     }
 }

@@ -18,6 +18,7 @@ import android.transition.Slide;
 import android.transition.Transition;
 import android.transition.TransitionInflater;
 import android.transition.TransitionSet;
+import android.util.Log;
 import android.view.*;
 import android.widget.*;
 import com.savtor.falconcalaultorDatabase.Favourite_DataBasic;
@@ -199,9 +200,6 @@ public class Fragment_Calcultor extends Fragment {
                     Fragment mFragment = new Fragment_Saver();
                     mFragment.setArguments(mBundle);
 
-//                    ChangeBounds mChangeBounds = TransitionInflater.from(v.getContext()).inflateTransition(R.transition.change_image_transform);
-//                    mFragment.setSharedElementEnterTransition(mChangeBounds);
-
                     FragmentManager mFragmentManager = getActivity().getSupportFragmentManager();
                     FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
                     mFragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right);
@@ -258,39 +256,38 @@ public class Fragment_Calcultor extends Fragment {
 
                     FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
                     mFragmentTransaction.replace(R.id.mFrameLayout, mFragment);
+//
+//                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
+//
+////                        //                         3. Enter Transition for New Fragment
+////                        Fade enterFade = new Fade();
+////                        enterFade.setDuration(500);
+////                        enterFade.setStartDelay(500);
+////                        mFragment.setEnterTransition(enterFade);
+//
+//                        Log.e("herar", "dsadfsadasd");
+////
+////                        Slide slideTransition = new Slide(Gravity.LEFT);
+////                        slideTransition.setDuration(300);
+////                        slideTransition.setStartDelay(600);
+////                        mFragment.setEnterTransition(slideTransition);
+//
+//
+//                        TransitionSet mTransitionSet = new TransitionSet();
+//                        mTransitionSet.addTransition(TransitionInflater.from(v.getContext()).inflateTransition(android.R.transition.move));
+//                        mTransitionSet.setDuration(600);
+//                        mFragment.setSharedElementEnterTransition(mTransitionSet);
+//
+//                        mFragment.setAllowEnterTransitionOverlap(false);
+//                        mFragment.setAllowReturnTransitionOverlap(false);
+//
+//                        mFragmentTransaction.addSharedElement(schedule_btn, "sechedule_animation");
+//
+//                    }else {
+//
+//                    }
 
-                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
-
-//                        //                         3. Enter Transition for New Fragment
-//                        Fade enterFade = new Fade();
-//                        enterFade.setDuration(500);
-//                        enterFade.setStartDelay(500);
-//                        mFragment.setEnterTransition(enterFade);
-
-                        Slide slideTransition = new Slide(Gravity.LEFT);
-                        slideTransition.setDuration(300);
-                        slideTransition.setStartDelay(600);
-                        mFragment.setEnterTransition(slideTransition);
-
-
-
-                        TransitionSet mTransitionSet = new TransitionSet();
-                        mTransitionSet.addTransition(TransitionInflater.from(v.getContext()).inflateTransition(android.R.transition.move));
-                        mTransitionSet.setDuration(600);
-                        mFragment.setSharedElementEnterTransition(mTransitionSet);
-
-                        mFragment.setAllowEnterTransitionOverlap(false);
-                        mFragment.setAllowReturnTransitionOverlap(false);
-
-
-
-                        mFragmentTransaction.addSharedElement(schedule_btn, "sechedule_animation");
-
-                    }else {
-                        mFragmentTransaction.setCustomAnimations(R.anim.enter_form_bottom, R.anim.exit_from_top, R.anim.enter_form_top, R.anim.exit_form_down);
-                    }
-
-
+                    mFragmentTransaction.setCustomAnimations(R.anim.enter_form_bottom, R.anim.exit_from_top, R.anim.enter_form_top, R.anim.exit_form_down);
                     mFragmentTransaction.addToBackStack(null);
                     mFragment.setArguments(mBundle);
                     mFragmentTransaction.commit();
