@@ -57,7 +57,7 @@ public class Activity_Main extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(getResources().getColor(R.color.blue_grey_800));
+            window.setStatusBarColor(getResources().getColor(R.color.blue_grey_900));
             window.setNavigationBarColor(getResources().getColor(R.color.blue_grey_900));
         }
 

@@ -3,7 +3,7 @@
 	<style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
 
 		<item name="colorPrimary">#424242</item>
-		<item name="colorPrimaryDark">#ff37474f</item>
+		<item name="colorPrimaryDark">@color/colorPrimaryDark</item>
 		<item name="colorAccent">#80CBC4</item>
 		<item name="android:windowContentTransitions">true</item>
 
