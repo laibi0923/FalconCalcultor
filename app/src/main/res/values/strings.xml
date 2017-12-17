@@ -85,6 +85,9 @@
     <string name="init_phone">電話</string>
     <string name="init_remark">備註</string>
 
+    <string name="Toast_String_insert">保存成功</string>
+    <string name="Toast_String_update">更新成功</string>
+
     <!--==============================================================================================-->
     <!--for Setting Page-->
     <string name="password_title">密碼</string>

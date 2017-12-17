@@ -1,5 +1,6 @@
 package com.savtor.falconcalcultor;
 
+import android.annotation.TargetApi;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,6 +14,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.transition.Slide;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
@@ -50,6 +52,7 @@ public class Activity_Main extends AppCompatActivity {
 
         init_navigationview();
 
+
         // 修改 statusbar, navigationbar 顏色
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
@@ -80,7 +83,6 @@ public class Activity_Main extends AppCompatActivity {
         mDrawerToggle.syncState();
         mDrawerLayout.setDrawerListener(mDrawerToggle);
     }
-
 
     final void init_navigationview() {
 
@@ -148,5 +150,6 @@ public class Activity_Main extends AppCompatActivity {
         }, 800);
 
     }
+
 
 }

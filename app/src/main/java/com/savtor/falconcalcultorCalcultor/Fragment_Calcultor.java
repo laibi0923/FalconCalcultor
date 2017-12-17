@@ -13,6 +13,10 @@ import android.text.*;
 import android.transition.ChangeBounds;
 import android.transition.ChangeImageTransform;
 import android.transition.ChangeTransform;
+import android.transition.Fade;
+import android.transition.Slide;
+import android.transition.Transition;
+import android.transition.TransitionInflater;
 import android.transition.TransitionSet;
 import android.view.*;
 import android.widget.*;
@@ -179,11 +183,11 @@ public class Fragment_Calcultor extends Fragment {
         addtofav_btn = (ImageView) v.findViewById(R.id.addtofav_btn);
         addtofav_btn.setImageDrawable(edit_icon);
         addtofav_btn.setOnClickListener(new View.OnClickListener() {
+            @TargetApi(Build.VERSION_CODES.KITKAT)
             @Override
             public void onClick(View v) {
 
                 if(Double.parseDouble(total_insterest_tv.getText().toString()) > 1){
-
 
                     Bundle mBundle = new Bundle();
                     mBundle.putDouble("loan_amount", current_LoanAmount);
@@ -194,6 +198,9 @@ public class Fragment_Calcultor extends Fragment {
 
                     Fragment mFragment = new Fragment_Saver();
                     mFragment.setArguments(mBundle);
+
+//                    ChangeBounds mChangeBounds = TransitionInflater.from(v.getContext()).inflateTransition(R.transition.change_image_transform);
+//                    mFragment.setSharedElementEnterTransition(mChangeBounds);
 
                     FragmentManager mFragmentManager = getActivity().getSupportFragmentManager();
                     FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
@@ -242,15 +249,52 @@ public class Fragment_Calcultor extends Fragment {
                     mBundle.putDouble("loan_rate", current_LoanRate);
                     mBundle.putDouble("loan_installment", result_installment);
 
-                    Fragment mFragment = new Schedule_Fragment();
-                    mFragment.setArguments(mBundle);
-
+//                    \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
                     FragmentManager mFragmentManager = getFragmentManager();
+
+                    Fragment preFragment = mFragmentManager.findFragmentById(R.id.mFrameLayout);
+                    Fragment mFragment = new Schedule_Fragment();
+
+
                     FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
-                    mFragmentTransaction.setCustomAnimations(R.anim.enter_form_bottom, R.anim.exit_from_top, R.anim.enter_form_top, R.anim.exit_form_down);
                     mFragmentTransaction.replace(R.id.mFrameLayout, mFragment);
+
+                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
+
+//                        //                         3. Enter Transition for New Fragment
+//                        Fade enterFade = new Fade();
+//                        enterFade.setDuration(500);
+//                        enterFade.setStartDelay(500);
+//                        mFragment.setEnterTransition(enterFade);
+
+                        Slide slideTransition = new Slide(Gravity.LEFT);
+                        slideTransition.setDuration(300);
+                        slideTransition.setStartDelay(600);
+                        mFragment.setEnterTransition(slideTransition);
+
+
+
+                        TransitionSet mTransitionSet = new TransitionSet();
+                        mTransitionSet.addTransition(TransitionInflater.from(v.getContext()).inflateTransition(android.R.transition.move));
+                        mTransitionSet.setDuration(600);
+                        mFragment.setSharedElementEnterTransition(mTransitionSet);
+
+                        mFragment.setAllowEnterTransitionOverlap(false);
+                        mFragment.setAllowReturnTransitionOverlap(false);
+
+
+
+                        mFragmentTransaction.addSharedElement(schedule_btn, "sechedule_animation");
+
+                    }else {
+                        mFragmentTransaction.setCustomAnimations(R.anim.enter_form_bottom, R.anim.exit_from_top, R.anim.enter_form_top, R.anim.exit_form_down);
+                    }
+
+
                     mFragmentTransaction.addToBackStack(null);
+                    mFragment.setArguments(mBundle);
                     mFragmentTransaction.commit();
+
 
                 }else {
 
@@ -467,9 +511,28 @@ public class Fragment_Calcultor extends Fragment {
         }
     };
 
-    
-	
-    
 
+
+
+    public void shared_element_tesing(Context context){
+        Bundle mBundle = new Bundle();
+        mBundle.putDouble("loan_amount", current_LoanAmount);
+        mBundle.putInt("loan_trems", current_LoanTrems);
+        mBundle.putDouble("loan_rate", current_LoanRate);
+        mBundle.putString("EDIT_MODE", Edit_Mode);
+        mBundle.putInt("DB_ID", DB_ID);
+
+        Fragment mFragment = new Fragment_Saver();
+        mFragment.setArguments(mBundle);
+
+
+
+        FragmentManager mFragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
+        mFragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right);
+        mFragmentTransaction.replace(R.id.mFrameLayout, mFragment);
+        mFragmentTransaction.addToBackStack(null);
+        mFragmentTransaction.commit();
+    }
 }
 

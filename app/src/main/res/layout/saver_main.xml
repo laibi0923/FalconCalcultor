@@ -116,6 +116,14 @@
 					android:layout_marginBottom="10dp"
 					android:id="@+id/subview_alertdate"/>
 
+				<include
+					layout="@layout/saver_dialog_sub_tv"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="10dp"
+					android:layout_marginBottom="10dp"
+					android:id="@+id/subview_alerTime"/>
+
 			</LinearLayout>
 
 			<LinearLayout

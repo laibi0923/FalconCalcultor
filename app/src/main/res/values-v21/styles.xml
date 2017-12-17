@@ -7,7 +7,6 @@
 		<item name="colorAccent">#80CBC4</item>
 		<item name="android:windowContentTransitions">true</item>
 
-		<!--Calcultor Saver 內 Spinner Textcolor-->
 	</style>
 
 

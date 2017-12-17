@@ -31,11 +31,11 @@ public class Fragment_Saver extends Fragment {
     private String This_Fragment_Name = "Fragment_Saver";
 
 	//    For Find View
-    private View subview_loantype, subview_applytype, subview_loannum, subview_firstdue, subview_finaldue, subview_alertdate, subview_address, subview_phone, subview_remarks;
+    private View subview_loantype, subview_applytype, subview_loannum, subview_firstdue, subview_finaldue, subview_alertdate, subview_time, subview_address, subview_phone, subview_remarks;
 	private EditText loanname_edittext, loannum_edittext, address_edittext, phone_edittext, remarks_edittext;
 	private ImageView loantype_icon, applytype_icon, loannum_icon, firstdue_icon, finaldue_icon, alert_icon, address_icon, phone_icon, remarks_icon;
-	private TextView loantype_textview, applytype_textview, firstdue_textview, firstdue_result_textview, finaldue_textview, finaldue_result_textview, alert_textview;
-    private LinearLayout duedate_linear, firstdue_linear, finaldue_linear, loantype_linear, applytype_linear, alert_linear;
+	private TextView loantype_textview, applytype_textview, firstdue_textview, firstdue_result_textview, finaldue_textview, finaldue_result_textview, alert_textview, alert_result_textview, time_textview, time_result_textview;
+    private LinearLayout duedate_linear, firstdue_linear, finaldue_linear, loantype_linear, applytype_linear, alert_linear, time_linear;
 
     //    For Find Dialog View
     private LinearLayout choose_one, choose_two, choose_three, choose_four, choose_five;
@@ -238,26 +238,34 @@ public class Fragment_Saver extends Fragment {
 		finaldue_icon = (ImageView) subview_finaldue.findViewById(R.id.sub_image);
 		finaldue_textview = (TextView) subview_finaldue.findViewById(R.id.sub_textview);
 		finaldue_textview.setText(init_FinalDueDate);
+
 		finaldue_result_textview = (TextView) subview_finaldue.findViewById(R.id.sub_textview_result);
 		finaldue_result_textview.setText(init_FinalDueDate_Result);
         finaldue_result_textview.setTextColor(getResources().getColor(R.color.deep_teal_200));
 
         finaldue_linear = (LinearLayout) subview_finaldue.findViewById(R.id.sub_linear);
         finaldue_linear.setClickable(false);
-		
-		subview_alertdate = v.findViewById(R.id.subview_alertdate);
-		subview_alertdate.setVisibility(View.GONE);
+
+//        ******************************************************************************************
+//        未開放功能
+//        ******************************************************************************************
+
+        subview_alertdate = v.findViewById(R.id.subview_alertdate);
+//		subview_alertdate.setVisibility(View.GONE);
 		alert_icon = (ImageView) subview_alertdate.findViewById(R.id.sub_image);
 		alert_icon.setImageResource(R.drawable.ic_alarm_black_24dp);
+
 		alert_textview = (TextView) subview_alertdate.findViewById(R.id.sub_textview);
 		alert_textview.setText(init_AlertDate);
+
+        alert_result_textview = (TextView) subview_alertdate.findViewById(R.id.sub_textview_result);
+
         alert_linear = (LinearLayout) subview_alertdate.findViewById(R.id.sub_linear);
         alert_linear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 find_dialog_view();
-
 
                 choose_one_text.setText("不用提醒我");
 
@@ -269,11 +277,27 @@ public class Fragment_Saver extends Fragment {
 
                 choose_five.setVisibility(View.GONE);
 
-                show_alert_dialog("設置提醒", dialog_view, alert_textview, alert_icon, 3);
+                show_alert_dialog("設置提醒", dialog_view, alert_result_textview, alert_icon, 3);
 
             }
         });
 
+
+        subview_time = v.findViewById(R.id.subview_alerTime);
+
+        time_textview = (TextView) subview_time.findViewById(R.id.sub_textview);
+        time_textview.setText("提醒時間");
+
+        time_result_textview = (TextView) subview_time.findViewById(R.id.sub_textview_result);
+        time_result_textview.setText("00:00");
+
+        time_linear = (LinearLayout) subview_time.findViewById(R.id.sub_linear);
+        time_linear.setVisibility(View.GONE);
+
+
+//        ******************************************************************************************
+//        ******************************************************************************************
+//        ******************************************************************************************
 		
 		subview_address = v.findViewById(R.id.subview_address);
 		address_icon = (ImageView) subview_address.findViewById(R.id.sub_image);
@@ -309,7 +333,7 @@ public class Fragment_Saver extends Fragment {
         }
 
         if (db_get_alertdate.equals("0")){
-            alert_textview.setTextColor(getResources().getColor(R.color.TextColor_White));
+            alert_textview.setTextColor(getResources().getColor(R.color.TextColor_Gray));
         }else{
             alert_textview.setTextColor(getResources().getColor(R.color.deep_teal_200));
         }
@@ -414,6 +438,7 @@ public class Fragment_Saver extends Fragment {
                         choose_result = choose_two_text.getText().toString();
                         text.setText(choose_result);
                         text.setTextColor(getResources().getColor(R.color.deep_teal_200));
+                        time_linear.setVisibility(View.VISIBLE);
                         break;
 
                     case 4:
@@ -445,6 +470,7 @@ public class Fragment_Saver extends Fragment {
                         choose_result = choose_three_text.getText().toString();
                         text.setText(choose_result);
                         text.setTextColor(getResources().getColor(R.color.deep_teal_200));
+                        time_linear.setVisibility(View.VISIBLE);
                         break;
 
                     case 4:
@@ -475,6 +501,7 @@ public class Fragment_Saver extends Fragment {
                         choose_result = choose_four_text.getText().toString();
                         text.setText(choose_result);
                         text.setTextColor(getResources().getColor(R.color.deep_teal_200));
+                        time_linear.setVisibility(View.VISIBLE);
                         break;
 
                     case 4:
@@ -505,6 +532,7 @@ public class Fragment_Saver extends Fragment {
                     case 3:
                         choose_result = choose_five_text.getText().toString();
                         text.setText(choose_result);
+                        time_linear.setVisibility(View.VISIBLE);
                         break;
 
                     case 4:
@@ -811,7 +839,7 @@ public class Fragment_Saver extends Fragment {
 
             getActivity().getSupportFragmentManager().popBackStack();
 
-            Toast.makeText(getContext(), "This record have been save", Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), getString(R.string.Toast_String_insert), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -858,7 +886,7 @@ public class Fragment_Saver extends Fragment {
 			mFragmentTransaction.commit();
 			
             //getActivity().getSupportFragmentManager().popBackStack();
-            Toast.makeText(getContext(), "This record have been updated", Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), getString(R.string.Toast_String_update), Toast.LENGTH_SHORT).show();
         }
     }
 

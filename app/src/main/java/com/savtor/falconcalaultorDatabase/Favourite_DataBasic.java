@@ -164,7 +164,7 @@ public class Favourite_DataBasic {
         List <Favouite_Item> result = new ArrayList<Favouite_Item>();
 
         // ASC = 由小至大 ; DESC = 由大至小
-        Cursor cursor = db.query(TABLE_NAME, null, null, null, null, null, CREATE_DATE_COULUMN + "  DESC"); 
+        Cursor cursor = db.query(TABLE_NAME, null, null, null, null, null, CREATE_DATE_COULUMN + "  DESC");
 
 
         while (cursor.moveToNext()){

@@ -415,37 +415,40 @@
 	<LinearLayout
 		android:layout_width="match_parent"
 		android:layout_height="50dp"
-		android:orientation="horizontal"
-		android:background="@color/blue_grey_800">
+		android:orientation="vertical"
+		android:background="?attr/selectableItemBackgroundBorderless"
+		android:transitionName="sechedule_animation"
+		android:id="@+id/schedule_btn"
+		android:clickable="true"
+		android:gravity="center">
 
 		<LinearLayout
-			android:id="@+id/schedule_btn"
-			android:transitionName="sechedule_animation"
 			android:orientation="vertical"
 			android:layout_width="match_parent"
 			android:layout_height="50dp"
-			android:clickable="true"
+			android:clickable="false"
 			android:background="@color/blue_grey_800"
 			android:gravity="center"
 			android:paddingTop="10dp"
-			android:paddingBottom="0dp">
-
-			<TextView
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:textAppearance="?android:attr/textAppearanceSmall"
-				android:text="@string/schedule_btn_text"
-				android:id="@+id/textView21"
-				android:paddingTop="5dp"
-				android:textColor="@color/TextColor_Gray"/>
-
-			<ImageView
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:id="@+id/imageView3"
-				android:src="@drawable/ic_falcon_white"/>
+			android:paddingBottom="0dp"
+			android:visibility="gone">
 
 		</LinearLayout>
+
+		<TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/schedule_btn_text"
+            android:id="@+id/textView21"
+            android:paddingTop="5dp"
+            android:textColor="@color/TextColor_Gray"/>
+
+		<ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView3"
+            android:src="@drawable/ic_falcon_white"/>
 
 	</LinearLayout>
 
