@@ -250,48 +250,14 @@ public class Fragment_Calcultor extends Fragment {
 //                    \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
                     FragmentManager mFragmentManager = getFragmentManager();
 
-                    Fragment preFragment = mFragmentManager.findFragmentById(R.id.mFrameLayout);
                     Fragment mFragment = new Schedule_Fragment();
 
-
                     FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
-                    mFragmentTransaction.replace(R.id.mFrameLayout, mFragment);
-//
-//                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
-//
-////                        //                         3. Enter Transition for New Fragment
-////                        Fade enterFade = new Fade();
-////                        enterFade.setDuration(500);
-////                        enterFade.setStartDelay(500);
-////                        mFragment.setEnterTransition(enterFade);
-//
-//                        Log.e("herar", "dsadfsadasd");
-////
-////                        Slide slideTransition = new Slide(Gravity.LEFT);
-////                        slideTransition.setDuration(300);
-////                        slideTransition.setStartDelay(600);
-////                        mFragment.setEnterTransition(slideTransition);
-//
-//
-//                        TransitionSet mTransitionSet = new TransitionSet();
-//                        mTransitionSet.addTransition(TransitionInflater.from(v.getContext()).inflateTransition(android.R.transition.move));
-//                        mTransitionSet.setDuration(600);
-//                        mFragment.setSharedElementEnterTransition(mTransitionSet);
-//
-//                        mFragment.setAllowEnterTransitionOverlap(false);
-//                        mFragment.setAllowReturnTransitionOverlap(false);
-//
-//                        mFragmentTransaction.addSharedElement(schedule_btn, "sechedule_animation");
-//
-//                    }else {
-//
-//                    }
-
-                    mFragmentTransaction.setCustomAnimations(R.anim.enter_form_bottom, R.anim.exit_from_top, R.anim.enter_form_top, R.anim.exit_form_down);
                     mFragmentTransaction.addToBackStack(null);
+                    mFragmentTransaction.setCustomAnimations(R.anim.enter_form_bottom, R.anim.exit_from_top, R.anim.enter_form_top, R.anim.exit_form_down);
                     mFragment.setArguments(mBundle);
+                    mFragmentTransaction.replace(R.id.mFrameLayout, mFragment);
                     mFragmentTransaction.commit();
-
 
                 }else {
 
@@ -531,5 +497,10 @@ public class Fragment_Calcultor extends Fragment {
         mFragmentTransaction.addToBackStack(null);
         mFragmentTransaction.commit();
     }
+
+
+
+
+
 }
 

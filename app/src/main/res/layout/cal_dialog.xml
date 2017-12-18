@@ -51,7 +51,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Done"
+            android:text="@string/calcultor_dialog_PositiveButton"
             android:id="@+id/dialog_cal_btn"
             android:textColor="@color/deep_teal_200"
             android:clickable="true"

@@ -1,6 +1,5 @@
 package com.savtor.falconcalcultor;
 
-import android.annotation.TargetApi;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,11 +13,9 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.transition.Slide;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.FrameLayout;
 
 import com.savtor.falconcalcultorCalcultor.Fragment_Calcultor;
 import com.savtor.falconcalcultorDebitInfo.Fragment_DebitInfo;
@@ -26,16 +23,11 @@ import com.savtor.falconcalcultorFavoutive.Fragment_Favourite;
 import com.savtor.falconcalcultorSetting.Fragment_Setting;
 import android.widget.*;
 
-//import butterknife.BindView;
-//import butterknife.ButterKnife;
+
 
 public class Activity_Main extends AppCompatActivity {
 
-	
-//    @BindView(R.id.mToolbar)Toolbar mToolbar;
-//    @BindView(R.id.mFrameLayout)FrameLayout mFrameLayout;
-//    @BindView(R.id.mNavView)NavigationView mNavView;
-//    @BindView(R.id.mDrawerLayout)DrawerLayout mDrawerLayout;
+
     private Toolbar mToolbar;
     private DrawerLayout mDrawerLayout;
     public NavigationView mNavView;
@@ -44,7 +36,6 @@ public class Activity_Main extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        ButterKnife.bind(this);
 
         init_toolbar();
 
@@ -58,7 +49,7 @@ public class Activity_Main extends AppCompatActivity {
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(getResources().getColor(R.color.blue_grey_900));
-            window.setNavigationBarColor(getResources().getColor(R.color.blue_grey_900));
+//            window.setNavigationBarColor(getResources().getColor(R.color.blue_grey_900));
         }
 
     }

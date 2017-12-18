@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:clickable="false"
-            android:background="@color/material_blue_grey_900"
+            android:background="@color/material_blue_grey_950"
             android:orientation="vertical"
             android:paddingTop="10dp"
             android:paddingBottom="0dp"
