@@ -81,31 +81,31 @@ public class Favourite_Adapter extends RecyclerSwipeAdapter<Favourite_ViewHolder
 
 		holder.loan_rate_tv.setText(String.valueOf( list.get(position).getLoan_Rate()));
 
-        if (list.get(position).getApply_status().equals("0")){
+        if (list.get(position).getApply_status() == 0){
             holder.apply_status_tv.setText(context.getResources().getString(R.string.favourite_status_notapply));
-        }else if (list.get(position).getApply_status().equals("1")){
+        }else if (list.get(position).getApply_status() == 1){
             holder.apply_status_tv.setText(context.getResources().getString(R.string.favourite_status_pending));
-        }else if (list.get(position).getApply_status().equals("2")){
+        }else if (list.get(position).getApply_status() == 2){
             holder.apply_status_tv.setText(context.getResources().getString(R.string.favourite_status_approval));
-        }else if (list.get(position).getApply_status().equals("3")){
+        }else if (list.get(position).getApply_status() == 3){
             holder.apply_status_tv.setText(context.getResources().getString(R.string.favourite_status_reject));
-        }else if (list.get(position).getApply_status().equals("4")){
+        }else if (list.get(position).getApply_status() == 4){
             holder.apply_status_tv.setText(context.getResources().getString(R.string.favourite_status_cancel));
         }
 
 
 
-        if(list.get(position).getLoan_Type() == "0"){
+        if(list.get(position).getLoan_Type() == 0){
             holder.loan_type_icon.setImageResource(R.drawable.ic_person_black_24dp);
-        }else if (list.get(position).getLoan_Type().equals("1")){
+        }else if (list.get(position).getLoan_Type() == 1){
             holder.loan_type_icon.setImageResource(R.drawable.ic_person_black_24dp);
-        }else if(list.get(position).getLoan_Type().equals("2")){
+        }else if(list.get(position).getLoan_Type() == 2){
             holder.loan_type_icon.setImageResource(R.drawable.ic_domain_black_24dp);
-        }else if(list.get(position).getLoan_Type().equals("3")){
+        }else if(list.get(position).getLoan_Type() == 3){
             holder.loan_type_icon.setImageResource(R.drawable.ic_directions_car_black_24dp);
         }
 
-        if (list.get(position).getAlert_date().equals("0")){
+        if (list.get(position).getAlert_date() == 0){
             holder.alert_icon_im.setVisibility(View.GONE);
         }else {
             holder.alert_icon_im.setVisibility(View.VISIBLE);

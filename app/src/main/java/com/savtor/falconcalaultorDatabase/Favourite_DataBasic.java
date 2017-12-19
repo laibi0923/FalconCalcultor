@@ -32,8 +32,8 @@ public class Favourite_DataBasic {
 
     public static final String FIRST_DUEDATE_COULUMN = "Firstduedate";
     public static final String FINAL_DUEDATE_COULUMN = "Finalduedate";
-    public static final String DUEDATE_TYPE_COULUMN = "Duedatetype";
-    public static final String ALERT_DATE = "Alertdate";
+    public static final String ALERT_DATE_COULUMN = "AlertDate";
+    public static final String ALERT_TIME_COULUMN = "AlertTime";
 
 
 	public static final String ADDRESS_COULUMN = "Address";
@@ -48,18 +48,18 @@ public class Favourite_DataBasic {
             KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             CREATE_DATE_COULUMN + " DATETIME DEFAULT (datetime('now', 'localtime')), " +
             NAME_COLUMN + " TEXT," +
-            LOAN_TYPE_COULUMN + " TEXT," +
-            APPLY_STATUS_COULUMN + " TEXT," +
+            LOAN_TYPE_COULUMN + " INTEGER," +
+            APPLY_STATUS_COULUMN + " INTEGER," +
             LOAN_NUM_COULUMN + " TEXT," +
 
             AMOUNT_COLUMN + " DOUBLE," +
             TREMS_COULUMN + " INTEGER," +
             RATE_COULUMN + " DOUBLE," +
 
-            FIRST_DUEDATE_COULUMN + " TEXT," +
-            FINAL_DUEDATE_COULUMN + " TEXT," +
-            DUEDATE_TYPE_COULUMN + " TEXT," +
-            ALERT_DATE + " TEXT, " +
+            FIRST_DUEDATE_COULUMN + " DATETIME," +
+            FINAL_DUEDATE_COULUMN + " DATETIME," +
+            ALERT_DATE_COULUMN + " INTEGER," +
+            ALERT_TIME_COULUMN + " DATETIME, " +
 
             ADDRESS_COULUMN + " TEXT," +
 			PHONE_COULUMN + " TEXT," +
@@ -188,8 +188,8 @@ public class Favourite_DataBasic {
         item.setCreate_date(cusor.getString(1));
 
         item.setName(cusor.getString(2));
-        item.setLoan_Type(cusor.getString(3));
-        item.setApply_status(cusor.getString(4));
+        item.setLoan_Type(cusor.getInt(3));
+        item.setApply_status(cusor.getInt(4));
         item.setLoanNum(cusor.getString(5));
 
         item.setLaon_Amount(cusor.getDouble(6));
@@ -198,8 +198,8 @@ public class Favourite_DataBasic {
 
         item.setFirst_duedate(cusor.getString(9));
         item.setFinal_duedate(cusor.getString(10));
-        item.setDuedate_type(cusor.getString(11));
-        item.setAlert_date(cusor.getString(12));
+        item.setAlert_date(cusor.getInt(11));
+        item.setAlert_time(cusor.getString(12));
 
         item.setAddress(cusor.getString(13));
         item.setPhone(cusor.getString(14));
@@ -230,8 +230,9 @@ public class Favourite_DataBasic {
 
         cv.put(FIRST_DUEDATE_COULUMN, item.getFirst_dueddate());
         cv.put(FINAL_DUEDATE_COULUMN, item.getFinal_dueddate());
-        cv.put(DUEDATE_TYPE_COULUMN, item.getDuedate_type());
-        cv.put(ALERT_DATE, item.getAlert_date());
+        cv.put(ALERT_DATE_COULUMN, item.getAlert_date());
+        cv.put(ALERT_TIME_COULUMN, item.getAlert_time());
+
 
         cv.put(ADDRESS_COULUMN, item.getAddress());
         cv.put(PHONE_COULUMN, item.getPhone());

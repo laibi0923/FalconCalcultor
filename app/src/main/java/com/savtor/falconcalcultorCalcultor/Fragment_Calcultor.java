@@ -8,27 +8,14 @@ import android.support.annotation.*;
 import android.support.design.widget.*;
 import android.support.v4.app.*;
 import android.support.v7.app.*;
-import android.support.v7.widget.*;
 import android.text.*;
-import android.transition.ChangeBounds;
-import android.transition.ChangeImageTransform;
-import android.transition.ChangeTransform;
-import android.transition.Fade;
-import android.transition.Slide;
-import android.transition.Transition;
-import android.transition.TransitionInflater;
-import android.transition.TransitionSet;
-import android.util.Log;
 import android.view.*;
 import android.widget.*;
 import com.savtor.falconcalaultorDatabase.Favourite_DataBasic;
 import com.savtor.falconcalcultor.*;
 import com.savtor.falconcalcultorSchedule.Schedule_Fragment;
-
 import android.graphics.drawable.*;
-import android.support.v4.view.*;
-import android.view.animation.*;
-import android.animation.*;
+
 
 
 /**
@@ -37,13 +24,13 @@ import android.animation.*;
 public class Fragment_Calcultor extends Fragment {
 
     private String Dialog_Title, Sub_Title;
-    private double result_installment, result_total_interest, result_total_payment;
+    private double result_Installment, result_Total_Interest, result_Total_Payment;
     private int myCaseID;
     private double current_LoanAmount, current_LoanRate;
     private int current_LoanTrems;
     private float x = 0;
 
-	Drawable edit_icon;
+	private Drawable edit_icon;
 	
     private ImageView addtofav_btn;
     private TextView loanAmount_tv, loanTrems_tv, loanRate_tv, installment_tv, total_insterest_tv, total_payment_tv;
@@ -72,27 +59,8 @@ public class Fragment_Calcultor extends Fragment {
 		// TODO: Implement this method
 		super.onCreate(savedInstanceState);
 
-        mSharedPreferences = this.getActivity().getSharedPreferences("Setting", Context.MODE_PRIVATE);
-        get_sharedpreferences();
-
-		Bundle mBundle = getArguments();
-
-        if (mBundle != null){
-
-            DB_ID  = mBundle.getInt("DB_ID");
-            Edit_Mode = mBundle.getString("EDIT_MODE");
-
-            if ( Edit_Mode == "true"){
-                Edit_Mode_On(DB_ID);
-            }else if (Edit_Mode == "false"){
-                Edit_Mode_Off();
-            }
-			
-        }else {
-            Edit_Mode_Off();
-        }
-
-        getActivity().getWindow().setAllowEnterTransitionOverlap(false);
+        get_SharedPreferences();
+        get_Bundle_Arguments();
 	}
 	
 
@@ -108,53 +76,28 @@ public class Fragment_Calcultor extends Fragment {
     }
 
 
+    //=============================================================================================
+    // [1] Get setting value in Bundle
+    private void get_Bundle_Arguments(){
 
+        Bundle mBundle = getArguments();
 
-
-
-
-
-	//=============================================================================================
-    // [?] Edit Mode On
-    private void Edit_Mode_On(int databasic_ID){
-
-        Edit_Mode = "true";
-
-        Favourite_DataBasic databasic = new Favourite_DataBasic(getActivity(), "Fragment_Calcultor");
-
-        current_LoanAmount = databasic.query(databasic_ID).getLoan_Amount();
-        current_LoanTrems = databasic.query(databasic_ID).getTrems();
-        current_LoanRate = databasic.query(databasic_ID).getLoan_Rate();
-		result_installment = mCalcultor.getMonthlyInstallment(current_LoanAmount, current_LoanTrems, current_LoanRate);
-		result_total_interest = mCalcultor.getTotalInsterest(current_LoanAmount, current_LoanTrems, result_installment);
-		result_total_payment = mCalcultor.getTotalPayment(result_installment,current_LoanTrems);
-
-		randomAnim();
-
-        edit_icon = getResources().getDrawable(R.drawable.ic_create_black_24dp);
+        if (mBundle != null){
+            DB_ID  = mBundle.getInt("DB_ID", 0);
+            Edit_Mode = mBundle.getString("EDIT_MODE", "false");
+            if ( Edit_Mode == "true"){ Edit_Mode_On(DB_ID); }
+            else if (Edit_Mode == "false"){ Edit_Mode_Off(); }
+        }else {
+            Edit_Mode_Off();
+        }
 
     }
 
     //=============================================================================================
-    // [?] Edit Mode Off
-    private void Edit_Mode_Off(){
+    // [2] Get setting value in sharedpreferences
+    private void get_SharedPreferences(){
+        mSharedPreferences = this.getActivity().getSharedPreferences("Setting", Context.MODE_PRIVATE);
 
-        Edit_Mode = "false";
-
-        current_LoanAmount = 0;
-        current_LoanTrems = 12;
-        current_LoanRate = 54;
-		result_installment = 0;
-		result_total_interest = 0;
-		result_total_payment = 0;
-
-        edit_icon = getResources().getDrawable(R.drawable.ic_add_black_24dp);
-
-    }
-
-    //=============================================================================================
-    // [?] Get setting value in sharedpreferences
-    public void get_sharedpreferences(){
         get_setting_password = mSharedPreferences.getInt("Setting_password", 1);
         get_setting_language = mSharedPreferences.getInt("Setting_language", 1);
         get_setting_decimal = mSharedPreferences.getInt("Setting_decimal" , 1);
@@ -166,53 +109,61 @@ public class Fragment_Calcultor extends Fragment {
         }
     }
 
+    //=============================================================================================
+    // [3] Edit Mode On
+    private void Edit_Mode_On(int databasic_ID){
+
+        Edit_Mode = "true";
+
+        Favourite_DataBasic databasic = new Favourite_DataBasic(getActivity(), "Fragment_Calcultor");
+
+        current_LoanAmount = databasic.query(databasic_ID).getLoan_Amount();
+        current_LoanTrems = databasic.query(databasic_ID).getTrems();
+        current_LoanRate = databasic.query(databasic_ID).getLoan_Rate();
+        result_Installment = mCalcultor.getMonthlyInstallment(current_LoanAmount, current_LoanTrems, current_LoanRate);
+        result_Total_Interest = mCalcultor.getTotalInsterest(current_LoanAmount, current_LoanTrems, result_Installment);
+        result_Total_Payment = mCalcultor.getTotalPayment(result_Installment,current_LoanTrems);
+
+        randomAnim();
+
+        edit_icon = getResources().getDrawable(R.drawable.ic_create_black_24dp);
+
+    }
 
     //=============================================================================================
-    // [?] 加入畫面內容
-    public void Find_View(View v){
+    // [4] Edit Mode Off
+    private void Edit_Mode_Off(){
+
+        Edit_Mode = "false";
+
+        current_LoanAmount = 0;
+        current_LoanTrems = 12;
+        current_LoanRate = 54;
+        result_Installment = 0;
+        result_Total_Interest = 0;
+        result_Total_Payment = 0;
+
+        edit_icon = getResources().getDrawable(R.drawable.ic_add_black_24dp);
+
+    }
+
+
+    //=============================================================================================
+    // [5] 加入畫面內容
+    private void Find_View(View v){
 
         loan_amount = (LinearLayout) v.findViewById(R.id.loanAmount_linear);
-        loan_amount.setOnClickListener(linearLayout_OnclickListener);   //[?]
-
+        loan_amount.setOnClickListener(DataInput_OnclickListener);   // [7-1]
 
         loan_trems = (LinearLayout) v.findViewById(R.id.loanTrems_linear);
-        loan_trems.setOnClickListener(linearLayout_OnclickListener);    //[?]
+        loan_trems.setOnClickListener(DataInput_OnclickListener);    // [7-1]
 
         loan_rate = (LinearLayout) v.findViewById(R.id.loanRate_linear);
-        loan_rate.setOnClickListener(linearLayout_OnclickListener);     //[?]
+        loan_rate.setOnClickListener(DataInput_OnclickListener);     // [7-1]
 
         addtofav_btn = (ImageView) v.findViewById(R.id.addtofav_btn);
         addtofav_btn.setImageDrawable(edit_icon);
-        addtofav_btn.setOnClickListener(new View.OnClickListener() {
-            @TargetApi(Build.VERSION_CODES.KITKAT)
-            @Override
-            public void onClick(View v) {
-
-                if(Double.parseDouble(total_insterest_tv.getText().toString()) > 1){
-
-                    Bundle mBundle = new Bundle();
-                    mBundle.putDouble("loan_amount", current_LoanAmount);
-                    mBundle.putInt("loan_trems", current_LoanTrems);
-                    mBundle.putDouble("loan_rate", current_LoanRate);
-                    mBundle.putString("EDIT_MODE", Edit_Mode);
-                    mBundle.putInt("DB_ID", DB_ID);
-
-                    Fragment mFragment = new Fragment_Saver();
-                    mFragment.setArguments(mBundle);
-
-                    FragmentManager mFragmentManager = getActivity().getSupportFragmentManager();
-                    FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
-                    mFragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right);
-                    mFragmentTransaction.replace(R.id.mFrameLayout, mFragment);
-                    mFragmentTransaction.addToBackStack(null);
-                    mFragmentTransaction.commit();
-
-                }else {
-                    Toast.makeText(getContext(), getResources().getString(R.string.calcultor_toast_calfirst), Toast.LENGTH_LONG).show();
-                }
-
-            }
-        });
+        addtofav_btn.setOnClickListener(Action_OnclickListener);    // [7-2]
 
         loanAmount_tv = (TextView) v.findViewById(R.id.loanAmount_tv);
         loanAmount_tv.setText(String.format("%1$.2f", current_LoanAmount));
@@ -224,54 +175,23 @@ public class Fragment_Calcultor extends Fragment {
         loanRate_tv.setText(String.format("%.2f", current_LoanRate));
 
         installment_tv = (TextView) v.findViewById(R.id.installment_tv);
-		installment_tv.setText(String.format(dec_point, result_installment));
+		installment_tv.setText(String.format(dec_point, result_Installment));
 		
         total_insterest_tv = (TextView) v.findViewById(R.id.total_interest_tv);
-		total_insterest_tv.setText(String.format(dec_point, result_total_interest));
+		total_insterest_tv.setText(String.format(dec_point, result_Total_Interest));
 		
         total_payment_tv = (TextView) v.findViewById(R.id.total_payment_tv);
-		total_payment_tv.setText(String.format(dec_point, result_total_payment));
+		total_payment_tv.setText(String.format(dec_point, result_Total_Payment));
 
         schedule_btn = (LinearLayout) v.findViewById(R.id.schedule_btn);
-        schedule_btn.setOnClickListener(new View.OnClickListener() {
-            
-            @Override
-            public void onClick(View v) {
-
-                if(Double.parseDouble(total_insterest_tv.getText().toString()) > 1){
-
-                    Bundle mBundle = new Bundle();
-
-                    mBundle.putDouble("loan_amount", current_LoanAmount);
-                    mBundle.putInt("loan_trems", current_LoanTrems);
-                    mBundle.putDouble("loan_rate", current_LoanRate);
-                    mBundle.putDouble("loan_installment", result_installment);
-
-//                    \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-                    FragmentManager mFragmentManager = getFragmentManager();
-
-                    Fragment mFragment = new Schedule_Fragment();
-
-                    FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
-                    mFragmentTransaction.addToBackStack(null);
-                    mFragmentTransaction.setCustomAnimations(R.anim.enter_form_bottom, R.anim.exit_from_top, R.anim.enter_form_top, R.anim.exit_form_down);
-                    mFragment.setArguments(mBundle);
-                    mFragmentTransaction.replace(R.id.mFrameLayout, mFragment);
-                    mFragmentTransaction.commit();
-
-                }else {
-
-                    Toast.makeText(getContext(), getResources().getString(R.string.calcultor_toast_calfirst), Toast.LENGTH_SHORT).show();
-
-                }
-            }
-        });
+        schedule_btn.setOnClickListener(Action_OnclickListener);    // [7-2]
 
 
     }
 
+
     //=============================================================================================
-    // [?] 加入 Dialog 畫面內容
+    // [6] 加入 Dialog 畫面內容
     public void find_dialog_view(){
 
         dialog_view = LayoutInflater.from(getActivity()).inflate(R.layout.cal_dialog, null);
@@ -290,10 +210,11 @@ public class Fragment_Calcultor extends Fragment {
     }
 
     //=============================================================================================
-    // [?] 點擊事件
-    private View.OnClickListener linearLayout_OnclickListener = new View.OnClickListener() {
+    // [7-1] 點擊事件
+    private View.OnClickListener DataInput_OnclickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+
             switch (v.getId()){
 
                 case R.id.loanAmount_linear:
@@ -316,13 +237,84 @@ public class Fragment_Calcultor extends Fragment {
             }
 
             find_dialog_view();
-            show_alert_dialog(Dialog_Title, Sub_Title, myCaseID, dialog_view);
+            show_alert_dialog(Dialog_Title, Sub_Title, myCaseID, dialog_view);  // [8]
+        }
+    };
+
+    // [7-2] 點擊事件
+    private View.OnClickListener Action_OnclickListener = new View.OnClickListener(){
+        @Override
+        public void onClick(View v) {
+
+            switch (v.getId()){
+
+                case R.id.addtofav_btn:
+
+                    if(Double.parseDouble(total_insterest_tv.getText().toString()) > 1){
+
+                        Bundle mBundle = new Bundle();
+                        mBundle.putDouble("loan_amount", current_LoanAmount);
+                        mBundle.putInt("loan_trems", current_LoanTrems);
+                        mBundle.putDouble("loan_rate", current_LoanRate);
+                        mBundle.putString("EDIT_MODE", Edit_Mode);
+                        mBundle.putInt("DB_ID", DB_ID);
+
+                        Fragment mFragment = new Fragment_Saver();
+                        mFragment.setArguments(mBundle);
+
+                        FragmentManager mFragmentManager = getActivity().getSupportFragmentManager();
+                        FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
+                        mFragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right);
+                        mFragmentTransaction.replace(R.id.mFrameLayout, mFragment);
+                        mFragmentTransaction.addToBackStack(null);
+                        mFragmentTransaction.commit();
+
+                    }else {
+                        Toast.makeText(getContext(), getResources().getString(R.string.calcultor_toast_calfirst), Toast.LENGTH_LONG).show();
+                    }
+
+
+                    break;
+
+                case R.id.schedule_btn:
+
+                    if(Double.parseDouble(total_insterest_tv.getText().toString()) > 1){
+
+                        Bundle mBundle = new Bundle();
+
+                        mBundle.putDouble("loan_amount", current_LoanAmount);
+                        mBundle.putInt("loan_trems", current_LoanTrems);
+                        mBundle.putDouble("loan_rate", current_LoanRate);
+                        mBundle.putDouble("loan_installment", result_Installment);
+
+//                    \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+                        FragmentManager mFragmentManager = getFragmentManager();
+
+                        Fragment mFragment = new Schedule_Fragment();
+
+                        FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
+                        mFragmentTransaction.addToBackStack(null);
+                        mFragmentTransaction.setCustomAnimations(R.anim.enter_form_bottom, R.anim.exit_from_top, R.anim.enter_form_top, R.anim.exit_form_down);
+                        mFragment.setArguments(mBundle);
+                        mFragmentTransaction.replace(R.id.mFrameLayout, mFragment);
+                        mFragmentTransaction.commit();
+
+                    }else {
+
+                        Toast.makeText(getContext(), getResources().getString(R.string.calcultor_toast_calfirst), Toast.LENGTH_SHORT).show();
+
+                    }
+
+                    break;
+
+            }
+
         }
     };
 
 
     //=============================================================================================
-    // [?] 利用 Alert Dialog 處理用戶輸入資料
+    // [8] 利用 Alert Dialog 處理用戶輸入資料
     private void show_alert_dialog(String Dialog_Title, String Sub_Title, final int myCaseID, View Dialogview){
 
         final AlertDialog mAlertDialog = new AlertDialog.Builder(getContext()).create();
@@ -392,27 +384,27 @@ public class Fragment_Calcultor extends Fragment {
 
                 }
 
-                result_installment = mCalcultor.getMonthlyInstallment(current_LoanAmount, current_LoanTrems, current_LoanRate);
-				result_total_interest = mCalcultor.getTotalInsterest(current_LoanAmount, current_LoanTrems, result_installment);
-				result_total_payment = mCalcultor.getTotalPayment(result_installment, current_LoanTrems);
+                result_Installment = mCalcultor.getMonthlyInstallment(current_LoanAmount, current_LoanTrems, current_LoanRate);
+				result_Total_Interest = mCalcultor.getTotalInsterest(current_LoanAmount, current_LoanTrems, result_Installment);
+				result_Total_Payment = mCalcultor.getTotalPayment(result_Installment, current_LoanTrems);
 				
 				
-                if (result_total_interest < 1){
+                if (result_Total_Interest < 1){
                     total_insterest_tv.setText("0.00");
                 }else {
-                    total_insterest_tv.setText(String.format(dec_point, result_total_interest));
+                    total_insterest_tv.setText(String.format(dec_point, result_Total_Interest));
                 }
 
-                if (result_total_payment < 1) {
+                if (result_Total_Payment < 1) {
                     total_payment_tv.setText("0.00");
                 }else {
-                    total_payment_tv.setText(String.format(dec_point, result_total_payment));
+                    total_payment_tv.setText(String.format(dec_point, result_Total_Payment));
                 }
 
-                if (result_installment < 1){
+                if (result_Installment < 1){
                     installment_tv.setText("0.00");
                 }else {
-                    randomAnim();
+                    randomAnim();   // [9]
                 }
 
                 mAlertDialog.dismiss();
@@ -424,7 +416,7 @@ public class Fragment_Calcultor extends Fragment {
     }
 
     //=============================================================================================
-    // [?] 計算完畢後動畫
+    // [9] 計算完畢後動畫
     private void randomAnim(){
 
         x = 0;
@@ -436,9 +428,9 @@ public class Fragment_Calcultor extends Fragment {
                     Thread.sleep(800);
                 }catch (InterruptedException e){ e.printStackTrace();}
 
-                while (x <= result_installment){
+                while (x <= result_Installment){
                     Message msg = mHandler.obtainMessage();
-                    x += result_installment/current_LoanTrems;
+                    x += result_Installment / current_LoanTrems;
                     msg.what = 1;
                     msg.sendToTarget();
 
@@ -453,54 +445,26 @@ public class Fragment_Calcultor extends Fragment {
     }
 
     //=============================================================================================
-    // [?] 計算完畢後動畫
+    // [10] 計算完畢後動畫
     private Handler mHandler = new Handler(){
 
         public void handleMessage(Message msg){
             if(msg.what == 1) {
 
-                if(x > result_installment){
+                if(x > result_Installment){
                     
-                    installment_tv.setText(String.format(dec_point,result_installment));
+                    installment_tv.setText(String.format(dec_point, result_Installment));
 
                 }else {
                     installment_tv.setText(String.format(dec_point,x));
                 }
             }else if(msg.what == 2){
-                installment_tv.setText(String.format(dec_point,result_installment));
+                installment_tv.setText(String.format(dec_point, result_Installment));
             }
 
             super.handleMessage(msg);
         }
     };
 
-
-
-
-    public void shared_element_tesing(Context context){
-        Bundle mBundle = new Bundle();
-        mBundle.putDouble("loan_amount", current_LoanAmount);
-        mBundle.putInt("loan_trems", current_LoanTrems);
-        mBundle.putDouble("loan_rate", current_LoanRate);
-        mBundle.putString("EDIT_MODE", Edit_Mode);
-        mBundle.putInt("DB_ID", DB_ID);
-
-        Fragment mFragment = new Fragment_Saver();
-        mFragment.setArguments(mBundle);
-
-
-
-        FragmentManager mFragmentManager = getActivity().getSupportFragmentManager();
-        FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
-        mFragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right);
-        mFragmentTransaction.replace(R.id.mFrameLayout, mFragment);
-        mFragmentTransaction.addToBackStack(null);
-        mFragmentTransaction.commit();
-    }
-
-
-
-
-
-}
+}   //=============================================================================================
 

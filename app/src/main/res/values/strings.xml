@@ -66,17 +66,18 @@
 	<string name="loantype_car">汽車貸款</string>
 	
     <string name="init_applystatuse">批核狀況</string>
+    <string name="applytype_notyet">未申請</string>
 	<string name="applytype_pending">申請中</string>
 	<string name="applytype_approval">已成功批核</string>
 	<string name="applytype_reject">不成功批核</string>
 	<string name="applytype_cancel">取消申請</string>
-	
-	
+
     <string name="init_loannum">貸款編號</string>
     <string name="init_firstdue">首期供款日</string>
     <string name="init_finalduee">最後供款日</string>
 	
     <string name="init_alertdate">設置提醒</string>
+    <string name="alertdate_dontalert">不要提醒</string>
 	<string name="alertdate_3day">設置3天前提醒</string>
 	<string name="alertdate_5day">設置5天前提醒</string>
 	<string name="alertdate_7day">設置7天前提醒</string>

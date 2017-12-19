@@ -31,23 +31,25 @@ public class Fragment_Saver extends Fragment {
     private String This_Fragment_Name = "Fragment_Saver";
 
 	//    For Find View
-    private View subview_loantype, subview_applytype, subview_loannum, subview_firstdue, subview_finaldue, subview_alertdate, subview_time, subview_address, subview_phone, subview_remarks;
-	private EditText loanname_edittext, loannum_edittext, address_edittext, phone_edittext, remarks_edittext;
-	private ImageView loantype_icon, applytype_icon, loannum_icon, firstdue_icon, finaldue_icon, alert_icon, address_icon, phone_icon, remarks_icon;
-	private TextView loantype_textview, applytype_textview, firstdue_textview, firstdue_result_textview, finaldue_textview, finaldue_result_textview, alert_textview, alert_result_textview, time_textview, time_result_textview;
-    private LinearLayout duedate_linear, firstdue_linear, finaldue_linear, loantype_linear, applytype_linear, alert_linear, time_linear;
+    private View SV_LoanType, SV_ApplyType, SV_LoanNum, SV_FirstDue, SV_FinalDue, SV_AlertType, SV_AlertTime, SV_Address, SV_PhoneNum, SV_Remarks;
+	private EditText ED_LoanName, ED_LoanNum, ED_LoanAddress, ED_PhoneNum, ED_Remarks;
+	private ImageView IV_LoanType, IV_Apply_Type, IV_Loan_Num, IV_FirstDue, IV_FinalDue, IV_Alert, IV_Address, IV_PhoneNum, IV_Remarks;
+	private TextView TV_LoanType, TV_ApplyType, TV_FirstDue, TV_FirstDue_Result, TV_Final_FinalDue, TV_FinalDue_Result, TV_AlertType, TV_AlertType_Result, TV_AlertTime, TV_AlertTime_Result;
+    private LinearLayout Linear_DueDate, Linear_FirstDue, Linear_FinalDue, Linear_LoanType, Linear_ApplyType, Linear_AlertType, Linear_AlertTime;
 
     //    For Find Dialog View
+    private AlertDialog mAlertDialog;
     private LinearLayout choose_one, choose_two, choose_three, choose_four, choose_five;
     private TextView choose_one_text, choose_two_text , choose_three_text, choose_four_text, choose_five_text, choose_dialog_title, choose_dialog_cancellbtn;
     private ImageView choose_one_image, choose_two_image, choose_three_image, choose_four_image, choose_five_image;
-    private String choose_result;
 
-    private Calendar Calendar_finaldue;
+    private Calendar mCalendar, Calendar_finaldue;
 
-    private String get_createdate, get_name, get_loantype, get_applystatus, get_loannum, get_firstdue, get_finaldue, get_alertdate, get_address, get_phone, get_remark,  get_duedate_type;
+    private String get_createdate, get_name, get_loannum, get_firstdue, get_finaldue, get_alerttime, get_address, get_phone, get_remark;
     private double get_loanamount, get_loanrate;
     private int get_loantrems;
+
+    private int get_loantype, get_applystatus, get_alertdate_type;
 
 
     private String init_Name, init_LoanType, init_ApplyStatus, init_LoanNum, init_FirstDueDate, init_FirstDueDate_Result, init_FinalDueDate, init_FinalDueDate_Result, init_DueDate_Type, init_AlertDate, init_Address, init_Phone, init_Remarks;
@@ -59,7 +61,8 @@ public class Fragment_Saver extends Fragment {
     private double bundle_amount, bundle_rate;
     private int bundle_trems;
     private int DB_ID;
-    private String db_get_applystatus, db_get_alertdate, db_get_loantype;
+
+    private int db_get_loantype, db_get_applystatus, db_get_alertdate;
 
     private View dialog_view;
 
@@ -140,158 +143,120 @@ public class Fragment_Saver extends Fragment {
     // [1] 加入畫面內容
     public void Find_View(View v){
 
-		loanname_edittext = (EditText) v.findViewById(R.id.save_name);
-		loanname_edittext.setOnFocusChangeListener(edText_FocusChangeListener);
-        loanname_edittext.requestFocus();
-		loanname_edittext.setHint(init_Name);
-		loanname_edittext.setText(init_Name_text);
-		
-		subview_loantype = v.findViewById(R.id.subview_loantype);
-		loantype_icon = (ImageView) subview_loantype.findViewById(R.id.sub_image);
-		loantype_icon.setImageResource(R.drawable.ic_person_black_24dp);
-		loantype_textview = (TextView) subview_loantype.findViewById(R.id.sub_textview);
-		loantype_textview.setText(init_LoanType);
-        loantype_linear = (LinearLayout) subview_loantype.findViewById(R.id.sub_linear);
-        loantype_linear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+		ED_LoanName = (EditText) v.findViewById(R.id.save_name);
+        ED_LoanName.setOnFocusChangeListener(edText_FocusChangeListener);
+        ED_LoanName.requestFocus();
+        ED_LoanName.setHint(init_Name);
+        ED_LoanName.setText(init_Name_text);
 
-                find_dialog_view();
+//        Loan Type
+		SV_LoanType = v.findViewById(R.id.subview_loantype);
 
-                choose_one_text.setText(getResources().getString(R.string.loantype_personal));
-                choose_one_image.setImageResource(R.drawable.ic_person_black_24dp);
+		IV_LoanType = (ImageView) SV_LoanType.findViewById(R.id.sub_image);
+        IV_LoanType.setImageResource(R.drawable.ic_person_black_24dp);
 
-                choose_two_text.setText(getResources().getString(R.string.loantype_mort));
-                choose_two_image.setImageResource(R.drawable.ic_domain_black_24dp);
-
-                choose_three_text.setText(getResources().getString(R.string.loantype_car));
-                choose_three_image.setImageResource(R.drawable.ic_directions_car_black_24dp);
-
-                choose_four.setVisibility(View.GONE);
-
-                choose_five.setVisibility(View.GONE);
-
-                show_alert_dialog("貸款類別", dialog_view, loantype_textview, loantype_icon, 1);
-
-            }
-        });
-
-        subview_applytype = v.findViewById(R.id.subview_applytype);
-		applytype_icon = (ImageView) subview_applytype.findViewById(R.id.sub_image);
-		applytype_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_assignment_black_24dp));
-		applytype_textview = (TextView) subview_applytype.findViewById(R.id.sub_textview);
-		applytype_textview.setText(init_ApplyStatus);
-        applytype_linear = (LinearLayout) subview_applytype.findViewById(R.id.sub_linear);
-        applytype_linear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                find_dialog_view();
-
-                choose_one_text.setText("未申請");
-
-                choose_two_text.setText(getResources().getString(R.string.applytype_pending));
-
-                choose_three_text.setText(getResources().getString(R.string.applytype_approval));
-
-                choose_four_text.setText(getResources().getString(R.string.applytype_reject));
-
-                choose_five_text.setText(getResources().getString(R.string.applytype_cancel));
+		TV_LoanType = (TextView) SV_LoanType.findViewById(R.id.sub_textview);
+        TV_LoanType.setText(init_LoanType);
+        Linear_LoanType = (LinearLayout) SV_LoanType.findViewById(R.id.sub_linear);
+        Linear_LoanType.setTag(1);
+        Linear_LoanType.setOnClickListener(Show_Dialog_OnClickListener);
 
 
-                show_alert_dialog("批核狀況", dialog_view, applytype_textview, applytype_icon, 2);
+//        Apply Type
+        SV_ApplyType = v.findViewById(R.id.subview_applytype);
 
-            }
-        });
+		IV_Apply_Type = (ImageView) SV_ApplyType.findViewById(R.id.sub_image);
+        IV_Apply_Type.setImageDrawable(getResources().getDrawable(R.drawable.ic_assignment_black_24dp));
 
-        subview_loannum = v.findViewById(R.id.subview_loannum);
-        subview_loannum.setVisibility(View.GONE);
-		loannum_icon = (ImageView) subview_loannum.findViewById(R.id.sub_image);
-		loannum_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_count));
-		loannum_edittext = (EditText) subview_loannum.findViewById(R.id.sub_edittext);
-		loannum_edittext.setSingleLine(true);
-		loannum_edittext.setOnFocusChangeListener(edText_FocusChangeListener);
-		loannum_edittext.setHint(init_LoanNum);
-		loannum_edittext.setText(init_LoanNum_text);
+		TV_ApplyType = (TextView) SV_ApplyType.findViewById(R.id.sub_textview);
+        TV_ApplyType.setText(init_ApplyStatus);
 
-        duedate_linear = (LinearLayout) v.findViewById(R.id.duedate_linear);
-        duedate_linear.setVisibility(View.GONE);
+        Linear_ApplyType = (LinearLayout) SV_ApplyType.findViewById(R.id.sub_linear);
+        Linear_ApplyType.setTag(2);
+        Linear_ApplyType.setOnClickListener(Show_Dialog_OnClickListener);
 
+//        Loan Number
+        SV_LoanNum = v.findViewById(R.id.subview_loannum);
 
-        subview_firstdue = v.findViewById(R.id.subview_firstdue);
-        firstdue_icon = (ImageView) subview_firstdue.findViewById(R.id.sub_image);
-		firstdue_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_event_black_24dp));
-		firstdue_textview = (TextView) subview_firstdue.findViewById(R.id.sub_textview);
-		firstdue_textview.setText(init_FirstDueDate);
-		firstdue_result_textview = (TextView) subview_firstdue.findViewById(R.id.sub_textview_result);
-		firstdue_result_textview.setText(init_FirstDueDate_Result);
+		IV_Loan_Num = (ImageView) SV_LoanNum.findViewById(R.id.sub_image);
+        IV_Loan_Num.setImageDrawable(getResources().getDrawable(R.drawable.ic_count));
 
-        firstdue_linear = (LinearLayout) subview_firstdue.findViewById(R.id.sub_linear);
-        firstdue_linear.setOnClickListener(new View.OnClickListener() {
+		ED_LoanNum = (EditText) SV_LoanNum.findViewById(R.id.sub_edittext);
+        ED_LoanNum.setSingleLine(true);
+        ED_LoanNum.setOnFocusChangeListener(edText_FocusChangeListener);
+        ED_LoanNum.setHint(init_LoanNum);
+        ED_LoanNum.setText(init_LoanNum_text);
+
+//        ***********
+        Linear_DueDate = (LinearLayout) v.findViewById(R.id.duedate_linear);
+
+//      First  Due Date
+        SV_FirstDue = v.findViewById(R.id.subview_firstdue);
+
+        IV_FirstDue = (ImageView) SV_FirstDue.findViewById(R.id.sub_image);
+        IV_FirstDue.setImageDrawable(getResources().getDrawable(R.drawable.ic_event_black_24dp));
+
+		TV_FirstDue = (TextView) SV_FirstDue.findViewById(R.id.sub_textview);
+        TV_FirstDue.setText(init_FirstDueDate);
+
+		TV_FirstDue_Result = (TextView) SV_FirstDue.findViewById(R.id.sub_textview_result);
+        TV_FirstDue_Result.setText(init_FirstDueDate_Result);
+
+        Linear_FirstDue = (LinearLayout) SV_FirstDue.findViewById(R.id.sub_linear);
+        Linear_FirstDue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 show_date_dialog().show();
             }
         });
 
-		subview_finaldue = v.findViewById(R.id.subview_finaldue);
-		finaldue_icon = (ImageView) subview_finaldue.findViewById(R.id.sub_image);
-		finaldue_textview = (TextView) subview_finaldue.findViewById(R.id.sub_textview);
-		finaldue_textview.setText(init_FinalDueDate);
+//        Final Due Date
+		SV_FinalDue = v.findViewById(R.id.subview_finaldue);
 
-		finaldue_result_textview = (TextView) subview_finaldue.findViewById(R.id.sub_textview_result);
-		finaldue_result_textview.setText(init_FinalDueDate_Result);
-        finaldue_result_textview.setTextColor(getResources().getColor(R.color.deep_teal_200));
+		IV_FinalDue = (ImageView) SV_FinalDue.findViewById(R.id.sub_image);
+		TV_Final_FinalDue = (TextView) SV_FinalDue.findViewById(R.id.sub_textview);
+        TV_Final_FinalDue.setText(init_FinalDueDate);
 
-        finaldue_linear = (LinearLayout) subview_finaldue.findViewById(R.id.sub_linear);
-        finaldue_linear.setClickable(false);
+		TV_FinalDue_Result = (TextView) SV_FinalDue.findViewById(R.id.sub_textview_result);
+        TV_FinalDue_Result.setText(init_FinalDueDate_Result);
+        TV_FinalDue_Result.setTextColor(getResources().getColor(R.color.deep_teal_200));
+
+        Linear_FinalDue = (LinearLayout) SV_FinalDue.findViewById(R.id.sub_linear);
+        Linear_FinalDue.setClickable(false);
 
 //        ******************************************************************************************
 //        未開放功能
 //        ******************************************************************************************
 
-        subview_alertdate = v.findViewById(R.id.subview_alertdate);
-		subview_alertdate.setVisibility(View.GONE);
-		alert_icon = (ImageView) subview_alertdate.findViewById(R.id.sub_image);
-		alert_icon.setImageResource(R.drawable.ic_alarm_black_24dp);
+        SV_AlertType = v.findViewById(R.id.subview_alertdate);
+//		subview_alertdate.setVisibility(View.GONE);
 
-		alert_textview = (TextView) subview_alertdate.findViewById(R.id.sub_textview);
-		alert_textview.setText(init_AlertDate);
+		IV_Alert = (ImageView) SV_AlertType.findViewById(R.id.sub_image);
+		IV_Alert.setImageResource(R.drawable.ic_alarm_black_24dp);
 
-        alert_result_textview = (TextView) subview_alertdate.findViewById(R.id.sub_textview_result);
+		TV_AlertType = (TextView) SV_AlertType.findViewById(R.id.sub_textview);
+		TV_AlertType.setText(init_AlertDate);
 
-        alert_linear = (LinearLayout) subview_alertdate.findViewById(R.id.sub_linear);
-        alert_linear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        TV_AlertType_Result = (TextView) SV_AlertType.findViewById(R.id.sub_textview_result);
+        TV_AlertType_Result.setTextColor(getResources().getColor(R.color.deep_teal_200));
 
-                find_dialog_view();
-
-                choose_one_text.setText("不用提醒我");
-
-                choose_two_text.setText(getResources().getString(R.string.alertdate_3day));
-
-                choose_three_text.setText(getResources().getString(R.string.alertdate_5day));
-
-                choose_four_text.setText(getResources().getString(R.string.alertdate_7day));
-
-                choose_five.setVisibility(View.GONE);
-
-                show_alert_dialog("設置提醒", dialog_view, alert_result_textview, alert_icon, 3);
-
-            }
-        });
+        Linear_AlertType = (LinearLayout) SV_AlertType.findViewById(R.id.sub_linear);
+        Linear_AlertType.setTag(3);
+        Linear_AlertType.setOnClickListener(Show_Dialog_OnClickListener);
 
 
-        subview_time = v.findViewById(R.id.subview_alerTime);
-        subview_time.setVisibility(View.GONE);
-        time_textview = (TextView) subview_time.findViewById(R.id.sub_textview);
-        time_textview.setText("提醒時間");
+//        Alert Time
+        SV_AlertTime = v.findViewById(R.id.subview_alerTime);
+//        SV_AlertTime.setVisibility(View.GONE);
 
-        time_result_textview = (TextView) subview_time.findViewById(R.id.sub_textview_result);
+        TV_AlertTime = (TextView) SV_AlertTime.findViewById(R.id.sub_textview);
+        TV_AlertTime.setText("提醒時間");
 
-        time_linear = (LinearLayout) subview_time.findViewById(R.id.sub_linear);
-        time_linear.setOnClickListener(new View.OnClickListener() {
+        TV_AlertTime_Result = (TextView) SV_AlertTime.findViewById(R.id.sub_textview_result);
+        TV_AlertTime_Result.setTextColor(getResources().getColor(R.color.deep_teal_200));
+
+        Linear_AlertTime = (LinearLayout) SV_AlertTime.findViewById(R.id.sub_linear);
+        Linear_AlertTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -304,53 +269,56 @@ public class Fragment_Saver extends Fragment {
 //        ******************************************************************************************
 //        ******************************************************************************************
 //        ******************************************************************************************
-		
-		subview_address = v.findViewById(R.id.subview_address);
-		address_icon = (ImageView) subview_address.findViewById(R.id.sub_image);
-		address_icon.setImageResource(R.drawable.ic_location_on_black_24dp);
-		address_edittext = (EditText) subview_address.findViewById(R.id.sub_edittext);
-		address_edittext.setSingleLine(true);
-		address_edittext.setOnFocusChangeListener(edText_FocusChangeListener);
-		address_edittext.setHint(init_Address);
-		address_edittext.setText(init_Addrrss_Text);
-		
-		subview_phone = v.findViewById(R.id.subview_phone);
-		phone_icon = (ImageView) subview_phone.findViewById(R.id.sub_image);
-		phone_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_call_black_24dp));
-		phone_edittext = (EditText) subview_phone.findViewById(R.id.sub_edittext);
-		phone_edittext.setSingleLine(true);
-		phone_edittext.setInputType(InputType.TYPE_CLASS_PHONE);
-		phone_edittext.setOnFocusChangeListener(edText_FocusChangeListener);
-		phone_edittext.setHint(init_Phone);
-		phone_edittext.setText(init_Phone_Text);
-		
-		subview_remarks = v.findViewById(R.id.subview_remarks);
-		remarks_icon = (ImageView) subview_remarks.findViewById(R.id.sub_image);
-		remarks_icon.setImageResource(R.drawable.ic_create_black_24dp);
-		remarks_edittext = (EditText) subview_remarks.findViewById(R.id.sub_edittext);
-		remarks_edittext.setOnFocusChangeListener(edText_FocusChangeListener);
-		remarks_edittext.setHint(init_Remarks);
-		remarks_edittext.setText(init_Remarks_Text);
 
-        if(db_get_applystatus.equals("2")){
+//        Address
+		SV_Address = v.findViewById(R.id.subview_address);
+
+		IV_Address = (ImageView) SV_Address.findViewById(R.id.sub_image);
+        IV_Address.setImageResource(R.drawable.ic_location_on_black_24dp);
+
+		ED_LoanAddress = (EditText) SV_Address.findViewById(R.id.sub_edittext);
+        ED_LoanAddress.setSingleLine(true);
+        ED_LoanAddress.setOnFocusChangeListener(edText_FocusChangeListener);
+        ED_LoanAddress.setHint(init_Address);
+        ED_LoanAddress.setText(init_Addrrss_Text);
+
+//        Phone Num
+		SV_PhoneNum = v.findViewById(R.id.subview_phone);
+
+		IV_PhoneNum = (ImageView) SV_PhoneNum.findViewById(R.id.sub_image);
+        IV_PhoneNum.setImageDrawable(getResources().getDrawable(R.drawable.ic_call_black_24dp));
+
+		ED_PhoneNum = (EditText) SV_PhoneNum.findViewById(R.id.sub_edittext);
+        ED_PhoneNum.setSingleLine(true);
+        ED_PhoneNum.setInputType(InputType.TYPE_CLASS_PHONE);
+        ED_PhoneNum.setOnFocusChangeListener(edText_FocusChangeListener);
+        ED_PhoneNum.setHint(init_Phone);
+        ED_PhoneNum.setText(init_Phone_Text);
+
+//        Remarks
+		SV_Remarks = v.findViewById(R.id.subview_remarks);
+
+		IV_Remarks = (ImageView) SV_Remarks.findViewById(R.id.sub_image);
+        IV_Remarks.setImageResource(R.drawable.ic_create_black_24dp);
+
+		ED_Remarks = (EditText) SV_Remarks.findViewById(R.id.sub_edittext);
+        ED_Remarks.setOnFocusChangeListener(edText_FocusChangeListener);
+        ED_Remarks.setHint(init_Remarks);
+        ED_Remarks.setText(init_Remarks_Text);
+
+        if(db_get_applystatus == 2){
             subview_Visibility();
         }else {
             subview_Gone();
-        }
-
-        if (db_get_alertdate.equals("0")){
-            alert_textview.setTextColor(getResources().getColor(R.color.TextColor_Gray));
-        }else{
-            alert_textview.setTextColor(getResources().getColor(R.color.deep_teal_200));
         }
 
     }
 
     //=============================================================================================
     // [2] 加入 Dialog 畫面內容
-    public void find_dialog_view(){
+    public void Find_Dialog_View(){
 
-        dialog_view = LayoutInflater.from(getActivity()).inflate(R.layout.saver_dialog, null);
+//        dialog_view = LayoutInflater.from(getActivity()).inflate(R.layout.saver_dialog, null);
 
         choose_dialog_title = (TextView) dialog_view.findViewById(R.id.dialog_sav_title);
 
@@ -380,184 +348,292 @@ public class Fragment_Saver extends Fragment {
     }
 
     //=============================================================================================
-    // [3] 點擊 Loan Type, Apply Type, Alert Date 時顯示此 Dialog
-    private void show_alert_dialog(String Dialog_Title, View Dialogview, final TextView text, final ImageView icon, final int Case_id){
+    // []
+    private View.OnClickListener Show_Dialog_OnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
 
-        final AlertDialog mAlertDialog = new AlertDialog.Builder(getContext()).create();
-        mAlertDialog.setView(Dialogview);
+            switch (Integer.parseInt(v.getTag().toString())){
+
+                case 1:
+                    Loan_Type_Dialog("");
+                    break;
+
+                case 2:
+                    Apply_Status_Type_Dialog("");
+                    break;
+
+                case 3:
+                    Alert_Date_Type_Dialog("");
+                    break;
+            }
+
+        }
+    };
+
+    //=============================================================================================
+    // [3] 點擊 Loan Type 時顯示此 Dialog
+    private void Loan_Type_Dialog(String Dialog_Title){
+
+        mAlertDialog = new AlertDialog.Builder(getContext()).create();
+
+        dialog_view = LayoutInflater.from(getActivity()).inflate(R.layout.saver_dialog, null);
+        mAlertDialog.setView(dialog_view);
+
+        Find_Dialog_View();
 
         choose_dialog_title.setText(Dialog_Title);
 
-        choose_one.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        choose_one_image.setImageResource(R.drawable.ic_person_black_24dp);
+        choose_two_image.setImageResource(R.drawable.ic_domain_black_24dp);
+        choose_three_image.setImageResource(R.drawable.ic_directions_car_black_24dp);
 
-                switch (Case_id){
+        choose_one_text.setText(getString(R.string.loantype_personal));
+        choose_two_text.setText(R.string.loantype_mort);
+        choose_three_text.setText(R.string.loantype_car);
 
-                    case 1:
-                        choose_result = choose_one_text.getText().toString();
-                        icon.setImageResource(R.drawable.ic_person_black_24dp);
-                        text.setText(choose_result);
-                        break;
+        choose_one.setOnClickListener(Loan_Type_OnclickListener);
+        choose_two.setOnClickListener(Loan_Type_OnclickListener);
+        choose_three.setOnClickListener(Loan_Type_OnclickListener);
+        choose_four.setVisibility(View.GONE);
 
-                    case 2:
-                        choose_result = getResources().getString(R.string.init_applystatuse);
-                        text.setText(choose_result);
-                        subview_Gone();
-                        break;
+        choose_five.setVisibility(View.GONE);
 
-                    case 3:
-                        choose_result = getResources().getString(R.string.init_alertdate);
-                        text.setText(choose_result);
-                        text.setTextColor(getResources().getColor(R.color.TextColor_White));
-                        break;
+        mAlertDialog.show();
 
-                    case 4:
-                        finaldue_result_textview.setText(Calendar_finaldue.get(Calendar.YEAR) + "/" + (Calendar_finaldue.get(Calendar.MONTH) + 1) + "/" + Calendar_finaldue.get(Calendar.DAY_OF_MONTH));
-                        break;
-                }
+    }
 
-                mAlertDialog.dismiss();
+    private View.OnClickListener Loan_Type_OnclickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
 
+            /*   Loan Type
+             *   0 = Personal Loan
+             *   1 = Mort Loan
+             *   2 = Car Loan
+             */
+            get_loantype = 0;
+
+            switch (v.getId()){
+
+                case R.id.dialog_sav_ch1:
+                    IV_LoanType.setImageResource(R.drawable.ic_person_black_24dp);
+                    TV_LoanType.setText(getString(R.string.loantype_personal));
+                    get_loantype = 0;
+                    break;
+
+                case R.id.dialog_sav_ch2:
+                    IV_LoanType.setImageResource(R.drawable.ic_domain_black_24dp);
+                    TV_LoanType.setText(R.string.loantype_mort);
+                    get_loantype = 1;
+                    break;
+
+                case R.id.dialog_sav_ch3:
+                    IV_LoanType.setImageResource(R.drawable.ic_directions_car_black_24dp);
+                    TV_LoanType.setText(getString(R.string.loantype_car));
+                    get_loantype = 2;
+                    break;
             }
-        });
 
-        choose_two.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            mAlertDialog.dismiss();
 
-                switch (Case_id){
+        }
+    };
 
-                    case 1:
-                        choose_result = choose_two_text.getText().toString();
-                        icon.setImageResource(R.drawable.ic_domain_black_24dp);
-                        text.setText(choose_result);
-                        break;
 
-                    case 2:
-                        choose_result = choose_two_text.getText().toString();
-                        text.setText(choose_result);
-                        subview_Gone();
-                        break;
 
-                    case 3:
-                        choose_result = choose_two_text.getText().toString();
-                        text.setText(choose_result);
-                        text.setTextColor(getResources().getColor(R.color.deep_teal_200));
-                        subview_time.setVisibility(View.VISIBLE);
-                        break;
+    //=============================================================================================
+    // [3] 點擊 Apply Status Type 時顯示此 Dialog
+    private void Apply_Status_Type_Dialog(String Dialog_Title){
 
-                    case 4:
-                        finaldue_result_textview.setText(Calendar_finaldue.get(Calendar.YEAR) + "/" + (Calendar_finaldue.get(Calendar.MONTH) + 1) + "/" + Calendar_finaldue.getActualMaximum(Calendar.DAY_OF_MONTH));
-                        break;
-                }
-                mAlertDialog.dismiss();
-            }
-        });
+        mAlertDialog = new AlertDialog.Builder(getContext()).create();
 
-        choose_three.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switch (Case_id){
+        dialog_view = LayoutInflater.from(getActivity()).inflate(R.layout.saver_dialog, null);
+        mAlertDialog.setView(dialog_view);
 
-                    case 1:
-                        choose_result = choose_three_text.getText().toString();
-                        icon.setImageResource(R.drawable.ic_directions_car_black_24dp);
-                        text.setText(choose_result);
-                        break;
+        Find_Dialog_View();
 
-                    case 2:
-                        choose_result = choose_three_text.getText().toString();
-                        text.setText(choose_result);
-                        subview_Visibility();
-                        break;
+        choose_dialog_title.setText(Dialog_Title);
 
-                    case 3:
-                        choose_result = choose_three_text.getText().toString();
-                        text.setText(choose_result);
-                        text.setTextColor(getResources().getColor(R.color.deep_teal_200));
-                        subview_time.setVisibility(View.VISIBLE);
-                        break;
+        choose_one_text.setText(R.string.applytype_notyet);
+        choose_two_text.setText(R.string.applytype_pending);
+        choose_three_text.setText(R.string.applytype_approval);
+        choose_four_text.setText(R.string.applytype_reject);
+        choose_five_text.setText(R.string.applytype_cancel);
 
-                    case 4:
-                        break;
-                }
-                mAlertDialog.dismiss();
-            }
-        });
-
-        choose_four.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switch (Case_id){
-
-                    case 1:
-                        choose_result = choose_four_text.getText().toString();
-                        icon.setImageResource(R.drawable.ic_domain_black_24dp);
-                        text.setText(choose_result);
-                        break;
-
-                    case 2:
-                        choose_result = choose_four_text.getText().toString();
-                        text.setText(choose_result);
-                        subview_Gone();
-                        break;
-
-                    case 3:
-                        choose_result = choose_four_text.getText().toString();
-                        text.setText(choose_result);
-                        text.setTextColor(getResources().getColor(R.color.deep_teal_200));
-                        subview_time.setVisibility(View.VISIBLE);
-                        break;
-
-                    case 4:
-                        break;
-
-                }
-                mAlertDialog.dismiss();
-            }
-        });
-
-        choose_five.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switch (Case_id){
-
-                    case 1:
-                        choose_result = choose_five_text.getText().toString();
-                        icon.setImageResource(R.drawable.ic_domain_black_24dp);
-                        text.setText(choose_result);
-                        break;
-
-                    case 2:
-                        choose_result = choose_five_text.getText().toString();
-                        text.setText(choose_result);
-                        subview_Gone();
-                        break;
-
-                    case 3:
-                        choose_result = choose_five_text.getText().toString();
-                        text.setText(choose_result);
-                        subview_time.setVisibility(View.VISIBLE);
-                        break;
-
-                    case 4:
-                        break;
-
-                }
-                mAlertDialog.dismiss();
-            }
-        });
-
-        choose_dialog_cancellbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mAlertDialog.dismiss();
-            }
-        });
+        choose_one.setOnClickListener(Apply_Status_Type_OnclickListener);
+        choose_two.setOnClickListener(Apply_Status_Type_OnclickListener);
+        choose_three.setOnClickListener(Apply_Status_Type_OnclickListener);
+        choose_four.setOnClickListener(Apply_Status_Type_OnclickListener);
+        choose_five.setOnClickListener(Apply_Status_Type_OnclickListener);
 
         mAlertDialog.show();
     }
+
+    private View.OnClickListener Apply_Status_Type_OnclickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            /*  Loan Apply Type
+             *  0 = Apply not yet
+             *  1 = Pending
+             *  2 = Approval
+             *  3 = Reject
+             *  4 = Cancel
+             */
+
+            switch (v.getId()){
+
+                case R.id.dialog_sav_ch1:
+                    TV_ApplyType.setText(R.string.init_applystatuse);
+                    get_applystatus = 0;
+                    break;
+
+                case R.id.dialog_sav_ch2:
+                    TV_ApplyType.setText(R.string.applytype_pending);
+                    get_applystatus = 1;
+                    break;
+
+                case R.id.dialog_sav_ch3:
+                    TV_ApplyType.setText(R.string.applytype_approval);
+                    get_applystatus = 2;
+                    subview_Visibility();
+                    break;
+
+                case R.id.dialog_sav_ch4:
+                    TV_ApplyType.setText(R.string.applytype_reject);
+                    get_applystatus = 3;
+                    break;
+
+                case R.id.dialog_sav_ch5:
+                    TV_ApplyType.setText(R.string.applytype_cancel);
+                    get_applystatus = 4;
+                    break;
+
+            }
+
+            mAlertDialog.dismiss();
+
+        }
+    };
+
+
+    //=============================================================================================
+    // [3] 點擊 Alert Date Type 時顯示此 Dialog
+    private void Alert_Date_Type_Dialog(String Dialog_Title){
+
+        mAlertDialog = new AlertDialog.Builder(getContext()).create();
+
+        dialog_view = LayoutInflater.from(getActivity()).inflate(R.layout.saver_dialog, null);
+        mAlertDialog.setView(dialog_view);
+
+        Find_Dialog_View();
+
+        choose_dialog_title.setText(Dialog_Title);
+
+        choose_one_text.setText(R.string.alertdate_dontalert);
+        choose_two_text.setText(R.string.alertdate_3day);
+        choose_three_text.setText(R.string.alertdate_5day);
+        choose_four_text.setText(R.string.alertdate_7day);
+
+        choose_one.setOnClickListener(Alert_Date_Type_OnclickListener);
+        choose_two.setOnClickListener(Alert_Date_Type_OnclickListener);
+        choose_three.setOnClickListener(Alert_Date_Type_OnclickListener);
+        choose_four.setOnClickListener(Alert_Date_Type_OnclickListener);
+        choose_five.setVisibility(View.GONE);
+
+        mAlertDialog.show();
+    }
+
+    private View.OnClickListener Alert_Date_Type_OnclickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            /*  Alert Date Type
+             *  0 = Dont Reminding
+             *  1 = Reminding befor 3 Days
+             *  2 = Reminding befor 5 Days
+             *  3 = Reminding befor 7 Days
+             */
+
+            switch (v.getId()){
+
+                case R.id.dialog_sav_ch1:
+                    TV_AlertType_Result.setText("");
+                    get_alertdate_type = 0;
+                    break;
+
+                case R.id.dialog_sav_ch2:
+                    TV_AlertType_Result.setText(R.string.alertdate_3day);
+                    get_alertdate_type = 1;
+                    break;
+
+                case R.id.dialog_sav_ch3:
+                    TV_AlertType_Result.setText(R.string.alertdate_5day);
+                    get_alertdate_type = 2;
+                    break;
+
+                case R.id.dialog_sav_ch4:
+                    TV_AlertType_Result.setText(R.string.alertdate_7day);
+                    get_alertdate_type = 3;
+                    break;
+
+            }
+
+            SV_AlertTime.setVisibility(View.VISIBLE);
+            mAlertDialog.dismiss();
+
+        }
+    };
+
+
+    //=============================================================================================
+    // [3] 點擊 Date Date Type 時顯示此 Dialog
+    private void Date_Type_Dialog(String Dialog_Title){
+
+        mAlertDialog = new AlertDialog.Builder(getContext()).create();
+
+        dialog_view = LayoutInflater.from(getActivity()).inflate(R.layout.saver_dialog, null);
+        mAlertDialog.setView(dialog_view);
+
+        Find_Dialog_View();
+
+        choose_dialog_title.setText(Dialog_Title);
+
+        choose_one_text.setText(R.string.calcultor_dialog_normal);
+        choose_two_text.setText(R.string.calcultor_dialog_endofmonth);
+
+        choose_one.setOnClickListener(Date_Type_OnclickListener);
+        choose_two.setOnClickListener(Date_Type_OnclickListener);
+        choose_three.setVisibility(View.GONE);
+        choose_four.setVisibility(View.GONE);
+        choose_five.setVisibility(View.GONE);
+
+        mAlertDialog.show();
+    }
+
+    private View.OnClickListener Date_Type_OnclickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            switch (v.getId()){
+
+                case R.id.dialog_sav_ch1:
+                    TV_FirstDue_Result.setText(mCalendar.get(Calendar.YEAR) + "/" + (mCalendar.get(Calendar.MONTH) + 1) + "/" + mCalendar.get(Calendar.DAY_OF_MONTH));
+                    TV_FinalDue_Result.setText(Calendar_finaldue.get(Calendar.YEAR) + "/" + (Calendar_finaldue.get(Calendar.MONTH) + 1)+ "/" + Calendar_finaldue.get(Calendar.DAY_OF_MONTH));
+                    break;
+
+                case R.id.dialog_sav_ch2:
+                    TV_FirstDue_Result.setText(mCalendar.get(Calendar.YEAR) + "/" + (mCalendar.get(Calendar.MONTH) + 1) + "/" + mCalendar.get(Calendar.DAY_OF_MONTH));
+                    TV_FinalDue_Result.setText(Calendar_finaldue.get(Calendar.YEAR) + "/" + (Calendar_finaldue.get(Calendar.MONTH) + 1)+ "/" + Calendar_finaldue.getActualMaximum(Calendar.DAY_OF_MONTH));
+                    break;
+            }
+
+            SV_AlertType.setVisibility(View.VISIBLE);
+            mAlertDialog.dismiss();
+
+        }
+    };
 
     //=============================================================================================
     // [4] 點擊 First Due Date 時顯示此 Dialog
@@ -565,7 +641,7 @@ public class Fragment_Saver extends Fragment {
 
         Dialog mDialog = null;
 
-        final Calendar mCalendar = Calendar.getInstance();
+        mCalendar = Calendar.getInstance();
 
         mDialog = new DatePickerDialog(getActivity(), R.style.myDateDialogTheme, new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -575,35 +651,29 @@ public class Fragment_Saver extends Fragment {
                 mCalendar.set(Calendar.MONTH, month);
                 mCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
-                firstdue_result_textview.setText(mCalendar.get(Calendar.YEAR) + "/" + (mCalendar.get(Calendar.MONTH) + 1) + "/" + mCalendar.get(Calendar.DAY_OF_MONTH));
+//                TV_FirstDue_Result.setText(mCalendar.get(Calendar.YEAR) + "/" + (mCalendar.get(Calendar.MONTH) + 1) + "/" + mCalendar.get(Calendar.DAY_OF_MONTH));
 
                 Calendar_finaldue = mCalendar;
 
                 if (month == 1 && dayOfMonth == mCalendar.getActualMaximum(Calendar.DAY_OF_MONTH) || dayOfMonth == 30){
 
                     Calendar_finaldue.add(Calendar.MONTH, bundle_trems - 1);
+                    Date_Type_Dialog("");
 
-                    find_dialog_view();
-                    choose_one_text.setText(getResources().getString(R.string.calcultor_dialog_normal));
-                    choose_two_text.setText(getResources().getString(R.string.calcultor_dialog_endofmonth));
-                    choose_three.setVisibility(View.GONE);
-                    choose_four.setVisibility(View.GONE);
-                    choose_five.setVisibility(View.GONE);
-
-                    show_alert_dialog("日期設置", dialog_view, finaldue_result_textview, finaldue_icon, 4);
-//                    subview_alertdate.setVisibility(View.VISIBLE);
 
                 }else if(dayOfMonth == 31){
 
                     Calendar_finaldue.add(Calendar.MONTH, bundle_trems - 1);
-                    finaldue_result_textview.setText(Calendar_finaldue.get(Calendar.YEAR) + "/" + (Calendar_finaldue.get(Calendar.MONTH) + 1) + "/" + Calendar_finaldue.getActualMaximum(Calendar.DAY_OF_MONTH));
-//                    subview_alertdate.setVisibility(View.VISIBLE);
+                    TV_FirstDue_Result.setText(mCalendar.get(Calendar.YEAR) + "/" + (mCalendar.get(Calendar.MONTH) + 1) + "/" + mCalendar.get(Calendar.DAY_OF_MONTH));
+                    TV_FinalDue_Result.setText(Calendar_finaldue.get(Calendar.YEAR) + "/" + (Calendar_finaldue.get(Calendar.MONTH) + 1) + "/" + Calendar_finaldue.getActualMaximum(Calendar.DAY_OF_MONTH));
+                    SV_AlertType.setVisibility(View.VISIBLE);
 
                 }else {
 
                     Calendar_finaldue.add(Calendar.MONTH, bundle_trems - 1);
-                    finaldue_result_textview.setText(Calendar_finaldue.get(Calendar.YEAR) + "/" + (Calendar_finaldue.get(Calendar.MONTH) + 1) + "/" + Calendar_finaldue.get(Calendar.DAY_OF_MONTH));
-//                    subview_alertdate.setVisibility(View.VISIBLE);
+                    TV_FirstDue_Result.setText(mCalendar.get(Calendar.YEAR) + "/" + (mCalendar.get(Calendar.MONTH) + 1) + "/" + mCalendar.get(Calendar.DAY_OF_MONTH));
+                    TV_FinalDue_Result.setText(Calendar_finaldue.get(Calendar.YEAR) + "/" + (Calendar_finaldue.get(Calendar.MONTH) + 1) + "/" + Calendar_finaldue.get(Calendar.DAY_OF_MONTH));
+                    SV_AlertType.setVisibility(View.VISIBLE);
 
                 }
 
@@ -630,7 +700,7 @@ public class Fragment_Saver extends Fragment {
 
                 SimpleDateFormat SDF = new SimpleDateFormat("HH:mm");
                 String gettime = SDF.format(mCalendar.getTime());
-                time_result_textview.setText(gettime);
+                TV_AlertTime_Result.setText(gettime);
 
             }
         }, mCalendar.get(Calendar.HOUR_OF_DAY), mCalendar.get(Calendar.MINUTE), true);
@@ -669,79 +739,55 @@ public class Fragment_Saver extends Fragment {
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
-    //=============================================================================================
-    // [8] 獲取用戶輸入資料
+//    =============================================================================================
+//     [8] 獲取用戶輸入資料
     public void get_input_values(){
 
         final Calendar today =  Calendar.getInstance();
         get_createdate = today.get(Calendar.YEAR) + "/" + (today.get(Calendar.MONTH) +1) + "/" + today.get(Calendar.DAY_OF_MONTH);
-		
-		get_name = loanname_edittext.getText().toString();
 
-        if(loantype_textview.getText() == getResources().getString(R.string.init_loantype)){
-            get_loantype = "0";
-        }else if (loantype_textview.getText() == getResources().getString(R.string.loantype_personal)){
-            get_loantype = "1";
-        }else if (loantype_textview.getText() == getResources().getString(R.string.loantype_mort)){
-            get_loantype = "2";
-        }else if (loantype_textview.getText() == getResources().getString(R.string.loantype_car)){
-            get_loantype = "3";
-        }
+		get_name = ED_LoanName.getText().toString();
+//        get_loantype 已於 Dialog 內獲取
+//        get_loantype 已於 Dialog 內獲取
+		get_loannum = ED_LoanNum.getText().toString();
 
-        if (applytype_textview.getText() == getResources().getString(R.string.init_applystatuse)){
-            get_applystatus = "0";
-        }else if(applytype_textview.getText() == getResources().getString(R.string.applytype_pending)){
-            get_applystatus = "1";
-        }else if(applytype_textview.getText() == getResources().getString(R.string.applytype_approval)){
-            get_applystatus = "2";
-        }else if(applytype_textview.getText() == getResources().getString(R.string.applytype_reject)){
-            get_applystatus = "3";
-        }else if(applytype_textview.getText() == getResources().getString(R.string.applytype_cancel)){
-            get_applystatus = "4";
-        }
-
-		get_loannum = loannum_edittext.getText().toString();
-		
 		get_loanamount = bundle_amount;
 		get_loantrems = bundle_trems;
 		get_loanrate = bundle_rate;
-		
-		get_firstdue = firstdue_result_textview.getText().toString();
-		get_finaldue = finaldue_result_textview.getText().toString();
 
-        if(alert_textview.getText() == getResources().getString(R.string.init_alertdate)){
-            get_alertdate = "0";
-        }else if(alert_textview.getText() == getResources().getString(R.string.alertdate_3day)){
-            get_alertdate = "1";
-        }else if(alert_textview.getText() == getResources().getString(R.string.alertdate_5day)){
-            get_alertdate = "2";
-        }else if(alert_textview.getText() == getResources().getString(R.string.alertdate_7day)){
-            get_alertdate = "3";
-        }
+		get_firstdue = TV_FirstDue_Result.getText().toString();
+		get_finaldue = TV_FinalDue_Result.getText().toString();
 
-		get_address = address_edittext.getText().toString();
-		get_phone = phone_edittext.getText().toString();
-		get_remark = remarks_edittext.getText().toString();
+//        get_alertdate_type  已於 Dialog 內獲取
+        get_alerttime = TV_AlertTime_Result.getText().toString();
+
+		get_address = ED_LoanAddress.getText().toString();
+		get_phone = ED_PhoneNum.getText().toString();
+		get_remark = ED_Remarks.getText().toString();
 
     }
 
     //=============================================================================================
     // [9] 判斷用戶是否選取 "已批核" 選項
     public void subview_Visibility(){
-        subview_loannum.setVisibility(View.VISIBLE);
-        duedate_linear.setVisibility(View.VISIBLE);
-        firstdue_result_textview.setText(get_today());
+        SV_LoanNum.setVisibility(View.VISIBLE);
+        Linear_DueDate.setVisibility(View.VISIBLE);
+        TV_FirstDue_Result.setText(get_today());
     }
 
     //=============================================================================================
     // [10] 判斷用戶是否選取 "已批核" 以外選項
     public void subview_Gone(){
-        subview_loannum.setVisibility(View.GONE);
-        duedate_linear.setVisibility(View.GONE);
-        loannum_edittext.setText("");
-        firstdue_result_textview.setText("");
-        finaldue_result_textview.setText("");
-        alert_textview.setText(getResources().getString(R.string.init_alertdate));
+        SV_LoanNum.setVisibility(View.GONE);
+        Linear_DueDate.setVisibility(View.GONE);
+        SV_AlertType.setVisibility(View.GONE);
+        SV_AlertTime.setVisibility(View.GONE);
+
+        ED_LoanNum.setText("");
+        TV_FirstDue_Result.setText("");
+        TV_FinalDue_Result.setText("");
+        TV_AlertType_Result.setText("");
+        TV_AlertTime_Result.setText("");
     }
 
     //=============================================================================================
@@ -756,26 +802,26 @@ public class Fragment_Saver extends Fragment {
 
         db_get_loantype = favourite_dataBasic.query(databasic_ID).getLoan_Type();
 
-        if (db_get_loantype.equals("0")){
+        if (db_get_loantype == 0){
             init_LoanType = getResources().getString(R.string.init_loantype);
-        }else  if(db_get_loantype.equals("1")){
+        }else  if(db_get_loantype == 1){
             init_LoanType = getResources().getString(R.string.loantype_personal);
-        }else if(db_get_loantype.equals("2")){
+        }else if(db_get_loantype == 2){
             init_LoanType = getResources().getString(R.string.loantype_mort);
-        }else if(db_get_loantype.equals("3")){
+        }else if(db_get_loantype == 3){
             init_LoanType = getResources().getString(R.string.loantype_car);
         }
 
-        db_get_applystatus = String.valueOf(favourite_dataBasic.query(databasic_ID).getApply_status());
-        if (db_get_applystatus.equals("0")){
+        db_get_applystatus =favourite_dataBasic.query(databasic_ID).getApply_status();
+        if (db_get_applystatus == 0){
             init_ApplyStatus = getResources().getString(R.string.init_applystatuse);
-        }else if(db_get_applystatus.equals("1")){
+        }else if(db_get_applystatus == 1){
             init_ApplyStatus = getResources().getString(R.string.applytype_pending);
-        }else if(db_get_applystatus.equals("2")){
+        }else if(db_get_applystatus == 2){
             init_ApplyStatus = getResources().getString(R.string.applytype_approval);
-        }else if(db_get_applystatus.equals("3")){
+        }else if(db_get_applystatus == 3){
             init_ApplyStatus = getResources().getString(R.string.applytype_reject);
-        }else if(db_get_applystatus.equals("4")){
+        }else if(db_get_applystatus == 4){
             init_ApplyStatus = getResources().getString(R.string.applytype_cancel);
         }
 
@@ -787,18 +833,18 @@ public class Fragment_Saver extends Fragment {
         init_FinalDueDate = getResources().getString(R.string.init_finalduee);
         init_FinalDueDate_Result = String.valueOf(favourite_dataBasic.query(databasic_ID).getFinal_dueddate());
 
-        db_get_alertdate = String.valueOf(favourite_dataBasic.query(databasic_ID).getAlert_date());
-        if(db_get_alertdate.equals("0")){
+        db_get_alertdate = favourite_dataBasic.query(databasic_ID).getAlert_date();
+        if(db_get_alertdate == 0){
             init_AlertDate = getResources().getString(R.string.init_alertdate);
-        }else if(db_get_alertdate.equals("1")){
+        }else if(db_get_alertdate == 1){
             init_AlertDate = getResources().getString(R.string.alertdate_3day);
-        }else if(db_get_alertdate.equals("2")){
+        }else if(db_get_alertdate == 2){
             init_AlertDate = getResources().getString(R.string.alertdate_5day);
-        }else if(db_get_alertdate.equals("3")){
+        }else if(db_get_alertdate == 3){
             init_AlertDate = getResources().getString(R.string.alertdate_7day);
         }
 
-        init_DueDate_Type = String.valueOf(favourite_dataBasic.query(databasic_ID).getDuedate_type());
+        init_DueDate_Type = String.valueOf(favourite_dataBasic.query(databasic_ID).getAlert_time());
 
         init_Address = getResources().getString(R.string.init_address);
         init_Phone = getResources().getString(R.string.init_phone);
@@ -825,16 +871,15 @@ public class Fragment_Saver extends Fragment {
 
         init_FirstDueDate = getResources().getString(R.string.init_firstdue);
         init_FinalDueDate = getResources().getString(R.string.init_finalduee);
-//            init_DueDate_Type = getResources().getString(R.string.init);
         init_AlertDate = getResources().getString(R.string.init_alertdate);
 
         init_Address = getResources().getString(R.string.init_address);
         init_Phone = getResources().getString(R.string.init_phone);
         init_Remarks = getResources().getString(R.string.init_remark);
 
-        db_get_loantype = "0";
-        db_get_alertdate = "0";
-        db_get_applystatus = "0";
+        db_get_loantype = 0;
+        db_get_alertdate = 0;
+        db_get_applystatus = 0;
     }
 
     //=============================================================================================
@@ -861,8 +906,8 @@ public class Fragment_Saver extends Fragment {
                     get_loanrate,
                     get_firstdue,
                     get_finaldue,
-                    get_duedate_type,
-                    get_alertdate,
+                    get_alertdate_type,
+                    get_alerttime, //HH:mm:ss
                     get_address,
                     get_phone,
                     get_remark);
@@ -891,7 +936,7 @@ public class Fragment_Saver extends Fragment {
 
             Favouite_Item fav_item = new Favouite_Item(
                     DB_ID,
-                    get_createdate,
+                    new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()),
                     get_name,
                     get_loantype,
                     get_applystatus,
@@ -901,8 +946,8 @@ public class Fragment_Saver extends Fragment {
                     get_loanrate,
                     get_firstdue,
                     get_finaldue,
-                    get_duedate_type,
-                    get_alertdate,
+                    get_alertdate_type,
+                    get_alerttime,
                     get_address,
                     get_phone,
                     get_remark);

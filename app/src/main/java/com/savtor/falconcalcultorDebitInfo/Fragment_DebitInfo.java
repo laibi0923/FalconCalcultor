@@ -40,7 +40,7 @@ public class Fragment_DebitInfo extends Fragment
 			T01.append("Loan Rate : " + i.getLoan_Rate() + "\n");
 			T01.append("First due date : " + i.getFirst_dueddate() + "\n");
 			T01.append("Final due date : " + i.getFinal_dueddate() + "\n");
-			T01.append("Due date type : " + i.getDuedate_type() + "\n");
+			T01.append("Due date type : " + i.getAlert_time() + "\n");
 			T01.append("Apply Status : " + i.getApply_status() + "\n");
 			T01.append("Loan Type :" + i.getLoan_Type() + "\n");
 			T01.append("Alert Date : " + i.getAlert_date() + "\n");

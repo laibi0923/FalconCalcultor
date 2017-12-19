@@ -123,8 +123,8 @@ public class Fragment_Favourite extends Fragment {
 				i.getLoan_Rate(),
 				i.getFirst_dueddate(),
 				i.getFinal_dueddate(),
-				i.getDuedate_type(),
 				i.getAlert_date(),
+				i.getAlert_time(),
 				i.getAddress(),
 				i.getPhone(),
 				i.getRemarks()));
