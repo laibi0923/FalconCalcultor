@@ -23,6 +23,9 @@ import com.savtor.falconcalcultorFavoutive.Fragment_Favourite;
 import com.savtor.falconcalcultorSetting.Fragment_Setting;
 import android.widget.*;
 
+/**
+ * Created by GhostLeo_DT on 21/11/2017.
+ */
 
 
 public class Activity_Main extends AppCompatActivity {

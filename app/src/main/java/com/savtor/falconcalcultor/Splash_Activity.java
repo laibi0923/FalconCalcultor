@@ -18,6 +18,7 @@ import com.savtor.falconcalcultorPasswordgate.Fragment_Passwordgate;
 /**
  * Created by GhostLeo_DT on 22/11/2017.
  */
+
 public class Splash_Activity extends AppCompatActivity {
 
     private String PASSWORD;
