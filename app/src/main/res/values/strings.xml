@@ -56,6 +56,18 @@
 	
 	<string name="calcultor_dialog_toast_inputname">請先輸入名稱</string>
 
+    <string name="calcultor_dialog_description_title"> 說明 </string>
+
+    <string name="calcultor_dialog_description">
+
+        1. 本程式以 「等額本息 (息除本減)」 還款方式計算, 所有其他費用及回贈並不納入計算範圍。
+        \n\n
+        2. 本程式計算所有結果及有關數據僅供作参考用途，不作為扣款依據。
+        \n\n
+        3. 若想紀錄 「等額本息 (息除本減)」 以外產品，請前往 "自訂紀錄 (暫未開放)" 。
+
+    </string>
+
     <!--==============================================================================================-->
     <!--for Saver page-->
     <string name="loanname_hint">輸入名稱</string>
@@ -92,6 +104,10 @@
 
     <string name="Toast_String_insert">保存成功</string>
     <string name="Toast_String_update">更新成功</string>
+
+    <string name="loamtype_dialog_title">貸款類別</string>
+    <string name="applytype_dialog_title">申請狀況</string>
+    <string name="alertdate_dialog_title">設置提醒</string>
 
     <!--==============================================================================================-->
     <!--for Setting Page-->

@@ -35,12 +35,12 @@ public class Fragment_Calcultor extends Fragment {
     private ImageView addtofav_btn;
     private TextView loanAmount_tv, loanTrems_tv, loanRate_tv, installment_tv, total_insterest_tv, total_payment_tv;
     private LinearLayout loan_amount, loan_trems, loan_rate;
-    private LinearLayout schedule_btn;
+    private LinearLayout schedule_btn, description_btn;
 
     private int DB_ID;
     private String Edit_Mode;
 
-    private TextView choose_dialog_title, choose_dialog_cancellbtn;
+    private TextView choose_dialog_title, choose_dialog_cancellbtn, dialog_TextView, marquee_TextView;
     private View dialog_view;
     private TextInputLayout dialog_Textinput;
     private EditText calcul_EdTExt;
@@ -186,7 +186,11 @@ public class Fragment_Calcultor extends Fragment {
         schedule_btn = (LinearLayout) v.findViewById(R.id.schedule_btn);
         schedule_btn.setOnClickListener(Action_OnclickListener);    // [7-2]
 
+        description_btn = (LinearLayout) v.findViewById(R.id.description_btn);
+        description_btn.setOnClickListener(Action_OnclickListener);
 
+        marquee_TextView = (TextView) v.findViewById(R.id.marquee_textview);
+        marquee_TextView.setSelected(true);
     }
 
 
@@ -204,6 +208,20 @@ public class Fragment_Calcultor extends Fragment {
 
         calcul_EdTExt = (EditText) dialog_Textinput.findViewById(R.id.calcultor_dialog_edittext);
         calcul_EdTExt.requestFocus();
+
+        choose_dialog_cancellbtn = (TextView) dialog_view.findViewById(R.id.dialog_cal_btn);
+
+    }
+
+    //=============================================================================================
+    // [6] 加入 Dialog 畫面內容
+    public void find_description_dialog_view(){
+
+        dialog_view = LayoutInflater.from(getActivity()).inflate(R.layout.cal_description_dislog, null);
+
+        choose_dialog_title = (TextView) dialog_view.findViewById(R.id.dialog_cal_title);
+
+        dialog_TextView = (TextView) dialog_view.findViewById(R.id.dialog_cal_textview);
 
         choose_dialog_cancellbtn = (TextView) dialog_view.findViewById(R.id.dialog_cal_btn);
 
@@ -307,6 +325,11 @@ public class Fragment_Calcultor extends Fragment {
 
                     break;
 
+                case R.id.description_btn:
+                    find_description_dialog_view();
+                    show_description_dialog(getString(R.string.calcultor_dialog_description_title), dialog_view);
+                    break;
+
             }
 
         }
@@ -345,7 +368,7 @@ public class Fragment_Calcultor extends Fragment {
                             Toast.makeText(getActivity(), getResources().getString(R.string.calcultor_toast_poorvalue), Toast.LENGTH_SHORT).show();
                         }else{
                             try {
-								current_LoanAmount = Double.parseDouble(calcul_EdTExt.getText().toString());
+                                current_LoanAmount = Double.parseDouble(calcul_EdTExt.getText().toString());
                                 loanAmount_tv.setText(String.format("%1$.2f", current_LoanAmount));
                             }catch (NumberFormatException ee){ee.printStackTrace();}
                         }
@@ -361,7 +384,7 @@ public class Fragment_Calcultor extends Fragment {
                         }else if(Integer.parseInt(calcul_EdTExt.getText().toString()) < 3 || Integer.parseInt(calcul_EdTExt.getText().toString()) > 96) {
                             Toast.makeText(getActivity(), getResources().getString(R.string.calcultor_toast_poorvalue), Toast.LENGTH_SHORT).show();
                         }else {
-							current_LoanTrems = Integer.parseInt(calcul_EdTExt.getText().toString());
+                            current_LoanTrems = Integer.parseInt(calcul_EdTExt.getText().toString());
                             loanTrems_tv.setText(String.valueOf(current_LoanTrems));
                         }
 
@@ -375,7 +398,7 @@ public class Fragment_Calcultor extends Fragment {
                             Toast.makeText(getActivity(), getResources().getString(R.string.calcultor_toast_poorvalue), Toast.LENGTH_SHORT).show();
                         }else {
                             try {
-								current_LoanRate = Double.parseDouble(calcul_EdTExt.getText().toString());
+                                current_LoanRate = Double.parseDouble(calcul_EdTExt.getText().toString());
                                 loanRate_tv.setText(String.format("%.2f", current_LoanRate));
                             }catch (NumberFormatException ee){ee.printStackTrace();}
                         }
@@ -385,10 +408,10 @@ public class Fragment_Calcultor extends Fragment {
                 }
 
                 result_Installment = mCalcultor.getMonthlyInstallment(current_LoanAmount, current_LoanTrems, current_LoanRate);
-				result_Total_Interest = mCalcultor.getTotalInsterest(current_LoanAmount, current_LoanTrems, result_Installment);
-				result_Total_Payment = mCalcultor.getTotalPayment(result_Installment, current_LoanTrems);
-				
-				
+                result_Total_Interest = mCalcultor.getTotalInsterest(current_LoanAmount, current_LoanTrems, result_Installment);
+                result_Total_Payment = mCalcultor.getTotalPayment(result_Installment, current_LoanTrems);
+
+
                 if (result_Total_Interest < 1){
                     total_insterest_tv.setText("0.00");
                 }else {
@@ -413,6 +436,28 @@ public class Fragment_Calcultor extends Fragment {
 
         mAlertDialog.show();
         mAlertDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+    }
+
+    //=============================================================================================
+    // [8] 利用 Alert Dialog 處理用戶輸入資料
+    private void show_description_dialog(String Dialog_Title, View Dialogview){
+
+        final AlertDialog mAlertDialog = new AlertDialog.Builder(getContext()).create();
+        mAlertDialog.setView(Dialogview);
+
+        choose_dialog_title.setText(Dialog_Title);
+
+        choose_dialog_cancellbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                mAlertDialog.dismiss();
+
+            }
+        });
+
+        mAlertDialog.show();
+        mAlertDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 
     //=============================================================================================

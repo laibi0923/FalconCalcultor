@@ -359,15 +359,15 @@ public class Fragment_Saver extends Fragment {
             switch (Integer.parseInt(v.getTag().toString())){
 
                 case 1:
-                    Loan_Type_Dialog("");
+                    Loan_Type_Dialog(getString(R.string.loamtype_dialog_title));
                     break;
 
                 case 2:
-                    Apply_Status_Type_Dialog("");
+                    Apply_Status_Type_Dialog(getString(R.string.applytype_dialog_title));
                     break;
 
                 case 3:
-                    Alert_Date_Type_Dialog("");
+                    Alert_Date_Type_Dialog(getString(R.string.alertdate_dialog_title));
                     break;
             }
 
@@ -569,16 +569,19 @@ public class Fragment_Saver extends Fragment {
                 case R.id.dialog_sav_ch2:
                     TV_AlertType_Result.setText(R.string.alertdate_3day);
                     get_alertdate_type = 1;
+                    show_time_dialog().show();
                     break;
 
                 case R.id.dialog_sav_ch3:
                     TV_AlertType_Result.setText(R.string.alertdate_5day);
                     get_alertdate_type = 2;
+                    show_time_dialog().show();
                     break;
 
                 case R.id.dialog_sav_ch4:
                     TV_AlertType_Result.setText(R.string.alertdate_7day);
                     get_alertdate_type = 3;
+                    show_time_dialog().show();
                     break;
 
             }
@@ -694,7 +697,7 @@ public class Fragment_Saver extends Fragment {
 
         final Calendar mCalendar = Calendar.getInstance();
 
-        mDialog = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
+        mDialog = new TimePickerDialog(getActivity(), R.style.myTimeDialogTheme, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 

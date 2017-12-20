@@ -25,5 +25,21 @@
 	</style>
 
 
+	<!--	Time Dialog Theme-->
+	<style name="myTimeDialogTheme" parent="Theme.AppCompat.Light.Dialog">
+		<item name="colorAccent">@color/colorPrimaryDark</item>
+		<item name="android:datePickerStyle">@style/myTimeDialogStyle</item>
+	</style>
+
+	<style name="myTimeDialogStyle" parent="@android:style/Widget.Material.Light.TimePicker">
+		<item name="colorAccent">@color/colorPrimaryDark</item>
+		<item name="android:dayOfWeekBackground">@color/colorPrimaryDark</item>
+		<item name="android:colorControlHighlight">@color/deep_teal_200</item>
+		<item name="android:colorControlActivated">@color/deep_teal_200</item>
+		<item name="android:colorControlNormal">@color/deep_teal_200</item>
+	</style>
+
+
+
 </resources>
 
