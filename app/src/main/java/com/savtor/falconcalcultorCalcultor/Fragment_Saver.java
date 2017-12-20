@@ -43,7 +43,7 @@ public class Fragment_Saver extends Fragment {
     private TextView choose_one_text, choose_two_text , choose_three_text, choose_four_text, choose_five_text, choose_dialog_title, choose_dialog_cancellbtn;
     private ImageView choose_one_image, choose_two_image, choose_three_image, choose_four_image, choose_five_image;
 
-    private Calendar mCalendar, Calendar_finaldue;
+    private Calendar mCalendar;
 
     private String get_createdate, get_name, get_loannum, get_firstdue, get_finaldue, get_alerttime, get_address, get_phone, get_remark;
     private double get_loanamount, get_loanrate;
@@ -626,12 +626,14 @@ public class Fragment_Saver extends Fragment {
 
                 case R.id.dialog_sav_ch1:
                     TV_FirstDue_Result.setText(mCalendar.get(Calendar.YEAR) + "/" + (mCalendar.get(Calendar.MONTH) + 1) + "/" + mCalendar.get(Calendar.DAY_OF_MONTH));
-                    TV_FinalDue_Result.setText(Calendar_finaldue.get(Calendar.YEAR) + "/" + (Calendar_finaldue.get(Calendar.MONTH) + 1)+ "/" + Calendar_finaldue.get(Calendar.DAY_OF_MONTH));
+                    mCalendar.add(Calendar.MONTH, bundle_trems -1);
+                    TV_FinalDue_Result.setText(mCalendar.get(Calendar.YEAR) + "/" + (mCalendar.get(Calendar.MONTH) + 1)+ "/" + mCalendar.get(Calendar.DAY_OF_MONTH));
                     break;
 
                 case R.id.dialog_sav_ch2:
                     TV_FirstDue_Result.setText(mCalendar.get(Calendar.YEAR) + "/" + (mCalendar.get(Calendar.MONTH) + 1) + "/" + mCalendar.get(Calendar.DAY_OF_MONTH));
-                    TV_FinalDue_Result.setText(Calendar_finaldue.get(Calendar.YEAR) + "/" + (Calendar_finaldue.get(Calendar.MONTH) + 1)+ "/" + Calendar_finaldue.getActualMaximum(Calendar.DAY_OF_MONTH));
+                    mCalendar.add(Calendar.MONTH, bundle_trems -1);
+                    TV_FinalDue_Result.setText(mCalendar.get(Calendar.YEAR) + "/" + (mCalendar.get(Calendar.MONTH) + 1)+ "/" + mCalendar.getActualMaximum(Calendar.DAY_OF_MONTH));
                     break;
             }
 
@@ -657,28 +659,24 @@ public class Fragment_Saver extends Fragment {
                 mCalendar.set(Calendar.MONTH, month);
                 mCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
-//                TV_FirstDue_Result.setText(mCalendar.get(Calendar.YEAR) + "/" + (mCalendar.get(Calendar.MONTH) + 1) + "/" + mCalendar.get(Calendar.DAY_OF_MONTH));
-
-                Calendar_finaldue = mCalendar;
-
                 if (month == 1 && dayOfMonth == mCalendar.getActualMaximum(Calendar.DAY_OF_MONTH) || dayOfMonth == 30){
 
-                    Calendar_finaldue.add(Calendar.MONTH, bundle_trems - 1);
                     Date_Type_Dialog("");
-
 
                 }else if(dayOfMonth == 31){
 
-                    Calendar_finaldue.add(Calendar.MONTH, bundle_trems - 1);
                     TV_FirstDue_Result.setText(mCalendar.get(Calendar.YEAR) + "/" + (mCalendar.get(Calendar.MONTH) + 1) + "/" + mCalendar.get(Calendar.DAY_OF_MONTH));
-                    TV_FinalDue_Result.setText(Calendar_finaldue.get(Calendar.YEAR) + "/" + (Calendar_finaldue.get(Calendar.MONTH) + 1) + "/" + Calendar_finaldue.getActualMaximum(Calendar.DAY_OF_MONTH));
+
+                    mCalendar.add(Calendar.MONTH, bundle_trems - 1);
+                    TV_FinalDue_Result.setText(mCalendar.get(Calendar.YEAR) + "/" + (mCalendar.get(Calendar.MONTH) + 1) + "/" + mCalendar.getActualMaximum(Calendar.DAY_OF_MONTH));
                     SV_AlertType.setVisibility(View.VISIBLE);
 
                 }else {
 
-                    Calendar_finaldue.add(Calendar.MONTH, bundle_trems - 1);
                     TV_FirstDue_Result.setText(mCalendar.get(Calendar.YEAR) + "/" + (mCalendar.get(Calendar.MONTH) + 1) + "/" + mCalendar.get(Calendar.DAY_OF_MONTH));
-                    TV_FinalDue_Result.setText(Calendar_finaldue.get(Calendar.YEAR) + "/" + (Calendar_finaldue.get(Calendar.MONTH) + 1) + "/" + Calendar_finaldue.get(Calendar.DAY_OF_MONTH));
+
+                    mCalendar.add(Calendar.MONTH, bundle_trems - 1);
+                    TV_FinalDue_Result.setText(mCalendar.get(Calendar.YEAR) + "/" + (mCalendar.get(Calendar.MONTH) + 1) + "/" + mCalendar.get(Calendar.DAY_OF_MONTH));
                     SV_AlertType.setVisibility(View.VISIBLE);
 
                 }
