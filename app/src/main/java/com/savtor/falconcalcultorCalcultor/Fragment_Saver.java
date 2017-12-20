@@ -52,8 +52,8 @@ public class Fragment_Saver extends Fragment {
     private int get_loantype, get_applystatus, get_alertdate_type;
 
 
-    private String init_Name, init_LoanType, init_ApplyStatus, init_LoanNum, init_FirstDueDate, init_FirstDueDate_Result, init_FinalDueDate, init_FinalDueDate_Result, init_DueDate_Type, init_AlertDate, init_Address, init_Phone, init_Remarks;
-    private String init_Name_text, init_LoanNum_text, init_Addrrss_Text, init_Phone_Text, init_Remarks_Text;
+    private String restore_LoanName_text, restore_LoanType_text, restore_ApplyStatus_text, restore_LoanNum_text, restore_FirstDueDate_text, restore_FinalDueDate_text, restore_AlertDate_text, restore_AlertTime_text, restore_Address_text, restore_Phone_text, restore_Remarks_text;
+	
     private String Edit_Mode;
 
     private Favourite_DataBasic favourite_dataBasic;
@@ -146,8 +146,8 @@ public class Fragment_Saver extends Fragment {
 		ED_LoanName = (EditText) v.findViewById(R.id.save_name);
         ED_LoanName.setOnFocusChangeListener(edText_FocusChangeListener);
         ED_LoanName.requestFocus();
-        ED_LoanName.setHint(init_Name);
-        ED_LoanName.setText(init_Name_text);
+        ED_LoanName.setHint(getString(R.string.loanname_hint));
+		ED_LoanName.setText(restore_LoanName_text);
 
 //        Loan Type
 		SV_LoanType = v.findViewById(R.id.subview_loantype);
@@ -156,7 +156,8 @@ public class Fragment_Saver extends Fragment {
         IV_LoanType.setImageResource(R.drawable.ic_person_black_24dp);
 
 		TV_LoanType = (TextView) SV_LoanType.findViewById(R.id.sub_textview);
-        TV_LoanType.setText(init_LoanType);
+        TV_LoanType.setText(restore_LoanType_text);
+		
         Linear_LoanType = (LinearLayout) SV_LoanType.findViewById(R.id.sub_linear);
         Linear_LoanType.setTag(1);
         Linear_LoanType.setOnClickListener(Show_Dialog_OnClickListener);
@@ -169,7 +170,7 @@ public class Fragment_Saver extends Fragment {
         IV_Apply_Type.setImageDrawable(getResources().getDrawable(R.drawable.ic_assignment_black_24dp));
 
 		TV_ApplyType = (TextView) SV_ApplyType.findViewById(R.id.sub_textview);
-        TV_ApplyType.setText(init_ApplyStatus);
+        TV_ApplyType.setText(restore_ApplyStatus_text);
 
         Linear_ApplyType = (LinearLayout) SV_ApplyType.findViewById(R.id.sub_linear);
         Linear_ApplyType.setTag(2);
@@ -184,8 +185,8 @@ public class Fragment_Saver extends Fragment {
 		ED_LoanNum = (EditText) SV_LoanNum.findViewById(R.id.sub_edittext);
         ED_LoanNum.setSingleLine(true);
         ED_LoanNum.setOnFocusChangeListener(edText_FocusChangeListener);
-        ED_LoanNum.setHint(init_LoanNum);
-        ED_LoanNum.setText(init_LoanNum_text);
+        ED_LoanNum.setHint(getString(R.string.loannum_hint));
+        ED_LoanNum.setText(restore_LoanNum_text);
 
 //        ***********
         Linear_DueDate = (LinearLayout) v.findViewById(R.id.duedate_linear);
@@ -197,10 +198,10 @@ public class Fragment_Saver extends Fragment {
         IV_FirstDue.setImageDrawable(getResources().getDrawable(R.drawable.ic_event_black_24dp));
 
 		TV_FirstDue = (TextView) SV_FirstDue.findViewById(R.id.sub_textview);
-        TV_FirstDue.setText(init_FirstDueDate);
+        TV_FirstDue.setText(getString(R.string.firstdue_hint));
 
 		TV_FirstDue_Result = (TextView) SV_FirstDue.findViewById(R.id.sub_textview_result);
-        TV_FirstDue_Result.setText(init_FirstDueDate_Result);
+        TV_FirstDue_Result.setText(restore_FirstDueDate_text);
 
         Linear_FirstDue = (LinearLayout) SV_FirstDue.findViewById(R.id.sub_linear);
         Linear_FirstDue.setOnClickListener(new View.OnClickListener() {
@@ -215,10 +216,10 @@ public class Fragment_Saver extends Fragment {
 
 		IV_FinalDue = (ImageView) SV_FinalDue.findViewById(R.id.sub_image);
 		TV_Final_FinalDue = (TextView) SV_FinalDue.findViewById(R.id.sub_textview);
-        TV_Final_FinalDue.setText(init_FinalDueDate);
+        TV_Final_FinalDue.setText(getString(R.string.finaldue_hint));
 
 		TV_FinalDue_Result = (TextView) SV_FinalDue.findViewById(R.id.sub_textview_result);
-        TV_FinalDue_Result.setText(init_FinalDueDate_Result);
+        TV_FinalDue_Result.setText(restore_FinalDueDate_text);
         TV_FinalDue_Result.setTextColor(getResources().getColor(R.color.deep_teal_200));
 
         Linear_FinalDue = (LinearLayout) SV_FinalDue.findViewById(R.id.sub_linear);
@@ -235,11 +236,12 @@ public class Fragment_Saver extends Fragment {
 		IV_Alert.setImageResource(R.drawable.ic_alarm_black_24dp);
 
 		TV_AlertType = (TextView) SV_AlertType.findViewById(R.id.sub_textview);
-		TV_AlertType.setText(init_AlertDate);
+		TV_AlertType.setText(getString(R.string.alertdate_hint));
 
         TV_AlertType_Result = (TextView) SV_AlertType.findViewById(R.id.sub_textview_result);
         TV_AlertType_Result.setTextColor(getResources().getColor(R.color.deep_teal_200));
-
+		TV_AlertType_Result.setText(restore_AlertDate_text);
+		
         Linear_AlertType = (LinearLayout) SV_AlertType.findViewById(R.id.sub_linear);
         Linear_AlertType.setTag(3);
         Linear_AlertType.setOnClickListener(Show_Dialog_OnClickListener);
@@ -250,11 +252,12 @@ public class Fragment_Saver extends Fragment {
 //        SV_AlertTime.setVisibility(View.GONE);
 
         TV_AlertTime = (TextView) SV_AlertTime.findViewById(R.id.sub_textview);
-        TV_AlertTime.setText("提醒時間");
+        TV_AlertTime.setText(getString(R.string.alertdate_hint));
 
         TV_AlertTime_Result = (TextView) SV_AlertTime.findViewById(R.id.sub_textview_result);
         TV_AlertTime_Result.setTextColor(getResources().getColor(R.color.deep_teal_200));
-
+		TV_AlertTime_Result.setText(restore_AlertTime_text);
+		
         Linear_AlertTime = (LinearLayout) SV_AlertTime.findViewById(R.id.sub_linear);
         Linear_AlertTime.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -279,8 +282,8 @@ public class Fragment_Saver extends Fragment {
 		ED_LoanAddress = (EditText) SV_Address.findViewById(R.id.sub_edittext);
         ED_LoanAddress.setSingleLine(true);
         ED_LoanAddress.setOnFocusChangeListener(edText_FocusChangeListener);
-        ED_LoanAddress.setHint(init_Address);
-        ED_LoanAddress.setText(init_Addrrss_Text);
+        ED_LoanAddress.setHint(getString(R.string.address_hint));
+        ED_LoanAddress.setText(restore_Address_text);
 
 //        Phone Num
 		SV_PhoneNum = v.findViewById(R.id.subview_phone);
@@ -292,8 +295,8 @@ public class Fragment_Saver extends Fragment {
         ED_PhoneNum.setSingleLine(true);
         ED_PhoneNum.setInputType(InputType.TYPE_CLASS_PHONE);
         ED_PhoneNum.setOnFocusChangeListener(edText_FocusChangeListener);
-        ED_PhoneNum.setHint(init_Phone);
-        ED_PhoneNum.setText(init_Phone_Text);
+        ED_PhoneNum.setHint(getString(R.string.phoneNum_hint));
+        ED_PhoneNum.setText(restore_Phone_text);
 
 //        Remarks
 		SV_Remarks = v.findViewById(R.id.subview_remarks);
@@ -303,8 +306,8 @@ public class Fragment_Saver extends Fragment {
 
 		ED_Remarks = (EditText) SV_Remarks.findViewById(R.id.sub_edittext);
         ED_Remarks.setOnFocusChangeListener(edText_FocusChangeListener);
-        ED_Remarks.setHint(init_Remarks);
-        ED_Remarks.setText(init_Remarks_Text);
+        ED_Remarks.setHint(getString(R.string.remark_hint));
+        ED_Remarks.setText(restore_Remarks_text);
 
         if(db_get_applystatus == 2){
             subview_Visibility();
@@ -485,7 +488,7 @@ public class Fragment_Saver extends Fragment {
             switch (v.getId()){
 
                 case R.id.dialog_sav_ch1:
-                    TV_ApplyType.setText(R.string.init_applystatuse);
+                    TV_ApplyType.setText(R.string.applystatuse_hint);
                     get_applystatus = 0;
                     break;
 
@@ -797,63 +800,67 @@ public class Fragment_Saver extends Fragment {
         Log.e("Edit Mode : ", This_Fragment_Name + "Edit Mode On");
         favourite_dataBasic = new Favourite_DataBasic(getActivity(), This_Fragment_Name);
 
-        init_Name = getResources().getString(R.string.init_loanname);
-        init_Name_text = String.valueOf(favourite_dataBasic.query(databasic_ID).getName());
+		restore_LoanName_text = String.valueOf(favourite_dataBasic.query(databasic_ID).getName());
 
         db_get_loantype = favourite_dataBasic.query(databasic_ID).getLoan_Type();
-
         if (db_get_loantype == 0){
-            init_LoanType = getResources().getString(R.string.init_loantype);
+            restore_LoanType_text = getResources().getString(R.string.loantype_personal);
+			get_loantype = 0;
         }else  if(db_get_loantype == 1){
-            init_LoanType = getResources().getString(R.string.loantype_personal);
+            restore_LoanType_text = getResources().getString(R.string.loantype_mort);
+			get_loantype = 1;
         }else if(db_get_loantype == 2){
-            init_LoanType = getResources().getString(R.string.loantype_mort);
-        }else if(db_get_loantype == 3){
-            init_LoanType = getResources().getString(R.string.loantype_car);
+            restore_LoanType_text = getResources().getString(R.string.loantype_car);
+			get_loantype = 2;
         }
 
-        db_get_applystatus =favourite_dataBasic.query(databasic_ID).getApply_status();
+        db_get_applystatus = favourite_dataBasic.query(databasic_ID).getApply_status();
         if (db_get_applystatus == 0){
-            init_ApplyStatus = getResources().getString(R.string.init_applystatuse);
+            restore_ApplyStatus_text = getResources().getString(R.string.applystatuse_hint);
+			get_applystatus = 0;
         }else if(db_get_applystatus == 1){
-            init_ApplyStatus = getResources().getString(R.string.applytype_pending);
+            restore_ApplyStatus_text = getResources().getString(R.string.applytype_pending);
+			get_applystatus = 1;
         }else if(db_get_applystatus == 2){
-            init_ApplyStatus = getResources().getString(R.string.applytype_approval);
+            restore_ApplyStatus_text = getResources().getString(R.string.applytype_approval);
+			get_applystatus = 2;
         }else if(db_get_applystatus == 3){
-            init_ApplyStatus = getResources().getString(R.string.applytype_reject);
+            restore_ApplyStatus_text = getResources().getString(R.string.applytype_reject);
+			get_applystatus = 3;
         }else if(db_get_applystatus == 4){
-            init_ApplyStatus = getResources().getString(R.string.applytype_cancel);
+            restore_ApplyStatus_text = getResources().getString(R.string.applytype_cancel);
+			get_applystatus = 4;
         }
 
-        init_LoanNum = getResources().getString(R.string.init_loannum);
-        init_LoanNum_text = String.valueOf(favourite_dataBasic.query(databasic_ID).getLoanNum());
+        restore_LoanNum_text = favourite_dataBasic.query(databasic_ID).getLoanNum();
 
-        init_FirstDueDate = getResources().getString(R.string.init_firstdue);
-        init_FirstDueDate_Result = String.valueOf(favourite_dataBasic.query(databasic_ID).getFirst_dueddate());
-        init_FinalDueDate = getResources().getString(R.string.init_finalduee);
-        init_FinalDueDate_Result = String.valueOf(favourite_dataBasic.query(databasic_ID).getFinal_dueddate());
+        restore_FirstDueDate_text = String.valueOf(favourite_dataBasic.query(databasic_ID).getFirst_dueddate());
+        
+        restore_FinalDueDate_text = String.valueOf(favourite_dataBasic.query(databasic_ID).getFinal_dueddate());
 
         db_get_alertdate = favourite_dataBasic.query(databasic_ID).getAlert_date();
         if(db_get_alertdate == 0){
-            init_AlertDate = getResources().getString(R.string.init_alertdate);
+            restore_AlertDate_text = "";
+			get_alertdate_type = 0;
         }else if(db_get_alertdate == 1){
-            init_AlertDate = getResources().getString(R.string.alertdate_3day);
+            restore_AlertDate_text = getString(R.string.alertdate_3day);
+			get_alertdate_type = 1;
         }else if(db_get_alertdate == 2){
-            init_AlertDate = getResources().getString(R.string.alertdate_5day);
+            restore_AlertDate_text = getString(R.string.alertdate_5day);
+			get_alertdate_type = 2;
         }else if(db_get_alertdate == 3){
-            init_AlertDate = getResources().getString(R.string.alertdate_7day);
+            restore_AlertDate_text = getString(R.string.alertdate_7day);
+			get_alertdate_type = 3;
         }
 
-        init_DueDate_Type = String.valueOf(favourite_dataBasic.query(databasic_ID).getAlert_time());
+        //init_DueDate_Type = String.valueOf(favourite_dataBasic.query(databasic_ID).getAlert_time());
 
-        init_Address = getResources().getString(R.string.init_address);
-        init_Phone = getResources().getString(R.string.init_phone);
-        init_Remarks = getResources().getString(R.string.init_remark);
-
-        init_Addrrss_Text = String.valueOf(favourite_dataBasic.query(databasic_ID).getAddress());
-        init_Phone_Text = String.valueOf(favourite_dataBasic.query(databasic_ID).getPhone());
-        init_Remarks_Text = String.valueOf(favourite_dataBasic.query(databasic_ID).getRemarks());
-
+		restore_AlertTime_text = favourite_dataBasic.query(databasic_ID).getAlert_time();
+		
+        restore_Address_text = favourite_dataBasic.query(databasic_ID).getAddress();
+        restore_Phone_text = favourite_dataBasic.query(databasic_ID).getPhone();
+        restore_Remarks_text = favourite_dataBasic.query(databasic_ID).getRemarks();
+		
         favourite_dataBasic.close();
 
     }
@@ -864,18 +871,24 @@ public class Fragment_Saver extends Fragment {
 
         Log.e("Edit Mode : ", This_Fragment_Name + "Edit Mode Off");
 
-        init_Name = getResources().getString(R.string.init_loanname);
-        init_LoanType = getResources().getString(R.string.init_loantype);
-        init_ApplyStatus = getResources().getString(R.string.init_applystatuse);
-        init_LoanNum = getResources().getString(R.string.init_loannum);
+		restore_LoanName_text ="";
+		
+        restore_LoanType_text = getResources().getString(R.string.loantype_hint);
+		
+        restore_ApplyStatus_text = getResources().getString(R.string.applystatuse_hint);
+		
+        restore_LoanNum_text = "";
+		
+        restore_FirstDueDate_text = "";
+        restore_FinalDueDate_text = "";
+		
+        restore_AlertDate_text = "";
 
-        init_FirstDueDate = getResources().getString(R.string.init_firstdue);
-        init_FinalDueDate = getResources().getString(R.string.init_finalduee);
-        init_AlertDate = getResources().getString(R.string.init_alertdate);
-
-        init_Address = getResources().getString(R.string.init_address);
-        init_Phone = getResources().getString(R.string.init_phone);
-        init_Remarks = getResources().getString(R.string.init_remark);
+		restore_AlertTime_text = "";
+		
+        restore_Address_text = "";
+        restore_Phone_text = "";
+        restore_Remarks_text = "";
 
         db_get_loantype = 0;
         db_get_alertdate = 0;
@@ -912,6 +925,7 @@ public class Fragment_Saver extends Fragment {
                     get_phone,
                     get_remark);
 
+					Log.e("a_type", get_alertdate_type +"");
             favourite_dataBasic.inster(fav_item);
 
             favourite_dataBasic.close();
@@ -933,7 +947,7 @@ public class Fragment_Saver extends Fragment {
         }else {
 
             favourite_dataBasic = new Favourite_DataBasic(getActivity(), This_Fragment_Name);
-
+			
             Favouite_Item fav_item = new Favouite_Item(
                     DB_ID,
                     new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()),
