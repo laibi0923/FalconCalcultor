@@ -5,7 +5,8 @@
 	android:layout_height="wrap_content"
 	android:orientation="horizontal"
 	android:background="@color/blue_grey_900"
-	android:gravity="center">
+	android:gravity="center"
+	android:padding="5dp">
 
 	<LinearLayout
 		android:layout_height="wrap_content"
@@ -16,7 +17,8 @@
 			android:layout_height="60dp"
 			android:layout_width="60dp"
 			android:src="@drawable/falcon_icon_white"
-			android:id="@+id/notification_img" />
+			android:id="@+id/notification_img"
+			android:padding="10dp" />
 
 	</LinearLayout>
 
@@ -24,14 +26,15 @@
 		android:layout_height="wrap_content"
 		android:layout_width="wrap_content"
 		android:orientation="vertical"
-		android:layout_weight="1.0">
+		android:layout_weight="1.0"
+		android:padding="5dp">
 
 		<TextView
 			android:layout_height="wrap_content"
 			android:textAppearance="?android:attr/textAppearanceSmall"
 			android:layout_width="wrap_content"
 			android:textStyle="bold"
-			android:text="將有一筆款項 $2742"
+			android:text="Notification Title"
 			android:textColor="@color/TextColor_White"
 			android:id="@+id/notification_title" />
 
@@ -39,11 +42,12 @@
 			android:layout_height="wrap_content"
 			android:textAppearance="?android:attr/textAppearanceSmall"
 			android:layout_width="wrap_content"
-			android:text="會於 2017/12/21 支付"
+			android:text="Notification Content"
 			android:singleLine="true"
 			android:ellipsize="end"
 			android:textColor="@color/TextColor_White"
-			android:id="@+id/notification_content" />
+			android:id="@+id/notification_content"
+			android:layout_marginTop="5dp" />
 
 	</LinearLayout>
 

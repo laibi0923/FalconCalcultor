@@ -38,7 +38,7 @@ public class myNotification {
                 .setContentIntent(appIntent)
 
                 // 設置狀態列裡面的圖示（小圖示）　　
-                .setSmallIcon(R.drawable.falcon_icon_white)
+//                .setSmallIcon(R.drawable.falcon_icon_white)
 
                 // 下拉下拉清單裡面的圖示（大圖示）
                 .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.drawable.falcon_icon_black))
