@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.savtor.AlarmNotification.tseting_Notification;
 import com.savtor.falconcalcultorCalcultor.Fragment_Calcultor;
 import com.savtor.falconcalcultorDebitInfo.Fragment_DebitInfo;
 import com.savtor.falconcalcultorFavoutive.Fragment_Favourite;
@@ -113,6 +114,10 @@ public class Activity_Main extends AppCompatActivity {
 //                        case R.id.nav_item6:
 //                            Fragment_Transaction(new Fragment_DebitInfo());
 //                            break;
+
+                        case R.id.nav_item7:
+                            Fragment_Transaction(new tseting_Notification());
+                            break;
                     }
 
                     item.setChecked(true);

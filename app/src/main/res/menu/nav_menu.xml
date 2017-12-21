@@ -36,6 +36,11 @@
 			android:title="@string/nav_menu_six"/>
 -->
 
+		<item
+			android:icon="@drawable/ic_alarm_black_24dp"
+			android:id="@+id/nav_item7"
+			android:title="@string/nav_menu_seven"/>
+
 	</group>
 
 

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:background="@color/blue_grey_900">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/notification_title"
+        android:hint="設定 Notification 標題"
+        android:textColor="@color/TextColor_White"
+        android:layout_margin="20dp"
+        android:textColorHint="@color/TextColor_Gray"
+        android:text="Falcon 提醒你" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/notification_content"
+        android:hint="設定 Notification 內容"
+        android:textColor="@color/TextColor_White"
+        android:layout_margin="20dp"
+        android:textColorHint="@color/TextColor_Gray"
+        android:text="將有一筆款項 $2742, 於 2017/12/21 支付" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="130dp">
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Show Notification"
+            android:id="@+id/show_notification_btn"
+            android:layout_weight="1" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Custom Notification"
+            android:id="@+id/show_custom_notification_btn"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+</LinearLayout>
