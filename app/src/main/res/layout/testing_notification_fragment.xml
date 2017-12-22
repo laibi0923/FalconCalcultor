@@ -6,6 +6,66 @@
     android:orientation="vertical"
     android:background="@color/blue_grey_900">
 
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/alram_year"
+            android:layout_weight="1"
+            android:hint="Year"
+            android:textColor="@color/TextColor_White"
+            android:textColorHint="@color/TextColor_Gray" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/alram_months"
+            android:layout_weight="1"
+            android:textColor="@color/TextColor_White"
+            android:hint="Months"
+            android:textColorHint="@color/TextColor_Gray" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/alram_date"
+            android:hint="Date"
+            android:layout_weight="1"
+            android:textColor="@color/TextColor_White"
+            android:textColorHint="@color/TextColor_Gray" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp" >
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/alram_hour"
+            android:layout_weight="1"
+            android:hint="Hour"
+            android:textColor="@color/TextColor_White"
+            android:textColorHint="@color/TextColor_Gray" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/alram_mins"
+            android:layout_weight="1"
+            android:textColor="@color/TextColor_White"
+            android:hint="Mins"
+            android:textColorHint="@color/TextColor_Gray" />
+
+    </LinearLayout>
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -31,6 +31,10 @@
         <activity android:name=".Login_Activity"
 			android:screenOrientation="portrait" />
 
+        <receiver
+            android:name="com.savtor.AlarmNotification.AlarmBroadCastReceiver"
+            android:exported="false" />
+
     </application>
 
 </manifest>
