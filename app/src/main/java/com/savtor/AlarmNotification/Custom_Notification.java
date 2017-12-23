@@ -18,7 +18,7 @@ public class Custom_Notification {
 
     int icon = R.drawable.falcon_icon_white;
     long when = System.currentTimeMillis();
-    int i = 0;
+    int i = 1;
 
     public void Custom_Notification(Context context, String Title, String Content){
 
@@ -32,19 +32,23 @@ public class Custom_Notification {
         Intent mIntent = new Intent(context, Splash_Activity.class);
         PendingIntent mPendingIntent = PendingIntent.getActivity(context, 0, mIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context.getApplicationContext());
+        Notification.Builder mBuilder = new Notification.Builder(context.getApplicationContext());
 
         //設定自定界面
-        if (Build.VERSION.SDK_INT >= 16){
-            mBuilder.setCustomBigContentView(remoteViews);
-        }
-        mBuilder.setCustomContentView(remoteViews);
+        //if (Build.VERSION.SDK_INT >= 16){
+           // mBuilder.setCustomBigContentView(remoteViews);
+       // }
+        //mBuilder.setCustomContentView(remoteViews);
 
+		mBuilder.setContent(remoteViews);
+		
         //設定用戶點撃 Notification 後打開 Apps
         mBuilder.setContentIntent(mPendingIntent);
-
+		
         //設定小圖示
         mBuilder.setSmallIcon(icon);
+		
+		mBuilder.setNumber(3);
 
         //設定是否常駐,true為常駐
         mBuilder.setOngoing(false);
@@ -63,11 +67,12 @@ public class Custom_Notification {
 
         //使用所有默認值，比如聲音，震動，閃屏等等
         mBuilder.setDefaults(Notification.DEFAULT_ALL);
+		
+		//mBuilder.setFullScreenIntent(mPendingIntent, true);
 
         Notification mNotification = mBuilder.build();
         NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        mNotificationManager.notify( i++, mNotification);
-
+        mNotificationManager.notify(i++, mNotification);
 
 
     }

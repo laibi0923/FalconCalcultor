@@ -17,6 +17,8 @@ import com.savtor.falconcalcultor.*;
 public class myNotification {
 
     long[] vibrate = {0,100,200,300};
+	
+	int i = 1;
 
     Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
@@ -36,9 +38,11 @@ public class myNotification {
         Notification notification
                 = new Notification.Builder(context)
                 .setContentIntent(appIntent)
+				
+				.setNumber(i)
 
                 // 設置狀態列裡面的圖示（小圖示）　　
-//                .setSmallIcon(R.drawable.falcon_icon_white)
+                .setSmallIcon(R.drawable.falcon_icon_white)
 
                 // 下拉下拉清單裡面的圖示（大圖示）
                 .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.drawable.falcon_icon_black))
@@ -103,7 +107,7 @@ public class myNotification {
 
 
         // 把指定ID的通知持久的發送到狀態條上.
-        mNotificationManager.notify(0, notification);
+        mNotificationManager.notify( i++, notification);
 
         // 取消以前顯示的一個指定ID的通知.假如是一個短暫的通知，
         // 試圖將之隱藏，假如是一個持久的通知，將之從狀態列中移走.

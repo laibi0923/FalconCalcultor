@@ -85,25 +85,27 @@ public class tseting_Notification extends Fragment{
 //                Custom_Notification mN = new Custom_Notification();
 //                mN.Custom_Notification(getActivity(), notification_title.getText().toString(), notification_content.getText().toString());
 
-                for (int i = 0; i < 6; i++){
 
-                    mCalendar.set(Calendar.YEAR, Integer.parseInt(alram_year.getText().toString()));
-                    mCalendar.set(Calendar.MONTH, Integer.parseInt(alram_months.getText().toString()) -1 );
-                    mCalendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(alram_date.getText().toString()));
-                    mCalendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(alram_hour.getText().toString()));
-                    mCalendar.set(Calendar.MINUTE, Integer.parseInt(alram_mins.getText().toString()) + i);
-                    mCalendar.set(Calendar.SECOND, 0);
+				for (int i =0; i < 2; i++){
+					
+					mCalendar.set(Calendar.YEAR, Integer.parseInt(alram_year.getText().toString()));
+					mCalendar.set(Calendar.MONTH, Integer.parseInt(alram_months.getText().toString()) -1 );
+					mCalendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(alram_date.getText().toString()));
+					mCalendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(alram_hour.getText().toString()));
+					mCalendar.set(Calendar.MINUTE, Integer.parseInt(alram_mins.getText().toString()) + i);
+					mCalendar.set(Calendar.SECOND, 0);
 
-                    Intent mIntent = new Intent(getContext(), AlarmBroadCastReceiver.class);
-                    PendingIntent mPendingIntent = PendingIntent.getBroadcast(getContext(), 0, mIntent, 0);
+					Intent mIntent = new Intent(getContext(), AlarmBroadCastReceiver.class);
+					PendingIntent mPendingIntent = PendingIntent.getBroadcast(getContext(), i, mIntent, 0);
 
-                    mAlarmManager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
-                    mAlarmManager.set(AlarmManager.RTC_WAKEUP, mCalendar.getTimeInMillis(), mPendingIntent);
+					mAlarmManager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
+					mAlarmManager.set(AlarmManager.RTC_WAKEUP, mCalendar.getTimeInMillis(), mPendingIntent);
+					
+					
+				}
+				
 
-
-                }
-
-//                Toast.makeText(getContext(), "己設置, 時間為 : " + new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(mCalendar.getTime()), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "己設置, 時間為 : " + new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(mCalendar.getTime()), Toast.LENGTH_SHORT).show();
             }
         });
 
