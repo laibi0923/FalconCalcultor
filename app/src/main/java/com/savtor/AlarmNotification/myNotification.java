@@ -22,43 +22,41 @@ import com.savtor.falconcalcultor.*;
  */
 public class myNotification {
 
-    int notification_id = 1;
     int small_icon = R.drawable.falcon_icon_white;
     long when = System.currentTimeMillis();
 
-    public void myNotification(Context context){
+    public void myNotification(Context context, String string_id, int notification_id, String Ticker, String Title, String ContenText, String SubText){
 
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context);
 
         mBuilder.setSmallIcon(small_icon);
 
-        Drawable mDrawable = ContextCompat.getDrawable(context, R.drawable.falcon_icon_black);
-        Bitmap large_icon = ((BitmapDrawable) mDrawable).getBitmap();
+//                Drawable mDrawable = ContextCompat.getDrawable(v.getContext(), R.drawable.falcon_icon_black);
+//                Bitmap large_icon = ((BitmapDrawable) mDrawable).getBitmap();
+//
+//                mBuilder.setLargeIcon(large_icon);
 
-        mBuilder.setLargeIcon(large_icon);
+        mBuilder.setTicker(Ticker);
 
-        mBuilder.setContentTitle("標題");
+        mBuilder.setContentTitle(Title);
 
-        mBuilder.setContentText("正文: , ID :" + notification_id);
+        mBuilder.setContentText(ContenText);
 
-        mBuilder.setSubText("摘要");
+//        mBuilder.setSubText(SubText);
+
+//        mBuilder.setContentInfo("Info");
+
+//        mBuilder.setNumber(2);
 
         mBuilder.setAutoCancel(true);
-
-        mBuilder.setContentInfo("Info");
-
-        mBuilder.setNumber(2);
-
-        mBuilder.setTicker("Status bar content");
 
         mBuilder.setPriority(NotificationCompat.PRIORITY_MAX);
 
         mBuilder.setWhen(when);
 
-        mBuilder.setOngoing(true);
+        mBuilder.setOngoing(false);
 
         mBuilder.setDefaults(NotificationCompat.DEFAULT_ALL);
-
 
         Intent mIntent = new Intent(context, Splash_Activity.class);
 
@@ -68,7 +66,8 @@ public class myNotification {
 
         NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
 
-        mNotificationManager.notify(notification_id++, mBuilder.build());
+        mNotificationManager.notify(string_id, notification_id++, mBuilder.build());
+
     }
 
 

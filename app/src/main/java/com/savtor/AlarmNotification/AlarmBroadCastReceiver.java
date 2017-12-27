@@ -19,12 +19,26 @@ import com.savtor.falconcalcultor.*;
  */
 public class AlarmBroadCastReceiver extends BroadcastReceiver {
 
+    int notification_id;
+    String notification_string_id;
+    String notification_tick;
+    String notification_title;
+    String notification_content;
+    String notification_subtext;
+
     @Override
     public void onReceive(Context context, Intent intent) {
 
+        notification_id = intent.getIntExtra("notification_id", 0);
+        notification_string_id = intent.getStringExtra("notification_string_id");
+        notification_tick = intent.getStringExtra("notification_tick");
+        notification_title = intent.getStringExtra("notification_title");
+        notification_content = intent.getStringExtra("notification_content");
+        notification_subtext = intent.getStringExtra("notification_subtext");
+
         myNotification xmyNotification = new myNotification();
 
-        xmyNotification.myNotification(context);
+        xmyNotification.myNotification(context, notification_string_id, notification_id, notification_tick,notification_title, notification_content, notification_subtext);
 
     }
 

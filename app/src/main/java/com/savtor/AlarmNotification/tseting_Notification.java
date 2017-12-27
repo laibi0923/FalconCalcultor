@@ -75,6 +75,10 @@ public class tseting_Notification extends Fragment{
         alram_hour = (EditText) v.findViewById(R.id.alram_hour); alram_hour.setText(String.valueOf(hour));
         alram_mins = (EditText) v.findViewById(R.id.alram_mins); alram_mins.setText(String.valueOf(mins));
 
+        notification_title = (EditText) v.findViewById(R.id.notification_title);
+
+        notification_content = (EditText) v.findViewById(R.id.notification_content);
+
         repeat_min_btn = (EditText) v.findViewById(R.id.repeat_min_btn);
         id_btn = (EditText) v.findViewById(R.id.id_btn);
 
@@ -94,7 +98,7 @@ public class tseting_Notification extends Fragment{
                 int id = Integer.parseInt(id_btn.getText().toString());
                 int delay_min = Integer.parseInt(repeat_min_btn.getText().toString());
 
-                for (int i =0; i < delay_min; i++){
+                for (int i = 0; i < delay_min; i++){
 
                     Intent mIntent = new Intent(getContext(), AlarmBroadCastReceiver.class);
                     PendingIntent mPendingIntent = PendingIntent.getBroadcast(getContext(), id + i, mIntent, 0);
@@ -115,78 +119,41 @@ public class tseting_Notification extends Fragment{
             @Override
             public void onClick(View v) {
 
-                NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(v.getContext());
+                int id = Integer.parseInt(id_btn.getText().toString());
+                int delay_min = Integer.parseInt(repeat_min_btn.getText().toString());
 
-                mBuilder.setSmallIcon(small_icon);
+				for (int i = 0; i < delay_min; i++){
 
-                Drawable mDrawable = ContextCompat.getDrawable(v.getContext(), R.drawable.falcon_icon_black);
-                Bitmap large_icon = ((BitmapDrawable) mDrawable).getBitmap();
+					mCalendar.set(Calendar.YEAR, Integer.parseInt(alram_year.getText().toString()));
+					mCalendar.set(Calendar.MONTH, Integer.parseInt(alram_months.getText().toString()) -1 );
+					mCalendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(alram_date.getText().toString()));
+					mCalendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(alram_hour.getText().toString()));
+					mCalendar.set(Calendar.MINUTE, Integer.parseInt(alram_mins.getText().toString()) + i);
+					mCalendar.set(Calendar.SECOND, 0);
 
-                mBuilder.setLargeIcon(large_icon);
+					Intent mIntent = new Intent(getContext(), AlarmBroadCastReceiver.class);
+                    mIntent.putExtra("notification_id", i);
+                    mIntent.putExtra("notification_string_id", notification_title.getText().toString());
+                    mIntent.putExtra("notification_tick", "tick");
+                    mIntent.putExtra("notification_title", notification_title.getText().toString());
+                    mIntent.putExtra("notification_content", notification_content.getText().toString());
+                    mIntent.putExtra("notification_subtext", "subtext");
 
-                mBuilder.setContentTitle("標題");
+					PendingIntent mPendingIntent = PendingIntent.getBroadcast(getContext(), i, mIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-                mBuilder.setContentText("正文: , ID :" + notification_id);
+					mAlarmManager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
 
-                mBuilder.setSubText("摘要");
+                    /*
+                     *  RTC_WAKEUP：在指定時間觸發意圖並喚醒裝置
+                     *  RTC：同上但不喚醒裝置
+                     *  ELAPSED_REALTIME：在裝置啟動(開機)後開始計算經過的時間，在到達指定的經過時間觸發意圖，但不喚醒裝置。
+                     *  ELAPSED_REALTIME_WAKEUP：同上，但會喚醒裝置。
+                     */
+                    mAlarmManager.set(AlarmManager.RTC_WAKEUP, mCalendar.getTimeInMillis(), mPendingIntent);
 
-                mBuilder.setAutoCancel(true);
+                    Toast.makeText(getContext(), "己設置, 時間為 : " + new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(mCalendar.getTime())  + "id = " + id + i, Toast.LENGTH_SHORT).show();
 
-                mBuilder.setContentInfo("Info");
-
-                mBuilder.setNumber(2);
-
-                mBuilder.setTicker("Status bar content");
-
-                mBuilder.setPriority(NotificationCompat.PRIORITY_MAX);
-
-                mBuilder.setWhen(when);
-
-                mBuilder.setOngoing(false);
-
-                mBuilder.setDefaults(NotificationCompat.DEFAULT_ALL);
-
-
-                Intent mIntent = new Intent(v.getContext(), Splash_Activity.class);
-
-                PendingIntent mPendingIntent = PendingIntent.getActivity(v.getContext(), 0, mIntent, 0);
-
-                mBuilder.setContentIntent(mPendingIntent);
-
-                NotificationManager mNotificationManager = (NotificationManager) v.getContext().getSystemService(v.getContext().NOTIFICATION_SERVICE);
-
-                mNotificationManager.notify(notification_id++, mBuilder.build());
-
-//                int id = Integer.parseInt(id_btn.getText().toString());
-//                int delay_min = Integer.parseInt(repeat_min_btn.getText().toString());
-//
-//				for (int i = 0; i < delay_min; i++){
-//
-//					mCalendar.set(Calendar.YEAR, Integer.parseInt(alram_year.getText().toString()));
-//					mCalendar.set(Calendar.MONTH, Integer.parseInt(alram_months.getText().toString()) -1 );
-//					mCalendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(alram_date.getText().toString()));
-//					mCalendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(alram_hour.getText().toString()));
-//					mCalendar.set(Calendar.MINUTE, Integer.parseInt(alram_mins.getText().toString()) + i);
-//					mCalendar.set(Calendar.SECOND, 0);
-//
-//					Intent mIntent = new Intent(getContext(), AlarmBroadCastReceiver.class);
-//                    mIntent.putExtra("msg", i++);
-//
-//					PendingIntent mPendingIntent = PendingIntent.getBroadcast(getContext(), i, mIntent, 0);
-//
-//					mAlarmManager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
-//
-//                    /*
-//                     *  RTC_WAKEUP：在指定時間觸發意圖並喚醒裝置
-//                     *  RTC：同上但不喚醒裝置
-//                     *  ELAPSED_REALTIME：在裝置啟動(開機)後開始計算經過的時間，在到達指定的經過時間觸發意圖，但不喚醒裝置。
-//                     *  ELAPSED_REALTIME_WAKEUP：同上，但會喚醒裝置。
-//                     */
-//                    mAlarmManager.set(AlarmManager.RTC_WAKEUP, mCalendar.getTimeInMillis(), mPendingIntent);
-//
-//                    Toast.makeText(getContext(), "己設置, 時間為 : " + new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(mCalendar.getTime())  + "id = " + id + i, Toast.LENGTH_SHORT).show();
-//
-//				}
+				}
 
 
             }
