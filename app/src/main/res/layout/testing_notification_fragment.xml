@@ -90,13 +90,40 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/id_btn"
+            android:layout_weight="1"
+            android:textColor="@color/TextColor_White"
+            android:textColorHint="@color/TextColor_Gray"
+            android:hint="ID"
+            android:text="0" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/repeat_min_btn"
+            android:layout_weight="1"
+            android:textColor="@color/TextColor_White"
+            android:textColorHint="@color/TextColor_Gray"
+            android:hint="Repeat mins"
+            android:text="1" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="130dp">
 
         <Button
             style="?android:attr/buttonStyleSmall"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Show Notification"
+            android:text="Cancel"
             android:id="@+id/show_notification_btn"
             android:layout_weight="1" />
 

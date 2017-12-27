@@ -1,14 +1,16 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
 
+// https://developer.android.com/about/dashboards/index.html
+
 android {
-    compileSdkVersion 26
+    compileSdkVersion 24
     buildToolsVersion '24.0.2'
 
     defaultConfig {
         applicationId "com.savtor.falconcalcultor"
-        minSdkVersion 16
-        targetSdkVersion 26
+        minSdkVersion 19
+        targetSdkVersion 23
         versionCode 1
         versionName "1.0"
     }

@@ -16,7 +16,7 @@ import com.savtor.falconcalcultor.*;
  */
 public class Custom_Notification {
 
-    int icon = R.drawable.falcon_icon_white;
+    int icon = R.drawable.falcon_icon_black;
     long when = System.currentTimeMillis();
     int i = 1;
 

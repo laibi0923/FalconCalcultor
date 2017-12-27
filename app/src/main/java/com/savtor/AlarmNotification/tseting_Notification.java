@@ -2,13 +2,19 @@ package com.savtor.AlarmNotification;
 
 
 import android.app.AlarmManager;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,8 +35,16 @@ public class tseting_Notification extends Fragment{
     private Button show_notification_btn, show_custom_notification_btn;
     private EditText notification_title, notification_content;
     private EditText alram_year, alram_months, alram_date, alram_hour, alram_mins;
+    private EditText id_btn, repeat_min_btn;
     private Calendar mCalendar;
     private int year, months, date, hour, mins;
+
+
+
+
+    int notification_id = 1;
+    int small_icon = R.drawable.falcon_icon_white;
+    long when = System.currentTimeMillis();
 
     private AlarmManager mAlarmManager;
 
@@ -61,6 +75,9 @@ public class tseting_Notification extends Fragment{
         alram_hour = (EditText) v.findViewById(R.id.alram_hour); alram_hour.setText(String.valueOf(hour));
         alram_mins = (EditText) v.findViewById(R.id.alram_mins); alram_mins.setText(String.valueOf(mins));
 
+        repeat_min_btn = (EditText) v.findViewById(R.id.repeat_min_btn);
+        id_btn = (EditText) v.findViewById(R.id.id_btn);
+
 
         notification_title = (EditText) v.findViewById(R.id.notification_title);
 
@@ -71,8 +88,24 @@ public class tseting_Notification extends Fragment{
             @Override
             public void onClick(View v) {
 
-                myNotification m1 = new myNotification();
-                m1.myNotification(getActivity(), notification_title.getText().toString(), notification_content.getText().toString());
+//                myNotification m1 = new myNotification();
+//                m1.myNotification(getActivity(), notification_title.getText().toString(), notification_content.getText().toString());
+
+                int id = Integer.parseInt(id_btn.getText().toString());
+                int delay_min = Integer.parseInt(repeat_min_btn.getText().toString());
+
+                for (int i =0; i < delay_min; i++){
+
+                    Intent mIntent = new Intent(getContext(), AlarmBroadCastReceiver.class);
+                    PendingIntent mPendingIntent = PendingIntent.getBroadcast(getContext(), id + i, mIntent, 0);
+
+                    mAlarmManager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
+                    mAlarmManager.cancel(mPendingIntent);
+
+                    Toast.makeText(getContext(), "己取消, 時間為 : " + new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(mCalendar.getTime())  + "id = " + id + i, Toast.LENGTH_SHORT).show();
+
+                }
+
             }
         });
 
@@ -82,30 +115,80 @@ public class tseting_Notification extends Fragment{
             @Override
             public void onClick(View v) {
 
-//                Custom_Notification mN = new Custom_Notification();
-//                mN.Custom_Notification(getActivity(), notification_title.getText().toString(), notification_content.getText().toString());
+                NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(v.getContext());
+
+                mBuilder.setSmallIcon(small_icon);
+
+                Drawable mDrawable = ContextCompat.getDrawable(v.getContext(), R.drawable.falcon_icon_black);
+                Bitmap large_icon = ((BitmapDrawable) mDrawable).getBitmap();
+
+                mBuilder.setLargeIcon(large_icon);
+
+                mBuilder.setContentTitle("標題");
+
+                mBuilder.setContentText("正文: , ID :" + notification_id);
+
+                mBuilder.setSubText("摘要");
+
+                mBuilder.setAutoCancel(true);
+
+                mBuilder.setContentInfo("Info");
+
+                mBuilder.setNumber(2);
+
+                mBuilder.setTicker("Status bar content");
+
+                mBuilder.setPriority(NotificationCompat.PRIORITY_MAX);
+
+                mBuilder.setWhen(when);
+
+                mBuilder.setOngoing(false);
+
+                mBuilder.setDefaults(NotificationCompat.DEFAULT_ALL);
 
 
-				for (int i =0; i < 2; i++){
-					
-					mCalendar.set(Calendar.YEAR, Integer.parseInt(alram_year.getText().toString()));
-					mCalendar.set(Calendar.MONTH, Integer.parseInt(alram_months.getText().toString()) -1 );
-					mCalendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(alram_date.getText().toString()));
-					mCalendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(alram_hour.getText().toString()));
-					mCalendar.set(Calendar.MINUTE, Integer.parseInt(alram_mins.getText().toString()) + i);
-					mCalendar.set(Calendar.SECOND, 0);
+                Intent mIntent = new Intent(v.getContext(), Splash_Activity.class);
 
-					Intent mIntent = new Intent(getContext(), AlarmBroadCastReceiver.class);
-					PendingIntent mPendingIntent = PendingIntent.getBroadcast(getContext(), i, mIntent, 0);
+                PendingIntent mPendingIntent = PendingIntent.getActivity(v.getContext(), 0, mIntent, 0);
 
-					mAlarmManager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
-					mAlarmManager.set(AlarmManager.RTC_WAKEUP, mCalendar.getTimeInMillis(), mPendingIntent);
-					
-					
-				}
-				
+                mBuilder.setContentIntent(mPendingIntent);
 
-                Toast.makeText(getContext(), "己設置, 時間為 : " + new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(mCalendar.getTime()), Toast.LENGTH_SHORT).show();
+                NotificationManager mNotificationManager = (NotificationManager) v.getContext().getSystemService(v.getContext().NOTIFICATION_SERVICE);
+
+                mNotificationManager.notify(notification_id++, mBuilder.build());
+
+//                int id = Integer.parseInt(id_btn.getText().toString());
+//                int delay_min = Integer.parseInt(repeat_min_btn.getText().toString());
+//
+//				for (int i = 0; i < delay_min; i++){
+//
+//					mCalendar.set(Calendar.YEAR, Integer.parseInt(alram_year.getText().toString()));
+//					mCalendar.set(Calendar.MONTH, Integer.parseInt(alram_months.getText().toString()) -1 );
+//					mCalendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(alram_date.getText().toString()));
+//					mCalendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(alram_hour.getText().toString()));
+//					mCalendar.set(Calendar.MINUTE, Integer.parseInt(alram_mins.getText().toString()) + i);
+//					mCalendar.set(Calendar.SECOND, 0);
+//
+//					Intent mIntent = new Intent(getContext(), AlarmBroadCastReceiver.class);
+//                    mIntent.putExtra("msg", i++);
+//
+//					PendingIntent mPendingIntent = PendingIntent.getBroadcast(getContext(), i, mIntent, 0);
+//
+//					mAlarmManager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
+//
+//                    /*
+//                     *  RTC_WAKEUP：在指定時間觸發意圖並喚醒裝置
+//                     *  RTC：同上但不喚醒裝置
+//                     *  ELAPSED_REALTIME：在裝置啟動(開機)後開始計算經過的時間，在到達指定的經過時間觸發意圖，但不喚醒裝置。
+//                     *  ELAPSED_REALTIME_WAKEUP：同上，但會喚醒裝置。
+//                     */
+//                    mAlarmManager.set(AlarmManager.RTC_WAKEUP, mCalendar.getTimeInMillis(), mPendingIntent);
+//
+//                    Toast.makeText(getContext(), "己設置, 時間為 : " + new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(mCalendar.getTime())  + "id = " + id + i, Toast.LENGTH_SHORT).show();
+//
+//				}
+
+
             }
         });
 

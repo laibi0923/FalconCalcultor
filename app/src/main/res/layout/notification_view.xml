@@ -4,7 +4,6 @@
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
 	android:orientation="horizontal"
-	android:background="@color/blue_grey_900"
 	android:gravity="center"
 	android:padding="5dp">
 
@@ -16,7 +15,7 @@
 		<ImageView
 			android:layout_height="60dp"
 			android:layout_width="60dp"
-			android:src="@drawable/falcon_icon_white"
+			android:src="@drawable/falcon_icon_black"
 			android:id="@+id/notification_img"
 			android:padding="10dp" />
 
@@ -31,23 +30,21 @@
 
 		<TextView
 			android:layout_height="wrap_content"
-			android:textAppearance="?android:attr/textAppearanceSmall"
 			android:layout_width="wrap_content"
 			android:textStyle="bold"
 			android:text="Notification Title"
-			android:textColor="@color/TextColor_White"
-			android:id="@+id/notification_title" />
+			android:id="@+id/notification_title"
+			android:textAppearance="@style/TextAppearance.StatusBar.EventContent.Info" />
 
 		<TextView
 			android:layout_height="wrap_content"
-			android:textAppearance="?android:attr/textAppearanceSmall"
 			android:layout_width="wrap_content"
-			android:text="Notification Content"
-			android:singleLine="true"
-			android:ellipsize="end"
-			android:textColor="@color/TextColor_White"
+			android:text="testing"
+			android:singleLine="false"
 			android:id="@+id/notification_content"
-			android:layout_marginTop="5dp" />
+			android:layout_marginTop="5dp"
+			android:layout_weight="1"
+			android:textAppearance="@style/TextAppearance.StatusBar.EventContent.Info" />
 
 	</LinearLayout>
 
