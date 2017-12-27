@@ -25,7 +25,7 @@ public class AlarmBroadCastReceiver extends BroadcastReceiver {
     String notification_title;
     String notification_content;
     String notification_subtext;
-
+ 
     @Override
     public void onReceive(Context context, Intent intent) {
 
