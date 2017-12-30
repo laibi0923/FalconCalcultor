@@ -1,139 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical"
-    android:background="@color/blue_grey_900">
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:gravity="center"
+	android:orientation="vertical"
+	android:background="@color/blue_grey_900">
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="20dp">
+	<LinearLayout
+		android:orientation="horizontal"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:padding="20dp">
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/alram_year"
-            android:layout_weight="1"
-            android:hint="Year"
-            android:textColor="@color/TextColor_White"
-            android:textColorHint="@color/TextColor_Gray" />
+		<EditText
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/alram_year"
+			android:layout_weight="1"
+			android:hint="Year"
+			android:textColor="@color/TextColor_White"
+			android:textColorHint="@color/TextColor_Gray"/>
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/alram_months"
-            android:layout_weight="1"
-            android:textColor="@color/TextColor_White"
-            android:hint="Months"
-            android:textColorHint="@color/TextColor_Gray" />
+		<EditText
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/alram_months"
+			android:layout_weight="1"
+			android:textColor="@color/TextColor_White"
+			android:hint="Months"
+			android:textColorHint="@color/TextColor_Gray"/>
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/alram_date"
-            android:hint="Date"
-            android:layout_weight="1"
-            android:textColor="@color/TextColor_White"
-            android:textColorHint="@color/TextColor_Gray" />
-    </LinearLayout>
+		<EditText
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/alram_date"
+			android:hint="Date"
+			android:layout_weight="1"
+			android:textColor="@color/TextColor_White"
+			android:textColorHint="@color/TextColor_Gray"/>
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="20dp" >
+	</LinearLayout>
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/alram_hour"
-            android:layout_weight="1"
-            android:hint="Hour"
-            android:textColor="@color/TextColor_White"
-            android:textColorHint="@color/TextColor_Gray" />
+	<LinearLayout
+		android:orientation="horizontal"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:padding="20dp">
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/alram_mins"
-            android:layout_weight="1"
-            android:textColor="@color/TextColor_White"
-            android:hint="Mins"
-            android:textColorHint="@color/TextColor_Gray" />
+		<EditText
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/alram_hour"
+			android:layout_weight="1"
+			android:hint="Hour"
+			android:textColor="@color/TextColor_White"
+			android:textColorHint="@color/TextColor_Gray"/>
 
-    </LinearLayout>
+		<EditText
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/alram_mins"
+			android:layout_weight="1"
+			android:textColor="@color/TextColor_White"
+			android:hint="Mins"
+			android:textColorHint="@color/TextColor_Gray"/>
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/notification_title"
-        android:hint="設定 Notification 標題"
-        android:textColor="@color/TextColor_White"
-        android:layout_margin="20dp"
-        android:textColorHint="@color/TextColor_Gray"
-        android:text="Falcon 提醒你" />
+	</LinearLayout>
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/notification_content"
-        android:hint="設定 Notification 內容"
-        android:textColor="@color/TextColor_White"
-        android:layout_margin="20dp"
-        android:textColorHint="@color/TextColor_Gray"
-        android:text="將有一筆款項 $2742, 於 2017/12/21 支付" />
+	<EditText
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/notification_title"
+		android:hint="設定 Notification 標題"
+		android:textColor="@color/TextColor_White"
+		android:layout_margin="20dp"
+		android:textColorHint="@color/TextColor_Gray"
+		android:text="Falcon 提醒你"/>
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp">
+	<EditText
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/notification_content"
+		android:hint="設定 Notification 內容"
+		android:textColor="@color/TextColor_White"
+		android:layout_margin="20dp"
+		android:textColorHint="@color/TextColor_Gray"
+		android:text="將有一筆款項 $2742, 於 2017/12/21 支付"/>
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/id_btn"
-            android:layout_weight="1"
-            android:textColor="@color/TextColor_White"
-            android:textColorHint="@color/TextColor_Gray"
-            android:hint="ID"
-            android:text="0" />
+	<LinearLayout
+		android:orientation="horizontal"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:padding="10dp">
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/repeat_min_btn"
-            android:layout_weight="1"
-            android:textColor="@color/TextColor_White"
-            android:textColorHint="@color/TextColor_Gray"
-            android:hint="Repeat mins"
-            android:text="1" />
-    </LinearLayout>
+		<EditText
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/id_btn"
+			android:layout_weight="1"
+			android:textColor="@color/TextColor_White"
+			android:textColorHint="@color/TextColor_Gray"
+			android:hint="ID"
+			android:text="0"/>
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="130dp">
+		<EditText
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/repeat_min_btn"
+			android:layout_weight="1"
+			android:textColor="@color/TextColor_White"
+			android:textColorHint="@color/TextColor_Gray"
+			android:hint="Repeat mins"
+			android:text="1"/>
 
-        <Button
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Cancel"
-            android:id="@+id/show_notification_btn"
-            android:layout_weight="1" />
+	</LinearLayout>
 
-        <Button
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Custom Notification"
-            android:id="@+id/show_custom_notification_btn"
-            android:layout_weight="1" />
-    </LinearLayout>
+	<LinearLayout
+		android:orientation="horizontal"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+
+		<Button
+			style="?android:attr/buttonStyleSmall"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:text="Cancel"
+			android:id="@+id/show_notification_btn"
+			android:layout_weight="1"/>
+
+		<Button
+			style="?android:attr/buttonStyleSmall"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:text="Custom Notification"
+			android:id="@+id/show_custom_notification_btn"
+			android:layout_weight="1"/>
+
+	</LinearLayout>
 
 </LinearLayout>
+

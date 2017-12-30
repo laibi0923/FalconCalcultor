@@ -134,10 +134,10 @@ public class tseting_Notification extends Fragment{
 					Intent mIntent = new Intent(getContext(), AlarmBroadCastReceiver.class);
                     mIntent.putExtra("notification_id", i);
                     mIntent.putExtra("notification_string_id", notification_title.getText().toString());
-                    mIntent.putExtra("notification_tick", "tick");
                     mIntent.putExtra("notification_title", notification_title.getText().toString());
                     mIntent.putExtra("notification_content", notification_content.getText().toString());
-                    mIntent.putExtra("notification_subtext", "subtext");
+					// mIntent.putExtra("notification_tick", "tick");
+                    // mIntent.putExtra("notification_subtext", "subtext");
 
 					PendingIntent mPendingIntent = PendingIntent.getBroadcast(getContext(), i, mIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 

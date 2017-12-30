@@ -22,6 +22,7 @@ import com.savtor.falconcalcultorCalcultor.Fragment_Calcultor;
 import com.savtor.falconcalcultorDebitInfo.Fragment_DebitInfo;
 import com.savtor.falconcalcultorFavoutive.Fragment_Favourite;
 import com.savtor.falconcalcultorSetting.Fragment_Setting;
+import com.savtor.*;
 import android.widget.*;
 
 /**

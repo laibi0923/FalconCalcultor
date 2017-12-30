@@ -178,6 +178,25 @@ public class Favourite_DataBasic {
         return result;
     }
 
+	//=============================================================================================
+    // [5] QUERY ALL ORDER BY DATE - 查詢所有紀錄
+    public int query_max_id(){
+
+        int max_id = 0;
+
+        Cursor cursor = db.query(TABLE_NAME, null, null, null, null, null, null, null);
+
+        while (cursor.moveToLast()){
+			max_id = get_database_record(cursor).getid();
+        }
+
+        cursor.close();
+
+        Log.e("DATA BASIC ACTION : ","查詢最新ID" + max_id);  // [Log.e]
+
+        return max_id;
+    }
+	
     //=============================================================================================
     // [6] 被[5]所用
     public Favouite_Item get_database_record(Cursor cusor){

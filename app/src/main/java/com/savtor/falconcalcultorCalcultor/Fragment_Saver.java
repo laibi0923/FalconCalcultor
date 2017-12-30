@@ -21,6 +21,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import com.savtor.falconcalcultorFavoutive.*;
+import com.savtor.AlarmNotification.*;
 
 
 /**
@@ -120,13 +121,35 @@ public class Fragment_Saver extends Fragment {
 		switch(item.getItemId()){
 			
 			case R.id.save_to_fav:
+				
+				Falcon_AlramManager mAlramManager = new Falcon_AlramManager();
                 // [8]
                 if (Edit_Mode == "true"){
+					
                     update_to_fav_DB();
+					
+					// Cancel Alram by Database id number
+					// Setup new Alram if Alert type not is 0
+					// Alram request code = Databasic id number
+					// Get Year / Month / Date / Hour / Mintus / Secord / Trems / Alert date / Name / Installment
+					
+					
+					mAlramManager.Cancel_Alram(getContext(), DB_ID);
+					
+					
                 }else if (Edit_Mode == "false"){
+					
                     insert_to_fav_DB();
+					
+					// Setup new Alram if Alert type not is 0
+					// Alram request code = Database max id number
+					Favourite_DataBasic db = new Favourite_DataBasic(getActivity(), "Saver Fragment");
+					DB_ID = db.query_max_id();
+					
                 }
 
+				mAlramManager.Setup_Alram(getContext(), DB_ID, 2017,9, 23, 15, 00, 12, 3, "testing", 1939);
+				
 				break;
 		}
 		return super.onOptionsItemSelected(item);

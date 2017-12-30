@@ -36,9 +36,9 @@ public class AlarmBroadCastReceiver extends BroadcastReceiver {
         notification_content = intent.getStringExtra("notification_content");
         notification_subtext = intent.getStringExtra("notification_subtext");
 
-        myNotification xmyNotification = new myNotification();
+        Falcon_Notification mFalcon_Notification = new Falcon_Notification();
 
-        xmyNotification.myNotification(context, notification_string_id, notification_id, notification_tick,notification_title, notification_content, notification_subtext);
+        mFalcon_Notification.Falcon_Notification(context, notification_string_id, notification_id, notification_tick,notification_title, notification_content, notification_subtext);
 
     }
 
