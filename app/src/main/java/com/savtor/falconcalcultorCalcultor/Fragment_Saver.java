@@ -29,7 +29,7 @@ import com.savtor.AlarmNotification.*;
  */
 public class Fragment_Saver extends Fragment {
 
-    private String This_Fragment_Name = "Fragment_Saver";
+    private String This_Fragment_Name;
 
 	//    For Find View
     private View SV_LoanType, SV_ApplyType, SV_LoanNum, SV_FirstDue, SV_FinalDue, SV_AlertType, SV_AlertTime, SV_Address, SV_PhoneNum, SV_Remarks;
@@ -44,7 +44,7 @@ public class Fragment_Saver extends Fragment {
     private TextView choose_one_text, choose_two_text , choose_three_text, choose_four_text, choose_five_text, choose_dialog_title, choose_dialog_cancellbtn;
     private ImageView choose_one_image, choose_two_image, choose_three_image, choose_four_image, choose_five_image;
 
-    private Calendar mCalendar;
+    private Calendar firstdue_Calendar, finaldue_Calender, today_Calendar, Alarm_Calendar;
 
     private String get_createdate, get_name, get_loannum, get_firstdue, get_finaldue, get_alerttime, get_address, get_phone, get_remark;
     private double get_loanamount, get_loanrate;
@@ -102,6 +102,8 @@ public class Fragment_Saver extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.saver_main, container, false);
+		
+		This_Fragment_Name = v.getContext().getApplicationInfo().className;
 
         Find_View(v);
 		
@@ -136,6 +138,18 @@ public class Fragment_Saver extends Fragment {
 					
 					mAlramManager.Cancel_Alram(getContext(), DB_ID);
 					
+					mAlramManager.Setup_Alram(getContext(),
+											  DB_ID, 
+											  firstdue_Calendar.get(Calendar.YEAR),
+											  firstdue_Calendar.get(Calendar.MONTH),
+											  firstdue_Calendar.get(Calendar.DAY_OF_MONTH),
+											  Alarm_Calendar.get(Calendar.HOUR_OF_DAY), 
+											  Alarm_Calendar.get(Calendar.MINUTE), 
+											  bundle_trems, 
+											  3, 
+											  get_name, 
+											  1939);
+					
 					
                 }else if (Edit_Mode == "false"){
 					
@@ -146,9 +160,19 @@ public class Fragment_Saver extends Fragment {
 					Favourite_DataBasic db = new Favourite_DataBasic(getActivity(), "Saver Fragment");
 					DB_ID = db.query_max_id();
 					
+					mAlramManager.Setup_Alram(getContext(),
+											  DB_ID, 
+											  firstdue_Calendar.get(Calendar.YEAR),
+											  firstdue_Calendar.get(Calendar.MONTH),
+											  firstdue_Calendar.get(Calendar.DAY_OF_MONTH),
+											  Alarm_Calendar.get(Calendar.HOUR_OF_DAY), 
+											  Alarm_Calendar.get(Calendar.MINUTE), 
+											  bundle_trems, 
+											  3, 
+											  get_name, 
+											  1939);
+					
                 }
-
-				mAlramManager.Setup_Alram(getContext(), DB_ID, 2017,9, 23, 15, 00, 12, 3, "testing", 1939);
 				
 				break;
 		}
@@ -234,7 +258,7 @@ public class Fragment_Saver extends Fragment {
             }
         });
 
-//        Final Due Date
+//      Final Due Date
 		SV_FinalDue = v.findViewById(R.id.subview_finaldue);
 
 		IV_FinalDue = (ImageView) SV_FinalDue.findViewById(R.id.sub_image);
@@ -648,15 +672,15 @@ public class Fragment_Saver extends Fragment {
             switch (v.getId()){
 
                 case R.id.dialog_sav_ch1:
-                    TV_FirstDue_Result.setText(mCalendar.get(Calendar.YEAR) + "/" + (mCalendar.get(Calendar.MONTH) + 1) + "/" + mCalendar.get(Calendar.DAY_OF_MONTH));
-                    mCalendar.add(Calendar.MONTH, bundle_trems -1);
-                    TV_FinalDue_Result.setText(mCalendar.get(Calendar.YEAR) + "/" + (mCalendar.get(Calendar.MONTH) + 1)+ "/" + mCalendar.get(Calendar.DAY_OF_MONTH));
+                    TV_FirstDue_Result.setText(firstdue_Calendar.get(Calendar.YEAR) + "/" + (firstdue_Calendar.get(Calendar.MONTH) + 1) + "/" + firstdue_Calendar.get(Calendar.DAY_OF_MONTH));
+                    finaldue_Calender.add(Calendar.MONTH, bundle_trems -1);
+                    TV_FinalDue_Result.setText(finaldue_Calender.get(Calendar.YEAR) + "/" + (finaldue_Calender.get(Calendar.MONTH) + 1)+ "/" + finaldue_Calender.get(Calendar.DAY_OF_MONTH));
                     break;
 
                 case R.id.dialog_sav_ch2:
-                    TV_FirstDue_Result.setText(mCalendar.get(Calendar.YEAR) + "/" + (mCalendar.get(Calendar.MONTH) + 1) + "/" + mCalendar.get(Calendar.DAY_OF_MONTH));
-                    mCalendar.add(Calendar.MONTH, bundle_trems -1);
-                    TV_FinalDue_Result.setText(mCalendar.get(Calendar.YEAR) + "/" + (mCalendar.get(Calendar.MONTH) + 1)+ "/" + mCalendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+                    TV_FirstDue_Result.setText(firstdue_Calendar.get(Calendar.YEAR) + "/" + (firstdue_Calendar.get(Calendar.MONTH) + 1) + "/" + firstdue_Calendar.get(Calendar.DAY_OF_MONTH));
+                    finaldue_Calender.add(Calendar.MONTH, bundle_trems -1);
+                    TV_FinalDue_Result.setText(finaldue_Calender.get(Calendar.YEAR) + "/" + (finaldue_Calender.get(Calendar.MONTH) + 1)+ "/" + finaldue_Calender.getActualMaximum(Calendar.DAY_OF_MONTH));
                     break;
             }
 
@@ -672,40 +696,42 @@ public class Fragment_Saver extends Fragment {
 
         Dialog mDialog = null;
 
-        mCalendar = Calendar.getInstance();
+        firstdue_Calendar = Calendar.getInstance();
 
         mDialog = new DatePickerDialog(getActivity(), R.style.myDateDialogTheme, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
 
-                mCalendar.set(Calendar.YEAR, year);
-                mCalendar.set(Calendar.MONTH, month);
-                mCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                firstdue_Calendar.set(Calendar.YEAR, year);
+                firstdue_Calendar.set(Calendar.MONTH, month);
+                firstdue_Calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+				
+				finaldue_Calender = firstdue_Calendar;
 
-                if (month == 1 && dayOfMonth == mCalendar.getActualMaximum(Calendar.DAY_OF_MONTH) || dayOfMonth == 30){
+                if (month == 1 && dayOfMonth == firstdue_Calendar.getActualMaximum(Calendar.DAY_OF_MONTH) || dayOfMonth == 30){
 
                     Date_Type_Dialog("");
 
                 }else if(dayOfMonth == 31){
 
-                    TV_FirstDue_Result.setText(mCalendar.get(Calendar.YEAR) + "/" + (mCalendar.get(Calendar.MONTH) + 1) + "/" + mCalendar.get(Calendar.DAY_OF_MONTH));
+                    TV_FirstDue_Result.setText(firstdue_Calendar.get(Calendar.YEAR) + "/" + (firstdue_Calendar.get(Calendar.MONTH) + 1) + "/" + firstdue_Calendar.get(Calendar.DAY_OF_MONTH));
 
-                    mCalendar.add(Calendar.MONTH, bundle_trems - 1);
-                    TV_FinalDue_Result.setText(mCalendar.get(Calendar.YEAR) + "/" + (mCalendar.get(Calendar.MONTH) + 1) + "/" + mCalendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+                    finaldue_Calender.add(Calendar.MONTH, bundle_trems - 1);
+                    TV_FinalDue_Result.setText(finaldue_Calender.get(Calendar.YEAR) + "/" + (finaldue_Calender.get(Calendar.MONTH) + 1) + "/" + finaldue_Calender.getActualMaximum(Calendar.DAY_OF_MONTH));
                     SV_AlertType.setVisibility(View.VISIBLE);
 
                 }else {
 
-                    TV_FirstDue_Result.setText(mCalendar.get(Calendar.YEAR) + "/" + (mCalendar.get(Calendar.MONTH) + 1) + "/" + mCalendar.get(Calendar.DAY_OF_MONTH));
+                    TV_FirstDue_Result.setText(firstdue_Calendar.get(Calendar.YEAR) + "/" + (firstdue_Calendar.get(Calendar.MONTH) + 1) + "/" + firstdue_Calendar.get(Calendar.DAY_OF_MONTH));
 
-                    mCalendar.add(Calendar.MONTH, bundle_trems - 1);
-                    TV_FinalDue_Result.setText(mCalendar.get(Calendar.YEAR) + "/" + (mCalendar.get(Calendar.MONTH) + 1) + "/" + mCalendar.get(Calendar.DAY_OF_MONTH));
+                    finaldue_Calender.add(Calendar.MONTH, bundle_trems - 1);
+                    TV_FinalDue_Result.setText(finaldue_Calender.get(Calendar.YEAR) + "/" + (finaldue_Calender.get(Calendar.MONTH) + 1) + "/" + finaldue_Calender.get(Calendar.DAY_OF_MONTH));
                     SV_AlertType.setVisibility(View.VISIBLE);
 
                 }
 
             }
-        },mCalendar.get(Calendar.YEAR), mCalendar.get(Calendar.MONTH), mCalendar.get(Calendar.DAY_OF_MONTH));
+        },firstdue_Calendar.get(Calendar.YEAR), firstdue_Calendar.get(Calendar.MONTH), firstdue_Calendar.get(Calendar.DAY_OF_MONTH));
 
         return mDialog;
     }
@@ -716,21 +742,21 @@ public class Fragment_Saver extends Fragment {
 
         Dialog mDialog = null;
 
-        final Calendar mCalendar = Calendar.getInstance();
+        Alarm_Calendar = Calendar.getInstance();
 
         mDialog = new TimePickerDialog(getActivity(), R.style.myTimeDialogTheme, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 
-                mCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
-                mCalendar.set(Calendar.MINUTE, minute);
+                Alarm_Calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                Alarm_Calendar.set(Calendar.MINUTE, minute);
 
                 SimpleDateFormat SDF = new SimpleDateFormat("HH:mm");
-                String gettime = SDF.format(mCalendar.getTime());
+                String gettime = SDF.format(Alarm_Calendar.getTime());
                 TV_AlertTime_Result.setText(gettime);
 
             }
-        }, mCalendar.get(Calendar.HOUR_OF_DAY), mCalendar.get(Calendar.MINUTE), true);
+			}, Alarm_Calendar.get(Calendar.HOUR_OF_DAY), Alarm_Calendar.get(Calendar.MINUTE), true);
 
         return mDialog;
     }
@@ -753,8 +779,8 @@ public class Fragment_Saver extends Fragment {
     // [6] 取出本日日子
     public String get_today(){
 
-        Calendar mCalendar = Calendar.getInstance();
-        String today = mCalendar.get(Calendar.YEAR) + "/" + (mCalendar.get(Calendar.MONTH) + 1) + "/" + mCalendar.get(Calendar.DAY_OF_MONTH);
+        today_Calendar = Calendar.getInstance();
+        String today = today_Calendar.get(Calendar.YEAR) + "/" + (today_Calendar.get(Calendar.MONTH) + 1) + "/" + today_Calendar.get(Calendar.DAY_OF_MONTH);
         return today;
 
     }
@@ -949,7 +975,6 @@ public class Fragment_Saver extends Fragment {
                     get_phone,
                     get_remark);
 
-					Log.e("a_type", get_alertdate_type +"");
             favourite_dataBasic.inster(fav_item);
 
             favourite_dataBasic.close();
