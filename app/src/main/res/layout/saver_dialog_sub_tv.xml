@@ -34,7 +34,9 @@
             android:padding="10dp"
             android:textColor="@color/TextColor_Gray"
             android:id="@+id/sub_textview"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+			android:hint="TextView"
+			android:textColorHint="@color/TextColor_Gray" />
 
 		<TextView
             android:layout_height="wrap_content"
@@ -43,7 +45,8 @@
             android:padding="10dp"
             android:textColor="@color/TextColor_Gray"
             android:id="@+id/sub_textview_result"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+			android:textColorHint="@color/TextColor_Gray" />
 	</LinearLayout>
 
 </LinearLayout>

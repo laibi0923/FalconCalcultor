@@ -73,10 +73,51 @@
 			</LinearLayout>
 
 			<LinearLayout
+				android:layout_marginTop="10dp"
+				android:background="@color/blue_grey_900"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:elevation="4dp"
+				android:orientation="vertical">
+
+				<include
+					android:id="@+id/include_loan_amount"
+					layout="@layout/saver_dialog_sub_tv"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="10dp"
+					android:layout_marginBottom="10dp"/>
+
+				<include
+					android:id="@+id/include_loan_rate"
+					layout="@layout/saver_dialog_sub_tv"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="10dp"
+					android:layout_marginBottom="10dp"/>
+
+				<include
+					android:id="@+id/include_loan_trems"
+					layout="@layout/saver_dialog_sub_tv"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="10dp"
+					android:layout_marginBottom="10dp"/>
+
+				<include
+					android:id="@+id/include_loan_installment"
+					layout="@layout/saver_dialog_sub_tv"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="10dp"
+					android:layout_marginBottom="10dp"/>
+
+			</LinearLayout>
+
+			<LinearLayout
 				android:orientation="vertical"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-
 				android:background="@color/blue_grey_900"
 				android:id="@+id/duedate_linear"
 				android:layout_marginTop="10dp"

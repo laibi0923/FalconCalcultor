@@ -4,6 +4,7 @@ import android.app.*;
 import android.os.*;
 import android.support.annotation.*;
 import android.support.v4.app.*;
+import android.support.v4.widget.TextViewCompat;
 import android.support.v7.app.*;
 import android.text.*;
 import android.util.*;
@@ -29,13 +30,14 @@ import com.savtor.AlarmNotification.*;
  */
 public class Fragment_Saver extends Fragment {
 
-    private String This_Fragment_Name;
+    private String This_Fragment_Name ="Saver Fragment";
 
 	//    For Find View
-    private View SV_LoanType, SV_ApplyType, SV_LoanNum, SV_FirstDue, SV_FinalDue, SV_AlertType, SV_AlertTime, SV_Address, SV_PhoneNum, SV_Remarks;
+    private View SV_LoanType, SV_ApplyType, SV_LoanNum, SV_FirstDue, SV_FinalDue, SV_AlertType, SV_AlertTime, SV_Address, SV_PhoneNum, SV_Remarks, SV_Loan_Amount, SV_Loan_Rate, SV_Loan_Trems, SV_Loan_Installment;
 	private EditText ED_LoanName, ED_LoanNum, ED_LoanAddress, ED_PhoneNum, ED_Remarks;
-	private ImageView IV_LoanType, IV_Apply_Type, IV_Loan_Num, IV_FirstDue, IV_FinalDue, IV_Alert, IV_Address, IV_PhoneNum, IV_Remarks;
-	private TextView TV_LoanType, TV_ApplyType, TV_FirstDue, TV_FirstDue_Result, TV_Final_FinalDue, TV_FinalDue_Result, TV_AlertType, TV_AlertType_Result, TV_AlertTime, TV_AlertTime_Result;
+	private ImageView IV_LoanType, IV_Apply_Type, IV_Loan_Num, IV_FirstDue, IV_FinalDue, IV_Alert, IV_Address, IV_PhoneNum, IV_Remarks, IV_Loan_Amount, IV_Loan_Rate, IV_Loan_Trems, IV_Loan_Installment;
+	private TextView TV_LoanType, TV_ApplyType, TV_FirstDue, TV_Final_FinalDue,  TV_AlertType,  TV_AlertTime, TV_Loan_Amount, TV_Loan_Rate, TV_Loan_Trems, TV_Loan_Installment;
+    private TextView TV_FirstDue_Result, TV_FinalDue_Result, TV_AlertType_Result, TV_AlertTime_Result, TV_Loan_Amount_Result, TV_Loan_Rate_Result, TV_Loan_Trems_Result, TV_Loan_Installment_Result;
     private LinearLayout Linear_DueDate, Linear_FirstDue, Linear_FinalDue, Linear_LoanType, Linear_ApplyType, Linear_AlertType, Linear_AlertTime;
 
     //    For Find Dialog View
@@ -44,7 +46,7 @@ public class Fragment_Saver extends Fragment {
     private TextView choose_one_text, choose_two_text , choose_three_text, choose_four_text, choose_five_text, choose_dialog_title, choose_dialog_cancellbtn;
     private ImageView choose_one_image, choose_two_image, choose_three_image, choose_four_image, choose_five_image;
 
-    private Calendar firstdue_Calendar, finaldue_Calender, today_Calendar, Alarm_Calendar;
+    private Calendar firstdue_Calendar, finaldue_Calender, Alarm_Calendar;
 
     private String get_createdate, get_name, get_loannum, get_firstdue, get_finaldue, get_alerttime, get_address, get_phone, get_remark;
     private double get_loanamount, get_loanrate;
@@ -53,7 +55,9 @@ public class Fragment_Saver extends Fragment {
     private int get_loantype, get_applystatus, get_alertdate_type;
 
 
-    private String restore_LoanName_text, restore_LoanType_text, restore_ApplyStatus_text, restore_LoanNum_text, restore_FirstDueDate_text, restore_FinalDueDate_text, restore_AlertDate_text, restore_AlertTime_text, restore_Address_text, restore_Phone_text, restore_Remarks_text;
+    private String restore_LoanName_text, restore_LoanType_text, restore_ApplyStatus_text, restore_LoanNum_text,
+                   restore_FirstDueDate_text, restore_FinalDueDate_text, restore_AlertDate_text, restore_AlertTime_text,
+                   restore_Address_text, restore_Phone_text, restore_Remarks_text, restore_Loan_Amount, restore_Loan_Rate, restore_Loan_Trems, restore_Loan_Installment;
 	
     private String Edit_Mode;
 
@@ -134,44 +138,61 @@ public class Fragment_Saver extends Fragment {
 					// Setup new Alram if Alert type not is 0
 					// Alram request code = Databasic id number
 					// Get Year / Month / Date / Hour / Mintus / Secord / Trems / Alert date / Name / Installment
-					
-					
-					mAlramManager.Cancel_Alram(getContext(), DB_ID);
-					
-					mAlramManager.Setup_Alram(getContext(),
-											  DB_ID, 
-											  firstdue_Calendar.get(Calendar.YEAR),
-											  firstdue_Calendar.get(Calendar.MONTH),
-											  firstdue_Calendar.get(Calendar.DAY_OF_MONTH),
-											  Alarm_Calendar.get(Calendar.HOUR_OF_DAY), 
-											  Alarm_Calendar.get(Calendar.MINUTE), 
-											  bundle_trems, 
-											  3, 
-											  get_name, 
-											  1939);
-					
-					
+					if (TV_AlertTime_Result != null){
+
+                        mAlramManager.Cancel_Alram(getContext(), DB_ID);
+
+                        mAlramManager.Setup_Alram(getContext(),
+                                DB_ID,
+                                firstdue_Calendar.get(Calendar.YEAR),
+                                firstdue_Calendar.get(Calendar.MONTH),
+                                firstdue_Calendar.get(Calendar.DAY_OF_MONTH),
+                                Alarm_Calendar.get(Calendar.HOUR_OF_DAY),
+                                Alarm_Calendar.get(Calendar.MINUTE),
+                                bundle_trems,
+                                3,
+                                get_name,
+                                TV_Loan_Amount_Result.getText().toString());
+                    }
+
+                    FragmentManager mFragmentManager = getActivity().getSupportFragmentManager();
+                    mFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                    FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
+                    mFragmentTransaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_left);
+                    mFragmentTransaction.replace(R.id.mFrameLayout, new Fragment_Favourite());
+                    mFragmentTransaction.commit();
+
+                    //getActivity().getSupportFragmentManager().popBackStack();
+                    Toast.makeText(getContext(), getString(R.string.Toast_String_update), Toast.LENGTH_SHORT).show();
+
                 }else if (Edit_Mode == "false"){
 					
                     insert_to_fav_DB();
 					
 					// Setup new Alram if Alert type not is 0
 					// Alram request code = Database max id number
-					Favourite_DataBasic db = new Favourite_DataBasic(getActivity(), "Saver Fragment");
+					Favourite_DataBasic db = new Favourite_DataBasic(getActivity(), This_Fragment_Name);
 					DB_ID = db.query_max_id();
-					
-					mAlramManager.Setup_Alram(getContext(),
-											  DB_ID, 
-											  firstdue_Calendar.get(Calendar.YEAR),
-											  firstdue_Calendar.get(Calendar.MONTH),
-											  firstdue_Calendar.get(Calendar.DAY_OF_MONTH),
-											  Alarm_Calendar.get(Calendar.HOUR_OF_DAY), 
-											  Alarm_Calendar.get(Calendar.MINUTE), 
-											  bundle_trems, 
-											  3, 
-											  get_name, 
-											  1939);
-					
+
+                    if (TV_AlertTime_Result != null){
+
+                        mAlramManager.Setup_Alram(getContext(),
+                                DB_ID,
+                                firstdue_Calendar.get(Calendar.YEAR),
+                                firstdue_Calendar.get(Calendar.MONTH),
+                                firstdue_Calendar.get(Calendar.DAY_OF_MONTH),
+                                Alarm_Calendar.get(Calendar.HOUR_OF_DAY),
+                                Alarm_Calendar.get(Calendar.MINUTE),
+                                bundle_trems,
+                                3,
+                                get_name,
+                                TV_Loan_Amount_Result.getText().toString());
+
+                    }
+
+                    getActivity().getSupportFragmentManager().popBackStack();
+
+                    Toast.makeText(getContext(), getString(R.string.Toast_String_insert), Toast.LENGTH_SHORT).show();
                 }
 				
 				break;
@@ -195,6 +216,47 @@ public class Fragment_Saver extends Fragment {
         ED_LoanName.requestFocus();
         ED_LoanName.setHint(getString(R.string.loanname_hint));
 		ED_LoanName.setText(restore_LoanName_text);
+
+//        Loan Amount
+        SV_Loan_Amount = v.findViewById(R.id.include_loan_amount);
+
+        IV_Loan_Amount = (ImageView) SV_Loan_Amount.findViewById(R.id.sub_image);
+        IV_Loan_Amount.setImageResource(R.drawable.ic_data_usage_black_24dp);
+        TV_Loan_Amount = (TextView) SV_Loan_Amount.findViewById(R.id.sub_textview);
+        TV_Loan_Amount.setText("貸款銀碼");
+        TV_Loan_Amount_Result = (TextView) SV_Loan_Amount.findViewById(R.id.sub_textview_result);
+        TV_Loan_Amount_Result.setText(restore_Loan_Amount);
+
+//        Loan Rate
+        SV_Loan_Rate = v.findViewById(R.id.include_loan_rate);
+
+        IV_Loan_Rate = (ImageView) SV_Loan_Rate.findViewById(R.id.sub_image);
+        IV_Loan_Rate.setImageResource(R.drawable.ic_data_usage_black_24dp);
+        TV_Loan_Rate = (TextView) SV_Loan_Rate.findViewById(R.id.sub_textview);
+        TV_Loan_Rate.setText("利率");
+        TV_Loan_Rate_Result = (TextView) SV_Loan_Rate.findViewById(R.id.sub_textview_result);
+        TV_Loan_Rate_Result.setText(restore_Loan_Rate);
+
+//        Loan Trems
+        SV_Loan_Trems = v.findViewById(R.id.include_loan_trems);
+
+        IV_Loan_Trems = (ImageView) SV_Loan_Trems.findViewById(R.id.sub_image);
+        IV_Loan_Trems.setImageResource(R.drawable.ic_data_usage_black_24dp);
+        TV_Loan_Trems = (TextView) SV_Loan_Trems.findViewById(R.id.sub_textview);
+        TV_Loan_Trems.setText("期數");
+        TV_Loan_Trems_Result = (TextView) SV_Loan_Trems.findViewById(R.id.sub_textview_result);
+        TV_Loan_Trems_Result.setText(restore_Loan_Trems);
+
+//        Loan Installment
+        SV_Loan_Installment = v.findViewById(R.id.include_loan_installment);
+
+        IV_Loan_Installment = (ImageView) SV_Loan_Installment.findViewById(R.id.sub_image);
+        IV_Loan_Installment.setImageResource(R.drawable.ic_data_usage_black_24dp);
+        TV_Loan_Installment = (TextView) SV_Loan_Installment.findViewById(R.id.sub_textview);
+        TV_Loan_Installment.setText("每月供款");
+        TV_Loan_Installment_Result = (TextView) SV_Loan_Installment.findViewById(R.id.sub_textview_result);
+        TV_Loan_Installment_Result.setText(restore_Loan_Installment);
+
 
 //        Loan Type
 		SV_LoanType = v.findViewById(R.id.subview_loantype);
@@ -776,16 +838,6 @@ public class Fragment_Saver extends Fragment {
 	};
 
     //=============================================================================================
-    // [6] 取出本日日子
-    public String get_today(){
-
-        today_Calendar = Calendar.getInstance();
-        String today = today_Calendar.get(Calendar.YEAR) + "/" + (today_Calendar.get(Calendar.MONTH) + 1) + "/" + today_Calendar.get(Calendar.DAY_OF_MONTH);
-        return today;
-
-    }
-
-    //=============================================================================================
     // [7] 處理 Keyboard
     public void hideKeyboard(View view) {
         InputMethodManager inputMethodManager =(InputMethodManager)getContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
@@ -797,7 +849,7 @@ public class Fragment_Saver extends Fragment {
     public void get_input_values(){
 
         final Calendar today =  Calendar.getInstance();
-        get_createdate = today.get(Calendar.YEAR) + "/" + (today.get(Calendar.MONTH) +1) + "/" + today.get(Calendar.DAY_OF_MONTH);
+        get_createdate = today.get(Calendar.YEAR) + "/" + (today.get(Calendar.MONTH) + 1) + "/" + today.get(Calendar.DAY_OF_MONTH);
 
 		get_name = ED_LoanName.getText().toString();
 //        get_loantype 已於 Dialog 內獲取
@@ -825,7 +877,7 @@ public class Fragment_Saver extends Fragment {
     public void subview_Visibility(){
         SV_LoanNum.setVisibility(View.VISIBLE);
         Linear_DueDate.setVisibility(View.VISIBLE);
-        TV_FirstDue_Result.setText(get_today());
+        TV_FirstDue_Result.setText(new SimpleDateFormat("yyyy/MM/dd").format(new Date()));
     }
 
     //=============================================================================================
@@ -851,6 +903,11 @@ public class Fragment_Saver extends Fragment {
         favourite_dataBasic = new Favourite_DataBasic(getActivity(), This_Fragment_Name);
 
 		restore_LoanName_text = String.valueOf(favourite_dataBasic.query(databasic_ID).getName());
+
+        restore_Loan_Amount = String.valueOf(favourite_dataBasic.query(databasic_ID).getLoan_Amount());
+        restore_Loan_Rate = String.valueOf(favourite_dataBasic.query(databasic_ID).getLoan_Rate());
+        restore_Loan_Trems = String.valueOf(favourite_dataBasic.query(databasic_ID).getTrems());
+        restore_Loan_Installment = "";
 
         db_get_loantype = favourite_dataBasic.query(databasic_ID).getLoan_Type();
         if (db_get_loantype == 0){
@@ -921,6 +978,11 @@ public class Fragment_Saver extends Fragment {
 
         Log.e("Edit Mode : ", This_Fragment_Name + "Edit Mode Off");
 
+        restore_Loan_Amount = "";
+        restore_Loan_Rate = "";
+        restore_Loan_Trems = "";
+        restore_Loan_Installment = "";
+
 		restore_LoanName_text ="";
 		
         restore_LoanType_text = getResources().getString(R.string.loantype_hint);
@@ -979,9 +1041,6 @@ public class Fragment_Saver extends Fragment {
 
             favourite_dataBasic.close();
 
-            getActivity().getSupportFragmentManager().popBackStack();
-
-            Toast.makeText(getContext(), getString(R.string.Toast_String_insert), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -1019,16 +1078,6 @@ public class Fragment_Saver extends Fragment {
 
             favourite_dataBasic.close();
 
-			
-			FragmentManager mFragmentManager = getActivity().getSupportFragmentManager();
-			mFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-			FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
-			mFragmentTransaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_left);
-			mFragmentTransaction.replace(R.id.mFrameLayout, new Fragment_Favourite());
-			mFragmentTransaction.commit();
-			
-            //getActivity().getSupportFragmentManager().popBackStack();
-            Toast.makeText(getContext(), getString(R.string.Toast_String_update), Toast.LENGTH_SHORT).show();
         }
     }
 
