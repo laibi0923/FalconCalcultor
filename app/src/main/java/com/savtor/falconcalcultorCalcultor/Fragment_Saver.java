@@ -82,21 +82,23 @@ public class Fragment_Saver extends Fragment {
 
 		Bundle mBundle = getArguments();
 
-        bundle_amount = mBundle.getDouble("loan_amount");
-        bundle_trems = mBundle.getInt("loan_trems");
-        bundle_rate = mBundle.getDouble("loan_rate");
+        if(mBundle != null){
+            bundle_amount = mBundle.getDouble("loan_amount");
+            bundle_trems = mBundle.getInt("loan_trems");
+            bundle_rate = mBundle.getDouble("loan_rate");
 
-        Edit_Mode = mBundle.getString("EDIT_MODE");
-        DB_ID = mBundle.getInt("DB_ID");
+            Edit_Mode = mBundle.getString("EDIT_MODE");
+            DB_ID = mBundle.getInt("DB_ID");
 
-        if (Edit_Mode == "true"){
+            if (Edit_Mode == "true"){
 
-            Edit_Mode_On(DB_ID);
-			
-        }else if (Edit_Mode == "false"){
+                Edit_Mode_On(DB_ID);
 
-            Edit_Mode_Off();
+            }else if (Edit_Mode == "false"){
 
+                Edit_Mode_Off();
+
+            }
         }
 
     }
@@ -511,6 +513,8 @@ public class Fragment_Saver extends Fragment {
 
         choose_five.setVisibility(View.GONE);
 
+        choose_dialog_cancellbtn.setOnClickListener(Loan_Type_OnclickListener);
+
         mAlertDialog.show();
 
     }
@@ -544,6 +548,10 @@ public class Fragment_Saver extends Fragment {
                     IV_LoanType.setImageResource(R.drawable.ic_directions_car_black_24dp);
                     TV_LoanType.setText(getString(R.string.loantype_car));
                     get_loantype = 2;
+                    break;
+
+                case R.id.dialog_sav_cancelbtn:
+                    mAlertDialog.dismiss();
                     break;
             }
 
@@ -579,6 +587,8 @@ public class Fragment_Saver extends Fragment {
         choose_four.setOnClickListener(Apply_Status_Type_OnclickListener);
         choose_five.setOnClickListener(Apply_Status_Type_OnclickListener);
 
+        choose_dialog_cancellbtn.setOnClickListener(Apply_Status_Type_OnclickListener);
+
         mAlertDialog.show();
     }
 
@@ -599,11 +609,13 @@ public class Fragment_Saver extends Fragment {
                 case R.id.dialog_sav_ch1:
                     TV_ApplyType.setText(R.string.applystatuse_hint);
                     get_applystatus = 0;
+                    subview_Gone();
                     break;
 
                 case R.id.dialog_sav_ch2:
                     TV_ApplyType.setText(R.string.applytype_pending);
                     get_applystatus = 1;
+                    subview_Gone();
                     break;
 
                 case R.id.dialog_sav_ch3:
@@ -615,11 +627,17 @@ public class Fragment_Saver extends Fragment {
                 case R.id.dialog_sav_ch4:
                     TV_ApplyType.setText(R.string.applytype_reject);
                     get_applystatus = 3;
+                    subview_Gone();
                     break;
 
                 case R.id.dialog_sav_ch5:
                     TV_ApplyType.setText(R.string.applytype_cancel);
                     get_applystatus = 4;
+                    subview_Gone();
+                    break;
+
+                case R.id.dialog_sav_cancelbtn:
+                    mAlertDialog.dismiss();
                     break;
 
             }
@@ -654,6 +672,8 @@ public class Fragment_Saver extends Fragment {
         choose_four.setOnClickListener(Alert_Date_Type_OnclickListener);
         choose_five.setVisibility(View.GONE);
 
+        choose_dialog_cancellbtn.setOnClickListener(Alert_Date_Type_OnclickListener);
+
         mAlertDialog.show();
     }
 
@@ -673,24 +693,32 @@ public class Fragment_Saver extends Fragment {
                 case R.id.dialog_sav_ch1:
                     TV_AlertType_Result.setText("");
                     get_alertdate_type = 0;
+                    
                     break;
 
                 case R.id.dialog_sav_ch2:
                     TV_AlertType_Result.setText(R.string.alertdate_3day);
                     get_alertdate_type = 1;
                     show_time_dialog().show();
+
                     break;
 
                 case R.id.dialog_sav_ch3:
                     TV_AlertType_Result.setText(R.string.alertdate_5day);
                     get_alertdate_type = 2;
                     show_time_dialog().show();
+
                     break;
 
                 case R.id.dialog_sav_ch4:
                     TV_AlertType_Result.setText(R.string.alertdate_7day);
                     get_alertdate_type = 3;
                     show_time_dialog().show();
+
+                    break;
+
+                case R.id.dialog_sav_cancelbtn:
+                    mAlertDialog.dismiss();
                     break;
 
             }

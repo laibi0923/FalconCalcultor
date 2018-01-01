@@ -14,15 +14,15 @@
 			android:title="@string/nav_menu_two"/>
 
 		<item
-			android:icon="@drawable/ic_favorite_black_24dp"
+			android:icon="@drawable/ic_create_black_24dp"
 			android:id="@+id/nav_item3"
 			android:title="@string/nav_menu_three"/>
-<!--
+
 		<item
-			android:icon="@drawable/ic_grade_black_24dp"
+			android:icon="@drawable/ic_favorite_black_24dp"
 			android:id="@+id/nav_item4"
 			android:title="@string/nav_menu_four"/>
--->
+
 		<item
 			android:icon="@drawable/ic_settings_black_24dp"
 			android:id="@+id/nav_item5"

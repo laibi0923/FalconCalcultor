@@ -19,6 +19,7 @@ import android.view.WindowManager;
 
 import com.savtor.AlarmNotification.tseting_Notification;
 import com.savtor.falconcalcultorCalcultor.Fragment_Calcultor;
+import com.savtor.falconcalcultorCalcultor.Fragment_Saver;
 import com.savtor.falconcalcultorDebitInfo.Fragment_DebitInfo;
 import com.savtor.falconcalcultorFavoutive.Fragment_Favourite;
 import com.savtor.falconcalcultorSetting.Fragment_Setting;
@@ -101,12 +102,12 @@ public class Activity_Main extends AppCompatActivity {
                             break;
 
                         case R.id.nav_item3:
-                            Fragment_Transaction(new Fragment_Favourite());
+                            Fragment_Transaction(new Fragment_Saver());
                             break;
 
-//                        case R.id.nav_item4:
-//                            Fragment_Transaction(new Fragment1());
-//                            break;
+                        case R.id.nav_item4:
+                            Fragment_Transaction(new Fragment_Favourite());
+                            break;
 
                         case R.id.nav_item5:
                             Fragment_Transaction(new Fragment_Setting());

@@ -9,8 +9,8 @@
     <!--nav menu-->
     <string name="nav_menu_one">Debit Info</string>
     <string name="nav_menu_two">貸款計算機</string>
-    <string name="nav_menu_three">心水清單</string>
-    <string name="nav_menu_four">Advertising</string>
+    <string name="nav_menu_three">自訂紀錄</string>
+    <string name="nav_menu_four">心水清單</string>
     <string name="nav_menu_five">設定</string>
     <string name="nav_menu_six">Version</string>
     <string name="nav_menu_seven">通知測試</string>
