@@ -79,8 +79,6 @@ public class Fragment_Saver extends Fragment {
         super.onCreate(savedInstanceState);
 
         setHasOptionsMenu(true);
-		
-		
 
 		Bundle mBundle = getArguments();
 
@@ -113,8 +111,6 @@ public class Fragment_Saver extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.saver_main, container, false);
-		
-		This_Fragment_Name = v.getContext().getApplicationInfo().className;
 
         Find_View(v);
 		
@@ -162,14 +158,8 @@ public class Fragment_Saver extends Fragment {
                                 TV_Loan_Amount_Result.getText().toString());
                     }
 
-                    FragmentManager mFragmentManager = getActivity().getSupportFragmentManager();
-                    mFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-                    FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
-                    mFragmentTransaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_left);
-                    mFragmentTransaction.replace(R.id.mFrameLayout, new Fragment_Favourite());
-                    mFragmentTransaction.commit();
+                    getActivity().getSupportFragmentManager().popBackStack();
 
-                    //getActivity().getSupportFragmentManager().popBackStack();
                     Toast.makeText(getContext(), getString(R.string.Toast_String_update), Toast.LENGTH_SHORT).show();
 
                 }else if (Edit_Mode == "false"){
@@ -182,23 +172,42 @@ public class Fragment_Saver extends Fragment {
 					DB_ID = favourite_dataBasic.query_max_id();
 					favourite_dataBasic.close();
 
-                    if (TV_AlertTime_Result != null){
+                    Log.e("Max ID = ", DB_ID + "");
+
+                    if (TV_AlertTime_Result.getText() != null){
 
                         mAlramManager.Setup_Alram(getContext(),
                                 DB_ID,
-                                firstdue_Calendar.get(Calendar.YEAR),
-                                firstdue_Calendar.get(Calendar.MONTH),
-                                firstdue_Calendar.get(Calendar.DAY_OF_MONTH),
-								Integer.parseInt(new SimpleDateFormat("HH").format(Alarm_Calendar.getTime())),
-                                Integer.parseInt(new SimpleDateFormat("mm").format(Alarm_Calendar.getTime())),
+                                Integer.parseInt(String.valueOf(firstdue_Calendar.get(Calendar.YEAR))),
+                                Integer.parseInt(String.valueOf(firstdue_Calendar.get(Calendar.MONTH))),
+                                Integer.parseInt(String.valueOf(firstdue_Calendar.get(Calendar.DAY_OF_MONTH))),
+                                Integer.parseInt(String.valueOf(Alarm_Calendar.get(Calendar.HOUR_OF_DAY))),
+                                Integer.parseInt(String.valueOf(firstdue_Calendar.get(Calendar.MINUTE))),
+//                                Integer.parseInt(new SimpleDateFormat("MM").format(firstdue_Calendar.getTime())),
+//                                Integer.parseInt(new SimpleDateFormat("dd").format(firstdue_Calendar.getTime())),
+//                                firstdue_Calendar.get(Calendar.YEAR),
+//                                firstdue_Calendar.get(Calendar.MONTH),
+//                                firstdue_Calendar.get(Calendar.DAY_OF_MONTH),
+//                                Alarm_Calendar.get(Calendar.HOUR_OF_DAY),
+//                                Alarm_Calendar.get(Calendar.MINUTE),
+//								Integer.parseInt(new SimpleDateFormat("HH").format(Alarm_Calendar.getTime())),
+//                                Integer.parseInt(new SimpleDateFormat("mm").format(Alarm_Calendar.getTime())),
                                 bundle_trems,
                                 3,
                                 get_name,
                                 TV_Loan_Amount_Result.getText().toString());
 
+                        Log.e("first due date", new SimpleDateFormat("yyyy/MM/dd").format(firstdue_Calendar.getTime()) + "");
                     }
 
-                    getActivity().getSupportFragmentManager().popBackStack();
+
+
+                    FragmentManager mFragmentManager = getActivity().getSupportFragmentManager();
+                    mFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                    FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
+                    mFragmentTransaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_left);
+                    mFragmentTransaction.replace(R.id.mFrameLayout, new Fragment_Favourite());
+                    mFragmentTransaction.commit();
 
                     Toast.makeText(getContext(), getString(R.string.Toast_String_insert), Toast.LENGTH_SHORT).show();
                 }
@@ -800,6 +809,7 @@ public class Fragment_Saver extends Fragment {
         Dialog mDialog = null;
 
         firstdue_Calendar = Calendar.getInstance();
+        finaldue_Calender = Calendar.getInstance();
 
         mDialog = new DatePickerDialog(getActivity(), R.style.myDateDialogTheme, new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -809,7 +819,9 @@ public class Fragment_Saver extends Fragment {
                 firstdue_Calendar.set(Calendar.MONTH, month);
                 firstdue_Calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 				
-				finaldue_Calender = firstdue_Calendar;
+				finaldue_Calender.set(Calendar.YEAR, year);
+                finaldue_Calender.set(Calendar.MONTH, month);
+                finaldue_Calender.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
                 if (month == 1 && dayOfMonth == firstdue_Calendar.getActualMaximum(Calendar.DAY_OF_MONTH) || dayOfMonth == 30){
 

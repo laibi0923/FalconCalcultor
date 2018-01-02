@@ -4,6 +4,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.savtor.falconcalcultor.*;
@@ -19,17 +20,17 @@ public class Falcon_AlramManager
 		
 		String Title = context.getString(R.string.app_name);
 		String Content = Name + Loan_Amount ;
-		
-		
+
 		for(int i = 0; i < Trems; i++){
 			
 			Calendar mCalendar = Calendar.getInstance();
 			mCalendar.set(Calendar.YEAR, Year);
-			mCalendar.set(Calendar.MONTH, Month + i - 1);
-			mCalendar.set(Calendar.DAY_OF_MONTH, Date - AlertDate);
+			mCalendar.set(Calendar.MONTH, Month + i);
+			mCalendar.set(Calendar.DAY_OF_MONTH, Date);
 			mCalendar.set(Calendar.HOUR_OF_DAY, Hour);
 			mCalendar.set(Calendar.MINUTE, Minute);
 			mCalendar.set(Calendar.SECOND, 0);
+			mCalendar.add(Calendar.DAY_OF_MONTH, - AlertDate);
 			
 			Intent mIntent = new Intent(context, AlarmBroadCastReceiver.class);
 			mIntent.putExtra("notification_id", request_code);
@@ -48,7 +49,8 @@ public class Falcon_AlramManager
 			 */
 			mAlarmManager.set(AlarmManager.RTC_WAKEUP, mCalendar.getTimeInMillis(), mPendingIntent);
 
-			Toast.makeText(context, "己設置, 時間為 : " + new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(mCalendar.getTime())  + "id = " + request_code + i, Toast.LENGTH_SHORT).show();
+//			Toast.makeText(context, "己設置, 時間為 : " + new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(mCalendar.getTime())  + "id = " + request_code + i, Toast.LENGTH_SHORT).show();
+			Log.e("己設置時間為", new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(mCalendar.getTime())  + ", id = " + request_code);
 		}
 		
 	}

@@ -186,8 +186,8 @@ public class Favourite_DataBasic {
 
         Cursor cursor = db.query(TABLE_NAME, null, null, null, null, null, null, null);
 
-        while (cursor.moveToLast()){
-			max_id = get_database_record(cursor).getid();
+        if (cursor.moveToLast()){
+            max_id = cursor.getInt(0);
         }
 
         cursor.close();
