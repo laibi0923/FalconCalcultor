@@ -30,7 +30,7 @@ import com.savtor.AlarmNotification.*;
  */
 public class Fragment_Saver extends Fragment {
 
-    private String This_Fragment_Name ="Saver Fragment";
+    private String This_Fragment_Name = "Saver Fragment";
 
 	//    For Find View
     private View SV_LoanType, SV_ApplyType, SV_LoanNum, SV_FirstDue, SV_FinalDue, SV_AlertType, SV_AlertTime, SV_Address, SV_PhoneNum, SV_Remarks, SV_Loan_Amount, SV_Loan_Rate, SV_Loan_Trems, SV_Loan_Installment;
@@ -79,6 +79,8 @@ public class Fragment_Saver extends Fragment {
         super.onCreate(savedInstanceState);
 
         setHasOptionsMenu(true);
+		
+		
 
 		Bundle mBundle = getArguments();
 
@@ -99,7 +101,10 @@ public class Fragment_Saver extends Fragment {
                 Edit_Mode_Off();
 
             }
-        }
+        } else{
+			Edit_Mode = "false";
+			Edit_Mode_Off();
+		}
 
     }
 
@@ -173,8 +178,9 @@ public class Fragment_Saver extends Fragment {
 					
 					// Setup new Alram if Alert type not is 0
 					// Alram request code = Database max id number
-					Favourite_DataBasic db = new Favourite_DataBasic(getActivity(), This_Fragment_Name);
-					DB_ID = db.query_max_id();
+					favourite_dataBasic = new Favourite_DataBasic(getContext(), This_Fragment_Name);
+					DB_ID = favourite_dataBasic.query_max_id();
+					favourite_dataBasic.close();
 
                     if (TV_AlertTime_Result != null){
 
@@ -183,8 +189,8 @@ public class Fragment_Saver extends Fragment {
                                 firstdue_Calendar.get(Calendar.YEAR),
                                 firstdue_Calendar.get(Calendar.MONTH),
                                 firstdue_Calendar.get(Calendar.DAY_OF_MONTH),
-                                Alarm_Calendar.get(Calendar.HOUR_OF_DAY),
-                                Alarm_Calendar.get(Calendar.MINUTE),
+								Integer.parseInt(new SimpleDateFormat("HH").format(Alarm_Calendar.getTime())),
+                                Integer.parseInt(new SimpleDateFormat("mm").format(Alarm_Calendar.getTime())),
                                 bundle_trems,
                                 3,
                                 get_name,
@@ -683,9 +689,9 @@ public class Fragment_Saver extends Fragment {
 
             /*  Alert Date Type
              *  0 = Dont Reminding
-             *  1 = Reminding befor 3 Days
-             *  2 = Reminding befor 5 Days
-             *  3 = Reminding befor 7 Days
+             *  1 = Reminding befor 0 Days
+             *  2 = Reminding befor 3 Days
+             *  3 = Reminding befor 5 Days
              */
 
             switch (v.getId()){
@@ -693,28 +699,29 @@ public class Fragment_Saver extends Fragment {
                 case R.id.dialog_sav_ch1:
                     TV_AlertType_Result.setText("");
                     get_alertdate_type = 0;
-                    
+					TV_AlertTime_Result.setText("");
+                    SV_AlertTime.setVisibility(View.GONE);
                     break;
 
                 case R.id.dialog_sav_ch2:
                     TV_AlertType_Result.setText(R.string.alertdate_3day);
                     get_alertdate_type = 1;
                     show_time_dialog().show();
-
+					SV_AlertTime.setVisibility(View.VISIBLE);
                     break;
 
                 case R.id.dialog_sav_ch3:
                     TV_AlertType_Result.setText(R.string.alertdate_5day);
                     get_alertdate_type = 2;
                     show_time_dialog().show();
-
+					SV_AlertTime.setVisibility(View.VISIBLE);
                     break;
 
                 case R.id.dialog_sav_ch4:
                     TV_AlertType_Result.setText(R.string.alertdate_7day);
                     get_alertdate_type = 3;
                     show_time_dialog().show();
-
+					SV_AlertTime.setVisibility(View.VISIBLE);
                     break;
 
                 case R.id.dialog_sav_cancelbtn:
@@ -723,7 +730,6 @@ public class Fragment_Saver extends Fragment {
 
             }
 
-            SV_AlertTime.setVisibility(View.VISIBLE);
             mAlertDialog.dismiss();
 
         }
@@ -751,6 +757,8 @@ public class Fragment_Saver extends Fragment {
         choose_three.setVisibility(View.GONE);
         choose_four.setVisibility(View.GONE);
         choose_five.setVisibility(View.GONE);
+		
+		choose_dialog_cancellbtn.setOnClickListener(Date_Type_OnclickListener);
 
         mAlertDialog.show();
     }
@@ -765,16 +773,21 @@ public class Fragment_Saver extends Fragment {
                     TV_FirstDue_Result.setText(firstdue_Calendar.get(Calendar.YEAR) + "/" + (firstdue_Calendar.get(Calendar.MONTH) + 1) + "/" + firstdue_Calendar.get(Calendar.DAY_OF_MONTH));
                     finaldue_Calender.add(Calendar.MONTH, bundle_trems -1);
                     TV_FinalDue_Result.setText(finaldue_Calender.get(Calendar.YEAR) + "/" + (finaldue_Calender.get(Calendar.MONTH) + 1)+ "/" + finaldue_Calender.get(Calendar.DAY_OF_MONTH));
+					SV_AlertType.setVisibility(View.VISIBLE);
                     break;
 
                 case R.id.dialog_sav_ch2:
                     TV_FirstDue_Result.setText(firstdue_Calendar.get(Calendar.YEAR) + "/" + (firstdue_Calendar.get(Calendar.MONTH) + 1) + "/" + firstdue_Calendar.get(Calendar.DAY_OF_MONTH));
                     finaldue_Calender.add(Calendar.MONTH, bundle_trems -1);
                     TV_FinalDue_Result.setText(finaldue_Calender.get(Calendar.YEAR) + "/" + (finaldue_Calender.get(Calendar.MONTH) + 1)+ "/" + finaldue_Calender.getActualMaximum(Calendar.DAY_OF_MONTH));
+					SV_AlertType.setVisibility(View.VISIBLE);
+                    break;
+					
+				case R.id.dialog_sav_cancelbtn:
+                    mAlertDialog.dismiss();
                     break;
             }
 
-            SV_AlertType.setVisibility(View.VISIBLE);
             mAlertDialog.dismiss();
 
         }
@@ -1005,11 +1018,6 @@ public class Fragment_Saver extends Fragment {
     public void Edit_Mode_Off(){
 
         Log.e("Edit Mode : ", This_Fragment_Name + "Edit Mode Off");
-
-        restore_Loan_Amount = "";
-        restore_Loan_Rate = "";
-        restore_Loan_Trems = "";
-        restore_Loan_Installment = "";
 
 		restore_LoanName_text ="";
 		

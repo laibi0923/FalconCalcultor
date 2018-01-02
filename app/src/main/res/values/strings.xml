@@ -94,9 +94,9 @@
 	
     <string name="alertdate_hint">設置提醒</string>
     <string name="alertdate_dontalert">不要提醒</string>
-	<string name="alertdate_3day">設置3天前提醒</string>
-	<string name="alertdate_5day">設置5天前提醒</string>
-	<string name="alertdate_7day">設置7天前提醒</string>
+	<string name="alertdate_3day">設置當天前提醒</string>
+	<string name="alertdate_5day">設置3天前提醒</string>
+	<string name="alertdate_7day">設置5天前提醒</string>
 	
 	<string name="alerttime_hint">提醒時間</string>
 	
