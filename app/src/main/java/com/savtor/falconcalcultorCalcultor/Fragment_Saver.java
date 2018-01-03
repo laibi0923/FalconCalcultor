@@ -1040,6 +1040,12 @@ public class Fragment_Saver extends Fragment {
         restore_ApplyStatus_text = getResources().getString(R.string.applystatuse_hint);
 		
         restore_LoanNum_text = "";
+
+        restore_Loan_Amount = "0";
+        restore_Loan_Rate = "0";
+        restore_Loan_Trems = "0";
+
+        restore_Loan_Installment = "0";
 		
         restore_FirstDueDate_text = "";
         restore_FinalDueDate_text = "";
