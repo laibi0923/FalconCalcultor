@@ -50,9 +50,10 @@ public class Fragment_Saver extends Fragment {
 
     private String get_createdate, get_name, get_loannum, get_firstdue, get_finaldue, get_alerttime, get_address, get_phone, get_remark;
     private double get_loanamount, get_loanrate;
-    private int get_loantrems;
 
-    private int get_loantype, get_applystatus, get_alertdate_type;
+    private int get_loantype, get_applystatus, get_loantrems, get_alertdate_type;
+
+    private int set_remind_date;
 
 
     private String restore_LoanName_text, restore_LoanType_text, restore_ApplyStatus_text, restore_LoanNum_text,
@@ -129,8 +130,10 @@ public class Fragment_Saver extends Fragment {
 	{
 		// TODO: Implement this method
 		switch(item.getItemId()){
-			
+
 			case R.id.save_to_fav:
+
+                Falcon_AlramManager mAlramManager = new Falcon_AlramManager();
 				
                 // [8]
                 if (Edit_Mode == "true"){
@@ -143,10 +146,12 @@ public class Fragment_Saver extends Fragment {
 					// Get Year / Month / Date / Hour / Mintus / Secord / Trems / Alert date / Name / Installment
 					if (TV_AlertTime_Result != null){
 
-						Falcon_AlramManager mAlramManager = new Falcon_AlramManager();
-						
+                        mAlramManager = new Falcon_AlramManager();
+
+                        // 先取消該條紀錄所有 Alram
                         mAlramManager.Cancel_Alram(getContext(), DB_ID, bundle_trems);
 
+                        // 輸入新定義 Alram
                         mAlramManager.Setup_Alram(getContext(),
                                 DB_ID,
                                 firstdue_Calendar.get(Calendar.YEAR),
@@ -155,7 +160,7 @@ public class Fragment_Saver extends Fragment {
                                 Alarm_Calendar.get(Calendar.HOUR_OF_DAY),
                                 Alarm_Calendar.get(Calendar.MINUTE),
                                 bundle_trems,
-                                3,
+                                set_remind_date,
                                 get_name,
                                 TV_Loan_Amount_Result.getText().toString());
                     }
@@ -177,8 +182,6 @@ public class Fragment_Saver extends Fragment {
                     Log.e("Max ID = ", DB_ID + "");
 
                     if (TV_AlertTime_Result.getText() != null){
-						
-						Falcon_AlramManager mAlramManager = new Falcon_AlramManager();
 
                         mAlramManager.Setup_Alram(getContext(),
                                 DB_ID,
@@ -188,11 +191,10 @@ public class Fragment_Saver extends Fragment {
 								Alarm_Calendar.get(Calendar.HOUR_OF_DAY),
 								Alarm_Calendar.get(Calendar.MINUTE),
                                 bundle_trems,
-                                3,
+                                set_remind_date,
                                 get_name,
                                 "1939");
 
-						Log.e("", Integer.parseInt(String.valueOf(firstdue_Calendar.get(Calendar.YEAR))) +"");
                         Log.e("first due date", new SimpleDateFormat("yyyy/MM/dd").format(firstdue_Calendar.getTime()) + "");
                     }
 
@@ -706,6 +708,7 @@ public class Fragment_Saver extends Fragment {
                     get_alertdate_type = 0;
 					TV_AlertTime_Result.setText("");
                     SV_AlertTime.setVisibility(View.GONE);
+                    set_remind_date = 0;
                     break;
 
                 case R.id.dialog_sav_ch2:
@@ -713,6 +716,7 @@ public class Fragment_Saver extends Fragment {
                     get_alertdate_type = 1;
                     show_time_dialog().show();
 					SV_AlertTime.setVisibility(View.VISIBLE);
+                    set_remind_date = 0;
                     break;
 
                 case R.id.dialog_sav_ch3:
@@ -720,6 +724,7 @@ public class Fragment_Saver extends Fragment {
                     get_alertdate_type = 2;
                     show_time_dialog().show();
 					SV_AlertTime.setVisibility(View.VISIBLE);
+                    set_remind_date = 3;
                     break;
 
                 case R.id.dialog_sav_ch4:
@@ -727,6 +732,7 @@ public class Fragment_Saver extends Fragment {
                     get_alertdate_type = 3;
                     show_time_dialog().show();
 					SV_AlertTime.setVisibility(View.VISIBLE);
+                    set_remind_date = 5;
                     break;
 
                 case R.id.dialog_sav_cancelbtn:

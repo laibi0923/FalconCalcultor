@@ -24,13 +24,13 @@ public class Falcon_AlramManager
 			
 			Calendar mCalendar = Calendar.getInstance();
 			mCalendar.set(Calendar.YEAR, Year);
-			mCalendar.set(Calendar.MONTH, Month + i -1);
+			mCalendar.set(Calendar.MONTH, Month + i);
 			mCalendar.set(Calendar.DAY_OF_MONTH, Date);
 			mCalendar.set(Calendar.HOUR_OF_DAY, Hour);
 			mCalendar.set(Calendar.MINUTE, Minute);
 			mCalendar.set(Calendar.SECOND, 0);
 			
-			String Content = "繳款提醒 : " + Name  + "於 " + new SimpleDateFormat("yyyy/MM/dd").format(mCalendar.getTime()) + " 需繳付金額為 $" + Loan_Amount;
+			String Content = "繳款提醒 : " + Name  + " 於 " + new SimpleDateFormat("yyyy/MM/dd").format(mCalendar.getTime()) + "," + AlertDate + "天後" +  " 需繳付金額為 $" + Loan_Amount;
 			
 			mCalendar.add(Calendar.DAY_OF_MONTH, - AlertDate);
 			
