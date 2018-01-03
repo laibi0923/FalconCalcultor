@@ -99,6 +99,7 @@ public class Fragment_Saver extends Fragment {
                 Edit_Mode_Off();
 
             }
+			
         } else{
 			Edit_Mode = "false";
 			Edit_Mode_Off();
@@ -131,7 +132,6 @@ public class Fragment_Saver extends Fragment {
 			
 			case R.id.save_to_fav:
 				
-				Falcon_AlramManager mAlramManager = new Falcon_AlramManager();
                 // [8]
                 if (Edit_Mode == "true"){
 					
@@ -143,7 +143,9 @@ public class Fragment_Saver extends Fragment {
 					// Get Year / Month / Date / Hour / Mintus / Secord / Trems / Alert date / Name / Installment
 					if (TV_AlertTime_Result != null){
 
-                        mAlramManager.Cancel_Alram(getContext(), DB_ID);
+						Falcon_AlramManager mAlramManager = new Falcon_AlramManager();
+						
+                        mAlramManager.Cancel_Alram(getContext(), DB_ID, bundle_trems);
 
                         mAlramManager.Setup_Alram(getContext(),
                                 DB_ID,
@@ -175,28 +177,22 @@ public class Fragment_Saver extends Fragment {
                     Log.e("Max ID = ", DB_ID + "");
 
                     if (TV_AlertTime_Result.getText() != null){
+						
+						Falcon_AlramManager mAlramManager = new Falcon_AlramManager();
 
                         mAlramManager.Setup_Alram(getContext(),
                                 DB_ID,
-                                Integer.parseInt(String.valueOf(firstdue_Calendar.get(Calendar.YEAR))),
-                                Integer.parseInt(String.valueOf(firstdue_Calendar.get(Calendar.MONTH))),
-                                Integer.parseInt(String.valueOf(firstdue_Calendar.get(Calendar.DAY_OF_MONTH))),
-                                Integer.parseInt(String.valueOf(Alarm_Calendar.get(Calendar.HOUR_OF_DAY))),
-                                Integer.parseInt(String.valueOf(firstdue_Calendar.get(Calendar.MINUTE))),
-//                                Integer.parseInt(new SimpleDateFormat("MM").format(firstdue_Calendar.getTime())),
-//                                Integer.parseInt(new SimpleDateFormat("dd").format(firstdue_Calendar.getTime())),
-//                                firstdue_Calendar.get(Calendar.YEAR),
-//                                firstdue_Calendar.get(Calendar.MONTH),
-//                                firstdue_Calendar.get(Calendar.DAY_OF_MONTH),
-//                                Alarm_Calendar.get(Calendar.HOUR_OF_DAY),
-//                                Alarm_Calendar.get(Calendar.MINUTE),
-//								Integer.parseInt(new SimpleDateFormat("HH").format(Alarm_Calendar.getTime())),
-//                                Integer.parseInt(new SimpleDateFormat("mm").format(Alarm_Calendar.getTime())),
+								firstdue_Calendar.get(Calendar.YEAR),
+								firstdue_Calendar.get(Calendar.MONTH),
+								firstdue_Calendar.get(Calendar.DAY_OF_MONTH),
+								Alarm_Calendar.get(Calendar.HOUR_OF_DAY),
+								Alarm_Calendar.get(Calendar.MINUTE),
                                 bundle_trems,
                                 3,
                                 get_name,
-                                TV_Loan_Amount_Result.getText().toString());
+                                "1939");
 
+						Log.e("", Integer.parseInt(String.valueOf(firstdue_Calendar.get(Calendar.YEAR))) +"");
                         Log.e("first due date", new SimpleDateFormat("yyyy/MM/dd").format(firstdue_Calendar.getTime()) + "");
                     }
 

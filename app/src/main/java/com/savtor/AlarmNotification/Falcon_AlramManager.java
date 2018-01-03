@@ -19,17 +19,19 @@ public class Falcon_AlramManager
 	public void Setup_Alram(Context context, int request_code, int Year, int Month, int Date, int Hour, int Minute, int Trems, int AlertDate, String Name, String Loan_Amount){
 		
 		String Title = context.getString(R.string.app_name);
-		String Content = Name + Loan_Amount ;
-
+		
 		for(int i = 0; i < Trems; i++){
 			
 			Calendar mCalendar = Calendar.getInstance();
 			mCalendar.set(Calendar.YEAR, Year);
-			mCalendar.set(Calendar.MONTH, Month + i);
+			mCalendar.set(Calendar.MONTH, Month + i -1);
 			mCalendar.set(Calendar.DAY_OF_MONTH, Date);
 			mCalendar.set(Calendar.HOUR_OF_DAY, Hour);
 			mCalendar.set(Calendar.MINUTE, Minute);
 			mCalendar.set(Calendar.SECOND, 0);
+			
+			String Content = "繳款提醒 : " + Name  + "於 " + new SimpleDateFormat("yyyy/MM/dd").format(mCalendar.getTime()) + " 需繳付金額為 $" + Loan_Amount;
+			
 			mCalendar.add(Calendar.DAY_OF_MONTH, - AlertDate);
 			
 			Intent mIntent = new Intent(context, AlarmBroadCastReceiver.class);
@@ -37,7 +39,7 @@ public class Falcon_AlramManager
 			mIntent.putExtra("notification_title", Title);
 			mIntent.putExtra("notification_content", Content);
 			
-			PendingIntent mPendingIntent = PendingIntent.getBroadcast(context, request_code, mIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+			PendingIntent mPendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), request_code + i, mIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
 			mAlarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
@@ -55,14 +57,17 @@ public class Falcon_AlramManager
 		
 	}
 	
-	public void Cancel_Alram(Context context, int request_code){
+	public void Cancel_Alram(Context context, int request_code, int Trems){
 		
+		for(int i = 0; i < Trems; i++){
+			
+			Intent mIntent = new Intent(context, AlarmBroadCastReceiver.class);
+			PendingIntent mPendingIntent = PendingIntent.getBroadcast(context, request_code + i, mIntent, 0);
 
-		Intent mIntent = new Intent(context, AlarmBroadCastReceiver.class);
-		PendingIntent mPendingIntent = PendingIntent.getBroadcast(context, request_code, mIntent, 0);
-
-		mAlarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-		mAlarmManager.cancel(mPendingIntent);
+			mAlarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+			mAlarmManager.cancel(mPendingIntent);
+			
+		}
 	
 	}
 
