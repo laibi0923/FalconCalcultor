@@ -111,6 +111,48 @@
     <string name="applytype_dialog_title">申請狀況</string>
     <string name="alertdate_dialog_title">設置提醒</string>
 
+
+    <!--Credit Profile-->
+    <!--==============================================================================================-->
+
+    <string name="hints_product_name">輸入名稱</string>
+
+    <string name="title_product_personal">私人貸款</string>
+    <string name="title_product_mortgage">樓宇按揭</string>
+    <string name="title_product_minpay">循環貸款</string>
+    <string name="title_product_car">汽車貸款</string>
+    <string name="title_product_card">信用卡類別</string>
+
+    <string name="title_product_status">貸款類別</string>
+    <string name="product_status_notapply">未申請</string>
+    <string name="product_status_pending">申請中</string>
+    <string name="product_status_approval">已成功批核</string>
+    <string name="product_status_reject">不成功批核</string>
+    <string name="product_status_cancel">取消申請</string>
+
+
+    <string name="hints_loan_number">貸款編號</string>
+
+    <string name="title_loan_amount">貸款銀碼</string>
+    <string name="title_loan_rate">貸款利率</string>
+    <string name="title_loan_minpayrate">最低還款利率</string>
+    <string name="title_loan_trems">還款期數</string>
+    <string name="title_loan_installment">每月供款</string>
+
+    <string name="title_first_due">首月供款日</string>
+    <string name="title_final_due">最後還款日</string>
+    <string name="title_setup_alarm">設置提醒</string>
+    <string name="title_setup_time">提醒時間</string>
+
+    <string name="hints_address">地址</string>
+    <string name="hints_phone">電話</string>
+    <string name="hints_remarks">備註</string>
+
+
+
+
+
+
     <!--==============================================================================================-->
     <!--for Setting Page-->
     <string name="password_title">密碼</string>

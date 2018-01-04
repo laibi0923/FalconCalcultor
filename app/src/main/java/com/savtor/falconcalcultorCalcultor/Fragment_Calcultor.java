@@ -277,7 +277,7 @@ public class Fragment_Calcultor extends Fragment {
                         mBundle.putString("EDIT_MODE", Edit_Mode);
                         mBundle.putInt("DB_ID", DB_ID);
 
-                        Fragment mFragment = new Fragment_Saver();
+                        Fragment mFragment = new Fragment_Credit_Profile();
                         mFragment.setArguments(mBundle);
 
                         FragmentManager mFragmentManager = getActivity().getSupportFragmentManager();
