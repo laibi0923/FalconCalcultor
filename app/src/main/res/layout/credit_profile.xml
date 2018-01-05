@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,8 +16,7 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/blue_grey_900">
+            android:layout_height="wrap_content">
 
             <EditText
                 android:singleLine="true"
@@ -23,48 +25,110 @@
                 android:focusable="true"
                 android:imeOptions="actionDone"
                 android:textColor="@color/TextColor_White"
-                android:id="@+id/save_name"
-                android:hint="輸入名稱"
+                android:id="@+id/product_name"
+                android:hint="@string/hints_product_name"
                 android:padding="15dp"
                 android:textColorHint="@color/TextColor_Gray"
-                android:background="@color/blue_grey_950"/>
+                android:background="@color/blue_grey_950" />
 
         </LinearLayout>
 
         <LinearLayout
+
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:gravity="center"
-            android:padding="20dp"
-            android:elevation="4dp"
-            android:background="@color/blue_grey_900">
+            android:background="@color/blue_grey_900"
+            android:elevation="4dp">
 
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:id="@+id/imageView2"
-				android:scaleType="fitXY"
-                android:src="@drawable/ic_credit_card_black_24dp" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="20dp"
+                android:gravity="center"
+                android:background="@color/blue_grey_900">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Personal Loan"
-                android:id="@+id/textView14" />
-        </LinearLayout>
+                <ImageView
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/ic_credit_card_black_24dp"
+                    android:tint="@color/deep_teal_200"
+                    android:id="@+id/product_type_icon"
+                    android:cropToPadding="false" />
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:elevation="4dp"
-            android:background="@color/blue_grey_900">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Small Text"
+                    android:id="@+id/product_type_name"
+                    android:textColor="@color/deep_teal_200" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:id="@+id/product_status_linear">
+
+                <include
+                    android:id="@+id/product_status"
+                    layout="@layout/saver_dialog_sub_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"/>
+            </LinearLayout>
 
             <include
-                android:id="@+id/include_loan_amount"
+                android:id="@+id/loan_number"
+                layout="@layout/saver_dialog_sub_ed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:background="@color/blue_grey_900"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="4dp"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp">
+
+            <include
+                android:id="@+id/loan_amount"
+                layout="@layout/saver_dialog_sub_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"/>
+
+            <include
+                android:id="@+id/loan_rate"
+                layout="@layout/saver_dialog_sub_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"/>
+
+            <include
+                android:id="@+id/loan_trems"
+                layout="@layout/saver_dialog_sub_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"/>
+
+            <include
+                android:id="@+id/loan_installment"
                 layout="@layout/saver_dialog_sub_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -77,118 +141,103 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:elevation="4dp"
-            android:layout_marginTop="10dp"
-            android:background="@color/blue_grey_900">
-
-            <include
-                layout="@layout/saver_dialog_sub_tv"
-                android:id="@+id/include"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp" />
-
-            <include
-                layout="@layout/saver_dialog_sub_tv"
-                android:id="@+id/include2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp" />
-
-            <include
-                layout="@layout/saver_dialog_sub_tv"
-                android:id="@+id/include3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp" />
-
-            <include
-                layout="@layout/saver_dialog_sub_tv"
-                android:id="@+id/include4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:elevation="4dp"
-            android:layout_marginTop="10dp"
-            android:background="@color/blue_grey_900" >
-
-            <include
-                layout="@layout/saver_dialog_sub_tv"
-                android:id="@+id/include5"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp" />
-
-            <include
-                layout="@layout/saver_dialog_sub_tv"
-                android:id="@+id/include6"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp" />
-
-            <include
-                layout="@layout/saver_dialog_sub_tv"
-                android:id="@+id/include7"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp" />
-
-            <include
-                layout="@layout/saver_dialog_sub_tv"
-                android:id="@+id/include8"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:elevation="4dp"
-            android:layout_marginTop="10dp"
             android:background="@color/blue_grey_900"
-            android:layout_marginBottom="10dp">
+            android:id="@+id/duedate_linear"
+            android:layout_marginTop="10dp"
+            android:elevation="4dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="First Due Date"
+                android:id="@+id/textView8"
+                android:textColor="@color/deep_teal_200"
+                android:layout_margin="10dp"
+                android:visibility="gone"/>
 
             <include
                 layout="@layout/saver_dialog_sub_tv"
-                android:id="@+id/include9"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp" />
+                android:layout_marginBottom="10dp"
+                android:id="@+id/firstdue_date"/>
 
             <include
                 layout="@layout/saver_dialog_sub_tv"
-                android:id="@+id/include10"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp" />
+                android:layout_marginBottom="10dp"
+                android:id="@+id/finaldue_date"/>
 
             <include
                 layout="@layout/saver_dialog_sub_tv"
-                android:id="@+id/include12"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp" />
+                android:layout_marginBottom="10dp"
+                android:id="@+id/setup_alarm"/>
+
+            <include
+                layout="@layout/saver_dialog_sub_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:id="@+id/alarm_time"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:background="@color/blue_grey_900"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:elevation="4dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Remarks"
+                android:id="@+id/textView28"
+                android:textColor="@color/deep_teal_200"
+                android:layout_margin="10dp"
+                android:visibility="gone"/>
+
+            <include
+                layout="@layout/saver_dialog_sub_ed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:id="@+id/address"/>
+
+            <include
+                layout="@layout/saver_dialog_sub_ed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:id="@+id/phone"/>
+
+            <include
+                layout="@layout/saver_dialog_sub_ed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:id="@+id/remarks"/>
+
         </LinearLayout>
 
     </LinearLayout>
 
 </ScrollView>
+
+
