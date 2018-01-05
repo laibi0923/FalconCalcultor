@@ -45,6 +45,7 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:id="@+id/imageView2"
+				android:scaleType="fitXY"
                 android:src="@drawable/ic_credit_card_black_24dp" />
 
             <TextView
