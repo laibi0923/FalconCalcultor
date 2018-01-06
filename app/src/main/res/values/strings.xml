@@ -156,6 +156,8 @@
 	<string name="dialog_duedate_normal">按所選日子</string>
 	<string name="dialog_duedate_eom">每月最後一日</string>
 
+    <string name="hints_dialog_loanammount">自定金額</string>
+
 
 
 

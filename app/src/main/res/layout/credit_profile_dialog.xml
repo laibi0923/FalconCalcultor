@@ -7,6 +7,8 @@
     android:background="@color/blue_grey_900">
 
     <LinearLayout
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -190,7 +192,41 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/dialog_edittext">
+
+        <EditText
+            android:backgroundTint="@android:color/transparent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:ems="10"
+            android:id="@+id/dialog_option_edittext"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:textAlignment="center"
+            android:textColor="@color/TextColor_White"
+            android:textColorHint="@color/TextColor_Gray" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="right">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/calcultor_dialog_PositiveButton"
+            android:id="@+id/dialog_done"
+            android:textColor="@color/deep_teal_200"
+            android:clickable="true"
+            android:background="?attr/selectableItemBackground"
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp" />
 
         <TextView
             android:layout_width="wrap_content"

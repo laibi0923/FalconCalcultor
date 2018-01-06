@@ -3,6 +3,8 @@ package com.savtor.falconcalcultorCalcultor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,12 +19,12 @@ import android.widget.TextView;
 import com.savtor.falconcalcultor.*;
 
 import java.text.SimpleDateFormat;
+
 import java.util.Calendar;
 import java.util.Date;
 import android.view.View.*;
 import android.app.*;
 import android.widget.*;
-import android.widget.SearchView.*;
 
 
 
@@ -54,11 +56,13 @@ public class Fragment_Credit_Profile extends Fragment {
 
     private AlertDialog mAlertDialog;
 
-    private LinearLayout Dialog_Option_1, Dialog_Option_2, Dialog_Option_3, Dialog_Option_4, Dialog_Option_5;
+    private LinearLayout Dialog_Option_1, Dialog_Option_2, Dialog_Option_3, Dialog_Option_4, Dialog_Option_5, Dialog_Edittext;
 
-    private TextView Dialog_Title, Dialog_Option_1_Text, Dialog_Option_2_Text, Dialog_Option_3_Text, Dialog_Option_4_Text, Dialog_Option_5_Text, Dialog_Dismiss;
+    private TextView Dialog_Title, Dialog_Option_1_Text, Dialog_Option_2_Text, Dialog_Option_3_Text, Dialog_Option_4_Text, Dialog_Option_5_Text, Dialog_Done, Dialog_Dismiss;
 
     private ImageView Dialog_Option_1_Icon, Dialog_Option_2_Icon, Dialog_Option_3_Icon, Dialog_Option_4_Icon, Dialog_Option_5_Icon;
+
+    private EditText Dialog_Option_Edittext;
 	
 	// Init String
     private String Init_Product_Type, Init_Product_Status, Init_Loan_Number,
@@ -72,8 +76,9 @@ public class Fragment_Credit_Profile extends Fragment {
     private Calendar First_Due_Calendar, Final_Due_Calendar, Times_Calendar;
 
     // DataBase Update / Intert
-    private String PRODUCT_CODE, STATUS_CODE;
-
+    private String PRODUCT_CODE, STATUS_CODE, FIRST_DUE,  SETUP_ALARM, ALARM_TIME;
+    private double LOAN_AMOUNT, LOAN_RATE, LOAN_INSTALLMENT;
+    private int LOAN_TREMS;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -90,6 +95,19 @@ public class Fragment_Credit_Profile extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
+        Log.e("PRODUCT_CODE", PRODUCT_CODE + "");
+        Log.e("STATUS_CODE", STATUS_CODE + "");
+
+        Log.e("LOAN_AMOUNT", LOAN_AMOUNT + "");
+        Log.e("LOAN_RATE", LOAN_RATE + "");
+        Log.e("LOAN_TREMS", LOAN_TREMS + "");
+        Log.e("LOAN_INSTALLMENT", LOAN_INSTALLMENT + "");
+
+        Log.e("FIRST_DUE", FIRST_DUE + "");
+        Log.e("SETUP_ALARM", SETUP_ALARM + "");
+        Log.e("ALARM_TIME", ALARM_TIME + "");
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -102,12 +120,19 @@ public class Fragment_Credit_Profile extends Fragment {
         First_Due_Calendar = Calendar.getInstance();
 
         Init_Product_Type = getString(R.string.title_product_personal);
+        PRODUCT_CODE = "Personal";
         Init_Product_Icon = R.drawable.ic_person_black_24dp;
+
         Init_Product_Status = getString(R.string.product_status_notapply);
+        STATUS_CODE = "NotApply";
+
         Init_Loan_Number = "";
         Init_Loan_Amount = "0";
         Init_Loan_Rate = "0";
-        Init_Loan_Trems = "0";
+
+        Init_Loan_Trems = "12 個月";
+        LOAN_TREMS = 12;
+
         Init_Loan_Installment = "0";
         Init_First_Due = new SimpleDateFormat("yyy/MM/dd").format(new Date());
         Init_Final_Due = "";
@@ -155,13 +180,14 @@ public class Fragment_Credit_Profile extends Fragment {
         Product_Status_Result.setText(Init_Product_Status);
 
         Subview_Loan_Number = v.findViewById(R.id.loan_number);
-		Subview_Loan_Number.setOnClickListener(Item_OnClickListener);
         Product_Loan_Number_Icon = (ImageView) Subview_Loan_Number.findViewById(R.id.sub_image);
         Product_Loan_Number_Icon.setImageResource(R.drawable.ic_count);
         Product_Loan_Number = (EditText) Subview_Loan_Number.findViewById(R.id.sub_edittext);
         Product_Loan_Number.setHint(R.string.hints_loan_number);
 
         Subview_Loan_Amount = v.findViewById(R.id.loan_amount);
+        Loan_Amount_Linear = (LinearLayout) v.findViewById(R.id.loan_amount_linear);
+        Loan_Amount_Linear.setOnClickListener(Item_OnClickListener);
         Loan_Amount_Icon = (ImageView) Subview_Loan_Amount.findViewById(R.id.sub_image);
         Loan_Amount_Icon.setImageResource(R.drawable.ic_data_usage_black_24dp);
         Loan_Amount_Title = (TextView) Subview_Loan_Amount.findViewById(R.id.sub_textview);
@@ -170,7 +196,8 @@ public class Fragment_Credit_Profile extends Fragment {
         Loan_Amount_Result.setText(Init_Loan_Amount);
 
         Subview_Loan_Rate = v.findViewById(R.id.loan_rate);
-		Subview_Loan_Rate.setOnClickListener(Item_OnClickListener);
+        Loan_Rate_Linear = (LinearLayout) v.findViewById(R.id.loan_rate_linear);
+        Loan_Rate_Linear.setOnClickListener(Item_OnClickListener);
         Loan_Rate_Icon = (ImageView) Subview_Loan_Rate.findViewById(R.id.sub_image);
         Loan_Rate_Icon.setImageResource(R.drawable.ic_data_usage_black_24dp);
         Loan_Rate_Title = (TextView) Subview_Loan_Rate.findViewById(R.id.sub_textview);
@@ -179,7 +206,8 @@ public class Fragment_Credit_Profile extends Fragment {
         Loan_Rate_Result.setText(Init_Loan_Rate);
 
         Subview_Loan_Trems = v.findViewById(R.id.loan_trems);
-		Subview_Loan_Trems.setOnClickListener(Item_OnClickListener);
+        Loan_Trems_Linear = (LinearLayout) v.findViewById(R.id.loan_trems_linear);
+        Loan_Trems_Linear.setOnClickListener(Item_OnClickListener);
         Loan_Trems_Icon = (ImageView) Subview_Loan_Trems.findViewById(R.id.sub_image);
         Loan_Trems_Icon.setImageResource(R.drawable.ic_data_usage_black_24dp);
         Loan_Trems_Title = (TextView) Subview_Loan_Trems.findViewById(R.id.sub_textview);
@@ -188,7 +216,8 @@ public class Fragment_Credit_Profile extends Fragment {
         Loan_Trems_Result.setText(Init_Loan_Trems);
 
         Subview_Loan_Installment = v.findViewById(R.id.loan_installment);
-		Subview_Loan_Installment.setOnClickListener(Item_OnClickListener);
+        Loan_Installment_Linear = (LinearLayout) v.findViewById(R.id.loan_installment_linear);
+        Loan_Installment_Linear.setOnClickListener(Item_OnClickListener);
         Loan_Installment_Icon = (ImageView) Subview_Loan_Installment.findViewById(R.id.sub_image);
         Loan_Installment_Icon.setImageResource(R.drawable.ic_data_usage_black_24dp);
         Loan_Installment_Title = (TextView) Subview_Loan_Installment.findViewById(R.id.sub_textview);
@@ -199,7 +228,8 @@ public class Fragment_Credit_Profile extends Fragment {
         Due_Date_Linear = (LinearLayout) v.findViewById(R.id.duedate_linear);
 
         Subview_First_due = v.findViewById(R.id.firstdue_date);
-		Subview_First_due.setOnClickListener(Item_OnClickListener);
+        FirstDue_Linear = (LinearLayout) v.findViewById(R.id.firstdue_linear);
+		FirstDue_Linear.setOnClickListener(Item_OnClickListener);
         First_Due_Icon = (ImageView) Subview_First_due.findViewById(R.id.sub_image);
         First_Due_Icon.setImageResource(R.drawable.ic_event_black_24dp);
         First_Due_Title = (TextView) Subview_First_due.findViewById(R.id.sub_textview);
@@ -214,7 +244,8 @@ public class Fragment_Credit_Profile extends Fragment {
         Final_Due_Result.setText(Init_Final_Due);
 
         Subview_Setup_Alarm = v.findViewById(R.id.setup_alarm);
-		Subview_Setup_Alarm.setOnClickListener(Item_OnClickListener);
+        Setup_Alarm_Linear = (LinearLayout) v.findViewById(R.id.setup_alarm_linear);
+		Setup_Alarm_Linear.setOnClickListener(Item_OnClickListener);
         Setup_Alarm_Icon = (ImageView) Subview_Setup_Alarm.findViewById(R.id.sub_image);
         Setup_Alarm_Icon.setImageResource(R.drawable.ic_alarm_black_24dp);
         Setup_Alarm_Title = (TextView) Subview_Setup_Alarm.findViewById(R.id.sub_textview);
@@ -223,7 +254,8 @@ public class Fragment_Credit_Profile extends Fragment {
         Setup_Alarm_Result.setText(Init_Setup_Alarm);
 
         Subview_Alarm_Time = v.findViewById(R.id.alarm_time);
-		Subview_Alarm_Time.setOnClickListener(Item_OnClickListener);
+        Alarm_Time_Linear = (LinearLayout) v.findViewById(R.id.alarm_time_linear);
+        Alarm_Time_Linear.setOnClickListener(Item_OnClickListener);
         Alarm_Time_Title = (TextView) Subview_Alarm_Time.findViewById(R.id.sub_textview);
         Alarm_Time_Title.setText(getString(R.string.title_setup_time));
         Alarm_Time_Result = (TextView) Subview_Alarm_Time.findViewById(R.id.sub_textview_result);
@@ -254,7 +286,7 @@ public class Fragment_Credit_Profile extends Fragment {
 
     private void Find_Dialog_View(){
 
-        Dialog_View = LayoutInflater.from(getActivity()).inflate(R.layout.saver_dialog, null);
+        Dialog_View = LayoutInflater.from(getActivity()).inflate(R.layout.credit_profile_dialog, null);
 
         Dialog_Title = (TextView) Dialog_View.findViewById(R.id.dialog_title);
 
@@ -279,9 +311,17 @@ public class Fragment_Credit_Profile extends Fragment {
         Dialog_Option_5_Icon = (ImageView) Dialog_View.findViewById(R.id.dialog_option5_icon);
         Dialog_Option_5_Text = (TextView) Dialog_View.findViewById(R.id.dialog_option5_text);
 
+        Dialog_Edittext = (LinearLayout) Dialog_View.findViewById(R.id.dialog_edittext);
+        Dialog_Edittext.setVisibility(View.GONE);
+
+        Dialog_Option_Edittext = (EditText) Dialog_View.findViewById(R.id.dialog_option_edittext);
+
+        Dialog_Done = (TextView) Dialog_View.findViewById(R.id.dialog_done);
+        Dialog_Done.setVisibility(View.GONE);
+
         Dialog_Dismiss = (TextView) Dialog_View.findViewById(R.id.dialog_dismiss);
     }
-    	
+
 	private OnClickListener Item_OnClickListener = new OnClickListener(){
 
 		@Override
@@ -440,6 +480,8 @@ public class Fragment_Credit_Profile extends Fragment {
                         }
                     });
 
+                    Dialog_Edittext.setVisibility(View.GONE);
+
                     Dialog_Dismiss.setOnClickListener(new OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -561,6 +603,8 @@ public class Fragment_Credit_Profile extends Fragment {
                         }
                     });
 
+                    Dialog_Edittext.setVisibility(View.GONE);
+
                     Dialog_Dismiss.setOnClickListener(new OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -571,19 +615,288 @@ public class Fragment_Credit_Profile extends Fragment {
                     mAlertDialog.show();
 					break;
 //					================================================================================================
-				case R.id.loan_amount:
+				case R.id.loan_amount_linear:
+
+                    mAlertDialog = new AlertDialog.Builder(getContext()).create();
+                    Find_Dialog_View();
+
+                    mAlertDialog.setView(Dialog_View);
+
+                    Dialog_Title.setText("輸入金額");
+
+                    Dialog_Option_1_Icon.setVisibility(View.GONE);
+                    Dialog_Option_1_Text.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                    Dialog_Option_1_Text.setText("10,000");
+                    Dialog_Option_1.setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            // 快速輸入
+                            Loan_Amount_Result.setText("10,000");
+                            LOAN_AMOUNT = 10000;
+
+                            mAlertDialog.dismiss();
+                        }
+                    });
+
+                    Dialog_Option_2_Icon.setVisibility(View.GONE);
+                    Dialog_Option_2_Text.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                    Dialog_Option_2_Text.setText("30,000");
+                    Dialog_Option_2.setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            // 快速輸入
+                            Loan_Amount_Result.setText("30,000");
+                            LOAN_AMOUNT = 30000;
+
+                            mAlertDialog.dismiss();
+                        }
+                    });
+
+                    Dialog_Option_3_Icon.setVisibility(View.GONE);
+                    Dialog_Option_3_Text.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                    Dialog_Option_3_Text.setText("50,000");
+                    Dialog_Option_3.setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            // 快速輸入
+                            Loan_Amount_Result.setText("50,000");
+                            LOAN_AMOUNT = 50000;
+
+                            mAlertDialog.dismiss();
+                        }
+                    });
+
+                    Dialog_Option_4_Icon.setVisibility(View.GONE);
+                    Dialog_Option_4_Text.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                    Dialog_Option_4_Text.setText("100,000");
+                    Dialog_Option_4.setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Loan_Amount_Result.setText("100,000");
+                            LOAN_AMOUNT = 100000;
+
+                            mAlertDialog.dismiss();
+                        }
+                    });
+
+                    Dialog_Option_5.setVisibility(View.GONE);
+                    Dialog_Edittext.setVisibility(View.VISIBLE);
+                    Dialog_Option_Edittext.setHint(getString(R.string.hints_dialog_loanammount));
+                    Dialog_Option_Edittext.requestFocus();
+
+                    Dialog_Done.setVisibility(View.VISIBLE);
+                    Dialog_Done.setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            if (Dialog_Option_Edittext.getText().toString().isEmpty()){
+
+                            }else {
+                                Loan_Amount_Result.setText(Dialog_Option_Edittext.getText());
+                                LOAN_AMOUNT = Double.parseDouble(Dialog_Option_Edittext.getText().toString());
+                            }
+
+                            mAlertDialog.dismiss();
+                        }
+                    });
+
+                    Dialog_Dismiss.setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            mAlertDialog.dismiss();
+                        }
+                    });
+
+                    mAlertDialog.show();
 					break;
 //                ================================================================================================
-				case R.id.loan_rate:
+				case R.id.loan_rate_linear:
+
+                    mAlertDialog = new AlertDialog.Builder(getContext()).create();
+                    Find_Dialog_View();
+
+                    mAlertDialog.setView(Dialog_View);
+
+                    Dialog_Title.setText("輸入利率");
+
+                    Dialog_Option_1.setVisibility(View.GONE);
+                    Dialog_Option_2.setVisibility(View.GONE);
+                    Dialog_Option_3.setVisibility(View.GONE);
+                    Dialog_Option_4.setVisibility(View.GONE);
+                    Dialog_Option_5.setVisibility(View.GONE);
+
+                    Dialog_Edittext.setVisibility(View.VISIBLE);
+                    Dialog_Option_Edittext.setHint("自定利率");
+                    Dialog_Option_Edittext.requestFocus();
+
+                    Dialog_Done.setVisibility(View.VISIBLE);
+                    Dialog_Done.setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            if (Dialog_Option_Edittext.getText().toString().isEmpty()){
+                                mAlertDialog.dismiss();
+                            }else {
+
+                                if (Double.parseDouble(Dialog_Option_Edittext.getText().toString()) > 60){
+                                    Toast.makeText(getContext(), "輸入利率過高", Toast.LENGTH_SHORT).show();
+                                }else {
+                                    Loan_Rate_Result.setText(Dialog_Option_Edittext.getText());
+                                    LOAN_RATE = Double.parseDouble(Dialog_Option_Edittext.getText().toString());
+                                }
+
+                                mAlertDialog.dismiss();
+                            }
+
+                            mAlertDialog.dismiss();
+                        }
+                    });
+
+                    Dialog_Dismiss.setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            mAlertDialog.dismiss();
+                        }
+                    });
+
+                    mAlertDialog.show();
 					break;
 //                ================================================================================================
-				case R.id.loan_trems:
+				case R.id.loan_trems_linear:
+
+                    mAlertDialog = new AlertDialog.Builder(getContext()).create();
+                    Find_Dialog_View();
+
+                    mAlertDialog.setView(Dialog_View);
+
+                    Dialog_Title.setText("自定攤還期數");
+
+                    Dialog_Option_1_Icon.setVisibility(View.GONE);
+                    Dialog_Option_1_Text.setText("12 個月");
+                    Dialog_Option_1_Text.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                    Dialog_Option_1.setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            Loan_Trems_Result.setText("12 個月");
+                            LOAN_TREMS = 12;
+
+                            mAlertDialog.dismiss();
+                        }
+                    });
+
+                    Dialog_Option_2_Icon.setVisibility(View.GONE);
+                    Dialog_Option_2_Text.setText("24 個月");
+                    Dialog_Option_2_Text.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                    Dialog_Option_2.setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            Loan_Trems_Result.setText("24 個月");
+                            LOAN_TREMS = 24;
+
+                            mAlertDialog.dismiss();
+                        }
+                    });
+
+                    Dialog_Option_3_Icon.setVisibility(View.GONE);
+                    Dialog_Option_3_Text.setText("36 個月");
+                    Dialog_Option_3_Text.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                    Dialog_Option_3.setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            Loan_Trems_Result.setText("36 個月");
+                            LOAN_TREMS = 36;
+
+                            mAlertDialog.dismiss();
+                        }
+                    });
+
+                    Dialog_Option_4.setVisibility(View.GONE);
+                    Dialog_Option_5.setVisibility(View.GONE);
+
+                    Dialog_Edittext.setVisibility(View.VISIBLE);
+                    Dialog_Option_Edittext.setHint("輸入攤還期數");
+                    Dialog_Option_Edittext.setInputType(InputType.TYPE_CLASS_NUMBER);
+                    Dialog_Option_Edittext.requestFocus();
+
+                    Dialog_Done.setVisibility(View.VISIBLE);
+                    Dialog_Done.setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            if (Dialog_Option_Edittext.getText().toString().isEmpty()){
+                                mAlertDialog.dismiss();
+                            }else {
+                                Loan_Trems_Result.setText(Dialog_Option_Edittext.getText());
+                                LOAN_RATE = Double.parseDouble(Dialog_Option_Edittext.getText().toString());
+                            }
+
+                            mAlertDialog.dismiss();
+                        }
+                    });
+
+                    Dialog_Dismiss.setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            mAlertDialog.dismiss();
+                        }
+                    });
+
+                    mAlertDialog.show();
+
 					break;
 //                ================================================================================================
-				case R.id.loan_installment:
+				case R.id.loan_installment_linear:
+
+                    mAlertDialog = new AlertDialog.Builder(getContext()).create();
+                    Find_Dialog_View();
+
+                    mAlertDialog.setView(Dialog_View);
+
+                    Dialog_Title.setText("輸入每月供款");
+
+                    Dialog_Option_1.setVisibility(View.GONE);
+                    Dialog_Option_2.setVisibility(View.GONE);
+                    Dialog_Option_3.setVisibility(View.GONE);
+                    Dialog_Option_4.setVisibility(View.GONE);
+                    Dialog_Option_5.setVisibility(View.GONE);
+
+                    Dialog_Edittext.setVisibility(View.VISIBLE);
+                    Dialog_Option_Edittext.setHint("自定每月供款");
+                    Dialog_Option_Edittext.requestFocus();
+
+                    Dialog_Done.setVisibility(View.VISIBLE);
+                    Dialog_Done.setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            if (Dialog_Option_Edittext.getText().toString().isEmpty()){
+
+                            }else {
+
+                                Loan_Installment_Result.setText(Dialog_Option_Edittext.getText());
+                                LOAN_INSTALLMENT = Double.parseDouble(Dialog_Option_Edittext.getText().toString());
+
+                            }
+
+                            mAlertDialog.dismiss();
+                        }
+                    });
+
+                    Dialog_Dismiss.setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            mAlertDialog.dismiss();
+                        }
+                    });
+
+                    mAlertDialog.show();
+
 					break;
 //                ================================================================================================
-				case R.id.firstdue_date:
+				case R.id.firstdue_linear:
 					
 					First_Due_Calendar = Calendar.getInstance();
 					Final_Due_Calendar = Calendar.getInstance();
@@ -619,14 +932,15 @@ public class Fragment_Credit_Profile extends Fragment {
 											{
 												// TODO: Implement this method
 												First_Due_Result.setText(First_Due_Calendar.get(Calendar.YEAR) + "/" +
-																		 First_Due_Calendar.get(Calendar.MONTH + 1) + "/" +
+                                                                        (First_Due_Calendar.get(Calendar.MONTH ) + 1) + "/" +
 																		 First_Due_Calendar.get(Calendar.DAY_OF_MONTH));
 
-												Final_Due_Calendar.add(Calendar.MONTH, 1 - 1 );
+												Final_Due_Calendar.add(Calendar.MONTH, LOAN_TREMS - 1 );
 												Final_Due_Result.setText(Final_Due_Calendar.get(Calendar.YEAR) +"/" +
-																		 Final_Due_Calendar.get(Calendar.MONTH + 1) + "/" +
+                                                                        (Final_Due_Calendar.get(Calendar.MONTH ) + 1) + "/" +
 																		 Final_Due_Calendar.get(Calendar.DAY_OF_MONTH));
-												
+
+                                                FIRST_DUE = new SimpleDateFormat("yyyy/MM/dd").format(First_Due_Calendar.getTime());
 												mAlertDialog.dismiss();
 											}
 										});
@@ -639,14 +953,15 @@ public class Fragment_Credit_Profile extends Fragment {
 											{
 												// TODO: Implement this method
 												First_Due_Result.setText(First_Due_Calendar.get(Calendar.YEAR) + "/" +
-																		 First_Due_Calendar.get(Calendar.MONTH + 1) + "/" +
+                                                                        (First_Due_Calendar.get(Calendar.MONTH ) + 1) + "/" +
 																		 First_Due_Calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
 
-												Final_Due_Calendar.add(Calendar.MONTH, 1 - 1 );
+												Final_Due_Calendar.add(Calendar.MONTH, LOAN_TREMS - 1 );
 												Final_Due_Result.setText(Final_Due_Calendar.get(Calendar.YEAR) +"/" +
-																		 Final_Due_Calendar.get(Calendar.MONTH + 1) + "/" +
+                                                                        (Final_Due_Calendar.get(Calendar.MONTH ) + 1) + "/" +
 																		 Final_Due_Calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
-												
+
+                                                FIRST_DUE = new SimpleDateFormat("yyyy/MM/dd").format(First_Due_Calendar.getTime());
 												mAlertDialog.dismiss();
 											}
 										});
@@ -669,27 +984,29 @@ public class Fragment_Credit_Profile extends Fragment {
 								} else if(dayOfMonth == 31){
 									
 									First_Due_Result.setText(First_Due_Calendar.get(Calendar.YEAR) + "/" +
-															 First_Due_Calendar.get(Calendar.MONTH + 1) + "/" +
+                                                            (First_Due_Calendar.get(Calendar.MONTH ) + 1) + "/" +
 															 First_Due_Calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
 
-									Final_Due_Calendar.add(Calendar.MONTH, 1 - 1 );
+									Final_Due_Calendar.add(Calendar.MONTH, LOAN_TREMS - 1 );
 									Final_Due_Result.setText(Final_Due_Calendar.get(Calendar.YEAR) +"/" +
-															 Final_Due_Calendar.get(Calendar.MONTH + 1) + "/" +
+                                                            (Final_Due_Calendar.get(Calendar.MONTH ) + 1) + "/" +
 															 Final_Due_Calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
-									
+
+                                    FIRST_DUE = new SimpleDateFormat("yyyy/MM/dd").format(First_Due_Calendar.getTime());
 									Subview_Setup_Alarm.setVisibility(View.VISIBLE);
 									
 								} else{
 									
 									First_Due_Result.setText(First_Due_Calendar.get(Calendar.YEAR) + "/" +
-															 First_Due_Calendar.get(Calendar.MONTH + 1) + "/" +
+                                                            (First_Due_Calendar.get(Calendar.MONTH ) + 1) + "/" +
 															 First_Due_Calendar.get(Calendar.DAY_OF_MONTH));
 															 
-									Final_Due_Calendar.add(Calendar.MONTH, 1 - 1 );
+									Final_Due_Calendar.add(Calendar.MONTH, LOAN_TREMS - 1 );
 									Final_Due_Result.setText(Final_Due_Calendar.get(Calendar.YEAR) +"/" +
-															 Final_Due_Calendar.get(Calendar.MONTH + 1) + "/" +
+                                                            (Final_Due_Calendar.get(Calendar.MONTH ) + 1) + "/" +
 															 Final_Due_Calendar.get(Calendar.DAY_OF_MONTH));
-									
+
+                                    FIRST_DUE = new SimpleDateFormat("yyyy/MM/dd").format(First_Due_Calendar.getTime());
 									Subview_Setup_Alarm.setVisibility(View.VISIBLE);
 								}
 							}
@@ -698,7 +1015,7 @@ public class Fragment_Credit_Profile extends Fragment {
 						mDialog.show();
 					break;
 //                ================================================================================================
-				case R.id.setup_alarm:
+				case R.id.setup_alarm_linear:
 
                     mAlertDialog = new AlertDialog.Builder(getContext()).create();
                     Find_Dialog_View();
@@ -714,6 +1031,8 @@ public class Fragment_Credit_Profile extends Fragment {
                             Setup_Alarm_Result.setText(R.string.alarm_dontset);
 							Subview_Alarm_Time.setVisibility(View.GONE);
 							Alarm_Time_Result.setText("");
+
+                            SETUP_ALARM = "Dontset";
                             mAlertDialog.dismiss();
                         }
                     });
@@ -723,7 +1042,10 @@ public class Fragment_Credit_Profile extends Fragment {
                         @Override
                         public void onClick(View v) {
                             Setup_Alarm_Result.setText(R.string.alarm_0_day);
-							show_time_dialog();
+                            Subview_Alarm_Time.setVisibility(View.VISIBLE);
+							show_time_dialog().show();
+
+                            SETUP_ALARM = "0days";
                             mAlertDialog.dismiss();
                         }
                     });
@@ -733,7 +1055,10 @@ public class Fragment_Credit_Profile extends Fragment {
                         @Override
                         public void onClick(View v) {
                             Setup_Alarm_Result.setText(R.string.alarm_3_day);
-							show_time_dialog();
+                            Subview_Alarm_Time.setVisibility(View.VISIBLE);
+							show_time_dialog().show();
+
+                            SETUP_ALARM = "3days";
                             mAlertDialog.dismiss();
                         }
                     });
@@ -743,12 +1068,17 @@ public class Fragment_Credit_Profile extends Fragment {
                         @Override
                         public void onClick(View v) {
                             Setup_Alarm_Result.setText(R.string.alarm_5_day);
-							show_time_dialog();
+                            Subview_Alarm_Time.setVisibility(View.VISIBLE);
+							show_time_dialog().show();
+
+                            SETUP_ALARM = "5days";
                             mAlertDialog.dismiss();
                         }
                     });
 
                     Dialog_Option_5.setVisibility(View.GONE);
+
+//                    Dialog_Edittext.setVisibility(View.GONE);
 
                     Dialog_Dismiss.setOnClickListener(new OnClickListener() {
                         @Override
@@ -760,8 +1090,8 @@ public class Fragment_Credit_Profile extends Fragment {
                     mAlertDialog.show();
 					break;
 //                ================================================================================================
-                case R.id.alarm_time:
-					show_time_dialog();
+                case R.id.alarm_time_linear:
+					show_time_dialog().show();
                     break;
 			}
 		}
@@ -778,14 +1108,13 @@ public class Fragment_Credit_Profile extends Fragment {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 
-                Times_Calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
-                Times_Calendar.set(Calendar.MINUTE, minute);
+                    Times_Calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                    Times_Calendar.set(Calendar.MINUTE, minute);
 
-                SimpleDateFormat SDF = new SimpleDateFormat("HH:mm");
-                String gettime = SDF.format(Times_Calendar.getTime());
-                Alarm_Time_Result.setText(gettime);
+                    ALARM_TIME = new SimpleDateFormat("HH:mm").format(Times_Calendar.getTime());
+                    Alarm_Time_Result.setText(ALARM_TIME);
 
-            }
+                }
 			}, Times_Calendar.get(Calendar.HOUR_OF_DAY), Times_Calendar.get(Calendar.MINUTE), true);
 
         return mDialog;
