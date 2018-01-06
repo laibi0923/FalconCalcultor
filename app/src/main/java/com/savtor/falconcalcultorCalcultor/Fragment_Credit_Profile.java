@@ -21,6 +21,9 @@ import java.util.Calendar;
 import java.util.Date;
 import android.view.View.*;
 import android.app.*;
+import android.widget.*;
+import android.widget.SearchView.*;
+
 
 
 
@@ -109,7 +112,7 @@ public class Fragment_Credit_Profile extends Fragment {
         Init_First_Due = new SimpleDateFormat("yyy/MM/dd").format(new Date());
         Init_Final_Due = "";
         Init_Setup_Alarm = "";
-        Init_Alarm_Time = "";
+        Init_Alarm_Time = getString(R.string.alarm_dontset);
         Init_Address = "";
         Init_Phone = "";
         Init_Remarks = "";
@@ -581,6 +584,118 @@ public class Fragment_Credit_Profile extends Fragment {
 					break;
 //                ================================================================================================
 				case R.id.firstdue_date:
+					
+					First_Due_Calendar = Calendar.getInstance();
+					Final_Due_Calendar = Calendar.getInstance();
+					
+					Dialog mDialog = new DatePickerDialog(getActivity(), R.style.myDateDialogTheme, new DatePickerDialog.OnDateSetListener() {
+
+							@Override
+							public void onDateSet(DatePicker view, int year, int month, int dayOfMonth)
+							{
+								// TODO: Implement this method
+								First_Due_Calendar.set(Calendar.YEAR, year);
+								First_Due_Calendar.set(Calendar.MONTH, month);
+								First_Due_Calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+								
+								Final_Due_Calendar.set(Calendar.YEAR, year);
+								Final_Due_Calendar.set(Calendar.MONTH, month);
+								Final_Due_Calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+								
+								if(month == 1 && dayOfMonth == First_Due_Calendar.getActualMaximum(Calendar.DAY_OF_MONTH) || dayOfMonth == 30){
+									// show dialog
+									mAlertDialog = new AlertDialog.Builder(getContext()).create();
+									Find_Dialog_View();
+
+									mAlertDialog.setView(Dialog_View);
+
+									Dialog_Title.setText(getString(R.string.title_product_status));
+									
+									Dialog_Option_1_Text.setText(R.string.dialog_duedate_normal);
+									Dialog_Option_1.setOnClickListener(new OnClickListener() {
+
+											@Override
+											public void onClick(View v)
+											{
+												// TODO: Implement this method
+												First_Due_Result.setText(First_Due_Calendar.get(Calendar.YEAR) + "/" +
+																		 First_Due_Calendar.get(Calendar.MONTH + 1) + "/" +
+																		 First_Due_Calendar.get(Calendar.DAY_OF_MONTH));
+
+												Final_Due_Calendar.add(Calendar.MONTH, 1 - 1 );
+												Final_Due_Result.setText(Final_Due_Calendar.get(Calendar.YEAR) +"/" +
+																		 Final_Due_Calendar.get(Calendar.MONTH + 1) + "/" +
+																		 Final_Due_Calendar.get(Calendar.DAY_OF_MONTH));
+												
+												mAlertDialog.dismiss();
+											}
+										});
+										
+									Dialog_Option_2_Text.setText(R.string.dialog_duedate_eom);
+									Dialog_Option_2.setOnClickListener(new OnClickListener() {
+
+											@Override
+											public void onClick(View v)
+											{
+												// TODO: Implement this method
+												First_Due_Result.setText(First_Due_Calendar.get(Calendar.YEAR) + "/" +
+																		 First_Due_Calendar.get(Calendar.MONTH + 1) + "/" +
+																		 First_Due_Calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+
+												Final_Due_Calendar.add(Calendar.MONTH, 1 - 1 );
+												Final_Due_Result.setText(Final_Due_Calendar.get(Calendar.YEAR) +"/" +
+																		 Final_Due_Calendar.get(Calendar.MONTH + 1) + "/" +
+																		 Final_Due_Calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+												
+												mAlertDialog.dismiss();
+											}
+										});
+										
+									Dialog_Option_3.setVisibility(View.GONE);
+									Dialog_Option_4.setVisibility(View.GONE);
+									Dialog_Option_5.setVisibility(View.GONE);
+										
+									Dialog_Dismiss.setOnClickListener(new OnClickListener() {
+											@Override
+											public void onClick(View v) {
+												mAlertDialog.dismiss();
+											}
+										});
+										
+									mAlertDialog.show();
+										
+									Subview_Setup_Alarm.setVisibility(View.VISIBLE);
+									
+								} else if(dayOfMonth == 31){
+									
+									First_Due_Result.setText(First_Due_Calendar.get(Calendar.YEAR) + "/" +
+															 First_Due_Calendar.get(Calendar.MONTH + 1) + "/" +
+															 First_Due_Calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+
+									Final_Due_Calendar.add(Calendar.MONTH, 1 - 1 );
+									Final_Due_Result.setText(Final_Due_Calendar.get(Calendar.YEAR) +"/" +
+															 Final_Due_Calendar.get(Calendar.MONTH + 1) + "/" +
+															 Final_Due_Calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+									
+									Subview_Setup_Alarm.setVisibility(View.VISIBLE);
+									
+								} else{
+									
+									First_Due_Result.setText(First_Due_Calendar.get(Calendar.YEAR) + "/" +
+															 First_Due_Calendar.get(Calendar.MONTH + 1) + "/" +
+															 First_Due_Calendar.get(Calendar.DAY_OF_MONTH));
+															 
+									Final_Due_Calendar.add(Calendar.MONTH, 1 - 1 );
+									Final_Due_Result.setText(Final_Due_Calendar.get(Calendar.YEAR) +"/" +
+															 Final_Due_Calendar.get(Calendar.MONTH + 1) + "/" +
+															 Final_Due_Calendar.get(Calendar.DAY_OF_MONTH));
+									
+									Subview_Setup_Alarm.setVisibility(View.VISIBLE);
+								}
+							}
+						},First_Due_Calendar.get(Calendar.YEAR), First_Due_Calendar.get(Calendar.MONTH), First_Due_Calendar.get(Calendar.DAY_OF_MONTH));
+					
+						mDialog.show();
 					break;
 //                ================================================================================================
 				case R.id.setup_alarm:
@@ -597,6 +712,8 @@ public class Fragment_Credit_Profile extends Fragment {
                         @Override
                         public void onClick(View v) {
                             Setup_Alarm_Result.setText(R.string.alarm_dontset);
+							Subview_Alarm_Time.setVisibility(View.GONE);
+							Alarm_Time_Result.setText("");
                             mAlertDialog.dismiss();
                         }
                     });
@@ -606,6 +723,7 @@ public class Fragment_Credit_Profile extends Fragment {
                         @Override
                         public void onClick(View v) {
                             Setup_Alarm_Result.setText(R.string.alarm_0_day);
+							show_time_dialog();
                             mAlertDialog.dismiss();
                         }
                     });
@@ -615,6 +733,7 @@ public class Fragment_Credit_Profile extends Fragment {
                         @Override
                         public void onClick(View v) {
                             Setup_Alarm_Result.setText(R.string.alarm_3_day);
+							show_time_dialog();
                             mAlertDialog.dismiss();
                         }
                     });
@@ -624,6 +743,7 @@ public class Fragment_Credit_Profile extends Fragment {
                         @Override
                         public void onClick(View v) {
                             Setup_Alarm_Result.setText(R.string.alarm_5_day);
+							show_time_dialog();
                             mAlertDialog.dismiss();
                         }
                     });
@@ -641,10 +761,34 @@ public class Fragment_Credit_Profile extends Fragment {
 					break;
 //                ================================================================================================
                 case R.id.alarm_time:
+					show_time_dialog();
                     break;
 			}
 		}
 		
 	};
+	
+	protected Dialog show_time_dialog(){
+
+        Dialog mDialog = null;
+
+        Times_Calendar = Calendar.getInstance();
+
+        mDialog = new TimePickerDialog(getActivity(), R.style.myTimeDialogTheme, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+
+                Times_Calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                Times_Calendar.set(Calendar.MINUTE, minute);
+
+                SimpleDateFormat SDF = new SimpleDateFormat("HH:mm");
+                String gettime = SDF.format(Times_Calendar.getTime());
+                Alarm_Time_Result.setText(gettime);
+
+            }
+			}, Times_Calendar.get(Calendar.HOUR_OF_DAY), Times_Calendar.get(Calendar.MINUTE), true);
+
+        return mDialog;
+    } 
 
 }

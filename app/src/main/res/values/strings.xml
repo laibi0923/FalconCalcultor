@@ -53,8 +53,6 @@
     <string name="calcultor_dialog_PositiveButton">完成</string>
     <string name="calcultor_dialog_NegativeButton">取消</string>
 
-    <string name="calcultor_dialog_normal">按所選日子</string>
-	<string name="calcultor_dialog_endofmonth">每月最後一日</string>
 	
 	<string name="calcultor_dialog_toast_inputname">請先輸入名稱</string>
 
@@ -153,6 +151,10 @@
     <string name="hints_address">地址</string>
     <string name="hints_phone">電話</string>
     <string name="hints_remarks">備註</string>
+	
+	
+	<string name="dialog_duedate_normal">按所選日子</string>
+	<string name="dialog_duedate_eom">每月最後一日</string>
 
 
 
