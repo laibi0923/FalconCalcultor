@@ -63,53 +63,53 @@ public class Favourite_Adapter extends RecyclerSwipeAdapter<Favourite_ViewHolder
     @Override
     public void onBindViewHolder(final Favourite_ViewHolder holder, final int position ) {
         
-        holder.create_date_tv.setText(list.get(position).getCreate_date());
+        holder.create_date_tv.setText(list.get(position).getCreate_Date());
 
-        holder.name_tv.setText(list.get(position).getName());
+        holder.name_tv.setText(list.get(position).getProduct_Name());
 
-        if (list.get(position).getLoanNum().equals("")){
+        if (list.get(position).getLoan_No().equals("")){
             holder.loan_number_tv.setText("");
         }else {
-            holder.loan_number_tv.setText("(" + list.get(position).getLoanNum() + ")");
+            holder.loan_number_tv.setText("(" + list.get(position).getLoan_No() + ")");
         }
 
 
 //        String.format("%1$.2f", totalvalue);
 		holder.loan_amount_tv.setText(String.format(dec_point, list.get(position).getLoan_Amount()));
 
-        holder.loan_trems_tv.setText(String.valueOf( list.get(position).getTrems() ));
+        holder.loan_trems_tv.setText(String.valueOf( list.get(position).getLoan_Trems() ));
 
 		holder.loan_rate_tv.setText(String.valueOf( list.get(position).getLoan_Rate()));
 
-        if (list.get(position).getApply_status() == 0){
-            holder.apply_status_tv.setText(context.getResources().getString(R.string.favourite_status_notapply));
-        }else if (list.get(position).getApply_status() == 1){
-            holder.apply_status_tv.setText(context.getResources().getString(R.string.favourite_status_pending));
-        }else if (list.get(position).getApply_status() == 2){
-            holder.apply_status_tv.setText(context.getResources().getString(R.string.favourite_status_approval));
-        }else if (list.get(position).getApply_status() == 3){
-            holder.apply_status_tv.setText(context.getResources().getString(R.string.favourite_status_reject));
-        }else if (list.get(position).getApply_status() == 4){
-            holder.apply_status_tv.setText(context.getResources().getString(R.string.favourite_status_cancel));
-        }
+//        if (list.get(position).getProduct_Status().equals("not")){
+//            holder.apply_status_tv.setText(context.getResources().getString(R.string.favourite_status_notapply));
+//        }else if (list.get(position).getProduct_Status() == 1){
+//            holder.apply_status_tv.setText(context.getResources().getString(R.string.favourite_status_pending));
+//        }else if (list.get(position).getProduct_Status() == 2){
+//            holder.apply_status_tv.setText(context.getResources().getString(R.string.favourite_status_approval));
+//        }else if (list.get(position).getProduct_Status() == 3){
+//            holder.apply_status_tv.setText(context.getResources().getString(R.string.favourite_status_reject));
+//        }else if (list.get(position).getProduct_Status() == 4){
+//            holder.apply_status_tv.setText(context.getResources().getString(R.string.favourite_status_cancel));
+//        }
 
 
-
-        if(list.get(position).getLoan_Type() == 0){
-            holder.loan_type_icon.setImageResource(R.drawable.ic_person_black_24dp);
-        }else if (list.get(position).getLoan_Type() == 1){
-            holder.loan_type_icon.setImageResource(R.drawable.ic_person_black_24dp);
-        }else if(list.get(position).getLoan_Type() == 2){
-            holder.loan_type_icon.setImageResource(R.drawable.ic_domain_black_24dp);
-        }else if(list.get(position).getLoan_Type() == 3){
-            holder.loan_type_icon.setImageResource(R.drawable.ic_directions_car_black_24dp);
-        }
-
-        if (list.get(position).getAlert_date() == 0){
-            holder.alert_icon_im.setVisibility(View.GONE);
-        }else {
-            holder.alert_icon_im.setVisibility(View.VISIBLE);
-        }
+//
+//        if(list.get(position).getLoan_Type() == 0){
+//            holder.loan_type_icon.setImageResource(R.drawable.ic_person_black_24dp);
+//        }else if (list.get(position).getLoan_Type() == 1){
+//            holder.loan_type_icon.setImageResource(R.drawable.ic_person_black_24dp);
+//        }else if(list.get(position).getLoan_Type() == 2){
+//            holder.loan_type_icon.setImageResource(R.drawable.ic_domain_black_24dp);
+//        }else if(list.get(position).getLoan_Type() == 3){
+//            holder.loan_type_icon.setImageResource(R.drawable.ic_directions_car_black_24dp);
+//        }
+//
+//        if (list.get(position).getAlert_date() == 0){
+//            holder.alert_icon_im.setVisibility(View.GONE);
+//        }else {
+//            holder.alert_icon_im.setVisibility(View.VISIBLE);
+//        }
 
         if (list.get(position).getRemarks().equals("")){
             holder.remarks_tv.setText("未有輸入");
@@ -125,7 +125,7 @@ public class Favourite_Adapter extends RecyclerSwipeAdapter<Favourite_ViewHolder
 
                 // Del on database
                 Favourite_DataBasic favourite_dataBasic = new Favourite_DataBasic(v.getContext(), "Favourite_Adapter");
-                favourite_dataBasic.delete(list.get(position).getid());
+                favourite_dataBasic.delete(list.get(position).getID());
 
                 // Del on list
                 list.remove(position);
@@ -153,7 +153,7 @@ public class Favourite_Adapter extends RecyclerSwipeAdapter<Favourite_ViewHolder
 				
 				mBundle.putString("EDIT_MODE", "true");
 				
-				mBundle.putInt("DB_ID", list.get(position).getid());
+				mBundle.putInt("DB_ID", list.get(position).getID());
 
 				mFragment.setArguments(mBundle);
 
@@ -167,7 +167,7 @@ public class Favourite_Adapter extends RecyclerSwipeAdapter<Favourite_ViewHolder
 
 
         Calcultor mCalcultor = new Calcultor();
-        double result = mCalcultor.getMonthlyInstallment(list.get(position).getLoan_Amount(), list.get(position).getTrems(), list.get(position).getLoan_Rate());
+        double result = mCalcultor.getMonthlyInstallment(list.get(position).getLoan_Amount(), list.get(position).getLoan_Trems(), list.get(position).getLoan_Rate());
         holder.installment_tv.setText(String.format(dec_point, result));
 
         holder.swipeLayout.setShowMode(SwipeLayout.ShowMode.LayDown);

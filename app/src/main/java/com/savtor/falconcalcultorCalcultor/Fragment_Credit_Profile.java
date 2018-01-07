@@ -15,18 +15,16 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import com.savtor.falconcalcultor.*;
-
 import java.text.SimpleDateFormat;
-
 import java.util.Calendar;
 import java.util.Date;
 import android.view.View.*;
 import android.app.*;
 import android.widget.*;
 
-
+import com.savtor.falconcalaultorDatabase.Favouite_Item;
+import com.savtor.falconcalaultorDatabase.Favourite_DataBasic;
+import com.savtor.falconcalcultor.*;
 
 
 /**
@@ -35,7 +33,7 @@ import android.widget.*;
 public class Fragment_Credit_Profile extends Fragment {
 
     // Fragment View
-    private EditText Product_Name, Product_Loan_Number, Address, Phone, Remarks;
+    private EditText Product_Name, Product_Loan_Number, Address, PhoneNo, Remarks;
 
     private TextView Product_Type_Name, Product_Status_Title, Product_Status_Result,
                      Loan_Amount_Title, Loan_Rate_Title, Loan_Trems_Title, Loan_Installment_Title, Loan_Amount_Result, Loan_Rate_Result, Loan_Trems_Result, Loan_Installment_Result,
@@ -76,15 +74,45 @@ public class Fragment_Credit_Profile extends Fragment {
     private Calendar First_Due_Calendar, Final_Due_Calendar, Times_Calendar;
 
     // DataBase Update / Intert
-    private String PRODUCT_CODE, STATUS_CODE, FIRST_DUE,  SETUP_ALARM, ALARM_TIME;
+    private String PRODUCT_NAME, PRODUCT_CODE, STATUS_CODE, LOAN_NUM, FIRST_DUE, ALARM_TIME, EOM_DUEDATE, ADDRESS, PHONE, REMARKS, LAST_MODIFY;
     private double LOAN_AMOUNT, LOAN_RATE, LOAN_INSTALLMENT;
-    private int LOAN_TREMS;
+    private int LOAN_TREMS, SETUP_ALARM;
+
+    private String This_Fragment_Name = "Fragment_Credit_Profile";
+
+    private Favourite_DataBasic DataBasic;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 		
 		setHasOptionsMenu(true);
+
+        Init_Product_Icon = R.drawable.ic_person_black_24dp;
+        Init_Product_Type = getString(R.string.title_product_personal);
+        Init_Product_Status = getString(R.string.product_status_notapply);
+
+        Init_Loan_Number = "";
+        Init_Loan_Amount = "0";
+        Init_Loan_Rate = "0";
+        Init_Loan_Trems = "12 個月";
+        Init_Loan_Installment = "0";
+
+        Init_First_Due = new SimpleDateFormat("yyy/MM/dd").format(new Date());
+        Init_Final_Due = "";
+        Init_Setup_Alarm = "";
+        Init_Alarm_Time = getString(R.string.alarm_dontset);
+
+        Init_Address = "";
+        Init_Phone = "";
+        Init_Remarks = "";
+
+        PRODUCT_CODE = "Personal";
+        STATUS_CODE = "NotApply";
+        LOAN_TREMS = 12;
+        SETUP_ALARM = 99;
+
     }
 
     @Override
@@ -96,17 +124,56 @@ public class Fragment_Credit_Profile extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        Log.e("PRODUCT_CODE", PRODUCT_CODE + "");
-        Log.e("STATUS_CODE", STATUS_CODE + "");
+        if (Product_Name.getText().toString().isEmpty()){
+            Toast.makeText(getContext(), getString(R.string.hints_enter_name), Toast.LENGTH_SHORT).show();
+        }else {
 
-        Log.e("LOAN_AMOUNT", LOAN_AMOUNT + "");
-        Log.e("LOAN_RATE", LOAN_RATE + "");
-        Log.e("LOAN_TREMS", LOAN_TREMS + "");
-        Log.e("LOAN_INSTALLMENT", LOAN_INSTALLMENT + "");
+            DataBasic = new Favourite_DataBasic(getActivity(), This_Fragment_Name);
 
-        Log.e("FIRST_DUE", FIRST_DUE + "");
-        Log.e("SETUP_ALARM", SETUP_ALARM + "");
-        Log.e("ALARM_TIME", ALARM_TIME + "");
+            Favouite_Item fav_item = new Favouite_Item(
+                    1,
+                    new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()),
+                    PRODUCT_NAME,
+                    PRODUCT_CODE,
+                    STATUS_CODE,
+                    LOAN_NUM,
+                    LOAN_AMOUNT,
+                    LOAN_TREMS,
+                    LOAN_RATE,
+                    LOAN_INSTALLMENT,
+                    FIRST_DUE,
+                    EOM_DUEDATE,
+                    SETUP_ALARM,
+                    ALARM_TIME, //HH:mm:ss
+                    Address.getText().toString(),
+                    PhoneNo.getText().toString(),
+                    Remarks.getText().toString());
+
+            DataBasic.inster(fav_item);
+
+            DataBasic.close();
+
+            Log.e("LAST_MODIFY", new SimpleDateFormat("yyyy/MM/dd").format(new Date()) + "");
+            Log.e("PRODUCT_NAME", Product_Name.getText().toString());
+
+            Log.e("PRODUCT_CODE", PRODUCT_CODE + "");
+            Log.e("STATUS_CODE", STATUS_CODE + "");
+            Log.e("LOAN_NUM", Product_Loan_Number.getText().toString());
+
+            Log.e("LOAN_AMOUNT", LOAN_AMOUNT + "");
+            Log.e("LOAN_RATE", LOAN_RATE + "");
+            Log.e("LOAN_TREMS", LOAN_TREMS + "");
+            Log.e("LOAN_INSTALLMENT", LOAN_INSTALLMENT + "");
+
+            Log.e("FIRST_DUE", FIRST_DUE + "");
+            Log.e("EOM_DUEDATE", EOM_DUEDATE + "");
+            Log.e("SETUP_ALARM", SETUP_ALARM + "");
+            Log.e("ALARM_TIME", ALARM_TIME + "");
+
+            Log.e("ADDRESS", Address.getText().toString());
+            Log.e("PHONE_NO", PhoneNo.getText().toString());
+            Log.e("REMARKS", Remarks.getText().toString());
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -117,40 +184,67 @@ public class Fragment_Credit_Profile extends Fragment {
 
         View v = inflater.inflate(R.layout.credit_profile, container, false);
 
-        First_Due_Calendar = Calendar.getInstance();
-
-        Init_Product_Type = getString(R.string.title_product_personal);
-        PRODUCT_CODE = "Personal";
-        Init_Product_Icon = R.drawable.ic_person_black_24dp;
-
-        Init_Product_Status = getString(R.string.product_status_notapply);
-        STATUS_CODE = "NotApply";
-
-        Init_Loan_Number = "";
-        Init_Loan_Amount = "0";
-        Init_Loan_Rate = "0";
-
-        Init_Loan_Trems = "12 個月";
-        LOAN_TREMS = 12;
-
-        Init_Loan_Installment = "0";
-        Init_First_Due = new SimpleDateFormat("yyy/MM/dd").format(new Date());
-        Init_Final_Due = "";
-        Init_Setup_Alarm = "";
-        Init_Alarm_Time = getString(R.string.alarm_dontset);
-        Init_Address = "";
-        Init_Phone = "";
-        Init_Remarks = "";
-
         Find_View(v);
-
-//        默認隱藏
-//        Subview_Loan_Number.setVisibility(View.GONE);
-//        Subview_Setup_Alarm.setVisibility(View.GONE);
-//        Subview_Alarm_Time.setVisibility(View.GONE);
-//        Due_Date_Linear.setVisibility(View.GONE);
+        Default_View();
 
         return v;
+    }
+
+
+    public void Reset_Value(){
+
+        Product_Name.setText("");
+
+        Init_Product_Status = getString(R.string.product_status_notapply);
+
+        Product_Status_Result.setText(getString(R.string.applytype_notyet));
+        Product_Loan_Number.setText("");
+
+        Loan_Amount_Result.setText("0");
+        Loan_Rate_Result.setText("0");
+        Loan_Trems_Result.setText("12個月");
+        Loan_Installment_Result.setText("0");
+
+        First_Due_Result.setText(new SimpleDateFormat("yyy/MM/dd").format(new Date()));
+        Final_Due_Result.setText("");
+        Setup_Alarm_Result.setText(getString(R.string.alarm_dontset));
+        Alarm_Time_Result.setText("");
+
+        Address.setText("");
+        PhoneNo.setText("");
+        Remarks.setText("");
+
+        STATUS_CODE = "NotApply";
+        LOAN_TREMS = 12;
+
+    }
+
+    public void Default_View(){
+
+        Subview_Product_Status.setVisibility(View.VISIBLE);
+        Subview_Loan_Number.setVisibility(View.GONE);
+        Subview_Loan_Amount.setVisibility(View.VISIBLE);
+        Subview_Loan_Rate.setVisibility(View.VISIBLE);
+        Subview_Loan_Trems.setVisibility(View.VISIBLE);
+        Subview_Loan_Installment.setVisibility(View.VISIBLE);
+
+        Due_Date_Linear.setVisibility(View.GONE);
+        Subview_First_due.setVisibility(View.VISIBLE);
+        Subview_Final_due.setVisibility(View.VISIBLE);
+        Subview_Setup_Alarm.setVisibility(View.GONE);
+        Subview_Alarm_Time.setVisibility(View.GONE);
+
+        Subview_Address.setVisibility(View.VISIBLE);
+        Subview_Phone.setVisibility(View.VISIBLE);
+        Subview_Remarks.setVisibility(View.VISIBLE);
+
+        //  Change
+        Product_Loan_Number.setHint(R.string.hints_loan_number);
+        Loan_Amount_Title.setText(getString(R.string.title_loan_amount));
+        Loan_Rate_Title.setText(getString(R.string.title_loan_rate));
+        Loan_Installment_Title.setText(getString(R.string.title_loan_installment));
+        First_Due_Title.setText(getString(R.string.title_first_due));
+
     }
 
 
@@ -271,9 +365,10 @@ public class Fragment_Credit_Profile extends Fragment {
         Subview_Phone = v.findViewById(R.id.phone);
         Phone_Icon = (ImageView) Subview_Phone.findViewById(R.id.sub_image);
         Phone_Icon.setImageResource(R.drawable.ic_call_black_24dp);
-        Phone = (EditText) Subview_Phone.findViewById(R.id.sub_edittext);
-        Phone.setHint(R.string.hints_phone);
-        Phone.setText(Init_Phone);
+        PhoneNo = (EditText) Subview_Phone.findViewById(R.id.sub_edittext);
+        PhoneNo.setInputType(InputType.TYPE_CLASS_NUMBER);
+        PhoneNo.setHint(R.string.hints_phone);
+        PhoneNo.setText(Init_Phone);
 
         Subview_Remarks = v.findViewById(R.id.remarks);
         Remarks_Icon = (ImageView) Subview_Remarks.findViewById(R.id.sub_image);
@@ -347,19 +442,11 @@ public class Fragment_Credit_Profile extends Fragment {
                             Product_Type_Icon.setImageResource(R.drawable.ic_person_black_24dp);
                             Product_Type_Name.setText(getString(R.string.title_product_personal));
 
-                            //  Show
-                            Subview_Product_Status.setVisibility(View.VISIBLE);
-                            Subview_Loan_Trems.setVisibility(View.VISIBLE);
-                            Subview_Final_due.setVisibility(View.VISIBLE);
-                            Subview_Address.setVisibility(View.VISIBLE);
-                            Subview_Phone.setVisibility(View.VISIBLE);
-                            // Hide
-                            Subview_Loan_Number.setVisibility(View.GONE);
-                            //  Change
-                            Loan_Amount_Title.setText(getString(R.string.title_loan_amount));
-                            Loan_Rate_Title.setText(getString(R.string.title_loan_rate));
-                            Loan_Installment_Title.setText(getString(R.string.title_loan_installment));
-                            Product_Loan_Number.setHint(R.string.hints_loan_number);
+                            if (PRODUCT_CODE == "Card"){
+                                Default_View();
+                                Reset_Value();
+                            }
+
 
                             PRODUCT_CODE = "Personal";
                             mAlertDialog.dismiss();
@@ -374,19 +461,10 @@ public class Fragment_Credit_Profile extends Fragment {
                             Product_Type_Icon.setImageResource(R.drawable.ic_domain_black_24dp);
                             Product_Type_Name.setText(getString(R.string.title_product_mortgage));
 
-                            //  Show
-                            Subview_Product_Status.setVisibility(View.VISIBLE);
-                            Subview_Loan_Trems.setVisibility(View.VISIBLE);
-                            Subview_Final_due.setVisibility(View.VISIBLE);
-                            Subview_Address.setVisibility(View.VISIBLE);
-                            Subview_Phone.setVisibility(View.VISIBLE);
-                            // Hide
-                            Subview_Loan_Number.setVisibility(View.GONE);
-                            //  Change
-                            Loan_Amount_Title.setText(getString(R.string.title_loan_amount));
-                            Loan_Rate_Title.setText(getString(R.string.title_loan_rate));
-                            Loan_Installment_Title.setText(getString(R.string.title_loan_installment));
-                            Product_Loan_Number.setHint(R.string.hints_loan_number);
+                            if (PRODUCT_CODE == "Card"){
+                                Default_View();
+                                Reset_Value();
+                            }
 
                             PRODUCT_CODE = "Mortgage";
                             mAlertDialog.dismiss();
@@ -401,19 +479,10 @@ public class Fragment_Credit_Profile extends Fragment {
                             Product_Type_Icon.setImageResource(R.drawable.ic_person_black_24dp);
                             Product_Type_Name.setText(getString(R.string.title_product_revolving));
 
-                            //  Show
-                            Subview_Product_Status.setVisibility(View.VISIBLE);
-                            Subview_Loan_Trems.setVisibility(View.VISIBLE);
-                            Subview_Final_due.setVisibility(View.VISIBLE);
-                            Subview_Address.setVisibility(View.VISIBLE);
-                            Subview_Phone.setVisibility(View.VISIBLE);
-                            // Hide
-                            Subview_Loan_Number.setVisibility(View.GONE);
-                            //  Change
-                            Loan_Amount_Title.setText(getString(R.string.title_loan_amount));
-                            Loan_Rate_Title.setText(getString(R.string.title_loan_rate));
-                            Loan_Installment_Title.setText(getString(R.string.title_loan_installment));
-                            Product_Loan_Number.setHint(R.string.hints_loan_number);
+                            if (PRODUCT_CODE == "Card"){
+                                Default_View();
+                                Reset_Value();
+                            }
 
                             PRODUCT_CODE = "Revolving";
                             mAlertDialog.dismiss();
@@ -428,19 +497,10 @@ public class Fragment_Credit_Profile extends Fragment {
                             Product_Type_Icon.setImageResource(R.drawable.ic_directions_car_black_24dp);
                             Product_Type_Name.setText(getString(R.string.title_product_car));
 
-                            //  Show
-                            Subview_Product_Status.setVisibility(View.VISIBLE);
-                            Subview_Loan_Trems.setVisibility(View.VISIBLE);
-                            Subview_Final_due.setVisibility(View.VISIBLE);
-                            Subview_Address.setVisibility(View.VISIBLE);
-                            Subview_Phone.setVisibility(View.VISIBLE);
-                            // Hide
-                            Subview_Loan_Number.setVisibility(View.GONE);
-                            //  Change
-                            Loan_Amount_Title.setText(getString(R.string.title_loan_amount));
-                            Loan_Rate_Title.setText(getString(R.string.title_loan_rate));
-                            Loan_Installment_Title.setText(getString(R.string.title_loan_installment));
-                            Product_Loan_Number.setHint(R.string.hints_loan_number);
+                            if (PRODUCT_CODE == "Card"){
+                                Default_View();
+                                Reset_Value();
+                            }
 
                             PRODUCT_CODE = "Car";
                             mAlertDialog.dismiss();
@@ -456,26 +516,37 @@ public class Fragment_Credit_Profile extends Fragment {
                             Product_Type_Icon.setImageResource(R.drawable.ic_credit_card_black_24dp);
                             Product_Type_Name.setText(getString(R.string.title_product_card));
 
-                            //  Hide
+                            Reset_Value();
+                            //  Hide View
                             Subview_Product_Status.setVisibility(View.GONE);
                             Subview_Loan_Trems.setVisibility(View.GONE);
                             Subview_Final_due.setVisibility(View.GONE);
+                            Subview_Alarm_Time.setVisibility(View.GONE);
                             Subview_Address.setVisibility(View.GONE);
                             Subview_Phone.setVisibility(View.GONE);
                             // Show
                             Subview_Loan_Number.setVisibility(View.VISIBLE);
-                            //  Clear
-                            Product_Status_Result.setText("");
-                            Final_Due_Result.setText("");
-                            Address.setText("");
-                            Phone.setText("");
-                            //  Change
+                            Due_Date_Linear.setVisibility(View.VISIBLE);
+                            Subview_First_due.setVisibility(View.VISIBLE);
+
+                            //  Change Title
                             Loan_Amount_Title.setText("信用額");
                             Loan_Rate_Title.setText("最低還款利率");
                             Loan_Installment_Title.setText("最低還款額");
                             Product_Loan_Number.setHint("信用卡號碼 (選填)");
+                            First_Due_Title.setText("下月交款日");
 
                             PRODUCT_CODE = "Card";
+                            STATUS_CODE = "APPROVAL";
+                            LOAN_AMOUNT = 0;
+                            LOAN_RATE = 0;
+                            LOAN_TREMS = 0;
+                            LOAN_INSTALLMENT = 0;
+                            FIRST_DUE = new SimpleDateFormat("yyyy/MM/dd").format(new Date());
+                            EOM_DUEDATE = "false";
+                            SETUP_ALARM = 99;
+                            ALARM_TIME = "";
+
                             mAlertDialog.dismiss();
                         }
                     });
@@ -769,7 +840,7 @@ public class Fragment_Credit_Profile extends Fragment {
 
                     mAlertDialog.setView(Dialog_View);
 
-                    Dialog_Title.setText("自定攤還期數");
+                    Dialog_Title.setText("輸入攤還期數");
 
                     Dialog_Option_1_Icon.setVisibility(View.GONE);
                     Dialog_Option_1_Text.setText("12 個月");
@@ -817,7 +888,7 @@ public class Fragment_Credit_Profile extends Fragment {
                     Dialog_Option_5.setVisibility(View.GONE);
 
                     Dialog_Edittext.setVisibility(View.VISIBLE);
-                    Dialog_Option_Edittext.setHint("輸入攤還期數");
+                    Dialog_Option_Edittext.setHint("自定攤還期數");
                     Dialog_Option_Edittext.setInputType(InputType.TYPE_CLASS_NUMBER);
                     Dialog_Option_Edittext.requestFocus();
 
@@ -941,6 +1012,7 @@ public class Fragment_Credit_Profile extends Fragment {
 																		 Final_Due_Calendar.get(Calendar.DAY_OF_MONTH));
 
                                                 FIRST_DUE = new SimpleDateFormat("yyyy/MM/dd").format(First_Due_Calendar.getTime());
+                                                EOM_DUEDATE = "false";
 												mAlertDialog.dismiss();
 											}
 										});
@@ -962,6 +1034,7 @@ public class Fragment_Credit_Profile extends Fragment {
 																		 Final_Due_Calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
 
                                                 FIRST_DUE = new SimpleDateFormat("yyyy/MM/dd").format(First_Due_Calendar.getTime());
+                                                EOM_DUEDATE = "true";
 												mAlertDialog.dismiss();
 											}
 										});
@@ -993,6 +1066,7 @@ public class Fragment_Credit_Profile extends Fragment {
 															 Final_Due_Calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
 
                                     FIRST_DUE = new SimpleDateFormat("yyyy/MM/dd").format(First_Due_Calendar.getTime());
+                                    EOM_DUEDATE = "true";
 									Subview_Setup_Alarm.setVisibility(View.VISIBLE);
 									
 								} else{
@@ -1007,6 +1081,7 @@ public class Fragment_Credit_Profile extends Fragment {
 															 Final_Due_Calendar.get(Calendar.DAY_OF_MONTH));
 
                                     FIRST_DUE = new SimpleDateFormat("yyyy/MM/dd").format(First_Due_Calendar.getTime());
+                                    EOM_DUEDATE = "false";
 									Subview_Setup_Alarm.setVisibility(View.VISIBLE);
 								}
 							}
@@ -1032,7 +1107,7 @@ public class Fragment_Credit_Profile extends Fragment {
 							Subview_Alarm_Time.setVisibility(View.GONE);
 							Alarm_Time_Result.setText("");
 
-                            SETUP_ALARM = "Dontset";
+                            SETUP_ALARM = 99;
                             mAlertDialog.dismiss();
                         }
                     });
@@ -1045,7 +1120,7 @@ public class Fragment_Credit_Profile extends Fragment {
                             Subview_Alarm_Time.setVisibility(View.VISIBLE);
 							show_time_dialog().show();
 
-                            SETUP_ALARM = "0days";
+                            SETUP_ALARM = 0;
                             mAlertDialog.dismiss();
                         }
                     });
@@ -1058,7 +1133,7 @@ public class Fragment_Credit_Profile extends Fragment {
                             Subview_Alarm_Time.setVisibility(View.VISIBLE);
 							show_time_dialog().show();
 
-                            SETUP_ALARM = "3days";
+                            SETUP_ALARM = 3;
                             mAlertDialog.dismiss();
                         }
                     });
@@ -1071,14 +1146,12 @@ public class Fragment_Credit_Profile extends Fragment {
                             Subview_Alarm_Time.setVisibility(View.VISIBLE);
 							show_time_dialog().show();
 
-                            SETUP_ALARM = "5days";
+                            SETUP_ALARM = 5;
                             mAlertDialog.dismiss();
                         }
                     });
 
                     Dialog_Option_5.setVisibility(View.GONE);
-
-//                    Dialog_Edittext.setVisibility(View.GONE);
 
                     Dialog_Dismiss.setOnClickListener(new OnClickListener() {
                         @Override

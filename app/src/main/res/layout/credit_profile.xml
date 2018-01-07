@@ -58,7 +58,7 @@
                     android:tint="@color/deep_teal_200"
                     android:id="@+id/product_type_icon"
                     android:cropToPadding="false"
-                    android:scaleType="centerCrop" />
+                    android:nestedScrollingEnabled="false" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -266,16 +266,6 @@
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
             android:elevation="4dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Remarks"
-                android:id="@+id/textView28"
-                android:textColor="@color/deep_teal_200"
-                android:layout_margin="10dp"
-                android:visibility="gone"/>
 
             <include
                 layout="@layout/saver_dialog_sub_ed"

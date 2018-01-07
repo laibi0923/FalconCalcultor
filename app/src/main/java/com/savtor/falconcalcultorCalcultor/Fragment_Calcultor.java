@@ -16,8 +16,6 @@ import com.savtor.falconcalcultor.*;
 import com.savtor.falconcalcultorSchedule.Schedule_Fragment;
 import android.graphics.drawable.*;
 
-
-
 /**
  * Created by GhostLeo_DT on 24/11/2017.
  */
@@ -118,7 +116,7 @@ public class Fragment_Calcultor extends Fragment {
         Favourite_DataBasic databasic = new Favourite_DataBasic(getActivity(), "Fragment_Calcultor");
 
         current_LoanAmount = databasic.query(databasic_ID).getLoan_Amount();
-        current_LoanTrems = databasic.query(databasic_ID).getTrems();
+        current_LoanTrems = databasic.query(databasic_ID).getLoan_Trems();
         current_LoanRate = databasic.query(databasic_ID).getLoan_Rate();
         result_Installment = mCalcultor.getMonthlyInstallment(current_LoanAmount, current_LoanTrems, current_LoanRate);
         result_Total_Interest = mCalcultor.getTotalInsterest(current_LoanAmount, current_LoanTrems, result_Installment);

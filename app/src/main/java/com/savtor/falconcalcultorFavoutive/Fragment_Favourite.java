@@ -112,21 +112,22 @@ public class Fragment_Favourite extends Fragment {
         for(Favouite_Item i : items){
 
             favouriteData.add(new Favouite_Item(
-				i.getid(),
-				i.getCreate_date().substring(0, 10),
-				i.getName(),
-				i.getLoan_Type(),
-				i.getApply_status(),
-				i.getLoanNum(),
+				i.getID(),
+				i.getCreate_Date().substring(0, 10),
+				i.getProduct_Name(),
+				i.getProduct_Type(),
+				i.getProduct_Status(),
+				i.getLoan_No(),
 				i.getLoan_Amount(),
-				i.getTrems(),
+				i.getLoan_Trems(),
 				i.getLoan_Rate(),
-				i.getFirst_dueddate(),
-				i.getFinal_dueddate(),
-				i.getAlert_date(),
-				i.getAlert_time(),
+                i.getLoan_Installment(),
+				i.getFirst_Due(),
+				i.getEOM_DueDate(),
+				i.getSetup_Alarm(),
+				i.getAlarm_Time(),
 				i.getAddress(),
-				i.getPhone(),
+				i.getPhone_No(),
 				i.getRemarks()));
                    
         }
@@ -168,7 +169,7 @@ public class Fragment_Favourite extends Fragment {
 
         for (Favouite_Item fav_data : models){
 
-            if(fav_data.getName().toLowerCase().contains(query)){
+            if(fav_data.getProduct_Name().toLowerCase().contains(query)){
                 filterList.add(fav_data);
             }
         }

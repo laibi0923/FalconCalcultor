@@ -157,6 +157,11 @@
 	<string name="dialog_duedate_eom">每月最後一日</string>
 
     <string name="hints_dialog_loanammount">自定金額</string>
+    <string name="hints_dialog_loanrate">自定利率</string>
+    <string name="hints_dialog_loantrems">自定期數</string>
+    <string name="hints_dialog_loaninstallment">自定供款金額</string>
+
+    <string name="hints_enter_name">請先輸入名稱</string>
 
 
 

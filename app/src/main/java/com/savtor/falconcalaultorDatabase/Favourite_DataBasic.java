@@ -17,21 +17,22 @@ public class Favourite_DataBasic {
     // 表格名稱
     public static final String TABLE_NAME = "favourite";
 
-    // 編號表格欄位名稱，固定不變, 共15項
+    // 編號表格欄位名稱，固定不變, 共17項
     public static final String KEY_ID = "_id";
 
     public static final String CREATE_DATE_COULUMN = "CreateDate";
-    public static final String NAME_COLUMN = "Name";
-    public static final String LOAN_TYPE_COULUMN = "LoanType";
-    public static final String APPLY_STATUS_COULUMN = "ApplyStatus";
+    public static final String PRODUCT_NAME_COLUMN = "ProductName";
+    public static final String PRODUCT_TYPE_COULUMN = "ProductType";
+    public static final String PRODUCT_STATUS_COULUMN = "ProductStatus";
     public static final String LOAN_NUM_COULUMN = "LoanNum";
 
     public static final String AMOUNT_COLUMN = "LoanAmount";
     public static final String TREMS_COULUMN = "LoanTrems";
     public static final String RATE_COULUMN = "LoanRate";
+    public static final String INSTALLMENT_COULUMN = "LoanInstallment";
 
     public static final String FIRST_DUEDATE_COULUMN = "Firstduedate";
-    public static final String FINAL_DUEDATE_COULUMN = "Finalduedate";
+    public static final String EOM_DUEDATE_COULUMN = "EOMduedate";
     public static final String ALERT_DATE_COULUMN = "AlertDate";
     public static final String ALERT_TIME_COULUMN = "AlertTime";
 
@@ -47,17 +48,18 @@ public class Favourite_DataBasic {
     public static final String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + "(" +
             KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             CREATE_DATE_COULUMN + " DATETIME DEFAULT (datetime('now', 'localtime')), " +
-            NAME_COLUMN + " TEXT," +
-            LOAN_TYPE_COULUMN + " INTEGER," +
-            APPLY_STATUS_COULUMN + " INTEGER," +
+            PRODUCT_NAME_COLUMN + " TEXT," +
+            PRODUCT_TYPE_COULUMN + " TEXT," +
+            PRODUCT_STATUS_COULUMN + " TEXT," +
             LOAN_NUM_COULUMN + " TEXT," +
 
             AMOUNT_COLUMN + " DOUBLE," +
             TREMS_COULUMN + " INTEGER," +
             RATE_COULUMN + " DOUBLE," +
+            INSTALLMENT_COULUMN + " DOUBLE," +
 
             FIRST_DUEDATE_COULUMN + " DATETIME," +
-            FINAL_DUEDATE_COULUMN + " DATETIME," +
+            EOM_DUEDATE_COULUMN + " TEXT," +
             ALERT_DATE_COULUMN + " INTEGER," +
             ALERT_TIME_COULUMN + " DATETIME, " +
 
@@ -97,7 +99,7 @@ public class Favourite_DataBasic {
 
         ContentValues cv = new ContentValues();
 
-        String where =  KEY_ID + "=" + item.getid();
+        String where =  KEY_ID + "=" + item.getID();
 
         cv = get_ContenValue(item);
 
@@ -203,26 +205,27 @@ public class Favourite_DataBasic {
 
         Favouite_Item item = new Favouite_Item();
 
-        item.setid(cusor.getInt(0));
-        item.setCreate_date(cusor.getString(1));
+        item.setID(cusor.getInt(0));
+        item.setCreate_Date(cusor.getString(1));
 
-        item.setName(cusor.getString(2));
-        item.setLoan_Type(cusor.getInt(3));
-        item.setApply_status(cusor.getInt(4));
-        item.setLoanNum(cusor.getString(5));
+        item.setProduct_Name(cusor.getString(2));
+        item.setProduct_Type(cusor.getString(3));
+        item.setProduct_Status(cusor.getString(4));
+        item.setLoan_No(cusor.getString(5));
 
-        item.setLaon_Amount(cusor.getDouble(6));
-        item.setTrems(cusor.getInt(7));
+        item.setLoan_Amount(cusor.getDouble(6));
+        item.setLoan_Trems(cusor.getInt(7));
         item.setLoan_Rate(cusor.getDouble(8));
+        item.setLoan_Installment(cusor.getDouble(9));
 
-        item.setFirst_duedate(cusor.getString(9));
-        item.setFinal_duedate(cusor.getString(10));
-        item.setAlert_date(cusor.getInt(11));
-        item.setAlert_time(cusor.getString(12));
+        item.setFirst_Due(cusor.getString(10));
+        item.setEOM_DueDate(cusor.getString(11));
+        item.setSetup_Alarm(cusor.getInt(12));
+        item.setAlarm_Time(cusor.getString(13));
 
-        item.setAddress(cusor.getString(13));
-        item.setPhone(cusor.getString(14));
-        item.setRemarks(cusor.getString(15));
+        item.setAddress(cusor.getString(14));
+        item.setPhone_No(cusor.getString(15));
+        item.setRemarks(cusor.getString(16));
 
 
 
@@ -235,26 +238,27 @@ public class Favourite_DataBasic {
 
         ContentValues cv = new ContentValues();
 
-        cv.put(CREATE_DATE_COULUMN, item.getCreate_date());
+        cv.put(CREATE_DATE_COULUMN, item.getCreate_Date());
 
-        cv.put(NAME_COLUMN, item.getName());
-        cv.put(LOAN_TYPE_COULUMN, item.getLoan_Type());
-        cv.put(APPLY_STATUS_COULUMN, item.getApply_status());
-        cv.put(LOAN_NUM_COULUMN, item.getLoanNum());
+        cv.put(PRODUCT_NAME_COLUMN, item.getProduct_Name());
+        cv.put(PRODUCT_TYPE_COULUMN, item.getProduct_Type());
+        cv.put(PRODUCT_STATUS_COULUMN, item.getProduct_Status());
+        cv.put(LOAN_NUM_COULUMN, item.getLoan_No());
 
         cv.put(AMOUNT_COLUMN, item.getLoan_Amount());
-        cv.put(TREMS_COULUMN, item.getTrems());
+        cv.put(TREMS_COULUMN, item.getLoan_Trems());
         cv.put(RATE_COULUMN, item.getLoan_Rate());
+        cv.put(INSTALLMENT_COULUMN, item.getLoan_Installment());
 
 
-        cv.put(FIRST_DUEDATE_COULUMN, item.getFirst_dueddate());
-        cv.put(FINAL_DUEDATE_COULUMN, item.getFinal_dueddate());
-        cv.put(ALERT_DATE_COULUMN, item.getAlert_date());
-        cv.put(ALERT_TIME_COULUMN, item.getAlert_time());
+        cv.put(FIRST_DUEDATE_COULUMN, item.getFirst_Due());
+        cv.put(EOM_DUEDATE_COULUMN, item.getEOM_DueDate());
+        cv.put(ALERT_DATE_COULUMN, item.getSetup_Alarm());
+        cv.put(ALERT_TIME_COULUMN, item.getAlarm_Time());
 
 
         cv.put(ADDRESS_COULUMN, item.getAddress());
-        cv.put(PHONE_COULUMN, item.getPhone());
+        cv.put(PHONE_COULUMN, item.getPhone_No());
         cv.put(REMARKS_COULUMN, item.getRemarks());
 
 
