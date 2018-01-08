@@ -33,7 +33,7 @@ public class Favouite_Item {
         String content = "";
     }
 
-    public Favouite_Item(int ID, String Create_Date, String Product_Name, String Product_Status, String Product_Type, String Loan_No,
+    public Favouite_Item(int ID, String Create_Date, String Product_Name, String Product_Type, String Product_Status, String Loan_No,
                          double Loan_Amount, int Loan_Trems, double Loan_Rate, double Loan_Installment,
                          String First_Due, String EOM_DueDate, int Setup_Alarm, String Alarm_Time,
                          String Addess, String Phone_No, String Remarks){

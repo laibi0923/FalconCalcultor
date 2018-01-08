@@ -112,9 +112,9 @@ public class Activity_Main extends AppCompatActivity {
                             Fragment_Transaction(new Fragment_Setting());
                             break;
 
-//                        case R.id.nav_item6:
-//                            Fragment_Transaction(new Fragment_DebitInfo());
-//                            break;
+                        case R.id.nav_item6:
+                            Fragment_Transaction(new Fragment_DebitInfo());
+                            break;
 
                         case R.id.nav_item7:
                             Fragment_Transaction(new tseting_Notification());

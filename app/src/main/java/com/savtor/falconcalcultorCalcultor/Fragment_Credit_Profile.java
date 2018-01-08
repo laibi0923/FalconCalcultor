@@ -63,7 +63,7 @@ public class Fragment_Credit_Profile extends Fragment {
     private EditText Dialog_Option_Edittext;
 	
 	// Init String
-    private String Init_Product_Type, Init_Product_Status, Init_Loan_Number,
+    private String Init_Product_Name, Init_Product_Type, Init_Product_Status, Init_Loan_Number,
                    Init_Loan_Amount, Init_Loan_Rate, Init_Loan_Trems, Init_Loan_Installment,
                    Init_First_Due, Init_Final_Due, Init_Setup_Alarm, Init_Alarm_Time,
                    Init_Address, Init_Phone, Init_Remarks;
@@ -76,12 +76,13 @@ public class Fragment_Credit_Profile extends Fragment {
     // DataBase Update / Intert
     private String PRODUCT_NAME, PRODUCT_CODE, STATUS_CODE, LOAN_NUM, FIRST_DUE, ALARM_TIME, EOM_DUEDATE, ADDRESS, PHONE, REMARKS, LAST_MODIFY;
     private double LOAN_AMOUNT, LOAN_RATE, LOAN_INSTALLMENT;
-    private int LOAN_TREMS, SETUP_ALARM;
+    private int DB_ID, LOAN_TREMS, SETUP_ALARM;
 
     private String This_Fragment_Name = "Fragment_Credit_Profile";
 
     private Favourite_DataBasic DataBasic;
 
+    private Bundle mBundle;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -89,29 +90,142 @@ public class Fragment_Credit_Profile extends Fragment {
 		
 		setHasOptionsMenu(true);
 
-        Init_Product_Icon = R.drawable.ic_person_black_24dp;
-        Init_Product_Type = getString(R.string.title_product_personal);
-        Init_Product_Status = getString(R.string.product_status_notapply);
+        mBundle = getArguments();
 
-        Init_Loan_Number = "";
-        Init_Loan_Amount = "0";
-        Init_Loan_Rate = "0";
-        Init_Loan_Trems = "12 個月";
-        Init_Loan_Installment = "0";
+        if (mBundle != null && mBundle.getString("From").equals("Calcultor")){
 
-        Init_First_Due = new SimpleDateFormat("yyy/MM/dd").format(new Date());
-        Init_Final_Due = "";
-        Init_Setup_Alarm = "";
-        Init_Alarm_Time = getString(R.string.alarm_dontset);
+            PRODUCT_CODE = "Personal";
+            STATUS_CODE = "NotApply";
+            LOAN_AMOUNT =  mBundle.getDouble("Amount", 0.00);
+            LOAN_RATE = mBundle.getDouble("Rate", 0.00);
+            LOAN_TREMS =  mBundle.getInt("Trems", 0);
+            LOAN_INSTALLMENT = mBundle.getDouble("Installment", 0.00);
+            SETUP_ALARM = 99;
 
-        Init_Address = "";
-        Init_Phone = "";
-        Init_Remarks = "";
+            Init_Product_Icon = R.drawable.ic_person_black_24dp;
+            Init_Product_Type = getString(R.string.title_product_personal);
+            Init_Product_Status = getString(R.string.product_status_notapply);
 
-        PRODUCT_CODE = "Personal";
-        STATUS_CODE = "NotApply";
-        LOAN_TREMS = 12;
-        SETUP_ALARM = 99;
+            Init_Loan_Number = "";
+            Init_Loan_Amount = "$ " + LOAN_AMOUNT;
+            Init_Loan_Rate =  LOAN_RATE + " % p.a.";
+            Init_Loan_Trems = LOAN_TREMS + " 個月";
+            Init_Loan_Installment = "$ " + LOAN_INSTALLMENT ;
+
+            Init_First_Due = new SimpleDateFormat("yyy/MM/dd").format(new Date());
+            Init_Final_Due = "";
+            Init_Setup_Alarm = "";
+            Init_Alarm_Time = getString(R.string.alarm_dontset);
+
+            Init_Address = "";
+            Init_Phone = "";
+            Init_Remarks = "";
+
+        }else if (mBundle != null && mBundle.getString("From").equals("Favoutive")){
+
+            DB_ID = mBundle.getInt("DB_ID");
+            DataBasic = new Favourite_DataBasic(getActivity(), This_Fragment_Name);
+
+            PRODUCT_NAME = DataBasic.query(DB_ID).getProduct_Name();
+            PRODUCT_CODE = DataBasic.query(DB_ID).getProduct_Type();
+            STATUS_CODE = DataBasic.query(DB_ID).getProduct_Status();
+            LOAN_NUM = DataBasic.query(DB_ID).getLoan_No();
+            LOAN_AMOUNT = DataBasic.query(DB_ID).getLoan_Amount();
+            LOAN_RATE = DataBasic.query(DB_ID).getLoan_Rate();
+            LOAN_TREMS = DataBasic.query(DB_ID).getLoan_Trems();
+            LOAN_INSTALLMENT = DataBasic.query(DB_ID).getLoan_Installment();
+            FIRST_DUE = DataBasic.query(DB_ID).getFirst_Due();
+            EOM_DUEDATE = DataBasic.query(DB_ID).getEOM_DueDate();
+            SETUP_ALARM = DataBasic.query(DB_ID).getSetup_Alarm();
+            ALARM_TIME = DataBasic.query(DB_ID).getAlarm_Time();
+            ADDRESS = DataBasic.query(DB_ID).getAddress();
+            PHONE = DataBasic.query(DB_ID).getPhone_No();
+            REMARKS = DataBasic.query(DB_ID).getRemarks();
+
+            DataBasic.close();
+
+            Init_Product_Name = PRODUCT_NAME;
+            if (PRODUCT_CODE.equals("Personal")){
+                Init_Product_Icon = R.drawable.ic_person_black_24dp;
+                Init_Product_Type = getString(R.string.title_product_personal);
+            }else if (PRODUCT_CODE.equals("Mortgage")){
+                Init_Product_Icon = R.drawable.ic_domain_black_24dp;
+                Init_Product_Type = getString(R.string.title_product_mortgage);
+            }else if (PRODUCT_CODE.equals("Revolving")){
+                Init_Product_Icon = R.drawable.ic_person_black_24dp;
+                Init_Product_Type = getString(R.string.title_product_revolving);
+            }else if (PRODUCT_CODE.equals("Car")){
+                Init_Product_Icon = R.drawable.ic_directions_car_black_24dp;
+                Init_Product_Type = getString(R.string.title_product_car);
+            }else if (PRODUCT_CODE.equals("Card")) {
+                Init_Product_Icon = R.drawable.ic_credit_card_black_24dp;
+                Init_Product_Type = getString(R.string.title_product_card);
+            }
+
+            if (STATUS_CODE.equals("NotApply")){
+                Init_Product_Status = getString(R.string.product_status_notapply);
+            }else if (STATUS_CODE.equals("Pending")){
+                Init_Product_Status = getString(R.string.product_status_pending);
+            }else if (STATUS_CODE.equals("Approval")){
+                Init_Product_Status = getString(R.string.product_status_approval);
+            }else if (STATUS_CODE.equals("Reject")){
+                Init_Product_Status = getString(R.string.product_status_reject);
+            }else if (STATUS_CODE.equals("Cancel")){
+                Init_Product_Status = getString(R.string.product_status_cancel);
+            }
+
+            Init_Loan_Number = LOAN_NUM;
+            Init_Loan_Amount = LOAN_AMOUNT + "";
+            Init_Loan_Rate = LOAN_RATE + "";
+            Init_Loan_Trems = LOAN_TREMS + "";
+            Init_Loan_Installment = LOAN_INSTALLMENT + "";
+            Init_First_Due = FIRST_DUE;
+            if (SETUP_ALARM == 99){
+                Init_Setup_Alarm = getString(R.string.alarm_dontset);
+            }else if (SETUP_ALARM == 0){
+                Init_Setup_Alarm = getString(R.string.alarm_0_day);
+            }else if (SETUP_ALARM == 3){
+                Init_Setup_Alarm = getString(R.string.alarm_3_day);
+            }else if (SETUP_ALARM == 5){
+                Init_Setup_Alarm = getString(R.string.alarm_5_day);
+            }
+            Init_Alarm_Time = ALARM_TIME;
+            Init_Address = ADDRESS;
+            Init_Phone = PHONE;
+            Init_Remarks = REMARKS;
+
+        }else {
+
+            PRODUCT_CODE = "Personal";
+            STATUS_CODE = "NotApply";
+            LOAN_AMOUNT = 0;
+            LOAN_RATE = 0;
+            LOAN_TREMS = 12;
+            LOAN_INSTALLMENT = 0;
+            SETUP_ALARM = 99;
+
+            Init_Product_Icon = R.drawable.ic_person_black_24dp;
+            Init_Product_Type = getString(R.string.title_product_personal);
+            Init_Product_Status = getString(R.string.product_status_notapply);
+
+            Init_Loan_Number = "";
+            Init_Loan_Amount = "$ 0.00";
+            Init_Loan_Rate =  "0.00 % p.a.";
+            Init_Loan_Trems = "12 個月";
+            Init_Loan_Installment = "$ 0.00";
+
+            Init_First_Due = new SimpleDateFormat("yyy/MM/dd").format(new Date());
+            Init_Final_Due = "";
+            Init_Setup_Alarm = "";
+            Init_Alarm_Time = getString(R.string.alarm_dontset);
+
+            Init_Address = "";
+            Init_Phone = "";
+            Init_Remarks = "";
+
+        }
+
+
 
     }
 
@@ -133,7 +247,7 @@ public class Fragment_Credit_Profile extends Fragment {
             Favouite_Item fav_item = new Favouite_Item(
                     1,
                     new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()),
-                    PRODUCT_NAME,
+                    Product_Name.getText().toString(),
                     PRODUCT_CODE,
                     STATUS_CODE,
                     LOAN_NUM,
@@ -254,6 +368,7 @@ public class Fragment_Credit_Profile extends Fragment {
 
         Product_Name = (EditText) v.findViewById(R.id.product_name);
         Product_Name.setHint(R.string.hints_product_name);
+        Product_Name.setText(Init_Product_Name);
 
         Product_Type_Icon = (ImageView) v.findViewById(R.id.product_type_icon);
         Product_Type_Icon.setImageResource(Init_Product_Icon);

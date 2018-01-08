@@ -35,9 +35,6 @@ public class Fragment_Calcultor extends Fragment {
     private LinearLayout loan_amount, loan_trems, loan_rate;
     private LinearLayout schedule_btn, description_btn;
 
-    private int DB_ID;
-    private String Edit_Mode;
-
     private TextView choose_dialog_title, choose_dialog_cancellbtn, dialog_TextView, marquee_TextView;
     private View dialog_view;
     private TextInputLayout dialog_Textinput;
@@ -58,7 +55,15 @@ public class Fragment_Calcultor extends Fragment {
 		super.onCreate(savedInstanceState);
 
         get_SharedPreferences();
-        get_Bundle_Arguments();
+
+        current_LoanAmount = 0;
+        current_LoanTrems = 12;
+        current_LoanRate = 54;
+        result_Installment = 0;
+        result_Total_Interest = 0;
+        result_Total_Payment = 0;
+
+        edit_icon = getResources().getDrawable(R.drawable.ic_add_black_24dp);
 	}
 	
 
@@ -75,23 +80,6 @@ public class Fragment_Calcultor extends Fragment {
 
 
     //=============================================================================================
-    // [1] Get setting value in Bundle
-    private void get_Bundle_Arguments(){
-
-        Bundle mBundle = getArguments();
-
-        if (mBundle != null){
-            DB_ID  = mBundle.getInt("DB_ID", 0);
-            Edit_Mode = mBundle.getString("EDIT_MODE", "false");
-            if ( Edit_Mode == "true"){ Edit_Mode_On(DB_ID); }
-            else if (Edit_Mode == "false"){ Edit_Mode_Off(); }
-        }else {
-            Edit_Mode_Off();
-        }
-
-    }
-
-    //=============================================================================================
     // [2] Get setting value in sharedpreferences
     private void get_SharedPreferences(){
         mSharedPreferences = this.getActivity().getSharedPreferences("Setting", Context.MODE_PRIVATE);
@@ -106,45 +94,6 @@ public class Fragment_Calcultor extends Fragment {
             dec_point = "%.2f";
         }
     }
-
-    //=============================================================================================
-    // [3] Edit Mode On
-    private void Edit_Mode_On(int databasic_ID){
-
-        Edit_Mode = "true";
-
-        Favourite_DataBasic databasic = new Favourite_DataBasic(getActivity(), "Fragment_Calcultor");
-
-        current_LoanAmount = databasic.query(databasic_ID).getLoan_Amount();
-        current_LoanTrems = databasic.query(databasic_ID).getLoan_Trems();
-        current_LoanRate = databasic.query(databasic_ID).getLoan_Rate();
-        result_Installment = mCalcultor.getMonthlyInstallment(current_LoanAmount, current_LoanTrems, current_LoanRate);
-        result_Total_Interest = mCalcultor.getTotalInsterest(current_LoanAmount, current_LoanTrems, result_Installment);
-        result_Total_Payment = mCalcultor.getTotalPayment(result_Installment,current_LoanTrems);
-
-        randomAnim();
-
-        edit_icon = getResources().getDrawable(R.drawable.ic_create_black_24dp);
-
-    }
-
-    //=============================================================================================
-    // [4] Edit Mode Off
-    private void Edit_Mode_Off(){
-
-        Edit_Mode = "false";
-
-        current_LoanAmount = 0;
-        current_LoanTrems = 12;
-        current_LoanRate = 54;
-        result_Installment = 0;
-        result_Total_Interest = 0;
-        result_Total_Payment = 0;
-
-        edit_icon = getResources().getDrawable(R.drawable.ic_add_black_24dp);
-
-    }
-
 
     //=============================================================================================
     // [5] 加入畫面內容
@@ -269,11 +218,11 @@ public class Fragment_Calcultor extends Fragment {
                     if(Double.parseDouble(total_insterest_tv.getText().toString()) > 1){
 
                         Bundle mBundle = new Bundle();
-                        mBundle.putDouble("loan_amount", current_LoanAmount);
-                        mBundle.putInt("loan_trems", current_LoanTrems);
-                        mBundle.putDouble("loan_rate", current_LoanRate);
-                        mBundle.putString("EDIT_MODE", Edit_Mode);
-                        mBundle.putInt("DB_ID", DB_ID);
+                        mBundle.putString("From", "Calcultor");
+                        mBundle.putDouble("Amount", current_LoanAmount);
+                        mBundle.putInt("Trems", current_LoanTrems);
+                        mBundle.putDouble("Rate", current_LoanRate);
+                        mBundle.putDouble("Installment", result_Installment);
 
                         Fragment mFragment = new Fragment_Credit_Profile();
                         mFragment.setArguments(mBundle);

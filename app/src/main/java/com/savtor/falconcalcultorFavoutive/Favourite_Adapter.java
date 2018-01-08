@@ -17,6 +17,7 @@ import com.savtor.falconcalcultor.*;
 import com.savtor.falconcalcultorCalcultor.Calcultor;
 import com.savtor.falconcalcultorCalcultor.Fragment_Calcultor;
 import com.savtor.falconcalaultorDatabase.Favouite_Item;
+import com.savtor.falconcalcultorCalcultor.Fragment_Credit_Profile;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -65,51 +66,52 @@ public class Favourite_Adapter extends RecyclerSwipeAdapter<Favourite_ViewHolder
         
         holder.create_date_tv.setText(list.get(position).getCreate_Date());
 
+        if (list.get(position).getProduct_Type().equals("Personal")){
+            holder.loan_type_icon.setImageResource(R.drawable.ic_person_black_24dp);
+        }else if (list.get(position).getProduct_Type().equals("Mortgage")){
+            holder.loan_type_icon.setImageResource(R.drawable.ic_domain_black_24dp);
+        }else if (list.get(position).getProduct_Type().equals("Revolving")){
+            holder.loan_type_icon.setImageResource(R.drawable.ic_person_black_24dp);
+        }else if (list.get(position).getProduct_Type().equals("Car")){
+            holder.loan_type_icon.setImageResource(R.drawable.ic_directions_car_black_24dp);
+        }else if (list.get(position).getProduct_Type().equals("Card")){
+            holder.loan_type_icon.setImageResource(R.drawable.ic_credit_card_black_24dp);
+        }
+
         holder.name_tv.setText(list.get(position).getProduct_Name());
 
-        if (list.get(position).getLoan_No().equals("")){
+        if (list.get(position).getLoan_No() == null){
             holder.loan_number_tv.setText("");
         }else {
             holder.loan_number_tv.setText("(" + list.get(position).getLoan_No() + ")");
         }
 
 
-//        String.format("%1$.2f", totalvalue);
 		holder.loan_amount_tv.setText(String.format(dec_point, list.get(position).getLoan_Amount()));
 
         holder.loan_trems_tv.setText(String.valueOf( list.get(position).getLoan_Trems() ));
 
 		holder.loan_rate_tv.setText(String.valueOf( list.get(position).getLoan_Rate()));
 
-//        if (list.get(position).getProduct_Status().equals("not")){
-//            holder.apply_status_tv.setText(context.getResources().getString(R.string.favourite_status_notapply));
-//        }else if (list.get(position).getProduct_Status() == 1){
-//            holder.apply_status_tv.setText(context.getResources().getString(R.string.favourite_status_pending));
-//        }else if (list.get(position).getProduct_Status() == 2){
-//            holder.apply_status_tv.setText(context.getResources().getString(R.string.favourite_status_approval));
-//        }else if (list.get(position).getProduct_Status() == 3){
-//            holder.apply_status_tv.setText(context.getResources().getString(R.string.favourite_status_reject));
-//        }else if (list.get(position).getProduct_Status() == 4){
-//            holder.apply_status_tv.setText(context.getResources().getString(R.string.favourite_status_cancel));
-//        }
+        holder.installment_tv.setText(String.valueOf(list.get(position).getLoan_Installment()));
 
+        if (list.get(position).getProduct_Status().equals("NotApply")){
+            holder.apply_status_tv.setText(context.getString(R.string.applytype_notyet));
+        }else if (list.get(position).getProduct_Status().equals("Pending")){
+            holder.apply_status_tv.setText(context.getString(R.string.applytype_pending));
+        }else if (list.get(position).getProduct_Status().equals("Approval")){
+            holder.apply_status_tv.setText(context.getString(R.string.applytype_approval));
+        }else if (list.get(position).getProduct_Status().equals("Reject")){
+            holder.apply_status_tv.setText(context.getString(R.string.applytype_reject));
+        }else if (list.get(position).getProduct_Status().equals("Cancel")){
+            holder.apply_status_tv.setText(context.getString(R.string.applytype_cancel));
+        }
 
-//
-//        if(list.get(position).getLoan_Type() == 0){
-//            holder.loan_type_icon.setImageResource(R.drawable.ic_person_black_24dp);
-//        }else if (list.get(position).getLoan_Type() == 1){
-//            holder.loan_type_icon.setImageResource(R.drawable.ic_person_black_24dp);
-//        }else if(list.get(position).getLoan_Type() == 2){
-//            holder.loan_type_icon.setImageResource(R.drawable.ic_domain_black_24dp);
-//        }else if(list.get(position).getLoan_Type() == 3){
-//            holder.loan_type_icon.setImageResource(R.drawable.ic_directions_car_black_24dp);
-//        }
-//
-//        if (list.get(position).getAlert_date() == 0){
-//            holder.alert_icon_im.setVisibility(View.GONE);
-//        }else {
-//            holder.alert_icon_im.setVisibility(View.VISIBLE);
-//        }
+        if (list.get(position).getAlarm_Time() != null){
+            holder.alert_icon_im.setVisibility(View.VISIBLE);
+        }else {
+            holder.alert_icon_im.setVisibility(View.GONE);
+        }
 
         if (list.get(position).getRemarks().equals("")){
             holder.remarks_tv.setText("未有輸入");
@@ -147,12 +149,15 @@ public class Favourite_Adapter extends RecyclerSwipeAdapter<Favourite_ViewHolder
             @Override
             public void onClick(View v) {
 
-                Fragment mFragment = new Fragment_Calcultor();
+                Fragment mFragment = new Fragment_Credit_Profile();
 
                 Bundle mBundle = new Bundle();
 				
-				mBundle.putString("EDIT_MODE", "true");
-				
+				mBundle.putString("From", "Favoutive");
+                mBundle.putDouble("Amount", list.get(position).getLoan_Amount());
+                mBundle.putInt("Trems", list.get(position).getLoan_Trems());
+                mBundle.putDouble("Rate", list.get(position).getLoan_Rate());
+                mBundle.putDouble("Installment", list.get(position).getLoan_Installment());
 				mBundle.putInt("DB_ID", list.get(position).getID());
 
 				mFragment.setArguments(mBundle);

@@ -32,22 +32,23 @@ public class Fragment_DebitInfo extends Fragment
 
 		for(Favouite_Item i : items){
 
-//			T01.append("ID : " + i.getID() + "\n");
-//			T01.append("Create Date : " + i.getCreate_Date() + "\n");
-//			T01.append("Name : " + i.getProduct_Name() + "\n");
-//			T01.append("Loan Amount : " + i.getLoan_Amount() + "\n");
-//			T01.append("Loan Trems : " + i.getLoan_Trems() +"\n");
-//			T01.append("Loan Rate : " + i.getLoan_Rate() + "\n");
-//			T01.append("First due date : " + i.getFirst_dueddate() + "\n");
-//			T01.append("Final due date : " + i.getFinal_dueddate() + "\n");
-//			T01.append("Due date type : " + i.getAlert_time() + "\n");
-//			T01.append("Apply Status : " + i.getApply_status() + "\n");
-//			T01.append("Loan Type :" + i.getLoan_Type() + "\n");
-//			T01.append("Alert Date : " + i.getAlert_date() + "\n");
-//			T01.append("LoanNum : " + i.getLoanNum() + "\n");
-//			T01.append("Address :" + i.getAddress() + "\n");
-//			T01.append("Phone :" + i.getPhone() + "\n");
-//			T01.append("Remarks : \n" + i.getRemarks() + "\n \n");
+			T01.append("ID : " + i.getID() + "\n");
+			T01.append("Create Date : " + i.getCreate_Date() + "\n");
+			T01.append("Name : " + i.getProduct_Name() + "\n");
+			T01.append("LoanNum : " + i.getLoan_No() + "\n");
+			T01.append("Product Type : " + i.getProduct_Type() + "\n");
+			T01.append("Product Status :" + i.getProduct_Status() + "\n");
+			T01.append("Loan Amount : " + i.getLoan_Amount() + "\n");
+			T01.append("Loan Trems : " + i.getLoan_Trems() +"\n");
+			T01.append("Loan Rate : " + i.getLoan_Rate() + "\n");
+			T01.append("Loan Installment : " + i.getLoan_Installment() + "\n");
+			T01.append("First due date : " + i.getFirst_Due() + "\n");
+			T01.append("Final due date : " + i.getEOM_DueDate() + "\n");
+			T01.append("Setup Alarm : " + i.getSetup_Alarm() + "\n");
+			T01.append("Alert Time : " + i.getAlarm_Time() + "\n");
+			T01.append("Address :" + i.getAddress() + "\n");
+			T01.append("Phone :" + i.getPhone_No() + "\n");
+			T01.append("Remarks : \n" + i.getRemarks() + "\n \n");
 
 		}
 
