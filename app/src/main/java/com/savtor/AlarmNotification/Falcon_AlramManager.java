@@ -16,30 +16,23 @@ public class Falcon_AlramManager
 {
 	private AlarmManager mAlarmManager;
 	
-	public void Setup_Alram(Context context, int request_code, int Year, int Month, int Date, int Hour, int Minute, int Trems, int AlertDate, String Name, String Loan_Amount){
+	public void Setup_Alram(Context context, int request_code, Calendar mCalendar, int Trems, int AlertDate, String Name, double Loan_Amount){
 		
 		String Title = context.getString(R.string.app_name);
 		
-		for(int i = 0; i < Trems; i++){
+		
 			
-			Calendar mCalendar = Calendar.getInstance();
-			mCalendar.set(Calendar.YEAR, Year);
-			mCalendar.set(Calendar.MONTH, Month + i);
-			mCalendar.set(Calendar.DAY_OF_MONTH, Date);
-			mCalendar.set(Calendar.HOUR_OF_DAY, Hour);
-			mCalendar.set(Calendar.MINUTE, Minute);
-			mCalendar.set(Calendar.SECOND, 0);
 			
-			String Content = "繳款提醒 : " + Name  + " 於 " + new SimpleDateFormat("yyyy/MM/dd").format(mCalendar.getTime()) + "," + AlertDate + "天後" +  " 需繳付金額為 $" + Loan_Amount;
+			String Content = "繳款提醒 : " + Name  + " 於 " + new SimpleDateFormat("yyyy/MM/dd").format(mCalendar.getTime()) + ", " + AlertDate + "天後需繳付金額為 $" + Loan_Amount;
 			
-			mCalendar.add(Calendar.DAY_OF_MONTH, - AlertDate);
+			//mCalendar.add(Calendar.DAY_OF_MONTH, - AlertDate);
 			
 			Intent mIntent = new Intent(context, AlarmBroadCastReceiver.class);
 			mIntent.putExtra("notification_id", request_code);
 			mIntent.putExtra("notification_title", Title);
 			mIntent.putExtra("notification_content", Content);
 			
-			PendingIntent mPendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), request_code + i, mIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+			PendingIntent mPendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), request_code, mIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
 			mAlarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
@@ -53,7 +46,7 @@ public class Falcon_AlramManager
 
 //			Toast.makeText(context, "己設置, 時間為 : " + new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(mCalendar.getTime())  + "id = " + request_code + i, Toast.LENGTH_SHORT).show();
 			Log.e("己設置時間為", new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(mCalendar.getTime())  + ", id = " + request_code);
-		}
+		
 		
 	}
 	
