@@ -19,14 +19,9 @@ public class Falcon_AlramManager
 	public void Setup_Alram(Context context, int request_code, Calendar mCalendar, int Trems, int AlertDate, String Name, double Loan_Amount){
 		
 		String Title = context.getString(R.string.app_name);
-		
-		
-			
-			
+
 			String Content = "繳款提醒 : " + Name  + " 於 " + new SimpleDateFormat("yyyy/MM/dd").format(mCalendar.getTime()) + ", " + AlertDate + "天後需繳付金額為 $" + Loan_Amount;
-			
-			//mCalendar.add(Calendar.DAY_OF_MONTH, - AlertDate);
-			
+
 			Intent mIntent = new Intent(context, AlarmBroadCastReceiver.class);
 			mIntent.putExtra("notification_id", request_code);
 			mIntent.putExtra("notification_title", Title);
@@ -43,11 +38,8 @@ public class Falcon_AlramManager
 			 *  ELAPSED_REALTIME_WAKEUP：同上，但會喚醒裝置。
 			 */
 			mAlarmManager.set(AlarmManager.RTC_WAKEUP, mCalendar.getTimeInMillis(), mPendingIntent);
-
-//			Toast.makeText(context, "己設置, 時間為 : " + new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(mCalendar.getTime())  + "id = " + request_code + i, Toast.LENGTH_SHORT).show();
 			Log.e("己設置時間為", new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(mCalendar.getTime())  + ", id = " + request_code);
-		
-		
+
 	}
 	
 	public void Cancel_Alram(Context context, int request_code, int Trems){
@@ -55,7 +47,7 @@ public class Falcon_AlramManager
 		for(int i = 0; i < Trems; i++){
 			
 			Intent mIntent = new Intent(context, AlarmBroadCastReceiver.class);
-			PendingIntent mPendingIntent = PendingIntent.getBroadcast(context, request_code + i, mIntent, 0);
+			PendingIntent mPendingIntent = PendingIntent.getBroadcast(context, request_code, mIntent, 0);
 
 			mAlarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 			mAlarmManager.cancel(mPendingIntent);

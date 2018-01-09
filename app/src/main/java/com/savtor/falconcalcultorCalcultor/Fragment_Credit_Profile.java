@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.InputType;
+import android.transition.Transition;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -273,6 +274,7 @@ public class Fragment_Credit_Profile extends Fragment {
 				mAlarmManager.Cancel_Alram(getContext(), DB_ID, LOAN_TREMS);
 			}else {
 				DataBasic.inster(fav_item);
+                DB_ID = DataBasic.query_max_id();
 			}
            
             DataBasic.close();
@@ -282,8 +284,7 @@ public class Fragment_Credit_Profile extends Fragment {
 			if(Alarm_Time_Result.getText().toString() != null){
 				
 				Log.e("Action", "Setup Alarm");
-				// 輸入新定義 Alram
-				
+				// 設置新 Alram
 				for(int i = 0; i < LOAN_TREMS; i++){
 					
 					Calendar mCalendar = Calendar.getInstance();
@@ -302,7 +303,7 @@ public class Fragment_Credit_Profile extends Fragment {
 					mCalendar.add(Calendar.DAY_OF_MONTH, -SETUP_ALARM);
 					
 					mAlarmManager.Setup_Alram(getContext(),
-											  DB_ID + i,
+											  DB_ID,
 											  mCalendar,
 											  LOAN_TREMS,
 											  SETUP_ALARM,
@@ -311,10 +312,10 @@ public class Fragment_Credit_Profile extends Fragment {
 				}
 				
 			}
-			
-			
+
+//            Transition to Fragment
 			/*
-			 *	Testing Value
+			 *	Testing Get Value
 			*/
             Log.e("LAST_MODIFY", new SimpleDateFormat("yyyy/MM/dd").format(new Date()) + "");
             Log.e("PRODUCT_NAME", Product_Name.getText().toString());
