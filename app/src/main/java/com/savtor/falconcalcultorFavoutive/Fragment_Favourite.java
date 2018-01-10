@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import android.widget.*;
 
 /**
  * Created by GhostLeo_DT on 2/12/2017.
@@ -37,6 +38,7 @@ public class Fragment_Favourite extends Fragment {
     List<Favouite_Item> favouriteData;
     TextView count_result_tv;
     RecyclerView favourite_recyclerview;
+	private LinearLayout CountText_Linear;
 
 
     @Override
@@ -86,15 +88,15 @@ public class Fragment_Favourite extends Fragment {
         favouriteData = getDataBase_Data();     // [2]
         fav_adapter = new Favourite_Adapter(favouriteData, getActivity(), mFragmentManager);
 
-
         DefaultItemAnimator mDefaultItemAnimator = new DefaultItemAnimator();
         mDefaultItemAnimator.setRemoveDuration(100);
         favourite_recyclerview.setItemAnimator(mDefaultItemAnimator);
         favourite_recyclerview.setAdapter(fav_adapter);
         favourite_recyclerview.setLayoutManager(new LinearLayoutManager(this.getActivity(), LinearLayoutManager.VERTICAL, false));
 
+		CountText_Linear = (LinearLayout) v.findViewById(R.id.count_text_linear);
         count_result_tv = (TextView) v.findViewById(R.id.count_result_tv);
-//        update_count_text();
+        update_count_text();
     }
 
     //=============================================================================================
@@ -152,7 +154,7 @@ public class Fragment_Favourite extends Fragment {
                 final List<Favouite_Item> search_list = filter(getDataBase_Data() ,newText);    // [4]
                 fav_adapter.setFilter(search_list);
 
-                update_count_text();
+                //update_count_text();
                 return true;
             }
         });
@@ -181,11 +183,12 @@ public class Fragment_Favourite extends Fragment {
     public void update_count_text() {
 
         if (fav_adapter.getItemCount() == 0){
+			CountText_Linear.setVisibility(View.VISIBLE);
             count_result_tv.setText("沒有任何紀錄");
-        }else
-        {
-            String count_text = String.valueOf(fav_adapter.getItemCount());
-            count_result_tv.setText("一共搜索共" + count_text + "條紀錄");
+        }else{
+            //String count_text = String.valueOf(fav_adapter.getItemCount());
+            //count_result_tv.setText("一共搜索共" + count_text + "條紀錄");
+			CountText_Linear.setVisibility(View.GONE);
         }
 
     }

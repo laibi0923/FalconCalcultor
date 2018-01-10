@@ -28,6 +28,7 @@ import com.savtor.falconcalaultorDatabase.Favouite_Item;
 import com.savtor.falconcalaultorDatabase.Favourite_DataBasic;
 import com.savtor.falconcalcultor.*;
 import com.savtor.AlarmNotification.*;
+import java.text.*;
 
 
 /**
@@ -858,12 +859,12 @@ public class Fragment_Credit_Profile extends Fragment {
 
                     Dialog_Option_1_Icon.setVisibility(View.GONE);
                     Dialog_Option_1_Text.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-                    Dialog_Option_1_Text.setText("10,000");
+                    Dialog_Option_1_Text.setText("$ 10,000.00");
                     Dialog_Option_1.setOnClickListener(new OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             // 快速輸入
-                            Loan_Amount_Result.setText("10,000");
+                            Loan_Amount_Result.setText("$ 10,000.00");
                             LOAN_AMOUNT = 10000;
 
                             mAlertDialog.dismiss();
@@ -872,12 +873,12 @@ public class Fragment_Credit_Profile extends Fragment {
 
                     Dialog_Option_2_Icon.setVisibility(View.GONE);
                     Dialog_Option_2_Text.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-                    Dialog_Option_2_Text.setText("30,000");
+                    Dialog_Option_2_Text.setText("$ 30,000.00");
                     Dialog_Option_2.setOnClickListener(new OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             // 快速輸入
-                            Loan_Amount_Result.setText("30,000");
+                            Loan_Amount_Result.setText("$ 30,000.00");
                             LOAN_AMOUNT = 30000;
 
                             mAlertDialog.dismiss();
@@ -886,12 +887,12 @@ public class Fragment_Credit_Profile extends Fragment {
 
                     Dialog_Option_3_Icon.setVisibility(View.GONE);
                     Dialog_Option_3_Text.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-                    Dialog_Option_3_Text.setText("50,000");
+                    Dialog_Option_3_Text.setText("$ 50,000.00");
                     Dialog_Option_3.setOnClickListener(new OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             // 快速輸入
-                            Loan_Amount_Result.setText("50,000");
+                            Loan_Amount_Result.setText("$ 50,000.00");
                             LOAN_AMOUNT = 50000;
 
                             mAlertDialog.dismiss();
@@ -900,11 +901,11 @@ public class Fragment_Credit_Profile extends Fragment {
 
                     Dialog_Option_4_Icon.setVisibility(View.GONE);
                     Dialog_Option_4_Text.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-                    Dialog_Option_4_Text.setText("100,000");
+                    Dialog_Option_4_Text.setText("$ 100,000.00");
                     Dialog_Option_4.setOnClickListener(new OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Loan_Amount_Result.setText("100,000");
+                            Loan_Amount_Result.setText("$ 100,000.00");
                             LOAN_AMOUNT = 100000;
 
                             mAlertDialog.dismiss();
@@ -923,10 +924,13 @@ public class Fragment_Credit_Profile extends Fragment {
 
                             if (Dialog_Option_Edittext.getText().toString().isEmpty()){
 
-                            }else {
-                                Loan_Amount_Result.setText(Dialog_Option_Edittext.getText());
-                                LOAN_AMOUNT = Double.parseDouble(Dialog_Option_Edittext.getText().toString());
-                            }
+                            }else if(Double.parseDouble(Dialog_Option_Edittext.getText().toString()) > 10000000) {
+                                Toast.makeText(getContext(), "不可大於 $ 10，000，000", Toast.LENGTH_SHORT).show();
+                                
+                            }else{
+								LOAN_AMOUNT = Double.parseDouble(Dialog_Option_Edittext.getText().toString());
+								Loan_Amount_Result.setText("$ " + String.format("%.2f", LOAN_AMOUNT));
+							}
 
                             mAlertDialog.dismiss();
                         }
@@ -972,9 +976,11 @@ public class Fragment_Credit_Profile extends Fragment {
 
                                 if (Double.parseDouble(Dialog_Option_Edittext.getText().toString()) > 60){
                                     Toast.makeText(getContext(), "輸入利率過高", Toast.LENGTH_SHORT).show();
-                                }else {
-                                    Loan_Rate_Result.setText(Dialog_Option_Edittext.getText());
-                                    LOAN_RATE = Double.parseDouble(Dialog_Option_Edittext.getText().toString());
+                               
+								}else {
+									LOAN_RATE = Double.parseDouble(Dialog_Option_Edittext.getText().toString());
+                                    Loan_Rate_Result.setText(String.format("%.2f", LOAN_RATE) + "% p.a.");
+                                    
                                 }
 
                                 mAlertDialog.dismiss();
@@ -1061,8 +1067,8 @@ public class Fragment_Credit_Profile extends Fragment {
                             if (Dialog_Option_Edittext.getText().toString().isEmpty()){
                                 mAlertDialog.dismiss();
                             }else {
-                                Loan_Trems_Result.setText(Dialog_Option_Edittext.getText());
-                                LOAN_RATE = Double.parseDouble(Dialog_Option_Edittext.getText().toString());
+								LOAN_TREMS = Integer.parseInt(Dialog_Option_Edittext.getText().toString());
+                                Loan_Trems_Result.setText(LOAN_TREMS + "個月");
                             }
 
                             mAlertDialog.dismiss();
@@ -1108,9 +1114,9 @@ public class Fragment_Credit_Profile extends Fragment {
 
                             }else {
 
-                                Loan_Installment_Result.setText(Dialog_Option_Edittext.getText());
-                                LOAN_INSTALLMENT = Double.parseDouble(Dialog_Option_Edittext.getText().toString());
-
+								LOAN_INSTALLMENT = Double.parseDouble(Dialog_Option_Edittext.getText().toString());
+                                Loan_Installment_Result.setText("$ " + String.format("%.2f", LOAN_INSTALLMENT));
+								
                             }
 
                             mAlertDialog.dismiss();
