@@ -96,15 +96,15 @@ public class Favourite_Adapter extends RecyclerSwipeAdapter<Favourite_ViewHolder
         holder.installment_tv.setText(String.valueOf(list.get(position).getLoan_Installment()));
 
         if (list.get(position).getProduct_Status().equals("NotApply")){
-            holder.apply_status_tv.setText(context.getString(R.string.applytype_notyet));
+            holder.apply_status_tv.setText(context.getString(R.string.product_status_notapply));
         }else if (list.get(position).getProduct_Status().equals("Pending")){
-            holder.apply_status_tv.setText(context.getString(R.string.applytype_pending));
+            holder.apply_status_tv.setText(context.getString(R.string.product_status_pending));
         }else if (list.get(position).getProduct_Status().equals("Approval")){
-            holder.apply_status_tv.setText(context.getString(R.string.applytype_approval));
+            holder.apply_status_tv.setText(context.getString(R.string.product_status_approval));
         }else if (list.get(position).getProduct_Status().equals("Reject")){
-            holder.apply_status_tv.setText(context.getString(R.string.applytype_reject));
+            holder.apply_status_tv.setText(context.getString(R.string.product_status_reject));
         }else if (list.get(position).getProduct_Status().equals("Cancel")){
-            holder.apply_status_tv.setText(context.getString(R.string.applytype_cancel));
+            holder.apply_status_tv.setText(context.getString(R.string.product_status_cancel));
         }
 
         if (list.get(position).getAlarm_Time() != null){

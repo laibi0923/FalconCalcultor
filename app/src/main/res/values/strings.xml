@@ -68,48 +68,6 @@
 
     </string>
 
-    <!--==============================================================================================-->
-    <!--for Saver page-->
-    <string name="loanname_hint">輸入名稱</string>
-	
-    <string name="loantype_hint">私人貸款</string>
-	
-	<string name="loantype_personal">私人貸款</string>
-	<string name="loantype_mort">樓宇按揭</string>
-	<string name="loantype_car">汽車貸款</string>
-	
-    <string name="applystatuse_hint">申請狀況</string>
-	
-    <string name="applytype_notyet">未申請</string>
-	<string name="applytype_pending">申請中</string>
-	<string name="applytype_approval">已成功批核</string>
-	<string name="applytype_reject">不成功批核</string>
-	<string name="applytype_cancel">取消申請</string>
-
-    <string name="loannum_hint">貸款編號</string>
-    <string name="firstdue_hint">首期供款日</string>
-    <string name="finaldue_hint">最後供款日</string>
-	
-    <string name="alertdate_hint">設置提醒</string>
-    <string name="alertdate_dontalert">不要提醒</string>
-	<string name="alertdate_3day">設置當天前提醒</string>
-	<string name="alertdate_5day">設置3天前提醒</string>
-	<string name="alertdate_7day">設置5天前提醒</string>
-	
-	<string name="alerttime_hint">提醒時間</string>
-	
-    <string name="address_hint">地址</string>
-    <string name="phoneNum_hint">電話</string>
-    <string name="remark_hint">備註</string>
-
-    <string name="Toast_String_insert">保存成功</string>
-    <string name="Toast_String_update">更新成功</string>
-
-    <string name="loamtype_dialog_title">貸款類別</string>
-    <string name="applytype_dialog_title">申請狀況</string>
-    <string name="alertdate_dialog_title">設置提醒</string>
-
-
     <!--Credit Profile-->
     <!--==============================================================================================-->
 
@@ -151,10 +109,11 @@
     <string name="hints_address">地址</string>
     <string name="hints_phone">電話</string>
     <string name="hints_remarks">備註</string>
-	
-	
+
 	<string name="dialog_duedate_normal">按所選日子</string>
 	<string name="dialog_duedate_eom">每月最後一日</string>
+
+    <string name="dialog_hints_trems">自定攤還期數</string>
 
     <string name="hints_dialog_loanammount">自定金額</string>
     <string name="hints_dialog_loanrate">自定利率</string>
@@ -163,9 +122,12 @@
 
     <string name="hints_enter_name">請先輸入名稱</string>
 
+    <string name="toast_save_completed">保存成功</string>
+    <string name="toast_upadte_completed">更新成功</string>
 
-
-
+    <string name="toast_max_amount">貸款額輸入上限為 $ 10,000,000</string>
+    <string name="toast_max_rate">實際年利率輸入上限為 60 %p.a.</string>
+    <string name="toast_max_trems">還款期輸入上限為 90 個月</string>
 
     <!--==============================================================================================-->
     <!--for Setting Page-->
@@ -189,11 +151,11 @@
 
     <!--==============================================================================================-->
     <!--for Favoutite Page-->
-	<string name="favourite_status_notapply">未申請</string>
-	<string name="favourite_status_pending">申請中</string>
-	<string name="favourite_status_approval">已成功批核</string>
-	<string name="favourite_status_reject">不成功批核</string>
-	<string name="favourite_status_cancel">取消申請</string>
+	<!--<string name="favourite_status_notapply">未申請</string>-->
+	<!--<string name="favourite_status_pending">申請中</string>-->
+	<!--<string name="favourite_status_approval">已成功批核</string>-->
+	<!--<string name="favourite_status_reject">不成功批核</string>-->
+	<!--<string name="favourite_status_cancel">取消申請</string>-->
 	
 	<string name="favourite_lastmodify">最後修改日期 : </string>
 

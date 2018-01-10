@@ -27,9 +27,6 @@ import com.savtor.AlarmNotification.*;
 import com.savtor.falconcalaultorDatabase.Favouite_Item;
 import com.savtor.falconcalaultorDatabase.Favourite_DataBasic;
 import com.savtor.falconcalcultor.*;
-import com.savtor.AlarmNotification.*;
-import java.text.*;
-
 
 /**
  * Created by GhostLeo_DT on 4/1/2018.
@@ -82,11 +79,13 @@ public class Fragment_Credit_Profile extends Fragment {
     private double LOAN_AMOUNT, LOAN_RATE, LOAN_INSTALLMENT;
     private int DB_ID, LOAN_TREMS, SETUP_ALARM;
 
-    private String This_Fragment_Name = "Fragment_Credit_Profile";
-
     private Favourite_DataBasic DataBasic;
 
     private Bundle mBundle;
+
+    private String This_Fragment_Name = "Fragment_Credit_Profile";
+    private double Max_Amount = 10000000, Max_Rate = 60;
+    private int Max_Trems = 90;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -229,8 +228,6 @@ public class Fragment_Credit_Profile extends Fragment {
 
         }
 
-
-
     }
 
     @Override
@@ -346,11 +343,10 @@ public class Fragment_Credit_Profile extends Fragment {
         View v = inflater.inflate(R.layout.credit_profile, container, false);
 
         Find_View(v);
-        Default_View();
+//        Default_View();
 
         return v;
     }
-
 
     public void Reset_Value(){
 
@@ -358,13 +354,13 @@ public class Fragment_Credit_Profile extends Fragment {
 
         Init_Product_Status = getString(R.string.product_status_notapply);
 
-        Product_Status_Result.setText(getString(R.string.applytype_notyet));
+        Product_Status_Result.setText(getString(R.string.product_status_notapply));
         Product_Loan_Number.setText("");
 
-        Loan_Amount_Result.setText("0");
-        Loan_Rate_Result.setText("0");
+        Loan_Amount_Result.setText("$ 0.00");
+        Loan_Rate_Result.setText("0.00 %p.a.");
         Loan_Trems_Result.setText("12個月");
-        Loan_Installment_Result.setText("0");
+        Loan_Installment_Result.setText("$ 0.00");
 
         First_Due_Result.setText(new SimpleDateFormat("yyy/MM/dd").format(new Date()));
         Final_Due_Result.setText("");
@@ -377,7 +373,6 @@ public class Fragment_Credit_Profile extends Fragment {
 
         STATUS_CODE = "NotApply";
         LOAN_TREMS = 12;
-
     }
 
     public void Default_View(){
@@ -407,7 +402,6 @@ public class Fragment_Credit_Profile extends Fragment {
         First_Due_Title.setText(getString(R.string.title_first_due));
 
     }
-
 
     //=============================================================================================
     // [1] 加入畫面內容
@@ -440,6 +434,7 @@ public class Fragment_Credit_Profile extends Fragment {
         Product_Loan_Number_Icon.setImageResource(R.drawable.ic_count);
         Product_Loan_Number = (EditText) Subview_Loan_Number.findViewById(R.id.sub_edittext);
         Product_Loan_Number.setHint(R.string.hints_loan_number);
+        Product_Loan_Number.setText(Init_Loan_Number);
 
         Subview_Loan_Amount = v.findViewById(R.id.loan_amount);
         Loan_Amount_Linear = (LinearLayout) v.findViewById(R.id.loan_amount_linear);
@@ -539,6 +534,45 @@ public class Fragment_Credit_Profile extends Fragment {
         Remarks.setHint(R.string.hints_remarks);
         Remarks.setText(Init_Remarks);
 
+        if (STATUS_CODE.equals("Approval")){
+            Subview_Loan_Number.setVisibility(View.VISIBLE);
+            Due_Date_Linear.setVisibility(View.VISIBLE);
+        }else {
+            Subview_Loan_Number.setVisibility(View.GONE);
+            Due_Date_Linear.setVisibility(View.GONE);
+        }
+
+        if (ALARM_TIME != null){
+            Subview_Setup_Alarm.setVisibility(View.VISIBLE);
+            Subview_Alarm_Time.setVisibility(View.VISIBLE);
+        }else {
+            Subview_Setup_Alarm.setVisibility(View.GONE);
+            Subview_Alarm_Time.setVisibility(View.GONE);
+        }
+
+        if (PRODUCT_CODE.equals("Card")){
+            Subview_Product_Status.setVisibility(View.GONE);
+            Subview_Loan_Trems.setVisibility(View.GONE);
+            Subview_Final_due.setVisibility(View.GONE);
+            Subview_Alarm_Time.setVisibility(View.GONE);
+            Subview_Address.setVisibility(View.GONE);
+            Subview_Phone.setVisibility(View.GONE);
+            // Show
+            Subview_Loan_Number.setVisibility(View.VISIBLE);
+            Due_Date_Linear.setVisibility(View.VISIBLE);
+            Subview_First_due.setVisibility(View.VISIBLE);
+            //  Change Title
+            Loan_Amount_Title.setText("信用額");
+            Loan_Rate_Title.setText("最低還款利率");
+            Loan_Installment_Title.setText("最低還款額");
+            Product_Loan_Number.setHint("信用卡號碼 (選填)");
+            First_Due_Title.setText("下月交款日");
+
+            PRODUCT_CODE = "Card";
+            STATUS_CODE = "APPROVAL";
+            LOAN_TREMS = 1;
+        }
+
     }
 
     private void Find_Dialog_View(){
@@ -586,7 +620,9 @@ public class Fragment_Credit_Profile extends Fragment {
 		{
 			// TODO: Implement this method
 			switch(item.getId()){
-				
+/*================================================================================================
+ *                                       Product Type
+================================================================================================ */
 				case R.id.product_type_icon:
 
 					mAlertDialog = new AlertDialog.Builder(getContext()).create();
@@ -724,8 +760,9 @@ public class Fragment_Credit_Profile extends Fragment {
 
 					mAlertDialog.show();
 					break;
-
-//					================================================================================================
+/*================================================================================================
+ *                                       Product Status
+================================================================================================ */
 				case R.id.product_status_linear:
 
                     mAlertDialog = new AlertDialog.Builder(getContext()).create();
@@ -847,7 +884,9 @@ public class Fragment_Credit_Profile extends Fragment {
 
                     mAlertDialog.show();
 					break;
-//					================================================================================================
+/*================================================================================================
+ *                                       Loan Amount
+================================================================================================ */
 				case R.id.loan_amount_linear:
 
                     mAlertDialog = new AlertDialog.Builder(getContext()).create();
@@ -924,8 +963,8 @@ public class Fragment_Credit_Profile extends Fragment {
 
                             if (Dialog_Option_Edittext.getText().toString().isEmpty()){
 
-                            }else if(Double.parseDouble(Dialog_Option_Edittext.getText().toString()) > 10000000) {
-                                Toast.makeText(getContext(), "不可大於 $ 10，000，000", Toast.LENGTH_SHORT).show();
+                            }else if(Double.parseDouble(Dialog_Option_Edittext.getText().toString()) > Max_Amount) {
+                                Toast.makeText(getContext(), getString(R.string.toast_max_amount), Toast.LENGTH_SHORT).show();
                                 
                             }else{
 								LOAN_AMOUNT = Double.parseDouble(Dialog_Option_Edittext.getText().toString());
@@ -945,7 +984,9 @@ public class Fragment_Credit_Profile extends Fragment {
 
                     mAlertDialog.show();
 					break;
-//                ================================================================================================
+/*================================================================================================
+ *                                       Loan Rate
+================================================================================================ */
 				case R.id.loan_rate_linear:
 
                     mAlertDialog = new AlertDialog.Builder(getContext()).create();
@@ -974,8 +1015,8 @@ public class Fragment_Credit_Profile extends Fragment {
                                 mAlertDialog.dismiss();
                             }else {
 
-                                if (Double.parseDouble(Dialog_Option_Edittext.getText().toString()) > 60){
-                                    Toast.makeText(getContext(), "輸入利率過高", Toast.LENGTH_SHORT).show();
+                                if (Double.parseDouble(Dialog_Option_Edittext.getText().toString()) > Max_Rate){
+                                    Toast.makeText(getContext(), getString(R.string.toast_max_rate), Toast.LENGTH_SHORT).show();
                                
 								}else {
 									LOAN_RATE = Double.parseDouble(Dialog_Option_Edittext.getText().toString());
@@ -999,7 +1040,9 @@ public class Fragment_Credit_Profile extends Fragment {
 
                     mAlertDialog.show();
 					break;
-//                ================================================================================================
+/*================================================================================================
+ *                                       Loan Rate
+================================================================================================ */
 				case R.id.loan_trems_linear:
 
                     mAlertDialog = new AlertDialog.Builder(getContext()).create();
@@ -1055,7 +1098,7 @@ public class Fragment_Credit_Profile extends Fragment {
                     Dialog_Option_5.setVisibility(View.GONE);
 
                     Dialog_Edittext.setVisibility(View.VISIBLE);
-                    Dialog_Option_Edittext.setHint("自定攤還期數");
+                    Dialog_Option_Edittext.setHint(getString(R.string.dialog_hints_trems));
                     Dialog_Option_Edittext.setInputType(InputType.TYPE_CLASS_NUMBER);
                     Dialog_Option_Edittext.requestFocus();
 
@@ -1066,6 +1109,8 @@ public class Fragment_Credit_Profile extends Fragment {
 
                             if (Dialog_Option_Edittext.getText().toString().isEmpty()){
                                 mAlertDialog.dismiss();
+                            }else if(Integer.parseInt(Dialog_Option_Edittext.getText().toString()) > Max_Trems){
+                                Toast.makeText(getContext(), getString(R.string.toast_max_trems), Toast.LENGTH_SHORT).show();
                             }else {
 								LOAN_TREMS = Integer.parseInt(Dialog_Option_Edittext.getText().toString());
                                 Loan_Trems_Result.setText(LOAN_TREMS + "個月");
@@ -1085,7 +1130,9 @@ public class Fragment_Credit_Profile extends Fragment {
                     mAlertDialog.show();
 
 					break;
-//                ================================================================================================
+/*================================================================================================
+ *                                       Loan Installment
+================================================================================================ */
 				case R.id.loan_installment_linear:
 
                     mAlertDialog = new AlertDialog.Builder(getContext()).create();
@@ -1133,7 +1180,9 @@ public class Fragment_Credit_Profile extends Fragment {
                     mAlertDialog.show();
 
 					break;
-//                ================================================================================================
+/*================================================================================================
+ *                                       First Due
+================================================================================================ */
 				case R.id.firstdue_linear:
 					
 					First_Due_Calendar = Calendar.getInstance();
@@ -1256,7 +1305,9 @@ public class Fragment_Credit_Profile extends Fragment {
 					
 						mDialog.show();
 					break;
-//                ================================================================================================
+/*================================================================================================
+ *                                       Setup Alarm
+================================================================================================ */
 				case R.id.setup_alarm_linear:
 
                     mAlertDialog = new AlertDialog.Builder(getContext()).create();
@@ -1329,7 +1380,9 @@ public class Fragment_Credit_Profile extends Fragment {
 
                     mAlertDialog.show();
 					break;
-//                ================================================================================================
+/*================================================================================================
+ *                                       Alarm Times
+================================================================================================ */
                 case R.id.alarm_time_linear:
 					show_time_dialog().show();
                     break;
