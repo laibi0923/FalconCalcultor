@@ -20,6 +20,7 @@ public class Favouite_Item {
     double Loan_Installment;
 
     String First_Due;
+	String Final_Due;
     String EOM_DueDate;
     int Setup_Alarm;
     String Alarm_Time;
@@ -35,7 +36,7 @@ public class Favouite_Item {
 
     public Favouite_Item(int ID, String Create_Date, String Product_Name, String Product_Type, String Product_Status, String Loan_No,
                          double Loan_Amount, int Loan_Trems, double Loan_Rate, double Loan_Installment,
-                         String First_Due, String EOM_DueDate, int Setup_Alarm, String Alarm_Time,
+                         String First_Due, String Final_Due, String EOM_DueDate, int Setup_Alarm, String Alarm_Time,
                          String Addess, String Phone_No, String Remarks){
 
         this.ID = ID;
@@ -49,6 +50,7 @@ public class Favouite_Item {
         this.Loan_Rate = Loan_Rate;
         this.Loan_Installment = Loan_Installment;
         this.First_Due = First_Due;
+		this.Final_Due = Final_Due;
         this.EOM_DueDate = EOM_DueDate;
         this.Setup_Alarm = Setup_Alarm;
         this.Alarm_Time = Alarm_Time;
@@ -173,6 +175,18 @@ public class Favouite_Item {
     public void setFirst_Due(String first_Due) {
         First_Due = first_Due;
     }
+	
+	//=============================================================================================
+    // [11] First Due
+
+    public String getFinal_Due() {
+        return Final_Due;
+    }
+
+    public void setFinal_Due(String final_Due) {
+        Final_Due = final_Due;
+    }
+	
     //=============================================================================================
     // [12] EOM DueDate
 

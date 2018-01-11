@@ -32,6 +32,8 @@ public class Favourite_DataBasic {
     public static final String INSTALLMENT_COULUMN = "LoanInstallment";
 
     public static final String FIRST_DUEDATE_COULUMN = "Firstduedate";
+	public static final String FINAL_DUEDATE_COULUMN = "Finalduedate";
+	
     public static final String EOM_DUEDATE_COULUMN = "EOMduedate";
     public static final String ALERT_DATE_COULUMN = "AlertDate";
     public static final String ALERT_TIME_COULUMN = "AlertTime";
@@ -59,6 +61,8 @@ public class Favourite_DataBasic {
             INSTALLMENT_COULUMN + " DOUBLE," +
 
             FIRST_DUEDATE_COULUMN + " DATETIME," +
+			FINAL_DUEDATE_COULUMN + " DATETIME," +
+			
             EOM_DUEDATE_COULUMN + " TEXT," +
             ALERT_DATE_COULUMN + " INTEGER," +
             ALERT_TIME_COULUMN + " DATETIME, " +
@@ -219,16 +223,15 @@ public class Favourite_DataBasic {
         item.setLoan_Installment(cusor.getDouble(9));
 
         item.setFirst_Due(cusor.getString(10));
-        item.setEOM_DueDate(cusor.getString(11));
-        item.setSetup_Alarm(cusor.getInt(12));
-        item.setAlarm_Time(cusor.getString(13));
+		item.setFinal_Due(cusor.getString(11));
+        item.setEOM_DueDate(cusor.getString(12));
+        item.setSetup_Alarm(cusor.getInt(13));
+        item.setAlarm_Time(cusor.getString(14));
 
-        item.setAddress(cusor.getString(14));
-        item.setPhone_No(cusor.getString(15));
-        item.setRemarks(cusor.getString(16));
-
-
-
+        item.setAddress(cusor.getString(15));
+        item.setPhone_No(cusor.getString(16));
+        item.setRemarks(cusor.getString(17));
+		
         return item;
     }
 
@@ -252,6 +255,7 @@ public class Favourite_DataBasic {
 
 
         cv.put(FIRST_DUEDATE_COULUMN, item.getFirst_Due());
+		cv.put(FINAL_DUEDATE_COULUMN, item.getFinal_Due());
         cv.put(EOM_DUEDATE_COULUMN, item.getEOM_DueDate());
         cv.put(ALERT_DATE_COULUMN, item.getSetup_Alarm());
         cv.put(ALERT_TIME_COULUMN, item.getAlarm_Time());

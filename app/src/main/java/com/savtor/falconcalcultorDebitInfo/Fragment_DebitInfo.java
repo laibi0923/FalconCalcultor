@@ -43,7 +43,8 @@ public class Fragment_DebitInfo extends Fragment
 			T01.append("Loan Rate : " + i.getLoan_Rate() + "\n");
 			T01.append("Loan Installment : " + i.getLoan_Installment() + "\n");
 			T01.append("First due date : " + i.getFirst_Due() + "\n");
-			T01.append("Final due date : " + i.getEOM_DueDate() + "\n");
+			T01.append("Final due date : " + i.getFinal_Due() + "\n");
+			T01.append("EOM : " + i.getEOM_DueDate() + "\n");
 			T01.append("Setup Alarm : " + i.getSetup_Alarm() + "\n");
 			T01.append("Alert Time : " + i.getAlarm_Time() + "\n");
 			T01.append("Address :" + i.getAddress() + "\n");

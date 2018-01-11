@@ -125,6 +125,7 @@ public class Fragment_Favourite extends Fragment {
 				i.getLoan_Rate(),
                 i.getLoan_Installment(),
 				i.getFirst_Due(),
+				i.getFinal_Due(),
 				i.getEOM_DueDate(),
 				i.getSetup_Alarm(),
 				i.getAlarm_Time(),
