@@ -177,7 +177,7 @@ public class Favouite_Item {
     }
 	
 	//=============================================================================================
-    // [11] First Due
+    // [11] Final Due
 
     public String getFinal_Due() {
         return Final_Due;

@@ -38,7 +38,7 @@ public class Falcon_AlramManager
 			 *  ELAPSED_REALTIME_WAKEUP：同上，但會喚醒裝置。
 			 */
 			mAlarmManager.set(AlarmManager.RTC_WAKEUP, mCalendar.getTimeInMillis(), mPendingIntent);
-			Log.e("己設置時間為", new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(mCalendar.getTime())  + ", id = " + request_code);
+			Log.e("SETUP ALARM", new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(mCalendar.getTime())  + ", Request Code = " + request_code);
 
 	}
 	
@@ -47,7 +47,7 @@ public class Falcon_AlramManager
 		for(int i = 0; i < Trems; i++){
 			
 			Intent mIntent = new Intent(context, AlarmBroadCastReceiver.class);
-			PendingIntent mPendingIntent = PendingIntent.getBroadcast(context, request_code, mIntent, 0);
+			PendingIntent mPendingIntent = PendingIntent.getBroadcast(context, request_code + i, mIntent, 0);
 
 			mAlarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 			mAlarmManager.cancel(mPendingIntent);

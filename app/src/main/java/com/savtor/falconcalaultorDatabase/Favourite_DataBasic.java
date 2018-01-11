@@ -185,7 +185,7 @@ public class Favourite_DataBasic {
     }
 
 	//=============================================================================================
-    // [5] QUERY ALL ORDER BY DATE - 查詢所有紀錄
+    //
     public int query_max_id(){
 
         int max_id = 0;
