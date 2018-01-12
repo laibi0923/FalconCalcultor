@@ -17,7 +17,7 @@ public class Favourite_DataBasic {
     // 表格名稱
     public static final String TABLE_NAME = "favourite";
 
-    // 編號表格欄位名稱，固定不變, 共17項
+    // 編號表格欄位名稱，固定不變, 共18項
     public static final String KEY_ID = "_id";
 
     public static final String CREATE_DATE_COULUMN = "CreateDate";
@@ -38,11 +38,11 @@ public class Favourite_DataBasic {
     public static final String ALERT_DATE_COULUMN = "AlertDate";
     public static final String ALERT_TIME_COULUMN = "AlertTime";
 
-
 	public static final String ADDRESS_COULUMN = "Address";
     public static final String PHONE_COULUMN = "Phone";
     public static final String REMARKS_COULUMN = "Remarks";
 
+	public static final String REQUEST_CODE_COULUMN = "RequestCode";
     // 資料庫物件
     public SQLiteDatabase db;
 
@@ -69,7 +69,8 @@ public class Favourite_DataBasic {
 
             ADDRESS_COULUMN + " TEXT," +
 			PHONE_COULUMN + " TEXT," +
-            REMARKS_COULUMN + " TEXT)";
+            REMARKS_COULUMN + " TEXT," +
+			REQUEST_CODE_COULUMN + " INTEGER)";
 
 
 
@@ -231,6 +232,7 @@ public class Favourite_DataBasic {
         item.setAddress(cusor.getString(15));
         item.setPhone_No(cusor.getString(16));
         item.setRemarks(cusor.getString(17));
+		item.setRequestCode(cusor.getInt(18));
 		
         return item;
     }
@@ -264,7 +266,7 @@ public class Favourite_DataBasic {
         cv.put(ADDRESS_COULUMN, item.getAddress());
         cv.put(PHONE_COULUMN, item.getPhone_No());
         cv.put(REMARKS_COULUMN, item.getRemarks());
-
+		cv.put(REQUEST_CODE_COULUMN, item.getRequestCode());
 
 
         return cv;

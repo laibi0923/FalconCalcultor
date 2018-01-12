@@ -28,6 +28,8 @@ public class Favouite_Item {
     String Address;
     String Phone_No;
     String Remarks;
+	
+	int Request_Code;
 
 
     public Favouite_Item(){
@@ -37,7 +39,7 @@ public class Favouite_Item {
     public Favouite_Item(int ID, String Create_Date, String Product_Name, String Product_Type, String Product_Status, String Loan_No,
                          double Loan_Amount, int Loan_Trems, double Loan_Rate, double Loan_Installment,
                          String First_Due, String Final_Due, String EOM_DueDate, int Setup_Alarm, String Alarm_Time,
-                         String Addess, String Phone_No, String Remarks){
+                         String Addess, String Phone_No, String Remarks, int Request_Code){
 
         this.ID = ID;
         this.Create_Date = Create_Date;
@@ -57,7 +59,7 @@ public class Favouite_Item {
         this.Address = Addess;
         this.Phone_No = Phone_No;
         this.Remarks = Remarks;
-
+		this.Request_Code = Request_Code;
     }
 
     //=============================================================================================
@@ -251,5 +253,16 @@ public class Favouite_Item {
 
     public void setRemarks(String remarks) {
         Remarks = remarks;
+    }
+	
+	//=============================================================================================
+    // [17] Remarks
+
+    public int getRequestCode() {
+        return Request_Code;
+    }
+
+    public void setRequestCode(int request_code) {
+        Request_Code = request_code;
     }
 }

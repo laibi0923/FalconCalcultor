@@ -49,6 +49,7 @@ public class Fragment_DebitInfo extends Fragment
 			T01.append("Alert Time : " + i.getAlarm_Time() + "\n");
 			T01.append("Address :" + i.getAddress() + "\n");
 			T01.append("Phone :" + i.getPhone_No() + "\n");
+			T01.append("Request Code :" + i.getRequestCode() + "\n");
 			T01.append("Remarks : \n" + i.getRemarks() + "\n \n");
 
 		}

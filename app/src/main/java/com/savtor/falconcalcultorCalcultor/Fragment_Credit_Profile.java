@@ -75,7 +75,7 @@ public class Fragment_Credit_Profile extends Fragment {
     // DataBase Update / Intert
     private String PRODUCT_NAME, PRODUCT_CODE, STATUS_CODE, LOAN_NUM, FIRST_DUE, FINAL_DUE, ALARM_TIME, EOM_DUEDATE, ADDRESS, PHONE, REMARKS, LAST_MODIFY;
     private double LOAN_AMOUNT, LOAN_RATE, LOAN_INSTALLMENT;
-    private int DB_ID, LOAN_TREMS, SETUP_ALARM;
+    private int DB_ID, LOAN_TREMS, SETUP_ALARM, REQUEST_CODE;
 
     private Favourite_DataBasic DataBasic;
 
@@ -112,6 +112,7 @@ public class Fragment_Credit_Profile extends Fragment {
         ADDRESS = "";
         PHONE = "";
         REMARKS = "";
+		REQUEST_CODE = 0;
 
         if (mBundle != null && mBundle.getString("From").equals("Calcultor")){
 
@@ -142,23 +143,23 @@ public class Fragment_Credit_Profile extends Fragment {
             ADDRESS = DataBasic.query(DB_ID).getAddress();
             PHONE = DataBasic.query(DB_ID).getPhone_No();
             REMARKS = DataBasic.query(DB_ID).getRemarks();
+			REQUEST_CODE = DataBasic.query(DB_ID).getRequestCode();
 
             DataBasic.close();
 
-            First_Due_Calendar.set(Calendar.YEAR, Integer.parseInt(FIRST_DUE.substring(0, 4)));
-            First_Due_Calendar.set(Calendar.MONTH, Integer.parseInt(FIRST_DUE.substring(6 ,7)));
-            First_Due_Calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(FIRST_DUE.substring(9, 10)));
-
-            Last_Modify_Calendar.set(Calendar.YEAR, Integer.parseInt(LAST_MODIFY.substring(0, 4)));
-            Last_Modify_Calendar.set(Calendar.MONTH, Integer.parseInt(LAST_MODIFY.substring(6 ,7)));
-            Last_Modify_Calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(LAST_MODIFY.substring(9, 10)));
-
+			if(FIRST_DUE != null){
+				First_Due_Calendar.set(Calendar.YEAR, Integer.parseInt(FIRST_DUE.substring(0, 4)));
+				First_Due_Calendar.set(Calendar.MONTH, Integer.parseInt(FIRST_DUE.substring(6 ,7)));
+				First_Due_Calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(FIRST_DUE.substring(9, 10)));
+			}
+            
             if (ALARM_TIME.length() != 0){
                 Times_Calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(ALARM_TIME.substring(0, 2)));
                 Times_Calendar.set(Calendar.MINUTE, Integer.parseInt(ALARM_TIME.substring(3, 5)));
             }
 
             Log.e("Long to int test", (int) - Times_Calendar.getTimeInMillis() + "");
+			Log.e("last trst", new SimpleDateFormat("yyyy/MM/dd HH:mm").format(Last_Modify_Calendar.getTime()) + "");
 
         }
 
@@ -240,12 +241,13 @@ public class Fragment_Credit_Profile extends Fragment {
         }else {
 
 			Falcon_AlramManager mAlarmManager = new Falcon_AlramManager();
+			LAST_MODIFY = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Last_Modify_Calendar.getTime());
 			
             DataBasic = new Favourite_DataBasic(getActivity(), This_Fragment_Name);
 
             Favouite_Item fav_item = new Favouite_Item(
                     DB_ID,
-                    new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()),
+                    LAST_MODIFY,
                     Product_Name.getText().toString(),
                     PRODUCT_CODE,
                     STATUS_CODE,
@@ -261,12 +263,13 @@ public class Fragment_Credit_Profile extends Fragment {
                     ALARM_TIME, //HH:mm:ss
                     Address.getText().toString(),
                     PhoneNo.getText().toString(),
-                    Remarks.getText().toString());
+                    Remarks.getText().toString(),
+					(int) -Last_Modify_Calendar.getTimeInMillis());
 
 			if(mBundle != null && mBundle.getString("From") == "Favoutive"){
 				DataBasic.update(fav_item);
 				// 不論使用者取消或調整時間， 都先取消舊有提示
-				mAlarmManager.Cancel_Alram(getContext(), (int) -Last_Modify_Calendar.getTimeInMillis(), LOAN_TREMS);
+				mAlarmManager.Cancel_Alram(getContext(), REQUEST_CODE, LOAN_TREMS);
                 Toast.makeText(getContext(), getString(R.string.toast_upadte_completed), Toast.LENGTH_SHORT).show();
 			}else {
 				DataBasic.inster(fav_item);
@@ -276,34 +279,18 @@ public class Fragment_Credit_Profile extends Fragment {
            
             DataBasic.close();
 			
-			if(ALARM_TIME.length() != 0){
+			if(ALARM_TIME.length() != 0 && SETUP_ALARM != 99){
 
 				// 設置新 Alram
-				for(int i = 0; i < LOAN_TREMS; i++){
-					Calendar mCalendar = Calendar.getInstance();
-					mCalendar.set(Calendar.YEAR, First_Due_Calendar.get(Calendar.YEAR));
-					mCalendar.set(Calendar.MONTH, First_Due_Calendar.get(Calendar.MONTH));
-					if(EOM_DUEDATE == "false"){
-						mCalendar.set(Calendar.DAY_OF_MONTH, First_Due_Calendar.get(Calendar.DAY_OF_MONTH));
-					}else if(EOM_DUEDATE == "true"){
-						mCalendar.set(Calendar.DAY_OF_MONTH, First_Due_Calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
-					}
-					mCalendar.set(Calendar.HOUR_OF_DAY, Times_Calendar.get(Calendar.HOUR_OF_DAY));
-					mCalendar.set(Calendar.MINUTE, Times_Calendar.get(Calendar.MINUTE));
-					mCalendar.set(Calendar.SECOND, 0);
-
-					mCalendar.add(Calendar.MONTH, i);
-					mCalendar.add(Calendar.DAY_OF_MONTH, -SETUP_ALARM);
-
-					mAlarmManager.Setup_Alram(getContext(),
-                                             (int) -Last_Modify_Calendar.getTimeInMillis() + i,
-											  mCalendar,
-											  LOAN_TREMS,
-											  SETUP_ALARM,
-											  Product_Name.getText().toString(),
-											  LOAN_INSTALLMENT);
-				}
-											  
+				mAlarmManager.Setup_Alram(getContext(),
+										  (int) -Last_Modify_Calendar.getTimeInMillis(),
+										  First_Due_Calendar,
+										  Times_Calendar,
+										  EOM_DUEDATE,
+										  LOAN_TREMS,
+										  SETUP_ALARM,
+										  Product_Name.getText().toString(),
+										  LOAN_INSTALLMENT);
 			}
 
 //            Transition to Fragment
