@@ -112,7 +112,7 @@ public class Fragment_Credit_Profile extends Fragment {
         ADDRESS = "";
         PHONE = "";
         REMARKS = "";
-		REQUEST_CODE = 0;
+		REQUEST_CODE = (int) -Last_Modify_Calendar.getTimeInMillis();
 
         if (mBundle != null && mBundle.getString("From").equals("Calcultor")){
 
@@ -144,22 +144,22 @@ public class Fragment_Credit_Profile extends Fragment {
             PHONE = DataBasic.query(DB_ID).getPhone_No();
             REMARKS = DataBasic.query(DB_ID).getRemarks();
 			REQUEST_CODE = DataBasic.query(DB_ID).getRequestCode();
+			Log.e("Restore", "Request Code = " + REQUEST_CODE);
 
             DataBasic.close();
 
 			if(FIRST_DUE != null){
 				First_Due_Calendar.set(Calendar.YEAR, Integer.parseInt(FIRST_DUE.substring(0, 4)));
-				First_Due_Calendar.set(Calendar.MONTH, Integer.parseInt(FIRST_DUE.substring(6 ,7)));
-				First_Due_Calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(FIRST_DUE.substring(9, 10)));
+				First_Due_Calendar.set(Calendar.MONTH, Integer.parseInt(FIRST_DUE.substring(5 ,7)) - 1);
+				First_Due_Calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(FIRST_DUE.substring(8, 10)));
+				Log.e("Restore", "First due = " + First_Due_Calendar.getTime());
 			}
             
             if (ALARM_TIME.length() != 0){
                 Times_Calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(ALARM_TIME.substring(0, 2)));
                 Times_Calendar.set(Calendar.MINUTE, Integer.parseInt(ALARM_TIME.substring(3, 5)));
+				Log.e("Restore", "Alarm time = " + new SimpleDateFormat("HH:mm").format(Times_Calendar.getTime()));
             }
-
-            Log.e("Long to int test", (int) - Times_Calendar.getTimeInMillis() + "");
-			Log.e("last trst", new SimpleDateFormat("yyyy/MM/dd HH:mm").format(Last_Modify_Calendar.getTime()) + "");
 
         }
 
@@ -264,16 +264,18 @@ public class Fragment_Credit_Profile extends Fragment {
                     Address.getText().toString(),
                     PhoneNo.getText().toString(),
                     Remarks.getText().toString(),
-					(int) -Last_Modify_Calendar.getTimeInMillis());
+					REQUEST_CODE);
 
 			if(mBundle != null && mBundle.getString("From") == "Favoutive"){
 				DataBasic.update(fav_item);
-				// 不論使用者取消或調整時間， 都先取消舊有提示
-				mAlarmManager.Cancel_Alram(getContext(), REQUEST_CODE, LOAN_TREMS);
-                Toast.makeText(getContext(), getString(R.string.toast_upadte_completed), Toast.LENGTH_SHORT).show();
+				if(SETUP_ALARM != 99){
+					// 不論使用者取消或調整時間， 都先取消舊有提示
+					mAlarmManager.Cancel_Alram(getContext(), REQUEST_CODE, LOAN_TREMS);
+				}
+				Toast.makeText(getContext(), getString(R.string.toast_upadte_completed), Toast.LENGTH_SHORT).show();
 			}else {
 				DataBasic.inster(fav_item);
-                DB_ID = DataBasic.query_max_id();
+                //DB_ID = DataBasic.query_max_id();
                 Toast.makeText(getContext(), getString(R.string.toast_save_completed), Toast.LENGTH_SHORT).show();
 			}
            
@@ -401,6 +403,12 @@ public class Fragment_Credit_Profile extends Fragment {
 		LOAN_RATE = 0;
         LOAN_TREMS = 12;
 		LOAN_INSTALLMENT = 0;
+		FINAL_DUE = "";
+		SETUP_ALARM = 99;
+		ALARM_TIME = "";
+		ADDRESS = "";
+		PHONE = "";
+		REMARKS = "";
     }
 
 /*================================================================================================
