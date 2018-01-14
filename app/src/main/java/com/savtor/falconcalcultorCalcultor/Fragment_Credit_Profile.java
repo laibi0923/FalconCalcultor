@@ -1,6 +1,12 @@
 package com.savtor.falconcalcultorCalcultor;
 
-import android.os.Bundle; 
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.app.TimePickerDialog;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.InputType;
@@ -19,12 +25,13 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import android.view.View.*;
-import android.app.*;
+
 import android.widget.*;
 import com.savtor.AlarmNotification.*;
 import com.savtor.falconcalaultorDatabase.Favouite_Item;
 import com.savtor.falconcalaultorDatabase.Favourite_DataBasic;
 import com.savtor.falconcalcultor.*;
+import com.savtor.falconcalcultorFavoutive.Fragment_Favourite;
 
 /**
  * Created by GhostLeo_DT on 4/1/2018.
@@ -112,7 +119,7 @@ public class Fragment_Credit_Profile extends Fragment {
         ADDRESS = "";
         PHONE = "";
         REMARKS = "";
-		REQUEST_CODE = (int) -Last_Modify_Calendar.getTimeInMillis();
+		REQUEST_CODE = 0;
 
         if (mBundle != null && mBundle.getString("From").equals("Calcultor")){
 
@@ -264,7 +271,7 @@ public class Fragment_Credit_Profile extends Fragment {
                     Address.getText().toString(),
                     PhoneNo.getText().toString(),
                     Remarks.getText().toString(),
-					REQUEST_CODE);
+                    (int) -Last_Modify_Calendar.getTimeInMillis()); // 新創 Request Code
 
 			if(mBundle != null && mBundle.getString("From") == "Favoutive"){
 				DataBasic.update(fav_item);
@@ -282,7 +289,6 @@ public class Fragment_Credit_Profile extends Fragment {
             DataBasic.close();
 			
 			if(ALARM_TIME.length() != 0 && SETUP_ALARM != 99){
-
 				// 設置新 Alram
 				mAlarmManager.Setup_Alram(getContext(),
 										  (int) -Last_Modify_Calendar.getTimeInMillis(),
@@ -294,6 +300,13 @@ public class Fragment_Credit_Profile extends Fragment {
 										  Product_Name.getText().toString(),
 										  LOAN_INSTALLMENT);
 			}
+
+//            Fragment mFragment = new Fragment_Favourite();
+//            FragmentManager mFragmentManager = getActivity().getFragmentManager();
+//            FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
+//            mFragmentTransaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right);
+//            mFragmentTransaction.replace(R.id.mFrameLayout, mFragment);
+//            mFragmentTransaction.commit();
 
 //            Transition to Fragment
 			/*
@@ -315,6 +328,7 @@ public class Fragment_Credit_Profile extends Fragment {
             Log.e("ADDRESS", Address.getText().toString());
             Log.e("PHONE_NO", PhoneNo.getText().toString());
             Log.e("REMARKS", Remarks.getText().toString());
+            Log.e("REQUEST CODE", REQUEST_CODE + "");
         }
 
         return super.onOptionsItemSelected(item);
@@ -639,12 +653,12 @@ public class Fragment_Credit_Profile extends Fragment {
                         }
                     });
 
-                    Dialog_Option_3_Icon.setImageResource(R.drawable.ic_person_black_24dp);
+                    Dialog_Option_3_Icon.setImageResource(R.drawable.ic_cached_black_24dp);
                     Dialog_Option_3_Text.setText(getString(R.string.title_product_revolving));
 					Dialog_Option_3.setOnClickListener(new OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Product_Type_Icon.setImageResource(R.drawable.ic_person_black_24dp);
+                            Product_Type_Icon.setImageResource(R.drawable.ic_cached_black_24dp);
                             Product_Type_Name.setText(getString(R.string.title_product_revolving));
 
                             if (PRODUCT_CODE == "Card"){
