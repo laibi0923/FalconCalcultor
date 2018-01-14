@@ -17,7 +17,7 @@ import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.savtor.AlarmNotification.tseting_Notification;
+import com.savtor.AlarmNotification.Tseting_Notification;
 import com.savtor.falconcalcultorCalcultor.Fragment_Calcultor;
 import com.savtor.falconcalcultorCalcultor.Fragment_Credit_Profile;
 import com.savtor.falconcalcultorDebitInfo.Fragment_DebitInfo;
@@ -117,7 +117,7 @@ public class Activity_Main extends AppCompatActivity {
                             break;
 
                         case R.id.nav_item7:
-                            Fragment_Transaction(new tseting_Notification());
+                            Fragment_Transaction(new Tseting_Notification());
                             break;
                     }
 

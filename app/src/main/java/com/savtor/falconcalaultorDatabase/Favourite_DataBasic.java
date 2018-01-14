@@ -54,25 +54,19 @@ public class Favourite_DataBasic {
             PRODUCT_TYPE_COULUMN + " TEXT," +
             PRODUCT_STATUS_COULUMN + " TEXT," +
             LOAN_NUM_COULUMN + " TEXT," +
-
             AMOUNT_COLUMN + " DOUBLE," +
             TREMS_COULUMN + " INTEGER," +
             RATE_COULUMN + " DOUBLE," +
             INSTALLMENT_COULUMN + " DOUBLE," +
-
             FIRST_DUEDATE_COULUMN + " DATETIME," +
 			FINAL_DUEDATE_COULUMN + " DATETIME," +
-			
             EOM_DUEDATE_COULUMN + " TEXT," +
             ALERT_DATE_COULUMN + " INTEGER," +
             ALERT_TIME_COULUMN + " DATETIME, " +
-
             ADDRESS_COULUMN + " TEXT," +
 			PHONE_COULUMN + " TEXT," +
             REMARKS_COULUMN + " TEXT," +
 			REQUEST_CODE_COULUMN + " INTEGER)";
-
-
 
 
     //=============================================================================================
@@ -244,30 +238,23 @@ public class Favourite_DataBasic {
         ContentValues cv = new ContentValues();
 
         cv.put(CREATE_DATE_COULUMN, item.getCreate_Date());
-
         cv.put(PRODUCT_NAME_COLUMN, item.getProduct_Name());
         cv.put(PRODUCT_TYPE_COULUMN, item.getProduct_Type());
         cv.put(PRODUCT_STATUS_COULUMN, item.getProduct_Status());
         cv.put(LOAN_NUM_COULUMN, item.getLoan_No());
-
         cv.put(AMOUNT_COLUMN, item.getLoan_Amount());
         cv.put(TREMS_COULUMN, item.getLoan_Trems());
         cv.put(RATE_COULUMN, item.getLoan_Rate());
         cv.put(INSTALLMENT_COULUMN, item.getLoan_Installment());
-
-
         cv.put(FIRST_DUEDATE_COULUMN, item.getFirst_Due());
 		cv.put(FINAL_DUEDATE_COULUMN, item.getFinal_Due());
         cv.put(EOM_DUEDATE_COULUMN, item.getEOM_DueDate());
         cv.put(ALERT_DATE_COULUMN, item.getSetup_Alarm());
         cv.put(ALERT_TIME_COULUMN, item.getAlarm_Time());
-
-
         cv.put(ADDRESS_COULUMN, item.getAddress());
         cv.put(PHONE_COULUMN, item.getPhone_No());
         cv.put(REMARKS_COULUMN, item.getRemarks());
 		cv.put(REQUEST_CODE_COULUMN, item.getRequestCode());
-
 
         return cv;
     }
@@ -292,6 +279,5 @@ public class Favourite_DataBasic {
     public void close() {
         db.close();
     }
-
 
 }

@@ -145,8 +145,6 @@ public class Fragment_Setting extends Fragment
 		underline.setVisibility(View.GONE);
 
 
-
-
 		language_title = (TextView) v.findViewById(R.id.language_title);
 		language_title.setText(getResources().getString(R.string.language_title));
 
@@ -190,9 +188,6 @@ public class Fragment_Setting extends Fragment
 		}else if (get_setting_language == 2){
 			language_cht_text.setTextColor(getResources().getColor(R.color.deep_teal_200));
 		}
-
-
-
 
 		decimal_point_title = (TextView) v.findViewById(R.id.decimal_point_title);
 		decimal_point_title.setText(getResources().getString(R.string.decimal_point_title));

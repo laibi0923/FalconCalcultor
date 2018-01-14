@@ -27,7 +27,6 @@ public class Favourite_ViewHolder extends RecyclerView.ViewHolder {
     public Favourite_ViewHolder(View itemView) {
         super(itemView);
 
-
         top_warp = (LinearLayout) itemView.findViewById(R.id.top_warp);
         create_date_tv = (TextView) itemView.findViewById(R.id.create_date_tv);
         name_tv = (TextView) itemView.findViewById(R.id.name_tv);

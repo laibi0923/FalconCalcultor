@@ -1,19 +1,10 @@
 package com.savtor.AlarmNotification;
 
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.media.RingtoneManager;
-import android.net.Uri;
-import android.provider.Settings;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.content.ContextCompat;
 
 import com.savtor.falconcalcultor.*;
 /**

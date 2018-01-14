@@ -15,7 +15,6 @@ import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
 import com.savtor.falconcalaultorDatabase.Favourite_DataBasic;
 import com.savtor.falconcalcultor.*;
 import com.savtor.falconcalcultorCalcultor.Calcultor;
-import com.savtor.falconcalcultorCalcultor.Fragment_Calcultor;
 import com.savtor.falconcalaultorDatabase.Favouite_Item;
 import com.savtor.falconcalcultorCalcultor.Fragment_Credit_Profile;
 
@@ -28,9 +27,6 @@ import android.support.v4.app.*;
 /**
  * Created by GhostLeo_DT on 2/12/2017.
  */
-
-//RecyclerView.Adapter<Favourite_ViewHolder>1
-
 public class Favourite_Adapter extends RecyclerSwipeAdapter<Favourite_ViewHolder> {
 
     private List<Favouite_Item> list = Collections.emptyList();
@@ -71,7 +67,7 @@ public class Favourite_Adapter extends RecyclerSwipeAdapter<Favourite_ViewHolder
         }else if (list.get(position).getProduct_Type().equals("Mortgage")){
             holder.loan_type_icon.setImageResource(R.drawable.ic_domain_black_24dp);
         }else if (list.get(position).getProduct_Type().equals("Revolving")){
-            holder.loan_type_icon.setImageResource(R.drawable.ic_person_black_24dp);
+            holder.loan_type_icon.setImageResource(R.drawable.ic_cached_black_24dp);
         }else if (list.get(position).getProduct_Type().equals("Car")){
             holder.loan_type_icon.setImageResource(R.drawable.ic_directions_car_black_24dp);
         }else if (list.get(position).getProduct_Type().equals("Card")){
@@ -80,20 +76,19 @@ public class Favourite_Adapter extends RecyclerSwipeAdapter<Favourite_ViewHolder
 
         holder.name_tv.setText(list.get(position).getProduct_Name());
 
-        if (list.get(position).getLoan_No() == null){
+        if (list.get(position).getLoan_No() == null || list.get(position).getLoan_No().isEmpty()){
             holder.loan_number_tv.setText("");
         }else {
             holder.loan_number_tv.setText("(" + list.get(position).getLoan_No() + ")");
         }
 
-
 		holder.loan_amount_tv.setText(String.format(dec_point, list.get(position).getLoan_Amount()));
 
-        holder.loan_trems_tv.setText(String.valueOf( list.get(position).getLoan_Trems() ));
+        holder.loan_trems_tv.setText(String.valueOf(list.get(position).getLoan_Trems() ));
 
-		holder.loan_rate_tv.setText(String.valueOf( list.get(position).getLoan_Rate()));
+		holder.loan_rate_tv.setText(String.format(dec_point, list.get(position).getLoan_Rate()));
 
-        holder.installment_tv.setText(String.valueOf(list.get(position).getLoan_Installment()));
+        holder.installment_tv.setText(String.format(dec_point, list.get(position).getLoan_Installment()));
 
         if (list.get(position).getProduct_Status().equals("NotApply")){
             holder.apply_status_tv.setText(context.getString(R.string.product_status_notapply));
@@ -107,10 +102,10 @@ public class Favourite_Adapter extends RecyclerSwipeAdapter<Favourite_ViewHolder
             holder.apply_status_tv.setText(context.getString(R.string.product_status_cancel));
         }
 
-        if (list.get(position).getAlarm_Time() != null){
-            holder.alert_icon_im.setVisibility(View.VISIBLE);
-        }else {
+        if (list.get(position).getAlarm_Time().isEmpty()){
             holder.alert_icon_im.setVisibility(View.GONE);
+        }else {
+            holder.alert_icon_im.setVisibility(View.VISIBLE);
         }
 
         if (list.get(position).getRemarks().equals("")){
@@ -171,9 +166,9 @@ public class Favourite_Adapter extends RecyclerSwipeAdapter<Favourite_ViewHolder
         });
 
 
-        Calcultor mCalcultor = new Calcultor();
-        double result = mCalcultor.getMonthlyInstallment(list.get(position).getLoan_Amount(), list.get(position).getLoan_Trems(), list.get(position).getLoan_Rate());
-        holder.installment_tv.setText(String.format(dec_point, result));
+//        Calcultor mCalcultor = new Calcultor();
+//        double result = mCalcultor.getMonthlyInstallment(list.get(position).getLoan_Amount(), list.get(position).getLoan_Trems(), list.get(position).getLoan_Rate());
+//        holder.installment_tv.setText(String.format(dec_point, result));
 
         holder.swipeLayout.setShowMode(SwipeLayout.ShowMode.LayDown);
 
