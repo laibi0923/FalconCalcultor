@@ -3,12 +3,12 @@ package com.savtor.falconcalcultorCalcultor;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -301,12 +301,13 @@ public class Fragment_Credit_Profile extends Fragment {
 										  LOAN_INSTALLMENT);
 			}
 
-//            Fragment mFragment = new Fragment_Favourite();
-//            FragmentManager mFragmentManager = getActivity().getFragmentManager();
-//            FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
-//            mFragmentTransaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right);
-//            mFragmentTransaction.replace(R.id.mFrameLayout, mFragment);
-//            mFragmentTransaction.commit();
+            Fragment mFragment = new Fragment_Favourite();
+            FragmentManager mFragmentManager = getActivity().getSupportFragmentManager();
+            mFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
+//            mFragmentTransaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right)
+            mFragmentTransaction.replace(R.id.mFrameLayout, mFragment);
+            mFragmentTransaction.commit();
 
 //            Transition to Fragment
 			/*
