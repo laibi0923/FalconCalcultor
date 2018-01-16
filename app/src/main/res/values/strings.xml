@@ -70,7 +70,6 @@
 
     <!--Credit Profile-->
     <!--==============================================================================================-->
-
     <string name="hints_product_name">輸入名稱</string>
 
     <string name="title_product_type">產品類別</string>
@@ -119,23 +118,23 @@
 	<string name="dialog_duedate_normal">按所選日子</string>
 	<string name="dialog_duedate_eom">每月最後一日</string>
 
+    <string name="dialog_hints_loanammount">自定金額</string>
+    <string name="dialog_hints_loanrate">自定利率</string>
     <string name="dialog_hints_trems">自定攤還期數</string>
+    <string name="dialog_hints_loaninstallment">自定供款金額</string>
 
-    <string name="hints_dialog_loanammount">自定金額</string>
-    <string name="hints_dialog_loanrate">自定利率</string>
-    <string name="hints_dialog_loantrems">自定期數</string>
-    <string name="hints_dialog_loaninstallment">自定供款金額</string>
-
-    <string name="hints_enter_name">請先輸入名稱</string>
+    <string name="dialog_title_amount">輸入金額</string>
+    <string name="dialog_title_rate">輸入利率</string>
+    <string name="dialog_title_trems">輸入攤還期數</string>
+    <string name="dialog_title_installment">輸入每月供款</string>
 
     <string name="toast_save_completed">保存成功</string>
     <string name="toast_upadte_completed">更新成功</string>
-
+    <string name="totast_enter_name">請先輸入名稱</string>
     <string name="toast_max_amount">貸款額輸入上限為 $ 10,000,000</string>
     <string name="toast_max_rate">實際年利率輸入上限為 60 %p.a.</string>
     <string name="toast_max_trems">還款期輸入上限為 90 個月</string>
-	
-	
+
 
     <!--==============================================================================================-->
     <!--for Setting Page-->

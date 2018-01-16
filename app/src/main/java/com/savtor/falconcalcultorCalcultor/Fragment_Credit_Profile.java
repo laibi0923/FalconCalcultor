@@ -17,6 +17,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -243,95 +244,102 @@ public class Fragment_Credit_Profile extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if (Product_Name.getText().toString().isEmpty()){
-            Toast.makeText(getContext(), getString(R.string.hints_enter_name), Toast.LENGTH_SHORT).show();
-        }else {
+        switch (item.getItemId()){
 
-			Falcon_AlramManager mAlarmManager = new Falcon_AlramManager();
-			LAST_MODIFY = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Last_Modify_Calendar.getTime());
-			
-            DataBasic = new Favourite_DataBasic(getActivity(), This_Fragment_Name);
+            case R.id.save_to_fav:
 
-            Favouite_Item fav_item = new Favouite_Item(
-                    DB_ID,
-                    LAST_MODIFY,
-                    Product_Name.getText().toString(),
-                    PRODUCT_CODE,
-                    STATUS_CODE,
-                    Product_Loan_Number.getText().toString(),
-                    LOAN_AMOUNT,
-                    LOAN_TREMS,
-                    LOAN_RATE,
-                    LOAN_INSTALLMENT,
-                    FIRST_DUE,
-					FINAL_DUE,
-                    EOM_DUEDATE,
-                    SETUP_ALARM,
-                    ALARM_TIME, //HH:mm:ss
-                    Address.getText().toString(),
-                    PhoneNo.getText().toString(),
-                    Remarks.getText().toString(),
-                    (int) -Last_Modify_Calendar.getTimeInMillis()); // 新創 Request Code
+                if (Product_Name.getText().toString().isEmpty()){
+                    Toast.makeText(getContext(), getString(R.string.totast_enter_name), Toast.LENGTH_SHORT).show();
+                }else {
 
-			if(mBundle != null && mBundle.getString("From") == "Favoutive"){
-				DataBasic.update(fav_item);
-				if(SETUP_ALARM != 99){
-					// 不論使用者取消或調整時間， 都先取消舊有提示
-					mAlarmManager.Cancel_Alram(getContext(), REQUEST_CODE, LOAN_TREMS);
-				}
-				Toast.makeText(getContext(), getString(R.string.toast_upadte_completed), Toast.LENGTH_SHORT).show();
-			}else {
-				DataBasic.inster(fav_item);
-                //DB_ID = DataBasic.query_max_id();
-                Toast.makeText(getContext(), getString(R.string.toast_save_completed), Toast.LENGTH_SHORT).show();
-			}
-           
-            DataBasic.close();
-			
-			if(ALARM_TIME.length() != 0 && SETUP_ALARM != 99){
-				// 設置新 Alram
-				mAlarmManager.Setup_Alram(getContext(),
-										  (int) -Last_Modify_Calendar.getTimeInMillis(),
-										  First_Due_Calendar,
-										  Times_Calendar,
-										  EOM_DUEDATE,
-										  LOAN_TREMS,
-										  SETUP_ALARM,
-										  Product_Name.getText().toString(),
-										  LOAN_INSTALLMENT);
-			}
+                    View view = getActivity().getCurrentFocus();
+                    if (view != null){
+                        view.setFocusable(false);
+                        view.setFocusableInTouchMode(false);
+                        Log.e("Focus status", "Clear all focus");
+                    }
 
-            Fragment mFragment = new Fragment_Favourite();
-            FragmentManager mFragmentManager = getActivity().getSupportFragmentManager();
-            mFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-            FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
-//            mFragmentTransaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right)
-            mFragmentTransaction.replace(R.id.mFrameLayout, mFragment);
-            mFragmentTransaction.commit();
+                    Falcon_AlramManager mAlarmManager = new Falcon_AlramManager();
+                    LAST_MODIFY = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Last_Modify_Calendar.getTime());
 
-//            Transition to Fragment
+                    DataBasic = new Favourite_DataBasic(getActivity(), This_Fragment_Name);
+
+                    Favouite_Item fav_item = new Favouite_Item(
+                            DB_ID,
+                            LAST_MODIFY,
+                            Product_Name.getText().toString(),
+                            PRODUCT_CODE,
+                            STATUS_CODE,
+                            Product_Loan_Number.getText().toString(),
+                            LOAN_AMOUNT,
+                            LOAN_TREMS,
+                            LOAN_RATE,
+                            LOAN_INSTALLMENT,
+                            FIRST_DUE,
+                            FINAL_DUE,
+                            EOM_DUEDATE,
+                            SETUP_ALARM,
+                            ALARM_TIME, //HH:mm:ss
+                            Address.getText().toString(),
+                            PhoneNo.getText().toString(),
+                            Remarks.getText().toString(),
+                            (int) -Last_Modify_Calendar.getTimeInMillis()); // 新創 Request Code
+
+                    if(mBundle != null && mBundle.getString("From") == "Favoutive"){
+                        DataBasic.update(fav_item);
+                        if(SETUP_ALARM != 99){
+                            // 不論使用者取消或調整時間， 都先取消舊有提示
+                            mAlarmManager.Cancel_Alram(getContext(), REQUEST_CODE, LOAN_TREMS);
+                        }
+                        Toast.makeText(getContext(), getString(R.string.toast_upadte_completed), Toast.LENGTH_SHORT).show();
+                    }else {
+                        DataBasic.inster(fav_item);
+                        Toast.makeText(getContext(), getString(R.string.toast_save_completed), Toast.LENGTH_SHORT).show();
+                    }
+
+                    DataBasic.close();
+
+                    if(ALARM_TIME.length() != 0 && SETUP_ALARM != 99){
+                        // 設置新 Alram
+                        mAlarmManager.Setup_Alram(getContext(),
+                                (int) -Last_Modify_Calendar.getTimeInMillis(),
+                                First_Due_Calendar,
+                                Times_Calendar,
+                                EOM_DUEDATE,
+                                LOAN_TREMS,
+                                SETUP_ALARM,
+                                Product_Name.getText().toString(),
+                                LOAN_INSTALLMENT);
+                    }
+
+                    //  保存後跳頁至心水清單
+                    ((Activity_Main)getActivity()).Fragment_Transaction(new Fragment_Favourite());
+                    ((Activity_Main)getActivity()).mNavView.getMenu().getItem(2).setChecked(true);
+
 			/*
 			 *	Testing Get Value
 			*/
-            Log.e("LAST_MODIFY", new SimpleDateFormat("yyyy/MM/dd").format(new Date()) + "");
-            Log.e("PRODUCT_NAME", Product_Name.getText().toString());
-            Log.e("PRODUCT_CODE", PRODUCT_CODE + "");
-            Log.e("STATUS_CODE", STATUS_CODE + "");
-            Log.e("LOAN_NUM", Product_Loan_Number.getText().toString());
-            Log.e("LOAN_AMOUNT", LOAN_AMOUNT + "");
-            Log.e("LOAN_RATE", LOAN_RATE + "");
-            Log.e("LOAN_TREMS", LOAN_TREMS + "");
-            Log.e("LOAN_INSTALLMENT", LOAN_INSTALLMENT + "");
-            Log.e("FIRST_DUE", FIRST_DUE + "");
-            Log.e("EOM_DUEDATE", EOM_DUEDATE + "");
-            Log.e("SETUP_ALARM", SETUP_ALARM + "");
-            Log.e("ALARM_TIME", ALARM_TIME + "");
-            Log.e("ADDRESS", Address.getText().toString());
-            Log.e("PHONE_NO", PhoneNo.getText().toString());
-            Log.e("REMARKS", Remarks.getText().toString());
-            Log.e("REQUEST CODE", REQUEST_CODE + "");
-        }
+                    Log.e("LAST_MODIFY", new SimpleDateFormat("yyyy/MM/dd").format(new Date()) + "");
+                    Log.e("PRODUCT_NAME", Product_Name.getText().toString());
+                    Log.e("PRODUCT_CODE", PRODUCT_CODE + "");
+                    Log.e("STATUS_CODE", STATUS_CODE + "");
+                    Log.e("LOAN_NUM", Product_Loan_Number.getText().toString());
+                    Log.e("LOAN_AMOUNT", LOAN_AMOUNT + "");
+                    Log.e("LOAN_RATE", LOAN_RATE + "");
+                    Log.e("LOAN_TREMS", LOAN_TREMS + "");
+                    Log.e("LOAN_INSTALLMENT", LOAN_INSTALLMENT + "");
+                    Log.e("FIRST_DUE", FIRST_DUE + "");
+                    Log.e("EOM_DUEDATE", EOM_DUEDATE + "");
+                    Log.e("SETUP_ALARM", SETUP_ALARM + "");
+                    Log.e("ALARM_TIME", ALARM_TIME + "");
+                    Log.e("ADDRESS", Address.getText().toString());
+                    Log.e("PHONE_NO", PhoneNo.getText().toString());
+                    Log.e("REMARKS", Remarks.getText().toString());
+                    Log.e("REQUEST CODE", REQUEST_CODE + "");
+                }
 
+                break;
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -607,6 +615,7 @@ public class Fragment_Credit_Profile extends Fragment {
 			switch(item.getId()){
 /*================================================================================================
  *                                       Product Type
+ *               Option : Personal / Mortgage / Revolving / Car / Card
 ================================================================================================ */
 				case R.id.product_type_icon:
 
@@ -727,6 +736,7 @@ public class Fragment_Credit_Profile extends Fragment {
 					break;
 /*================================================================================================
  *                                       Product Status
+ *               Option : NotApply / Pending / Approval / Reject / Cancel
 ================================================================================================ */
 				case R.id.product_status_linear:
 
@@ -859,7 +869,7 @@ public class Fragment_Credit_Profile extends Fragment {
 
                     mAlertDialog.setView(Dialog_View);
 
-                    Dialog_Title.setText("輸入金額");
+                    Dialog_Title.setText(getString(R.string.dialog_title_amount));
 
                     Dialog_Option_1_Icon.setVisibility(View.GONE);
                     Dialog_Option_1_Text.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
@@ -920,7 +930,7 @@ public class Fragment_Credit_Profile extends Fragment {
 
                     Dialog_Option_5.setVisibility(View.GONE);
                     Dialog_Edittext.setVisibility(View.VISIBLE);
-                    Dialog_Option_Edittext.setHint(getString(R.string.hints_dialog_loanammount));
+                    Dialog_Option_Edittext.setHint(getString(R.string.dialog_hints_loanammount));
                     Dialog_Option_Edittext.requestFocus();
 
                     Dialog_Done.setVisibility(View.VISIBLE);
@@ -961,7 +971,7 @@ public class Fragment_Credit_Profile extends Fragment {
 
                     mAlertDialog.setView(Dialog_View);
 
-                    Dialog_Title.setText("輸入利率");
+                    Dialog_Title.setText(getResources().getString(R.string.dialog_title_rate));
 
                     Dialog_Option_1.setVisibility(View.GONE);
                     Dialog_Option_2.setVisibility(View.GONE);
@@ -970,7 +980,7 @@ public class Fragment_Credit_Profile extends Fragment {
                     Dialog_Option_5.setVisibility(View.GONE);
 
                     Dialog_Edittext.setVisibility(View.VISIBLE);
-                    Dialog_Option_Edittext.setHint("自定利率");
+                    Dialog_Option_Edittext.setHint(getString(R.string.dialog_hints_loanrate));
                     Dialog_Option_Edittext.requestFocus();
 
                     Dialog_Done.setVisibility(View.VISIBLE);
@@ -1017,7 +1027,7 @@ public class Fragment_Credit_Profile extends Fragment {
 
                     mAlertDialog.setView(Dialog_View);
 
-                    Dialog_Title.setText("輸入攤還期數");
+                    Dialog_Title.setText(getString(R.string.dialog_title_trems));
 
                     Dialog_Option_1_Icon.setVisibility(View.GONE);
                     Dialog_Option_1_Text.setText("12 個月");
@@ -1107,7 +1117,7 @@ public class Fragment_Credit_Profile extends Fragment {
 
                     mAlertDialog.setView(Dialog_View);
 
-                    Dialog_Title.setText("輸入每月供款");
+                    Dialog_Title.setText(getString(R.string.dialog_title_installment));
 
                     Dialog_Option_1.setVisibility(View.GONE);
                     Dialog_Option_2.setVisibility(View.GONE);
@@ -1116,7 +1126,7 @@ public class Fragment_Credit_Profile extends Fragment {
                     Dialog_Option_5.setVisibility(View.GONE);
 
                     Dialog_Edittext.setVisibility(View.VISIBLE);
-                    Dialog_Option_Edittext.setHint("自定每月供款");
+                    Dialog_Option_Edittext.setHint(getString(R.string.dialog_hints_loaninstallment));
                     Dialog_Option_Edittext.requestFocus();
 
                     Dialog_Done.setVisibility(View.VISIBLE);
