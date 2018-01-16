@@ -30,7 +30,7 @@ import java.util.Calendar;
 /**
  * Created by GhostLeo_DT on 21/12/2017.
  */
-public class Tseting_Notification extends Fragment{
+public class Testing_Notification extends Fragment{
 
     private Button show_notification_btn, show_custom_notification_btn;
     private EditText notification_title, notification_content;
