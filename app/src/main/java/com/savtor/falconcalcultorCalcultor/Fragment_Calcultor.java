@@ -226,13 +226,9 @@ public class Fragment_Calcultor extends Fragment {
 
                         Fragment mFragment = new Fragment_Credit_Profile();
                         mFragment.setArguments(mBundle);
-
-                        FragmentManager mFragmentManager = getActivity().getSupportFragmentManager();
-                        FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
-                        mFragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right);
-                        mFragmentTransaction.replace(R.id.mFrameLayout, mFragment);
-                        mFragmentTransaction.addToBackStack(null);
-                        mFragmentTransaction.commit();
+						
+						((Activity_Main)getActivity()).Fragment_Transaction(mFragment);
+						((Activity_Main)getActivity()).mNavView.getMenu().getItem(1).setChecked(true);
 
                     }else {
                         Toast.makeText(getContext(), getResources().getString(R.string.calcultor_toast_calfirst), Toast.LENGTH_LONG).show();
@@ -252,17 +248,9 @@ public class Fragment_Calcultor extends Fragment {
                         mBundle.putDouble("loan_rate", current_LoanRate);
                         mBundle.putDouble("loan_installment", result_Installment);
 
-//                    \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-                        FragmentManager mFragmentManager = getFragmentManager();
-
                         Fragment mFragment = new Schedule_Fragment();
-
-                        FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
-                        mFragmentTransaction.addToBackStack(null);
-                        mFragmentTransaction.setCustomAnimations(R.anim.enter_form_bottom, R.anim.exit_from_top, R.anim.enter_form_top, R.anim.exit_form_down);
                         mFragment.setArguments(mBundle);
-                        mFragmentTransaction.replace(R.id.mFrameLayout, mFragment);
-                        mFragmentTransaction.commit();
+						((Activity_Main)getActivity()).Fragment_Transaction(mFragment);
 
                     }else {
 

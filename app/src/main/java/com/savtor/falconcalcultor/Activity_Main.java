@@ -24,6 +24,9 @@ import com.savtor.falconcalcultorDebitInfo.Fragment_DebitInfo;
 import com.savtor.falconcalcultorFavoutive.Fragment_Favourite;
 import com.savtor.falconcalcultorSetting.Fragment_Setting;
 import android.widget.*;
+import android.view.*;
+import android.hardware.input.*;
+import android.view.inputmethod.*;
 
 /**
  * Created by GhostLeo_DT on 21/11/2017.
@@ -58,6 +61,21 @@ public class Activity_Main extends AppCompatActivity {
         }
 
     }
+
+	@Override
+	public boolean onTouchEvent(MotionEvent event)
+	{
+		 InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+		// TODO: Implement this method
+		if(event.getAction() == MotionEvent.ACTION_DOWN){
+			if(getCurrentFocus() != null && getCurrentFocus().getWindowToken() != null){
+				getCurrentFocus().clearFocus();
+				imm.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(),InputMethodManager.HIDE_NOT_ALWAYS);
+			}
+		}
+		return super.onTouchEvent(event);
+	}
+	
 
 
     final void init_toolbar() {

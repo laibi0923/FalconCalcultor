@@ -28,10 +28,10 @@ import java.util.Date;
 import android.view.View.*;
 
 import android.widget.*;
+import com.savtor.falconcalcultor.*;
 import com.savtor.AlarmNotification.*;
 import com.savtor.falconcalaultorDatabase.Favouite_Item;
 import com.savtor.falconcalaultorDatabase.Favourite_DataBasic;
-import com.savtor.falconcalcultor.*;
 import com.savtor.falconcalcultorFavoutive.Fragment_Favourite;
 
 /**
@@ -252,16 +252,16 @@ public class Fragment_Credit_Profile extends Fragment {
                     Toast.makeText(getContext(), getString(R.string.totast_enter_name), Toast.LENGTH_SHORT).show();
                 }else {
 
-                    View view = getActivity().getCurrentFocus();
-                    if (view != null){
-                        view.setFocusable(false);
-                        view.setFocusableInTouchMode(false);
-                        Log.e("Focus status", "Clear all focus");
-                    }
+					Falcon_AlramManager mAlarmManager = new Falcon_AlramManager();
+                    if(REQUEST_CODE != 0){
+						// 不論使用者取消或調整時間， 都先取消舊有提示
+						mAlarmManager.Cancel_Alram(getContext(), REQUEST_CODE, LOAN_TREMS);
+					}
 
-                    Falcon_AlramManager mAlarmManager = new Falcon_AlramManager();
                     LAST_MODIFY = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Last_Modify_Calendar.getTime());
-
+					// 新創 Request Code
+					REQUEST_CODE = (int) -Last_Modify_Calendar.getTimeInMillis();
+					
                     DataBasic = new Favourite_DataBasic(getActivity(), This_Fragment_Name);
 
                     Favouite_Item fav_item = new Favouite_Item(
@@ -283,14 +283,10 @@ public class Fragment_Credit_Profile extends Fragment {
                             Address.getText().toString(),
                             PhoneNo.getText().toString(),
                             Remarks.getText().toString(),
-                            (int) -Last_Modify_Calendar.getTimeInMillis()); // 新創 Request Code
-
+                            REQUEST_CODE); 
+							
                     if(mBundle != null && mBundle.getString("From") == "Favoutive"){
                         DataBasic.update(fav_item);
-                        if(SETUP_ALARM != 99){
-                            // 不論使用者取消或調整時間， 都先取消舊有提示
-                            mAlarmManager.Cancel_Alram(getContext(), REQUEST_CODE, LOAN_TREMS);
-                        }
                         Toast.makeText(getContext(), getString(R.string.toast_upadte_completed), Toast.LENGTH_SHORT).show();
                     }else {
                         DataBasic.inster(fav_item);
@@ -298,11 +294,11 @@ public class Fragment_Credit_Profile extends Fragment {
                     }
 
                     DataBasic.close();
-
+					
                     if(ALARM_TIME.length() != 0 && SETUP_ALARM != 99){
                         // 設置新 Alram
                         mAlarmManager.Setup_Alram(getContext(),
-                                (int) -Last_Modify_Calendar.getTimeInMillis(),
+                                REQUEST_CODE,
                                 First_Due_Calendar,
                                 Times_Calendar,
                                 EOM_DUEDATE,
@@ -476,7 +472,7 @@ public class Fragment_Credit_Profile extends Fragment {
         Loan_Amount_Title = (TextView) Subview_Loan_Amount.findViewById(R.id.sub_textview);
         Loan_Amount_Title.setText(getString(R.string.title_loan_amount));
         Loan_Amount_Result = (TextView) Subview_Loan_Amount.findViewById(R.id.sub_textview_result);
-        Loan_Amount_Result.setText("$" + Init_Loan_Amount);
+        Loan_Amount_Result.setText("$ " + Init_Loan_Amount);
 
         Subview_Loan_Rate = v.findViewById(R.id.loan_rate);
         Loan_Rate_Linear = (LinearLayout) v.findViewById(R.id.loan_rate_linear);
@@ -486,7 +482,7 @@ public class Fragment_Credit_Profile extends Fragment {
         Loan_Rate_Title = (TextView) Subview_Loan_Rate.findViewById(R.id.sub_textview);
         Loan_Rate_Title.setText(getString(R.string.title_loan_rate));
         Loan_Rate_Result = (TextView) Subview_Loan_Rate.findViewById(R.id.sub_textview_result);
-        Loan_Rate_Result.setText(Init_Loan_Rate + "%p.a.");
+        Loan_Rate_Result.setText(Init_Loan_Rate + " %p.a.");
 
         Subview_Loan_Trems = v.findViewById(R.id.loan_trems);
         Loan_Trems_Linear = (LinearLayout) v.findViewById(R.id.loan_trems_linear);
@@ -997,7 +993,7 @@ public class Fragment_Credit_Profile extends Fragment {
                                
 								}else {
 									LOAN_RATE = Double.parseDouble(Dialog_Option_Edittext.getText().toString());
-                                    Loan_Rate_Result.setText(String.format("%.2f", LOAN_RATE) + "% p.a.");
+                                    Loan_Rate_Result.setText(String.format("%.2f", LOAN_RATE) + " % p.a.");
                                     
                                 }
 
