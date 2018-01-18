@@ -17,15 +17,15 @@ import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.savtor.AlarmNotification.Testing_Notification;
-import com.savtor.falconcalcultorCalcultor.Fragment_Calcultor;
-import com.savtor.falconcalcultorCalcultor.Fragment_Credit_Profile;
-import com.savtor.falconcalcultorDebitInfo.Fragment_DebitInfo;
-import com.savtor.falconcalcultorFavoutive.Fragment_Favourite;
-import com.savtor.falconcalcultorSetting.Fragment_Setting;
+import com.savtor.Alarm_Notification.Testing_Notification;
+import com.savtor.Credit_Profile.Product_Type;
+import com.savtor.Debit_Info.DebitInfo_Main;
+import com.savtor.Falcon_Calcultor.Calcultor_Main;
+import com.savtor.Credit_Profile.Credit_Profile_Main;
+import com.savtor.Wish_List.WishList_Main;
+import com.savtor.Setting.Fragment_Setting;
 import android.widget.*;
 import android.view.*;
-import android.hardware.input.*;
 import android.view.inputmethod.*;
 
 /**
@@ -115,15 +115,15 @@ public class Activity_Main extends AppCompatActivity {
 //                            break;
 
                         case R.id.nav_item2:
-                            Fragment_Transaction(new Fragment_Calcultor());
+                            Fragment_Transaction(new Calcultor_Main());
                             break;
 
                         case R.id.nav_item3:
-                            Fragment_Transaction(new Fragment_Credit_Profile());
+                            Fragment_Transaction(new Credit_Profile_Main());
                             break;
 
                         case R.id.nav_item4:
-                            Fragment_Transaction(new Fragment_Favourite());
+                            Fragment_Transaction(new WishList_Main());
                             break;
 
                         case R.id.nav_item5:
@@ -131,7 +131,7 @@ public class Activity_Main extends AppCompatActivity {
                             break;
 
                         case R.id.nav_item6:
-                            Fragment_Transaction(new Fragment_DebitInfo());
+                            Fragment_Transaction(new Product_Type());
                             break;
 
                         case R.id.nav_item7:
@@ -147,7 +147,7 @@ public class Activity_Main extends AppCompatActivity {
             }
         });
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.mFrameLayout, new Fragment_Calcultor()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.mFrameLayout, new Calcultor_Main()).commit();
         mNavView.getMenu().getItem(0).setChecked(true);
     }
 

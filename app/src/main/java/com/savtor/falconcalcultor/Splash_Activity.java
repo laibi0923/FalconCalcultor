@@ -12,7 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.savtor.falconcalcultorPasswordgate.Fragment_Passwordgate;
+import com.savtor.Password_Gate.Passwordgate_Main;
 
 
 /**
@@ -59,7 +59,7 @@ public class Splash_Activity extends AppCompatActivity {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    Fragment mFragment = new Fragment_Passwordgate();
+                    Fragment mFragment = new Passwordgate_Main();
                     Bundle mBundle = new Bundle();
                     mBundle.putInt("setup_password_mode" , 3);
                     mFragment.setArguments(mBundle);

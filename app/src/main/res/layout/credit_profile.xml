@@ -52,13 +52,13 @@
                 <ImageView
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:clickable="true"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
                     android:src="@drawable/ic_credit_card_black_24dp"
-                    android:tint="@color/deep_teal_200"
                     android:id="@+id/product_type_icon"
                     android:cropToPadding="false"
-                    android:nestedScrollingEnabled="false" />
+                    android:nestedScrollingEnabled="false"
+                    android:tint="@color/deep_teal_200" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -66,7 +66,8 @@
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text="Small Text"
                     android:id="@+id/product_type_name"
-                    android:textColor="@color/deep_teal_200" />
+                    android:textColor="@color/deep_teal_200"
+                    android:layout_marginTop="10dp" />
             </LinearLayout>
 
             <LinearLayout

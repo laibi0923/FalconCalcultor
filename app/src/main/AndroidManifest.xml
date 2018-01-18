@@ -32,7 +32,7 @@
 			android:screenOrientation="portrait" />
 
         <receiver
-            android:name="com.savtor.AlarmNotification.AlarmBroadCastReceiver"
+            android:name="com.savtor.Alarm_Notification.AlarmBroadCastReceiver"
             android:exported="false" />
 
     </application>
