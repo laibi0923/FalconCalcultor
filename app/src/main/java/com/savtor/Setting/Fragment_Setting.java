@@ -230,6 +230,11 @@ public class Fragment_Setting extends Fragment
 		}else if (get_setting_decimal == 2){
 			decimal_point_2_text.setTextColor(getResources().getColor(R.color.deep_teal_200));
 		}
+		
+		// 暫時停用小數點設定
+		decimal_point_title.setVisibility(View.GONE);
+		decimal_point_0_subview.setVisibility(View.GONE);
+		decimal_point_2_subview.setVisibility(View.GONE);
 
 	}
 

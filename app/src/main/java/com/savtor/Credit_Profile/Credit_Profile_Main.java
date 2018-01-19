@@ -23,13 +23,13 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import android.view.View.*;
-
 import android.widget.*;
 import com.savtor.falconcalcultor.*;
 import com.savtor.Alarm_Notification.*;
 import com.savtor.Credit_Database.Favouite_Item;
 import com.savtor.Credit_Database.Favourite_DataBasic;
 import com.savtor.Wish_List.WishList_Main;
+import android.content.*;
 
 /**
  * Created by GhostLeo_DT on 4/1/2018.
@@ -89,9 +89,17 @@ public class Credit_Profile_Main extends Fragment {
     private String This_Fragment_Name = "Credit_Profile_Main";
     private double Max_Amount = 10000000, Max_Rate = 60;
     private int Max_Trems = 90;
+	
+
+    private int get_setting_password, get_setting_language, get_setting_decimal;
+    private SharedPreferences mSharedPreferences;
+
+    private String dec_point = "%.2f";
+	
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
+		
         super.onCreate(savedInstanceState);
 		
 		setHasOptionsMenu(true);
@@ -198,10 +206,10 @@ public class Credit_Profile_Main extends Fragment {
             Init_Product_Status = getString(R.string.product_status_cancel);
         }
         Init_Loan_Number = LOAN_NUM;
-        Init_Loan_Amount = String.format("%.2f", LOAN_AMOUNT);
-        Init_Loan_Rate = String.format("%.2f", LOAN_RATE);
+        Init_Loan_Amount = String.format(dec_point, LOAN_AMOUNT);
+        Init_Loan_Rate = String.format(dec_point, LOAN_RATE);
         Init_Loan_Trems = String.valueOf(LOAN_TREMS);
-        Init_Loan_Installment = String.format("%.2f", LOAN_INSTALLMENT);
+        Init_Loan_Installment = String.format(dec_point, LOAN_INSTALLMENT);
 
         if(FIRST_DUE == null){
             Init_First_Due = new SimpleDateFormat("yyyy/MM/dd").format(new Date());
@@ -353,12 +361,13 @@ public class Credit_Profile_Main extends Fragment {
 		if (STATUS_CODE.equals("Approval")){
             Subview_Loan_Number.setVisibility(View.VISIBLE);
             Due_Date_Linear.setVisibility(View.VISIBLE);
+			//Subview_Final_due.setVisibility(View.VISIBLE);
         }else {
             Subview_Loan_Number.setVisibility(View.GONE);
             Due_Date_Linear.setVisibility(View.GONE);
         }
 		
-		if(FINAL_DUE == null){
+		if(FINAL_DUE == null || FINAL_DUE == ""){
 			Subview_Setup_Alarm.setVisibility(View.GONE);
 		}else {
 			Subview_Setup_Alarm.setVisibility(View.VISIBLE);
@@ -370,7 +379,7 @@ public class Credit_Profile_Main extends Fragment {
 			Subview_Alarm_Time.setVisibility(View.GONE);
 		}
 		
-		if (PRODUCT_CODE.equals("Card")){
+		if (PRODUCT_CODE == "Card"){
             Subview_Product_Status.setVisibility(View.GONE);
             Subview_Loan_Trems.setVisibility(View.GONE);
             Subview_Final_due.setVisibility(View.GONE);
@@ -387,7 +396,24 @@ public class Credit_Profile_Main extends Fragment {
             Loan_Installment_Title.setText(getString(R.string.title_card_installment));
             Product_Loan_Number.setHint(getString(R.string.title_card_number));
             First_Due_Title.setText(getString(R.string.title_card_duedate));
-		}
+			Log.e("tag", "=xxxxxxxxx1");
+			
+		} else {
+			//Due_Date_Linear.setVisibility(View.VISIBLE);
+			Subview_Loan_Trems.setVisibility(View.VISIBLE);
+			Subview_Product_Status.setVisibility(View.VISIBLE);
+			//Subview_First_due.setVisibility(View.VISIBLE);
+			Subview_Final_due.setVisibility(View.VISIBLE);
+            Subview_Address.setVisibility(View.VISIBLE);
+            Subview_Phone.setVisibility(View.VISIBLE);
+			Log.e("tag", "=xxxxxxxxx");
+            //  Change Title
+            Loan_Amount_Title.setText(getString(R.string.title_loan_amount));
+            Loan_Rate_Title.setText(getString(R.string.title_loan_rate));
+            Loan_Installment_Title.setText(getString(R.string.title_loan_installment));
+            Product_Loan_Number.setHint(getString(R.string.hints_loan_number));
+            First_Due_Title.setText(getString(R.string.title_first_due));
+        }
 		
 	}
 
@@ -425,6 +451,21 @@ public class Credit_Profile_Main extends Fragment {
 		ADDRESS = "";
 		PHONE = "";
 		REMARKS = "";
+    }
+	
+	private void get_SharedPreferences(){
+		
+        mSharedPreferences = this.getActivity().getSharedPreferences("Setting", Context.MODE_PRIVATE);
+
+        get_setting_password = mSharedPreferences.getInt("Setting_password", 1);
+        get_setting_language = mSharedPreferences.getInt("Setting_language", 1);
+        get_setting_decimal = mSharedPreferences.getInt("Setting_decimal" , 1);
+
+        if (get_setting_decimal == 1){
+            dec_point = "%.0f";
+        }else if(get_setting_decimal == 2){
+            dec_point = "%.2f";
+        }
     }
 
 /*================================================================================================
@@ -628,12 +669,14 @@ public class Credit_Profile_Main extends Fragment {
                             Product_Type_Name.setText(getString(R.string.title_product_personal));
 
                             if (PRODUCT_CODE == "Card"){
-                                Change_View();
+                                
                                 Reset_Value();
                             }
 
 
                             PRODUCT_CODE = "Personal";
+							Change_View();
+							
                             mAlertDialog.dismiss();
                         }
                     });
@@ -647,11 +690,13 @@ public class Credit_Profile_Main extends Fragment {
                             Product_Type_Name.setText(getString(R.string.title_product_mortgage));
 
                             if (PRODUCT_CODE == "Card"){
-                                Change_View();
+                                
                                 Reset_Value();
                             }
 
                             PRODUCT_CODE = "Mortgage";
+							Change_View();
+							
                             mAlertDialog.dismiss();
                         }
                     });
@@ -665,11 +710,12 @@ public class Credit_Profile_Main extends Fragment {
                             Product_Type_Name.setText(getString(R.string.title_product_revolving));
 
                             if (PRODUCT_CODE == "Card"){
-                                Change_View();
                                 Reset_Value();
                             }
 
                             PRODUCT_CODE = "Revolving";
+							Change_View();
+							
                             mAlertDialog.dismiss();
                         }
                     });
@@ -683,11 +729,13 @@ public class Credit_Profile_Main extends Fragment {
                             Product_Type_Name.setText(getString(R.string.title_product_car));
 
                             if (PRODUCT_CODE == "Card"){
-                                Change_View();
+                                
                                 Reset_Value();
                             }
 
                             PRODUCT_CODE = "Car";
+							Change_View();
+							
                             mAlertDialog.dismiss();
                         }
                     });
@@ -938,7 +986,7 @@ public class Credit_Profile_Main extends Fragment {
                                 
                             }else{
 								LOAN_AMOUNT = Double.parseDouble(Dialog_Option_Edittext.getText().toString());
-								Loan_Amount_Result.setText("$ " + String.format("%.2f", LOAN_AMOUNT));
+								Loan_Amount_Result.setText("$ " + String.format(dec_point, LOAN_AMOUNT));
 							}
 
                             mAlertDialog.dismiss();
@@ -990,7 +1038,7 @@ public class Credit_Profile_Main extends Fragment {
                                
 								}else {
 									LOAN_RATE = Double.parseDouble(Dialog_Option_Edittext.getText().toString());
-                                    Loan_Rate_Result.setText(String.format("%.2f", LOAN_RATE) + " % p.a.");
+                                    Loan_Rate_Result.setText(String.format(dec_point, LOAN_RATE) + " % p.a.");
                                     
                                 }
 
@@ -1132,7 +1180,7 @@ public class Credit_Profile_Main extends Fragment {
                             }else {
 
 								LOAN_INSTALLMENT = Double.parseDouble(Dialog_Option_Edittext.getText().toString());
-                                Loan_Installment_Result.setText("$ " + String.format("%.2f", LOAN_INSTALLMENT));
+                                Loan_Installment_Result.setText("$ " + String.format(dec_point, LOAN_INSTALLMENT));
 								
                             }
 

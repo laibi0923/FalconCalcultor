@@ -160,12 +160,12 @@ public class Activity_Main extends AppCompatActivity {
                 FragmentManager mFragmentManager = getSupportFragmentManager();
                 mFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                 FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
-                mFragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
+                mFragmentTransaction.setCustomAnimations(R.anim.fade_in, 0);
                 mFragmentTransaction.replace(R.id.mFrameLayout, mFragment);
                 mFragmentTransaction.commit();
 
             }
-        }, 800);
+        }, 0);
 
     }
 

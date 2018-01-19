@@ -47,7 +47,7 @@ public class Calcultor_Main extends Fragment {
     private int get_setting_password, get_setting_language, get_setting_decimal;
     private SharedPreferences mSharedPreferences;
 
-    private String dec_point = "%.0f";
+    private String dec_point = "%.2f";
 
 	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -140,6 +140,7 @@ public class Calcultor_Main extends Fragment {
 
         marquee_TextView = (TextView) v.findViewById(R.id.marquee_textview);
         marquee_TextView.setSelected(true);
+		marquee_TextView.setVisibility(View.GONE);
     }
 
 

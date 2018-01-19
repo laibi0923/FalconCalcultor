@@ -2,7 +2,6 @@
 <resources>
     <string name="app_name">Falcon Calcultor</string>
 
-	
     <string name="drawer_open">open</string>
     <string name="drawer_close">close</string>
 
@@ -157,7 +156,8 @@
 
 
     <!--==============================================================================================-->
-    <!--for Favoutite Page-->
+    <!--for Wish List-->
+		
 	<!--<string name="favourite_status_notapply">未申請</string>-->
 	<!--<string name="favourite_status_pending">申請中</string>-->
 	<!--<string name="favourite_status_approval">已成功批核</string>-->

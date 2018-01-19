@@ -1,38 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/blue_grey_900"
-    android:paddingBottom="20dp"
-    android:paddingTop="20dp">
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	
+	android:paddingBottom="20dp"
+	android:paddingTop="20dp"
+	android:layout_marginBottom="10dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:orientation="vertical"
-        android:clickable="true"
-        android:gravity="center"
-        android:background="?attr/selectableItemBackgroundBorderless">
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:layout_gravity="center"
+		android:orientation="vertical"
+		android:clickable="true"
+		android:gravity="center"
+		android:background="?attr/selectableItemBackgroundBorderless"
+		android:paddingTop="40dp"
+		android:paddingBottom="40dp">
 
-        <ImageView
-            android:id="@+id/Type_Icon"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:tint="@color/deep_teal_200"
-            android:src="@drawable/ic_person_black_24dp"/>
+		<ImageView
+			android:id="@+id/Type_Icon"
+			android:layout_width="80dp"
+			android:layout_height="80dp"
+			android:tint="@color/deep_teal_200"
+			android:src="@drawable/ic_person_black_24dp"/>
 
-        <TextView
-            android:id="@+id/Type_Name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Type Name"
-            android:textColor="@color/deep_teal_200"
-            android:textAppearance="?android:attr/textAppearanceMedium"/>
+		<TextView
+			android:id="@+id/Type_Name"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Type Name"
+			android:textColor="@color/deep_teal_200"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:layout_marginTop="20dp"/>
 
-    </LinearLayout>
-
+	</LinearLayout>
 
 </LinearLayout>
+

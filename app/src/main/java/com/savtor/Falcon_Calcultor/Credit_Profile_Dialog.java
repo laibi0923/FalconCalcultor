@@ -57,7 +57,6 @@ public class Credit_Profile_Dialog extends AlertDialog {
             case R.id.product_type_icon:
                 Dialog_Title.setText(Title);
 
-
                 Dialog_Option_1.setOnClickListener(Item_OnclickListener);
                 Dialog_Option_2.setOnClickListener(Item_OnclickListener);
                 Dialog_Option_3.setOnClickListener(Item_OnclickListener);
