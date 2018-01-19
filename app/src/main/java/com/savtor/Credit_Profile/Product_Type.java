@@ -19,17 +19,30 @@ import java.util.List;
  */
 public class Product_Type extends Fragment {
 
-    private int[] icon = {R.drawable.ic_person_black_24dp,
-                          R.drawable.ic_domain_black_24dp,
-                          R.drawable.ic_cached_black_24dp,
-                          R.drawable.ic_directions_car_black_24dp,
-                          R.drawable.ic_credit_card_black_48dp};
-
-    private String[] name = {"1", "2", "3", "4", "5"};
+    private int[] icon;
+    private String[] name;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        name = new String[] {
+
+                getString(R.string.title_product_personal),
+                getString(R.string.title_product_mortgage),
+                getString(R.string.title_product_revolving),
+                getString(R.string.title_product_revolving),
+                getString(R.string.title_product_car),
+                getString(R.string.title_product_card)
+        };
+
+        icon = new int[] {
+                R.drawable.ic_person_black_24dp,
+                R.drawable.ic_domain_black_24dp,
+                R.drawable.ic_cached_black_24dp,
+                R.drawable.ic_directions_car_black_24dp,
+                R.drawable.ic_credit_card_black_48dp
+        };
     }
 
     @Nullable

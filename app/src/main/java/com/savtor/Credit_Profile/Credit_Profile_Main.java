@@ -665,7 +665,7 @@ public class Credit_Profile_Main extends Fragment {
 					Dialog_Option_1.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Product_Type_Icon.setImageResource(R.drawable.ic_person_black_24dp);
+                            Product_Type_Icon.setImageResource(R.drawable.ic_person_black_48dp);
                             Product_Type_Name.setText(getString(R.string.title_product_personal));
 
                             if (PRODUCT_CODE == "Card"){
@@ -701,12 +701,12 @@ public class Credit_Profile_Main extends Fragment {
                         }
                     });
 
-                    Dialog_Option_3_Icon.setImageResource(R.drawable.ic_cached_black_24dp);
+                    Dialog_Option_3_Icon.setImageResource(R.drawable.ic_loop_black_48dp);
                     Dialog_Option_3_Text.setText(getString(R.string.title_product_revolving));
 					Dialog_Option_3.setOnClickListener(new OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Product_Type_Icon.setImageResource(R.drawable.ic_cached_black_24dp);
+                            Product_Type_Icon.setImageResource(R.drawable.ic_loop_black_48dp);
                             Product_Type_Name.setText(getString(R.string.title_product_revolving));
 
                             if (PRODUCT_CODE == "Card"){
