@@ -12,6 +12,7 @@ import android.text.*;
 import android.view.*;
 import android.widget.*;
 
+import com.savtor.Credit_Profile.Product_Type;
 import com.savtor.falconcalcultor.*;
 import com.savtor.Payment_Schedule.Schedule_Fragment;
 import android.graphics.drawable.*;
@@ -227,7 +228,7 @@ public class Calcultor_Main extends Fragment {
                         mBundle.putDouble("Rate", current_LoanRate);
                         mBundle.putDouble("Installment", result_Installment);
 
-                        Fragment mFragment = new Credit_Profile_Main();
+                        Fragment mFragment = new Product_Type();
                         mFragment.setArguments(mBundle);
 						
 						((Activity_Main)getActivity()).Fragment_Transaction(mFragment);
@@ -236,7 +237,6 @@ public class Calcultor_Main extends Fragment {
                     }else {
                         Toast.makeText(getContext(), getResources().getString(R.string.calcultor_toast_calfirst), Toast.LENGTH_LONG).show();
                     }
-
 
                     break;
 

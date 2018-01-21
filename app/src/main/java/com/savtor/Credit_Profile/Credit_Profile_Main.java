@@ -7,6 +7,8 @@ import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -127,12 +129,13 @@ public class Credit_Profile_Main extends Fragment {
         REMARKS = "";
 		REQUEST_CODE = 0;
 
-        if (mBundle != null && mBundle.getString("From").equals("Calcultor")){
+        if (mBundle != null && mBundle.getString("From").equals("Product_Type")){
 
             LOAN_AMOUNT =  mBundle.getDouble("Amount", 0.00);
             LOAN_RATE = mBundle.getDouble("Rate", 0.00);
-            LOAN_TREMS =  mBundle.getInt("Trems", 0);
+            LOAN_TREMS =  mBundle.getInt("Trems", 12);
             LOAN_INSTALLMENT = mBundle.getDouble("Installment", 0.00);
+            PRODUCT_CODE = mBundle.getString("Product_Type", "Personal");
 
         }else if (mBundle != null && mBundle.getString("From").equals("Favoutive")){
 
@@ -178,16 +181,16 @@ public class Credit_Profile_Main extends Fragment {
 
         Init_Product_Name = PRODUCT_NAME;
         if (PRODUCT_CODE.equals("Personal")){
-            Init_Product_Icon = R.drawable.ic_person_black_24dp;
+            Init_Product_Icon = R.drawable.ic_person_black_48dp;
             Init_Product_Type = getString(R.string.title_product_personal);
         }else if (PRODUCT_CODE.equals("Mortgage")){
-            Init_Product_Icon = R.drawable.ic_domain_black_24dp;
+            Init_Product_Icon = R.drawable.ic_location_city_black_48dp;
             Init_Product_Type = getString(R.string.title_product_mortgage);
         }else if (PRODUCT_CODE.equals("Revolving")){
-            Init_Product_Icon = R.drawable.ic_person_black_24dp;
+            Init_Product_Icon = R.drawable.ic_person_black_48dp;
             Init_Product_Type = getString(R.string.title_product_revolving);
         }else if (PRODUCT_CODE.equals("Car")){
-            Init_Product_Icon = R.drawable.ic_directions_car_black_24dp;
+            Init_Product_Icon = R.drawable.ic_airport_shuttle_black_48dp;
             Init_Product_Type = getString(R.string.title_product_car);
         }else if (PRODUCT_CODE.equals("Card")) {
             Init_Product_Icon = R.drawable.ic_credit_card_black_48dp;
@@ -396,7 +399,6 @@ public class Credit_Profile_Main extends Fragment {
             Loan_Installment_Title.setText(getString(R.string.title_card_installment));
             Product_Loan_Number.setHint(getString(R.string.title_card_number));
             First_Due_Title.setText(getString(R.string.title_card_duedate));
-			Log.e("tag", "=xxxxxxxxx1");
 			
 		} else {
 			//Due_Date_Linear.setVisibility(View.VISIBLE);
@@ -653,127 +655,129 @@ public class Credit_Profile_Main extends Fragment {
 ================================================================================================ */
 				case R.id.product_type_icon:
 
-					mAlertDialog = new AlertDialog.Builder(getContext()).create();
-                    Find_Dialog_View();
+                    getActivity().getSupportFragmentManager().popBackStack();
 
-                    mAlertDialog.setView(Dialog_View);
-
-					Dialog_Title.setText(getString(R.string.title_product_type));
-
-                    Dialog_Option_1_Icon.setImageResource(R.drawable.ic_person_black_24dp);
-                    Dialog_Option_1_Text.setText(getString(R.string.title_product_personal));
-					Dialog_Option_1.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Product_Type_Icon.setImageResource(R.drawable.ic_person_black_48dp);
-                            Product_Type_Name.setText(getString(R.string.title_product_personal));
-
-                            if (PRODUCT_CODE == "Card"){
-                                
-                                Reset_Value();
-                            }
-
-
-                            PRODUCT_CODE = "Personal";
-							Change_View();
-							
-                            mAlertDialog.dismiss();
-                        }
-                    });
-
-                    Dialog_Option_2_Icon.setImageResource(R.drawable.ic_domain_black_24dp);
-                    Dialog_Option_2_Text.setText(getString(R.string.title_product_mortgage));
-					Dialog_Option_2.setOnClickListener(new OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Product_Type_Icon.setImageResource(R.drawable.ic_domain_black_24dp);
-                            Product_Type_Name.setText(getString(R.string.title_product_mortgage));
-
-                            if (PRODUCT_CODE == "Card"){
-                                
-                                Reset_Value();
-                            }
-
-                            PRODUCT_CODE = "Mortgage";
-							Change_View();
-							
-                            mAlertDialog.dismiss();
-                        }
-                    });
-
-                    Dialog_Option_3_Icon.setImageResource(R.drawable.ic_loop_black_48dp);
-                    Dialog_Option_3_Text.setText(getString(R.string.title_product_revolving));
-					Dialog_Option_3.setOnClickListener(new OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Product_Type_Icon.setImageResource(R.drawable.ic_loop_black_48dp);
-                            Product_Type_Name.setText(getString(R.string.title_product_revolving));
-
-                            if (PRODUCT_CODE == "Card"){
-                                Reset_Value();
-                            }
-
-                            PRODUCT_CODE = "Revolving";
-							Change_View();
-							
-                            mAlertDialog.dismiss();
-                        }
-                    });
-
-                    Dialog_Option_4_Icon.setImageResource(R.mipmap.ic_car_48);
-                    Dialog_Option_4_Text.setText(getString(R.string.title_product_car));
-					Dialog_Option_4.setOnClickListener(new OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Product_Type_Icon.setImageResource(R.mipmap.ic_car_48);
-                            Product_Type_Name.setText(getString(R.string.title_product_car));
-
-                            if (PRODUCT_CODE == "Card"){
-                                
-                                Reset_Value();
-                            }
-
-                            PRODUCT_CODE = "Car";
-							Change_View();
-							
-                            mAlertDialog.dismiss();
-                        }
-                    });
-
-                    Dialog_Option_5_Icon.setImageResource(R.drawable.ic_credit_card_black_24dp);
-                    Dialog_Option_5_Text.setText(getString(R.string.title_product_card));
-					Dialog_Option_5.setOnClickListener(new OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-
-                            Product_Type_Icon.setImageResource(R.drawable.ic_credit_card_black_48dp);
-                            Product_Type_Name.setText(getString(R.string.title_product_card));
-
-                            Reset_Value();
-                           
-							PRODUCT_CODE = "Card";
-                            STATUS_CODE = "Approval";
-                            LOAN_TREMS = 1;
-                            EOM_DUEDATE = "false";
-                            SETUP_ALARM = 99;
-                            ALARM_TIME = "";
-							
-							Change_View();
-
-                            mAlertDialog.dismiss();
-                        }
-                    });
-
-                    Dialog_Edittext.setVisibility(View.GONE);
-
-                    Dialog_Dismiss.setOnClickListener(new OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            mAlertDialog.dismiss();
-                        }
-                    });
-
-					mAlertDialog.show();
+//					mAlertDialog = new AlertDialog.Builder(getContext()).create();
+//                    Find_Dialog_View();
+//
+//                    mAlertDialog.setView(Dialog_View);
+//
+//					Dialog_Title.setText(getString(R.string.title_product_type));
+//
+//                    Dialog_Option_1_Icon.setImageResource(R.drawable.ic_person_black_48dp);
+//                    Dialog_Option_1_Text.setText(getString(R.string.title_product_personal));
+//					Dialog_Option_1.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            Product_Type_Icon.setImageResource(R.drawable.ic_person_black_48dp);
+//                            Product_Type_Name.setText(getString(R.string.title_product_personal));
+//
+//                            if (PRODUCT_CODE == "Card"){
+//
+//                                Reset_Value();
+//                            }
+//
+//
+//                            PRODUCT_CODE = "Personal";
+//							Change_View();
+//
+//                            mAlertDialog.dismiss();
+//                        }
+//                    });
+//
+//                    Dialog_Option_2_Icon.setImageResource(R.drawable.ic_location_city_black_48dp);
+//                    Dialog_Option_2_Text.setText(getString(R.string.title_product_mortgage));
+//					Dialog_Option_2.setOnClickListener(new OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            Product_Type_Icon.setImageResource(R.drawable.ic_location_city_black_48dp);
+//                            Product_Type_Name.setText(getString(R.string.title_product_mortgage));
+//
+//                            if (PRODUCT_CODE == "Card"){
+//
+//                                Reset_Value();
+//                            }
+//
+//                            PRODUCT_CODE = "Mortgage";
+//							Change_View();
+//
+//                            mAlertDialog.dismiss();
+//                        }
+//                    });
+//
+//                    Dialog_Option_3_Icon.setImageResource(R.drawable.ic_loop_black_48dp);
+//                    Dialog_Option_3_Text.setText(getString(R.string.title_product_revolving));
+//					Dialog_Option_3.setOnClickListener(new OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            Product_Type_Icon.setImageResource(R.drawable.ic_loop_black_48dp);
+//                            Product_Type_Name.setText(getString(R.string.title_product_revolving));
+//
+//                            if (PRODUCT_CODE == "Card"){
+//                                Reset_Value();
+//                            }
+//
+//                            PRODUCT_CODE = "Revolving";
+//							Change_View();
+//
+//                            mAlertDialog.dismiss();
+//                        }
+//                    });
+//
+//                    Dialog_Option_4_Icon.setImageResource(R.drawable.ic_airport_shuttle_black_48dp);
+//                    Dialog_Option_4_Text.setText(getString(R.string.title_product_car));
+//					Dialog_Option_4.setOnClickListener(new OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            Product_Type_Icon.setImageResource(R.drawable.ic_airport_shuttle_black_48dp);
+//                            Product_Type_Name.setText(getString(R.string.title_product_car));
+//
+//                            if (PRODUCT_CODE == "Card"){
+//
+//                                Reset_Value();
+//                            }
+//
+//                            PRODUCT_CODE = "Car";
+//							Change_View();
+//
+//                            mAlertDialog.dismiss();
+//                        }
+//                    });
+//
+//                    Dialog_Option_5_Icon.setImageResource(R.drawable.ic_credit_card_black_24dp);
+//                    Dialog_Option_5_Text.setText(getString(R.string.title_product_card));
+//					Dialog_Option_5.setOnClickListener(new OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//
+//                            Product_Type_Icon.setImageResource(R.drawable.ic_credit_card_black_48dp);
+//                            Product_Type_Name.setText(getString(R.string.title_product_card));
+//
+//                            Reset_Value();
+//
+//							PRODUCT_CODE = "Card";
+//                            STATUS_CODE = "Approval";
+//                            LOAN_TREMS = 1;
+//                            EOM_DUEDATE = "false";
+//                            SETUP_ALARM = 99;
+//                            ALARM_TIME = "";
+//
+//							Change_View();
+//
+//                            mAlertDialog.dismiss();
+//                        }
+//                    });
+//
+//                    Dialog_Edittext.setVisibility(View.GONE);
+//
+//                    Dialog_Dismiss.setOnClickListener(new OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            mAlertDialog.dismiss();
+//                        }
+//                    });
+//
+//					mAlertDialog.show();
 					break;
 /*================================================================================================
  *                                       Product Status

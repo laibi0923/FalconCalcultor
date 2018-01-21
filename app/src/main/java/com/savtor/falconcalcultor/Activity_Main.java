@@ -119,7 +119,7 @@ public class Activity_Main extends AppCompatActivity {
                             break;
 
                         case R.id.nav_item3:
-                            Fragment_Transaction(new Credit_Profile_Main());
+                            Fragment_Transaction(new Product_Type());
                             break;
 
                         case R.id.nav_item4:
