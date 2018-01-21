@@ -32,7 +32,6 @@ import android.view.inputmethod.*;
  * Created by GhostLeo_DT on 21/11/2017.
  */
 
-
 public class Activity_Main extends AppCompatActivity {
 
 

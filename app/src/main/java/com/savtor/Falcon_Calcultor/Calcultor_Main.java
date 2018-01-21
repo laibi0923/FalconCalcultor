@@ -81,9 +81,9 @@ public class Calcultor_Main extends Fragment {
         return v;
     }
 
-
-    //=============================================================================================
-    // [2] Get setting value in sharedpreferences
+/*================================================================================================
+ *                                      Get setting value in sharedpreferences
+================================================================================================ */
     private void get_SharedPreferences(){
         mSharedPreferences = this.getActivity().getSharedPreferences("Setting", Context.MODE_PRIVATE);
 
@@ -98,8 +98,9 @@ public class Calcultor_Main extends Fragment {
         }
     }
 
-    //=============================================================================================
-    // [5] 加入畫面內容
+/*================================================================================================
+ *                                      Find View
+================================================================================================ */
     private void Find_View(View v){
 
         loan_amount = (LinearLayout) v.findViewById(R.id.loanAmount_linear);
@@ -398,8 +399,9 @@ public class Calcultor_Main extends Fragment {
         mAlertDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 
-    //=============================================================================================
-    // [9] 計算完畢後動畫
+/*================================================================================================
+ *                                      計算完畢後動畫
+================================================================================================ */
     private void randomAnim(){
 
         x = 0;
@@ -427,8 +429,9 @@ public class Calcultor_Main extends Fragment {
 
     }
 
-    //=============================================================================================
-    // [10] 計算完畢後動畫
+/*================================================================================================
+ *                                      計算完畢後動畫
+================================================================================================ */
     private Handler mHandler = new Handler(){
 
         public void handleMessage(Message msg){
