@@ -130,6 +130,7 @@ public class Activity_Main extends AppCompatActivity {
                             Fragment_Transaction(new Fragment_Setting());
                             break;
 
+                        /*
                         case R.id.nav_item6:
                             Fragment_Transaction(new Product_Type());
                             break;
@@ -137,6 +138,7 @@ public class Activity_Main extends AppCompatActivity {
                         case R.id.nav_item7:
                             Fragment_Transaction(new Testing_Notification());
                             break;
+                        */
                     }
 
                     item.setChecked(true);
