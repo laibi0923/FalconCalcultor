@@ -82,7 +82,7 @@ public class Calcultor_Main extends Fragment {
     }
 
 /*================================================================================================
- *                                      Get setting value in sharedpreferences
+ *                               Get setting value in sharedpreferences
 ================================================================================================ */
     private void get_SharedPreferences(){
         mSharedPreferences = this.getActivity().getSharedPreferences("Setting", Context.MODE_PRIVATE);
@@ -145,9 +145,9 @@ public class Calcultor_Main extends Fragment {
 		marquee_TextView.setVisibility(View.GONE);
     }
 
-
-    //=============================================================================================
-    // [6] 加入 Dialog 畫面內容
+/*================================================================================================
+ *                                   加入 Dialog 畫面內容
+================================================================================================ */
     public void find_dialog_view(){
 
         dialog_view = LayoutInflater.from(getActivity()).inflate(R.layout.cal_dialog, null);

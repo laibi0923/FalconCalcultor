@@ -49,7 +49,7 @@ public class WishList_Adapter extends RecyclerSwipeAdapter<WishList_ViewHolder> 
     @Override
     public WishList_ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.favourite_recycleview_item, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.wish_list_recycleview_item, parent, false);
 
         WishList_ViewHolder holder = new WishList_ViewHolder(v);
 

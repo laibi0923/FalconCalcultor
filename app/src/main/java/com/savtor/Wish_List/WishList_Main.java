@@ -49,7 +49,7 @@ public class WishList_Main extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.favourite_main, container, false);
+        View v = inflater.inflate(R.layout.wish_main, container, false);
         Find_View(v);   // [1]
         return v;
     }

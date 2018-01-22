@@ -4,11 +4,10 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    android:background="@color/blue_grey_900">
+    android:background="@color/blue_grey_950">
 
     <LinearLayout
-        android:id="@+id/view_page_action"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -16,26 +15,13 @@
         android:clickable="true"
         android:gravity="center">
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_keyboard_arrow_left_black_48dp"
-                android:tint="@color/deep_teal_200"
-                android:id="@+id/before_btn_view" />
-
-        </RelativeLayout>
-
         <LinearLayout
             android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:background="@drawable/cirle_bg"
+            android:padding="20dp">
 
             <ImageView
                 android:layout_width="120dp"
@@ -44,28 +30,16 @@
                 android:src="@drawable/ic_person_black_48dp"
                 android:tint="@color/deep_teal_200" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="私人貸款"
-                android:id="@+id/product_title"
-                android:textColor="@color/deep_teal_200"
-                android:paddingTop="20dp" />
         </LinearLayout>
 
-        <RelativeLayout
+        <TextView
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/after_btn_icon"
-                android:src="@drawable/ic_keyboard_arrow_right_black_48dp"
-                android:tint="@color/deep_teal_200" />
-        </RelativeLayout>
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Personal Loan"
+            android:id="@+id/product_title"
+            android:textColor="@color/deep_teal_200"
+            android:paddingTop="25dp" />
 
     </LinearLayout>
 

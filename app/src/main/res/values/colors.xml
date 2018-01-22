@@ -1,19 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<!--<color name="colorPrimary">#424242</color>-->
 	<color name="colorPrimaryDark">#263238</color>
-	<!--<color name="fragment_bg">#2e2e2e</color>-->
-
-	<!--<color name="nav_selected_color">#37474f</color>-->
-
-	<!--&lt;!&ndash;=====================================================================================&ndash;&gt;-->
-	<!--<color name="StatusBarColor">#ff37474f</color>-->
-	<!--<color name="NavigationBarColor">#263238</color>-->
-	<!--&lt;!&ndash;<color name="TextColor_White">#FFFFFF</color>&ndash;&gt;-->
-	<!--&lt;!&ndash;<color name="TextColor_Gray">#BDBDBD</color>&ndash;&gt;-->
-	<!--<color name="deep_teal_200">#80CBC4</color>-->
-
-
 	<!--=====================================================================================-->
 	<color name="blue_grey_800">#ff37474f</color>
 	<color name="blue_grey_900">#ff263238</color>

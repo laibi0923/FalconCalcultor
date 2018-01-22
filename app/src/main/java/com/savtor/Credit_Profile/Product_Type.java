@@ -3,11 +3,11 @@ import com.savtor.falconcalcultor.*;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,9 +48,12 @@ public class Product_Type extends Fragment {
     private LinearLayout Card_LinearLayout;
 
     private List<View> Page_List;
+    private List<String> Page_Title;
     private ViewPager mViewPager;
+    private TabLayout mTabLayout;
     private Product_Type_Adapter mAdapter;
 
+    public static int lastPosition = 0;
     private Bundle mBundle, getBundle;
 
     private String From_Where;
@@ -70,8 +73,6 @@ public class Product_Type extends Fragment {
             mBundle.putInt("Trems", getBundle.getInt("Trems", 12));
 
         }
-
-
     }
 
     @Nullable
@@ -94,14 +95,10 @@ public class Product_Type extends Fragment {
         Personal_icon = (ImageView) Page_Personal.findViewById(R.id.product_icon);
         Personal_icon.setImageResource(R.drawable.ic_person_black_48dp);
 
-        Personal_befor_icon = (ImageView) Page_Personal.findViewById(R.id.before_btn_view);
 
         Personal_title = (TextView) Page_Personal.findViewById(R.id.product_title);
         Personal_title.setText(R.string.title_product_personal);
 
-        Personal_LinearLayout = (LinearLayout) Page_Personal.findViewById(R.id.view_page_action);
-        Personal_LinearLayout.setTag(1);
-        Personal_LinearLayout.setOnClickListener(Product_OnSelect_Listener);
 
         Page_Mortgage = inflater.inflate(R.layout.credittype_viewpager, null);
         Mortgage_icon = (ImageView) Page_Mortgage.findViewById(R.id.product_icon);
@@ -110,9 +107,6 @@ public class Product_Type extends Fragment {
         Mortgage_title = (TextView) Page_Mortgage.findViewById(R.id.product_title);
         Mortgage_title.setText(R.string.title_product_mortgage);
 
-        Mortgage_LinearLayout = (LinearLayout) Page_Mortgage.findViewById(R.id.view_page_action);
-        Mortgage_LinearLayout.setTag(2);
-        Mortgage_LinearLayout.setOnClickListener(Product_OnSelect_Listener);
 
 
         Page_Revolving = inflater.inflate(R.layout.credittype_viewpager, null);
@@ -122,10 +116,6 @@ public class Product_Type extends Fragment {
         Revolving_title = (TextView) Page_Revolving.findViewById(R.id.product_title);
         Revolving_title.setText(R.string.title_product_revolving);
 
-        Revolving_LinearLayout = (LinearLayout) Page_Revolving.findViewById(R.id.view_page_action);
-        Revolving_LinearLayout.setTag(3);
-        Revolving_LinearLayout.setOnClickListener(Product_OnSelect_Listener);
-
 
         Page_Car = inflater.inflate(R.layout.credittype_viewpager, null);
         Car_icon = (ImageView) Page_Car.findViewById(R.id.product_icon);
@@ -133,11 +123,6 @@ public class Product_Type extends Fragment {
 
         Car_title = (TextView) Page_Car.findViewById(R.id.product_title);
         Car_title.setText(R.string.title_product_car);
-
-        Car_LinearLayout = (LinearLayout) Page_Car.findViewById(R.id.view_page_action);
-        Car_LinearLayout.setTag(4);
-        Car_LinearLayout.setOnClickListener(Product_OnSelect_Listener);
-
 
 
         Page_Card = inflater.inflate(R.layout.credittype_viewpager, null);
@@ -147,12 +132,9 @@ public class Product_Type extends Fragment {
         Card_title = (TextView) Page_Card.findViewById(R.id.product_title);
         Card_title.setText(R.string.title_product_card);
 
-        Card_LinearLayout = (LinearLayout) Page_Card.findViewById(R.id.view_page_action);
-        Card_LinearLayout.setTag(5);
-        Card_LinearLayout.setOnClickListener(Product_OnSelect_Listener);
-
 
         Page_List = new ArrayList<View>();
+        Page_Title = new ArrayList<String>();
 
         Page_List.add(Page_Personal);
         Page_List.add(Page_Mortgage);
@@ -163,12 +145,29 @@ public class Product_Type extends Fragment {
             Page_List.add(Page_Card);
         }
 
-
-
         mViewPager = (ViewPager) v.findViewById(R.id.mviewPager);
         mAdapter = new Product_Type_Adapter(Page_List);
-
         mViewPager.setAdapter(mAdapter);
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
+
+            @Override
+            public void onPageSelected(int position) {
+                lastPosition = position;
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {}
+        });
+
+        mTabLayout = (TabLayout) v.findViewById(R.id.sliding_tabs);
+        mTabLayout.setupWithViewPager(mViewPager);
+
+        for (int i = 0; i < Page_List.size(); i++){
+            mTabLayout.getTabAt(i).setText("1");
+            mTabLayout.getTabTextColors();
+        }
 
     }
 
@@ -188,7 +187,7 @@ public class Product_Type extends Fragment {
     }
 
 /*================================================================================================
- *                                      Find View
+ *
 ================================================================================================ */
     private View.OnClickListener Product_OnSelect_Listener = new View.OnClickListener() {
         @Override
