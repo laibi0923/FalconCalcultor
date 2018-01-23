@@ -27,6 +27,7 @@ import com.savtor.Setting.Fragment_Setting;
 import android.widget.*;
 import android.view.*;
 import android.view.inputmethod.*;
+import com.savtor.Credit_Profile.*;
 
 /**
  * Created by GhostLeo_DT on 21/11/2017.
@@ -129,11 +130,12 @@ public class Activity_Main extends AppCompatActivity {
                             Fragment_Transaction(new Fragment_Setting());
                             break;
 
-                        /*
+                        
                         case R.id.nav_item6:
-                            Fragment_Transaction(new Product_Type());
+                            Fragment_Transaction(new aa_credit_profile());
                             break;
 
+							/*
                         case R.id.nav_item7:
                             Fragment_Transaction(new Testing_Notification());
                             break;

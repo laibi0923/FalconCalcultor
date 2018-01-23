@@ -10,7 +10,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:background="@drawable/radiu_bg"
+        android:background="@drawable/radius_bg"
         android:paddingLeft="25dp"
         android:paddingRight="25dp"
         android:paddingBottom="15dp"

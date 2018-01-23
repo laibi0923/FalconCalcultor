@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
+import android.support.v4.content.*;
 
 /**
  * Created by GhostLeo_DT on 18/1/2018.
@@ -23,40 +24,41 @@ import java.util.List;
 public class Product_Type extends Fragment {
 
     private View Page_Personal;
-    private ImageView Personal_icon, Personal_befor_icon;
+    private ImageView Personal_icon;
     private TextView Personal_title;
-    private LinearLayout Personal_LinearLayout;
+	private LinearLayout Personal_Linear;
 
     private View Page_Mortgage;
     private ImageView Mortgage_icon;
     private TextView Mortgage_title;
-    private LinearLayout Mortgage_LinearLayout;
-
+	private LinearLayout Mortgage_Linear;
+	
     private View Page_Revolving;
     private ImageView Revolving_icon;
     private TextView Revolving_title;
-    private LinearLayout Revolving_LinearLayout;
-
+	private LinearLayout Revolving_Linear;
+	
     private View Page_Car;
     private ImageView Car_icon;
     private TextView Car_title;
-    private LinearLayout Car_LinearLayout;
-
+	private LinearLayout Car_Linear;
+	
     private View Page_Card;
     private ImageView Card_icon;
     private TextView Card_title;
-    private LinearLayout Card_LinearLayout;
-
+	private LinearLayout Card_Linear;
+	
     private List<View> Page_List;
-    private List<String> Page_Title;
     private ViewPager mViewPager;
-    private TabLayout mTabLayout;
     private Product_Type_Adapter mAdapter;
-
-    public static int lastPosition = 0;
+	
     private Bundle mBundle, getBundle;
 
     private String From_Where;
+	
+	private LinearLayout silderDotspanel;
+	private ImageView[] dots;
+	private int dotscount;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -92,49 +94,61 @@ public class Product_Type extends Fragment {
     private void Find_View(View v, LayoutInflater inflater){
 
         Page_Personal = inflater.inflate(R.layout.credittype_viewpager, null);
+		
+		Personal_Linear = (LinearLayout) Page_Personal.findViewById(R.id.onclick_bg);
+		Personal_Linear.setTag(1);
+		Personal_Linear.setOnClickListener(Product_OnSelect_Listener);
         Personal_icon = (ImageView) Page_Personal.findViewById(R.id.product_icon);
         Personal_icon.setImageResource(R.drawable.ic_person_black_48dp);
-
-
         Personal_title = (TextView) Page_Personal.findViewById(R.id.product_title);
         Personal_title.setText(R.string.title_product_personal);
 
 
         Page_Mortgage = inflater.inflate(R.layout.credittype_viewpager, null);
+		
+		Mortgage_Linear = (LinearLayout) Page_Mortgage.findViewById(R.id.onclick_bg);
+		Mortgage_Linear.setTag(2);
+		Mortgage_Linear.setOnClickListener(Product_OnSelect_Listener);
         Mortgage_icon = (ImageView) Page_Mortgage.findViewById(R.id.product_icon);
         Mortgage_icon.setImageResource(R.drawable.ic_location_city_black_48dp);
-
         Mortgage_title = (TextView) Page_Mortgage.findViewById(R.id.product_title);
         Mortgage_title.setText(R.string.title_product_mortgage);
 
 
 
         Page_Revolving = inflater.inflate(R.layout.credittype_viewpager, null);
+		
+		Revolving_Linear = (LinearLayout) Page_Revolving.findViewById(R.id.onclick_bg);
+		Revolving_Linear.setTag(3);
+		Revolving_Linear.setOnClickListener(Product_OnSelect_Listener);
         Revolving_icon = (ImageView) Page_Revolving.findViewById(R.id.product_icon);
         Revolving_icon.setImageResource(R.drawable.ic_loop_black_48dp);
-
         Revolving_title = (TextView) Page_Revolving.findViewById(R.id.product_title);
         Revolving_title.setText(R.string.title_product_revolving);
 
 
         Page_Car = inflater.inflate(R.layout.credittype_viewpager, null);
+		
+		Car_Linear = (LinearLayout) Page_Car.findViewById(R.id.onclick_bg);
+		Car_Linear.setTag(4);
+		Car_Linear.setOnClickListener(Product_OnSelect_Listener);
         Car_icon = (ImageView) Page_Car.findViewById(R.id.product_icon);
         Car_icon.setImageResource(R.drawable.ic_airport_shuttle_black_48dp);
-
         Car_title = (TextView) Page_Car.findViewById(R.id.product_title);
         Car_title.setText(R.string.title_product_car);
 
 
         Page_Card = inflater.inflate(R.layout.credittype_viewpager, null);
+		
+		Card_Linear = (LinearLayout) Page_Card.findViewById(R.id.onclick_bg);
+		Card_Linear.setTag(5);
+		Card_Linear.setOnClickListener(Product_OnSelect_Listener);
         Card_icon = (ImageView) Page_Card.findViewById(R.id.product_icon);
         Card_icon.setImageResource(R.drawable.ic_credit_card_black_48dp);
-
         Card_title = (TextView) Page_Card.findViewById(R.id.product_title);
         Card_title.setText(R.string.title_product_card);
 
-
         Page_List = new ArrayList<View>();
-        Page_Title = new ArrayList<String>();
 
         Page_List.add(Page_Personal);
         Page_List.add(Page_Mortgage);
@@ -154,20 +168,31 @@ public class Product_Type extends Fragment {
 
             @Override
             public void onPageSelected(int position) {
-                lastPosition = position;
+				for(int i=0; i < dotscount; i++){
+					dots[i].setImageDrawable(ContextCompat.getDrawable(getContext().getApplicationContext(), R.drawable.non_active_dot));
+					dots[position].setImageDrawable(ContextCompat.getDrawable(getContext().getApplicationContext(), R.drawable.active_dot));
+				}
             }
 
             @Override
             public void onPageScrollStateChanged(int state) {}
         });
-
-        mTabLayout = (TabLayout) v.findViewById(R.id.sliding_tabs);
-        mTabLayout.setupWithViewPager(mViewPager);
-
-        for (int i = 0; i < Page_List.size(); i++){
-            mTabLayout.getTabAt(i).setText("1");
-            mTabLayout.getTabTextColors();
-        }
+		
+		silderDotspanel = (LinearLayout) v.findViewById(R.id.sliding_dots);
+		dotscount = mAdapter.getCount();
+		dots = new ImageView[dotscount];
+		
+		for(int i = 0; i < dotscount; i++){
+			dots[i] = new ImageView(this.getActivity());
+			dots[i].setImageDrawable(ContextCompat.getDrawable(getContext().getApplicationContext(), R.drawable.non_active_dot));
+			
+			LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+			params.setMargins(8, 0, 8, 0);
+			silderDotspanel.addView(dots[i], params);
+		}
+		
+		dots[0].setImageDrawable(ContextCompat.getDrawable(getContext().getApplicationContext(), R.drawable.active_dot));
+        
 
     }
 
