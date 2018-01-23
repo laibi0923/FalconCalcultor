@@ -31,7 +31,7 @@
 				android:layout_height="120dp"
 				android:id="@+id/product_icon"
 				android:src="@drawable/ic_person_black_48dp"
-				android:tint="@color/deep_teal_200"/>
+				android:tint="@color/blue_grey_900"/>
 
 		</LinearLayout>
 

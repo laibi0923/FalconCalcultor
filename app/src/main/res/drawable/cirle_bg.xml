@@ -5,7 +5,7 @@
     <corners android:radius="99.0dp" />
     <!-- 圆角，你也可以对不同的角设置不同的数值 -->
 
-    <solid android:color="#263238" />
+    <solid android:color="@color/blue_grey_800" />
     <!-- 形状的填充色 -->
 
     <stroke
