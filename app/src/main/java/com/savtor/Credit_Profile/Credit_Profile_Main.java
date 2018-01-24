@@ -56,7 +56,7 @@ public class Credit_Profile_Main extends Fragment {
     private LinearLayout Product_Name_Linear, Product_Status_Linear, Loan_Amount_Linear, Loan_Rate_Linear, Loan_Trems_Linear, Loan_Installment_Linear, FirstDue_Linear, FinalDue_Linear, Setup_Alarm_Linear, Alarm_Time_Linear;
 
     // Dialog
-    private View Dialog_View, Subview_View;
+    private View Dialog_View;
 
     private AlertDialog mAlertDialog;
 
@@ -114,6 +114,7 @@ public class Credit_Profile_Main extends Fragment {
         Last_Modify_Calendar = Calendar.getInstance();
 
         LAST_MODIFY = new SimpleDateFormat("yyyy/MM/dd").format(new Date());
+        PRODUCT_NAME = "";
         PRODUCT_CODE = "Personal";
         STATUS_CODE = "NotApply";
         LOAN_AMOUNT = 0;
@@ -256,7 +257,7 @@ public class Credit_Profile_Main extends Fragment {
 
             case R.id.save_to_fav:
 
-                if (Product_Name.getText().toString().isEmpty()){
+                if (PRODUCT_NAME == null || PRODUCT_NAME == ""){
                     Toast.makeText(getContext(), getString(R.string.totast_enter_name), Toast.LENGTH_SHORT).show();
                 }else {
 
@@ -275,7 +276,7 @@ public class Credit_Profile_Main extends Fragment {
                     Favouite_Item fav_item = new Favouite_Item(
                             DB_ID,
                             LAST_MODIFY,
-                            Product_Name.getText().toString(),
+                            PRODUCT_NAME,
                             PRODUCT_CODE,
                             STATUS_CODE,
                             Product_Loan_Number.getText().toString(),
@@ -478,11 +479,7 @@ public class Credit_Profile_Main extends Fragment {
 		Product_Name_Linear = (LinearLayout) v.findViewById(R.id.product_name_linear);
 		Product_Name_Linear.setOnClickListener(Item_OnClickListener);
 		Product_Name = (TextView) v.findViewById(R.id.product_name);
-		Product_Name.setText("Please Input Name");
-		
-        //Product_Name = (EditText) v.findViewById(R.id.product_name);
-        //Product_Name.setHint(R.string.hints_product_name);
-        //Product_Name.setText(Init_Product_Name);
+		Product_Name.setText(Init_Product_Name);
 
         Product_Type_Icon = (ImageView) v.findViewById(R.id.product_type_icon);
         Product_Type_Icon.setImageResource(Init_Product_Icon);
@@ -650,6 +647,57 @@ public class Credit_Profile_Main extends Fragment {
 		{
 			// TODO: Implement this method
 			switch(item.getId()){
+
+/*================================================================================================
+ *                                       Product Name
+================================================================================================ */
+                case R.id.product_name_linear:
+
+                    mAlertDialog = new AlertDialog.Builder(getContext()).create();
+                    Find_Dialog_View();
+                    mAlertDialog.setView(Dialog_View);
+                    Dialog_Title.setText(getResources().getString(R.string.hints_product_name));
+
+                    Dialog_Option_1.setVisibility(View.GONE);
+                    Dialog_Option_2.setVisibility(View.GONE);
+                    Dialog_Option_3.setVisibility(View.GONE);
+                    Dialog_Option_4.setVisibility(View.GONE);
+                    Dialog_Option_5.setVisibility(View.GONE);
+
+                    Dialog_Edittext.setVisibility(View.VISIBLE);
+                    Dialog_Option_Edittext.setHint(getString(R.string.hints_product_name));
+                    if (Init_Product_Name != "" || Init_Product_Name != null){
+                        Dialog_Option_Edittext.setText(Init_Product_Name);
+                    }
+                    Dialog_Option_Edittext.requestFocus();
+                    Dialog_Option_Edittext.setInputType(InputType.TYPE_CLASS_TEXT);
+
+                    Dialog_Done.setVisibility(View.VISIBLE);
+                    Dialog_Done.setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            if (Dialog_Option_Edittext.getText().toString().isEmpty()){
+
+                            }else {
+
+                                PRODUCT_NAME = String.valueOf(Dialog_Option_Edittext.getText().toString());
+                                Product_Name.setText(PRODUCT_NAME);
+                            }
+
+                            mAlertDialog.dismiss();
+                        }
+                    });
+
+                    Dialog_Dismiss.setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            mAlertDialog.dismiss();
+                        }
+                    });
+
+                    mAlertDialog.show();
+                    break;
 /*================================================================================================
  *                                       Product Type
  *               Option : Personal / Mortgage / Revolving / Car / Card
