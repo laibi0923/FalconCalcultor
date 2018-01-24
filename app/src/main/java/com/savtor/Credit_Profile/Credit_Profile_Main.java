@@ -39,9 +39,9 @@ import android.content.*;
 public class Credit_Profile_Main extends Fragment {
 
     // Fragment View
-    private EditText Product_Name, Product_Loan_Number, Address, PhoneNo, Remarks;
+    private EditText Product_Loan_Number, Address, PhoneNo, Remarks;
 
-    private TextView Product_Type_Name, Product_Status_Title, Product_Status_Result,
+    private TextView Product_Name, Product_Type_Name, Product_Status_Title, Product_Status_Result,
                      Loan_Amount_Title, Loan_Rate_Title, Loan_Trems_Title, Loan_Installment_Title, Loan_Amount_Result, Loan_Rate_Result, Loan_Trems_Result, Loan_Installment_Result,
                      First_Due_Title, First_Due_Result, Final_Due_Title, Final_Due_Result, Setup_Alarm_Title, Setup_Alarm_Result, Alarm_Time_Title, Alarm_Time_Result;
 
@@ -53,10 +53,10 @@ public class Credit_Profile_Main extends Fragment {
     private View Subview_Product_Status, Subview_Loan_Number, Subview_Loan_Amount, Subview_Loan_Rate, Subview_Loan_Trems, Subview_Loan_Installment,
                  Subview_First_due, Subview_Final_due, Subview_Setup_Alarm, Subview_Alarm_Time, Subview_Address, Subview_Phone, Subview_Remarks;
 
-    private LinearLayout Due_Date_Linear, Product_Status_Linear, Loan_Amount_Linear, Loan_Rate_Linear, Loan_Trems_Linear, Loan_Installment_Linear, FirstDue_Linear, Setup_Alarm_Linear, Alarm_Time_Linear;
+    private LinearLayout Product_Name_Linear, Product_Status_Linear, Loan_Amount_Linear, Loan_Rate_Linear, Loan_Trems_Linear, Loan_Installment_Linear, FirstDue_Linear, FinalDue_Linear, Setup_Alarm_Linear, Alarm_Time_Linear;
 
     // Dialog
-    private View Dialog_View;
+    private View Dialog_View, Subview_View;
 
     private AlertDialog mAlertDialog;
 
@@ -351,7 +351,7 @@ public class Credit_Profile_Main extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.credit_profile, container, false);
+        View v = inflater.inflate(R.layout.aa_credit_profile_main, container, false);
 
         Find_View(v);
 		Change_View();
@@ -363,35 +363,35 @@ public class Credit_Profile_Main extends Fragment {
 
 		if (STATUS_CODE.equals("Approval")){
             Subview_Loan_Number.setVisibility(View.VISIBLE);
-            Due_Date_Linear.setVisibility(View.VISIBLE);
-			//Subview_Final_due.setVisibility(View.VISIBLE);
+			FirstDue_Linear.setVisibility(View.VISIBLE);
+			FinalDue_Linear.setVisibility(View.VISIBLE);
         }else {
             Subview_Loan_Number.setVisibility(View.GONE);
-            Due_Date_Linear.setVisibility(View.GONE);
+			FirstDue_Linear.setVisibility(View.GONE);
+			FinalDue_Linear.setVisibility(View.GONE);
         }
 		
 		if(FINAL_DUE == null || FINAL_DUE == ""){
-			Subview_Setup_Alarm.setVisibility(View.GONE);
+			Setup_Alarm_Linear.setVisibility(View.GONE);
 		}else {
-			Subview_Setup_Alarm.setVisibility(View.VISIBLE);
+			Setup_Alarm_Linear.setVisibility(View.VISIBLE);
 		}
 		
 		if(SETUP_ALARM != 99){
-			Subview_Alarm_Time.setVisibility(View.VISIBLE);
+			Alarm_Time_Linear.setVisibility(View.VISIBLE);
 		}else {
-			Subview_Alarm_Time.setVisibility(View.GONE);
+			Alarm_Time_Linear.setVisibility(View.GONE);
 		}
 		
 		if (PRODUCT_CODE == "Card"){
-            Subview_Product_Status.setVisibility(View.GONE);
-            Subview_Loan_Trems.setVisibility(View.GONE);
-            Subview_Final_due.setVisibility(View.GONE);
-            Subview_Alarm_Time.setVisibility(View.GONE);
+            Product_Status_Linear.setVisibility(View.GONE);
+            Loan_Trems_Linear.setVisibility(View.GONE);
+            FinalDue_Linear.setVisibility(View.GONE);
+            Alarm_Time_Linear.setVisibility(View.GONE);
             Subview_Address.setVisibility(View.GONE);
             Subview_Phone.setVisibility(View.GONE);
             // Show
             Subview_Loan_Number.setVisibility(View.VISIBLE);
-            Due_Date_Linear.setVisibility(View.VISIBLE);
             Subview_First_due.setVisibility(View.VISIBLE);
             //  Change Title
             Loan_Amount_Title.setText(getString(R.string.title_card_amount));
@@ -402,10 +402,10 @@ public class Credit_Profile_Main extends Fragment {
 			
 		} else {
 			//Due_Date_Linear.setVisibility(View.VISIBLE);
-			Subview_Loan_Trems.setVisibility(View.VISIBLE);
-			Subview_Product_Status.setVisibility(View.VISIBLE);
+			Loan_Trems_Linear.setVisibility(View.VISIBLE);
+			Product_Status_Linear.setVisibility(View.VISIBLE);
 			//Subview_First_due.setVisibility(View.VISIBLE);
-			Subview_Final_due.setVisibility(View.VISIBLE);
+			//FinalDue_Linear.setVisibility(View.VISIBLE);
             Subview_Address.setVisibility(View.VISIBLE);
             Subview_Phone.setVisibility(View.VISIBLE);
 			Log.e("tag", "=xxxxxxxxx");
@@ -474,10 +474,15 @@ public class Credit_Profile_Main extends Fragment {
  *                                      Find View
 ================================================================================================ */
     private void Find_View (View v){
-
-        Product_Name = (EditText) v.findViewById(R.id.product_name);
-        Product_Name.setHint(R.string.hints_product_name);
-        Product_Name.setText(Init_Product_Name);
+		
+		Product_Name_Linear = (LinearLayout) v.findViewById(R.id.product_name_linear);
+		Product_Name_Linear.setOnClickListener(Item_OnClickListener);
+		Product_Name = (TextView) v.findViewById(R.id.product_name);
+		Product_Name.setText("Please Input Name");
+		
+        //Product_Name = (EditText) v.findViewById(R.id.product_name);
+        //Product_Name.setHint(R.string.hints_product_name);
+        //Product_Name.setText(Init_Product_Name);
 
         Product_Type_Icon = (ImageView) v.findViewById(R.id.product_type_icon);
         Product_Type_Icon.setImageResource(Init_Product_Icon);
@@ -486,15 +491,13 @@ public class Credit_Profile_Main extends Fragment {
         Product_Type_Name = (TextView) v.findViewById(R.id.product_type_name);
         Product_Type_Name.setText(Init_Product_Type);
 
-        Subview_Product_Status = v.findViewById(R.id.product_status);
-        Product_Status_Linear = (LinearLayout) v.findViewById(R.id.product_status_linear);
+        Product_Status_Linear = (LinearLayout) v.findViewById(R.id.product_status);
         Product_Status_Linear.setOnClickListener(Item_OnClickListener);
-        Product_Status_Icon = (ImageView) Subview_Product_Status.findViewById(R.id.sub_image);
+        Product_Status_Icon = (ImageView) Product_Status_Linear.findViewById(R.id.sub_image);
         Product_Status_Icon.setImageResource(R.drawable.ic_assignment_black_24dp);
-		Product_Status_Icon.setOnClickListener(Item_OnClickListener);
-        Product_Status_Title = (TextView) Subview_Product_Status.findViewById(R.id.sub_textview);
+        Product_Status_Title = (TextView) Product_Status_Linear.findViewById(R.id.sub_textview);
         Product_Status_Title.setText(R.string.title_product_status);
-        Product_Status_Result = (TextView) Subview_Product_Status.findViewById(R.id.sub_textview_result);
+        Product_Status_Result = (TextView) Product_Status_Linear.findViewById(R.id.sub_textview_result);
         Product_Status_Result.setText(Init_Product_Status);
 
         Subview_Loan_Number = v.findViewById(R.id.loan_number);
@@ -504,90 +507,88 @@ public class Credit_Profile_Main extends Fragment {
         Product_Loan_Number.setHint(R.string.hints_loan_number);
         Product_Loan_Number.setText(Init_Loan_Number);
 
-        Subview_Loan_Amount = v.findViewById(R.id.loan_amount);
-        Loan_Amount_Linear = (LinearLayout) v.findViewById(R.id.loan_amount_linear);
-        Loan_Amount_Linear.setOnClickListener(Item_OnClickListener);
-        Loan_Amount_Icon = (ImageView) Subview_Loan_Amount.findViewById(R.id.sub_image);
+        Loan_Amount_Linear = (LinearLayout) v.findViewById(R.id.loan_amount);
+		Loan_Amount_Linear.setOnClickListener(Item_OnClickListener);
+        Loan_Amount_Icon = (ImageView) Loan_Amount_Linear.findViewById(R.id.sub_image);
         Loan_Amount_Icon.setImageResource(R.drawable.ic_data_usage_black_24dp);
-        Loan_Amount_Title = (TextView) Subview_Loan_Amount.findViewById(R.id.sub_textview);
+        Loan_Amount_Title = (TextView) Loan_Amount_Linear.findViewById(R.id.sub_textview);
         Loan_Amount_Title.setText(getString(R.string.title_loan_amount));
-        Loan_Amount_Result = (TextView) Subview_Loan_Amount.findViewById(R.id.sub_textview_result);
+        Loan_Amount_Result = (TextView) Loan_Amount_Linear.findViewById(R.id.sub_textview_result);
         Loan_Amount_Result.setText("$ " + Init_Loan_Amount);
 
-        Subview_Loan_Rate = v.findViewById(R.id.loan_rate);
-        Loan_Rate_Linear = (LinearLayout) v.findViewById(R.id.loan_rate_linear);
-        Loan_Rate_Linear.setOnClickListener(Item_OnClickListener);
-        Loan_Rate_Icon = (ImageView) Subview_Loan_Rate.findViewById(R.id.sub_image);
+        
+        Loan_Rate_Linear = (LinearLayout) v.findViewById(R.id.loan_rate);
+		Loan_Rate_Linear.setOnClickListener(Item_OnClickListener);
+        Loan_Rate_Icon = (ImageView) Loan_Rate_Linear.findViewById(R.id.sub_image);
         Loan_Rate_Icon.setImageResource(R.drawable.ic_data_usage_black_24dp);
-        Loan_Rate_Title = (TextView) Subview_Loan_Rate.findViewById(R.id.sub_textview);
+        Loan_Rate_Title = (TextView) Loan_Rate_Linear.findViewById(R.id.sub_textview);
         Loan_Rate_Title.setText(getString(R.string.title_loan_rate));
-        Loan_Rate_Result = (TextView) Subview_Loan_Rate.findViewById(R.id.sub_textview_result);
+        Loan_Rate_Result = (TextView) Loan_Rate_Linear.findViewById(R.id.sub_textview_result);
         Loan_Rate_Result.setText(Init_Loan_Rate + " %p.a.");
-
-        Subview_Loan_Trems = v.findViewById(R.id.loan_trems);
-        Loan_Trems_Linear = (LinearLayout) v.findViewById(R.id.loan_trems_linear);
-        Loan_Trems_Linear.setOnClickListener(Item_OnClickListener);
-        Loan_Trems_Icon = (ImageView) Subview_Loan_Trems.findViewById(R.id.sub_image);
+        
+		Loan_Trems_Linear = (LinearLayout) v.findViewById(R.id.loan_trems);
+		Loan_Trems_Linear.setOnClickListener(Item_OnClickListener);
+        Loan_Trems_Icon = (ImageView) Loan_Trems_Linear.findViewById(R.id.sub_image);
         Loan_Trems_Icon.setImageResource(R.drawable.ic_data_usage_black_24dp);
-        Loan_Trems_Title = (TextView) Subview_Loan_Trems.findViewById(R.id.sub_textview);
+        Loan_Trems_Title = (TextView) Loan_Trems_Linear.findViewById(R.id.sub_textview);
         Loan_Trems_Title.setText(getString(R.string.title_loan_trems));
-        Loan_Trems_Result = (TextView) Subview_Loan_Trems.findViewById(R.id.sub_textview_result);
+        Loan_Trems_Result = (TextView) Loan_Trems_Linear.findViewById(R.id.sub_textview_result);
         Loan_Trems_Result.setText(Init_Loan_Trems + " 個月");
 
-        Subview_Loan_Installment = v.findViewById(R.id.loan_installment);
-        Loan_Installment_Linear = (LinearLayout) v.findViewById(R.id.loan_installment_linear);
+		
+        Loan_Installment_Linear = (LinearLayout) v.findViewById(R.id.loan_installment);
         Loan_Installment_Linear.setOnClickListener(Item_OnClickListener);
-        Loan_Installment_Icon = (ImageView) Subview_Loan_Installment.findViewById(R.id.sub_image);
+        Loan_Installment_Icon = (ImageView) Loan_Installment_Linear.findViewById(R.id.sub_image);
         Loan_Installment_Icon.setImageResource(R.drawable.ic_data_usage_black_24dp);
-        Loan_Installment_Title = (TextView) Subview_Loan_Installment.findViewById(R.id.sub_textview);
+        Loan_Installment_Title = (TextView) Loan_Installment_Linear.findViewById(R.id.sub_textview);
         Loan_Installment_Title.setText(getString(R.string.title_loan_installment));
-        Loan_Installment_Result = (TextView) Subview_Loan_Installment.findViewById(R.id.sub_textview_result);
+        Loan_Installment_Result = (TextView) Loan_Installment_Linear.findViewById(R.id.sub_textview_result);
         Loan_Installment_Result.setText("$ " + Init_Loan_Installment);
 
-        Due_Date_Linear = (LinearLayout) v.findViewById(R.id.duedate_linear);
-
-        Subview_First_due = v.findViewById(R.id.firstdue_date);
-        FirstDue_Linear = (LinearLayout) v.findViewById(R.id.firstdue_linear);
-		FirstDue_Linear.setOnClickListener(Item_OnClickListener);
-        First_Due_Icon = (ImageView) Subview_First_due.findViewById(R.id.sub_image);
+        
+        FirstDue_Linear = (LinearLayout) v.findViewById(R.id.first_duedate);
+        FirstDue_Linear.setOnClickListener(Item_OnClickListener);
+        First_Due_Icon = (ImageView) FirstDue_Linear.findViewById(R.id.sub_image);
         First_Due_Icon.setImageResource(R.drawable.ic_event_black_24dp);
-        First_Due_Title = (TextView) Subview_First_due.findViewById(R.id.sub_textview);
+        First_Due_Title = (TextView) FirstDue_Linear.findViewById(R.id.sub_textview);
         First_Due_Title.setText(getString(R.string.title_first_due));
-        First_Due_Result = (TextView) Subview_First_due.findViewById(R.id.sub_textview_result);
+        First_Due_Result = (TextView) FirstDue_Linear.findViewById(R.id.sub_textview_result);
         First_Due_Result.setText(Init_First_Due);
 
-        Subview_Final_due = v.findViewById(R.id.finaldue_date);
-        Final_Due_Title = (TextView) Subview_Final_due.findViewById(R.id.sub_textview);
+		
+        FinalDue_Linear = (LinearLayout) v.findViewById(R.id.final_duedate);
+		FinalDue_Linear.setClickable(false);
+        Final_Due_Title = (TextView) FinalDue_Linear.findViewById(R.id.sub_textview);
         Final_Due_Title.setText(getString(R.string.title_final_due));
-        Final_Due_Result = (TextView) Subview_Final_due.findViewById(R.id.sub_textview_result);
+        Final_Due_Result = (TextView) FinalDue_Linear.findViewById(R.id.sub_textview_result);
         Final_Due_Result.setText(Init_Final_Due);
 
-        Subview_Setup_Alarm = v.findViewById(R.id.setup_alarm);
-        Setup_Alarm_Linear = (LinearLayout) v.findViewById(R.id.setup_alarm_linear);
-		Setup_Alarm_Linear.setOnClickListener(Item_OnClickListener);
-        Setup_Alarm_Icon = (ImageView) Subview_Setup_Alarm.findViewById(R.id.sub_image);
+		
+        Setup_Alarm_Linear = (LinearLayout) v.findViewById(R.id.setup_alarm);
+        Setup_Alarm_Linear.setOnClickListener(Item_OnClickListener);
+        Setup_Alarm_Icon = (ImageView) Setup_Alarm_Linear.findViewById(R.id.sub_image);
         Setup_Alarm_Icon.setImageResource(R.drawable.ic_alarm_black_24dp);
-        Setup_Alarm_Title = (TextView) Subview_Setup_Alarm.findViewById(R.id.sub_textview);
+        Setup_Alarm_Title = (TextView) Setup_Alarm_Linear.findViewById(R.id.sub_textview);
         Setup_Alarm_Title.setText(getString(R.string.title_setup_alarm));
-        Setup_Alarm_Result = (TextView) Subview_Setup_Alarm.findViewById(R.id.sub_textview_result);
+        Setup_Alarm_Result = (TextView) Setup_Alarm_Linear.findViewById(R.id.sub_textview_result);
         Setup_Alarm_Result.setText(Init_Setup_Alarm);
 
-        Subview_Alarm_Time = v.findViewById(R.id.alarm_time);
-        Alarm_Time_Linear = (LinearLayout) v.findViewById(R.id.alarm_time_linear);
+		
+        Alarm_Time_Linear = (LinearLayout) v.findViewById(R.id.alarm_time);
         Alarm_Time_Linear.setOnClickListener(Item_OnClickListener);
-        Alarm_Time_Title = (TextView) Subview_Alarm_Time.findViewById(R.id.sub_textview);
+        Alarm_Time_Title = (TextView) Alarm_Time_Linear.findViewById(R.id.sub_textview);
         Alarm_Time_Title.setText(getString(R.string.title_setup_time));
-        Alarm_Time_Result = (TextView) Subview_Alarm_Time.findViewById(R.id.sub_textview_result);
+        Alarm_Time_Result = (TextView) Alarm_Time_Linear.findViewById(R.id.sub_textview_result);
         Alarm_Time_Result.setText(Init_Alarm_Time);
 
-        Subview_Address = v.findViewById(R.id.address);
+        Subview_Address = v.findViewById(R.id.address_details);
         Address_Icon = (ImageView) Subview_Address.findViewById(R.id.sub_image);
         Address_Icon.setImageResource(R.drawable.ic_location_on_black_24dp);
         Address = (EditText) Subview_Address.findViewById(R.id.sub_edittext);
         Address.setHint(R.string.hints_address);
         Address.setText(Init_Address);
 
-        Subview_Phone = v.findViewById(R.id.phone);
+        Subview_Phone = v.findViewById(R.id.phone_details);
         Phone_Icon = (ImageView) Subview_Phone.findViewById(R.id.sub_image);
         Phone_Icon.setImageResource(R.drawable.ic_call_black_24dp);
         PhoneNo = (EditText) Subview_Phone.findViewById(R.id.sub_edittext);
@@ -595,7 +596,7 @@ public class Credit_Profile_Main extends Fragment {
         PhoneNo.setHint(R.string.hints_phone);
         PhoneNo.setText(Init_Phone);
 
-        Subview_Remarks = v.findViewById(R.id.remarks);
+        Subview_Remarks = v.findViewById(R.id.remark_details);
         Remarks_Icon = (ImageView) Subview_Remarks.findViewById(R.id.sub_image);
         Remarks_Icon.setImageResource(R.drawable.ic_create_black_24dp);
         Remarks = (EditText) Subview_Remarks.findViewById(R.id.sub_edittext);
@@ -783,7 +784,7 @@ public class Credit_Profile_Main extends Fragment {
  *                                       Product Status
  *               Option : NotApply / Pending / Approval / Reject / Cancel
 ================================================================================================ */
-				case R.id.product_status_linear:
+				case R.id.product_status:
 
                     mAlertDialog = new AlertDialog.Builder(getContext()).create();
                     Find_Dialog_View();
@@ -798,9 +799,6 @@ public class Credit_Profile_Main extends Fragment {
                         public void onClick(View v) {
                             Product_Status_Result.setText(R.string.product_status_notapply);
 
-                            //  Hide
-                            Subview_Loan_Number.setVisibility(View.GONE);
-                            Due_Date_Linear.setVisibility(View.GONE);
                             //  Clear
                             First_Due_Result.setText("");
                             Final_Due_Result.setText("");
@@ -808,6 +806,8 @@ public class Credit_Profile_Main extends Fragment {
                             Product_Loan_Number.setText("");
 
                             STATUS_CODE = "NotApply";
+							
+							Change_View();
                             mAlertDialog.dismiss();
                         }
                     });
@@ -818,9 +818,7 @@ public class Credit_Profile_Main extends Fragment {
                         public void onClick(View v) {
                             Product_Status_Result.setText(R.string.product_status_pending);
 
-                            //  Hide
-                            Subview_Loan_Number.setVisibility(View.GONE);
-                            Due_Date_Linear.setVisibility(View.GONE);
+                         
                             //  Clear
                             First_Due_Result.setText("");
                             Final_Due_Result.setText("");
@@ -828,6 +826,8 @@ public class Credit_Profile_Main extends Fragment {
                             Product_Loan_Number.setText("");
 
                             STATUS_CODE = "Pending";
+							
+							Change_View();
                             mAlertDialog.dismiss();
                         }
                     });
@@ -838,13 +838,11 @@ public class Credit_Profile_Main extends Fragment {
                         public void onClick(View v) {
                             Product_Status_Result.setText(R.string.product_status_approval);
 
-                            //  Show
-                            Subview_Loan_Number.setVisibility(View.VISIBLE);
-                            Due_Date_Linear.setVisibility(View.VISIBLE);
-                            // Change
+                            
                             First_Due_Result.setText(new SimpleDateFormat("yyyy/MM/dd").format(new Date()));
-
                             STATUS_CODE = "Approval";
+							
+							Change_View();
                             mAlertDialog.dismiss();
                         }
                     });
@@ -855,9 +853,6 @@ public class Credit_Profile_Main extends Fragment {
                         public void onClick(View v) {
                             Product_Status_Result.setText(R.string.product_status_reject);
 
-                            //  Hide
-                            Subview_Loan_Number.setVisibility(View.GONE);
-                            Due_Date_Linear.setVisibility(View.GONE);
                             //  Clear
                             First_Due_Result.setText("");
                             Final_Due_Result.setText("");
@@ -865,6 +860,8 @@ public class Credit_Profile_Main extends Fragment {
                             Product_Loan_Number.setText("");
 
                             STATUS_CODE = "Reject";
+							Change_View();
+							
                             mAlertDialog.dismiss();
                         }
                     });
@@ -875,9 +872,8 @@ public class Credit_Profile_Main extends Fragment {
                         public void onClick(View v) {
                             Product_Status_Result.setText(R.string.product_status_cancel);
 
-                            //  Hide
-                            Subview_Loan_Number.setVisibility(View.GONE);
-                            Due_Date_Linear.setVisibility(View.GONE);
+                          
+                           /// Due_Date_Linear.setVisibility(View.GONE);
                             //  Clear
                             First_Due_Result.setText("");
                             Final_Due_Result.setText("");
@@ -889,6 +885,8 @@ public class Credit_Profile_Main extends Fragment {
                             Product_Loan_Number.setText("");
 
                             STATUS_CODE = "Cancel";
+							Change_View();
+							
                             mAlertDialog.dismiss();
                         }
                     });
@@ -907,7 +905,7 @@ public class Credit_Profile_Main extends Fragment {
 /*================================================================================================
  *                                       Loan Amount
 ================================================================================================ */
-				case R.id.loan_amount_linear:
+				case R.id.loan_amount:
 
                     mAlertDialog = new AlertDialog.Builder(getContext()).create();
                     Find_Dialog_View();
@@ -1009,7 +1007,7 @@ public class Credit_Profile_Main extends Fragment {
 /*================================================================================================
  *                                       Loan Rate
 ================================================================================================ */
-				case R.id.loan_rate_linear:
+				case R.id.loan_rate:
 
                     mAlertDialog = new AlertDialog.Builder(getContext()).create();
                     Find_Dialog_View();
@@ -1065,7 +1063,7 @@ public class Credit_Profile_Main extends Fragment {
 /*================================================================================================
  *                                       Loan Rate
 ================================================================================================ */
-				case R.id.loan_trems_linear:
+				case R.id.loan_trems:
 
                     mAlertDialog = new AlertDialog.Builder(getContext()).create();
                     Find_Dialog_View();
@@ -1155,7 +1153,7 @@ public class Credit_Profile_Main extends Fragment {
 /*================================================================================================
  *                                       Loan Installment
 ================================================================================================ */
-				case R.id.loan_installment_linear:
+				case R.id.loan_installment:
 
                     mAlertDialog = new AlertDialog.Builder(getContext()).create();
                     Find_Dialog_View();
@@ -1205,7 +1203,7 @@ public class Credit_Profile_Main extends Fragment {
 /*================================================================================================
  *                                       First Due
 ================================================================================================ */
-				case R.id.firstdue_linear:
+				case R.id.first_duedate:
 
 					Dialog mDialog = new DatePickerDialog(getActivity(), R.style.myDateDialogTheme, new DatePickerDialog.OnDateSetListener() {
 
@@ -1321,7 +1319,7 @@ public class Credit_Profile_Main extends Fragment {
                                     FIRST_DUE = new SimpleDateFormat("yyyy/MM/dd").format(First_Due_Calendar.getTime());
 									FINAL_DUE = new SimpleDateFormat("yyyy/MM/dd").format(Final_Due_Calendar.getTime());
                                     EOM_DUEDATE = "false";
-									Subview_Setup_Alarm.setVisibility(View.VISIBLE);
+									Change_View();
 								}
 							}
 						},First_Due_Calendar.get(Calendar.YEAR), First_Due_Calendar.get(Calendar.MONTH), First_Due_Calendar.get(Calendar.DAY_OF_MONTH));
@@ -1331,7 +1329,7 @@ public class Credit_Profile_Main extends Fragment {
 /*================================================================================================
  *                                       Setup Alarm
 ================================================================================================ */
-				case R.id.setup_alarm_linear:
+				case R.id.setup_alarm:
 
                     mAlertDialog = new AlertDialog.Builder(getContext()).create();
                     Find_Dialog_View();
@@ -1345,10 +1343,11 @@ public class Credit_Profile_Main extends Fragment {
                         @Override
                         public void onClick(View v) {
                             Setup_Alarm_Result.setText(R.string.alarm_dontset);
-							Subview_Alarm_Time.setVisibility(View.GONE);
+							
 							Alarm_Time_Result.setText("");
 
                             SETUP_ALARM = 99;
+							Change_View();
                             mAlertDialog.dismiss();
                         }
                     });
@@ -1358,10 +1357,10 @@ public class Credit_Profile_Main extends Fragment {
                         @Override
                         public void onClick(View v) {
                             Setup_Alarm_Result.setText(R.string.alarm_0_day);
-                            Subview_Alarm_Time.setVisibility(View.VISIBLE);
 							show_time_dialog().show();
 
                             SETUP_ALARM = 0;
+							Change_View();
                             mAlertDialog.dismiss();
                         }
                     });
@@ -1371,10 +1370,11 @@ public class Credit_Profile_Main extends Fragment {
                         @Override
                         public void onClick(View v) {
                             Setup_Alarm_Result.setText(R.string.alarm_3_day);
-                            Subview_Alarm_Time.setVisibility(View.VISIBLE);
+                            
 							show_time_dialog().show();
 
                             SETUP_ALARM = 3;
+							Change_View();
                             mAlertDialog.dismiss();
                         }
                     });
@@ -1384,10 +1384,11 @@ public class Credit_Profile_Main extends Fragment {
                         @Override
                         public void onClick(View v) {
                             Setup_Alarm_Result.setText(R.string.alarm_5_day);
-                            Subview_Alarm_Time.setVisibility(View.VISIBLE);
+                            
 							show_time_dialog().show();
 
                             SETUP_ALARM = 5;
+							Change_View();
                             mAlertDialog.dismiss();
                         }
                     });
@@ -1406,7 +1407,7 @@ public class Credit_Profile_Main extends Fragment {
 /*================================================================================================
  *                                       Alarm Times
 ================================================================================================ */
-                case R.id.alarm_time_linear:
+                case R.id.alarm_time:
 					show_time_dialog().show();
                     break;
 			}
