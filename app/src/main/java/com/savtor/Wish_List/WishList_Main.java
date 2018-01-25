@@ -153,7 +153,7 @@ public class WishList_Main extends Fragment {
             @Override
             public boolean onQueryTextChange(String newText) {
 
-                final List<Favouite_Item> search_list = filter(getDataBase_Data() ,newText);
+                final List<Favouite_Item> search_list = filter(getDataBase_Data() ,newText.toLowerCase());
                 fav_adapter.setFilter(search_list);
 
                 return true;

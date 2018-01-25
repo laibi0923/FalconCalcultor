@@ -49,7 +49,7 @@ public class WishList_Adapter extends RecyclerSwipeAdapter<WishList_ViewHolder> 
     @Override
     public WishList_ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.wish_list_recycleview_item, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.aa_wish_item, parent, false);
 
         WishList_ViewHolder holder = new WishList_ViewHolder(v);
 
@@ -59,63 +59,55 @@ public class WishList_Adapter extends RecyclerSwipeAdapter<WishList_ViewHolder> 
     @Override
     public void onBindViewHolder(final WishList_ViewHolder holder, final int position ) {
         
-        holder.create_date_tv.setText(list.get(position).getCreate_Date());
+        holder.Last_Modify.setText(list.get(position).getCreate_Date());
 
         if (list.get(position).getProduct_Type().equals("Personal")){
-            holder.loan_type_icon.setImageResource(R.drawable.ic_person_black_24dp);
+            holder.Product_Icon.setImageResource(R.drawable.ic_person_black_48dp);
         }else if (list.get(position).getProduct_Type().equals("Mortgage")){
-            holder.loan_type_icon.setImageResource(R.drawable.ic_domain_black_24dp);
+            holder.Product_Icon.setImageResource(R.drawable.ic_location_city_black_48dp);
         }else if (list.get(position).getProduct_Type().equals("Revolving")){
-            holder.loan_type_icon.setImageResource(R.drawable.ic_cached_black_24dp);
+            holder.Product_Icon.setImageResource(R.drawable.ic_loop_black_48dp);
         }else if (list.get(position).getProduct_Type().equals("Car")){
-            holder.loan_type_icon.setImageResource(R.drawable.ic_directions_car_black_24dp);
+            holder.Product_Icon.setImageResource(R.drawable.ic_airport_shuttle_black_48dp);
         }else if (list.get(position).getProduct_Type().equals("Card")){
-            holder.loan_type_icon.setImageResource(R.drawable.ic_credit_card_black_24dp);
+            holder.Product_Icon.setImageResource(R.drawable.ic_credit_card_black_48dp);
         }
 
-        holder.name_tv.setText(list.get(position).getProduct_Name());
+        holder.Product_Name.setText(list.get(position).getProduct_Name());
 
         if (list.get(position).getLoan_No() == null || list.get(position).getLoan_No().isEmpty()){
-            holder.loan_number_tv.setText("");
+            holder.Loan_Number.setVisibility(View.GONE);
         }else {
-            holder.loan_number_tv.setText("(" + list.get(position).getLoan_No() + ")");
+            holder.Loan_Number.setText(list.get(position).getLoan_No());
         }
 
-		holder.loan_amount_tv.setText(String.format(dec_point, list.get(position).getLoan_Amount()));
+		holder.Loan_Amount.setText("借貸金額 : $ " + String.format(dec_point, list.get(position).getLoan_Amount()));
 
-        holder.loan_trems_tv.setText(String.valueOf(list.get(position).getLoan_Trems() ));
+        holder.Loan_Trems.setText("償還期限 : " + String.valueOf(list.get(position).getLoan_Trems() ));
 
-		holder.loan_rate_tv.setText(String.format(dec_point, list.get(position).getLoan_Rate()));
+		holder.Loan_Rate.setText("借貸年利率 : " + String.format(dec_point, list.get(position).getLoan_Rate()));
 
-        holder.installment_tv.setText(String.format(dec_point, list.get(position).getLoan_Installment()));
+        holder.Loan_installment.setText("$ " + String.format(dec_point, list.get(position).getLoan_Installment()));
 
         if (list.get(position).getProduct_Status().equals("NotApply")){
-            holder.apply_status_tv.setText(context.getString(R.string.product_status_notapply));
+            holder.Approval_Status.setText(context.getString(R.string.product_status_notapply));
         }else if (list.get(position).getProduct_Status().equals("Pending")){
-            holder.apply_status_tv.setText(context.getString(R.string.product_status_pending));
+            holder.Approval_Status.setText(context.getString(R.string.product_status_pending));
         }else if (list.get(position).getProduct_Status().equals("Approval")){
-            holder.apply_status_tv.setText(context.getString(R.string.product_status_approval));
+            holder.Approval_Status.setText(context.getString(R.string.product_status_approval));
         }else if (list.get(position).getProduct_Status().equals("Reject")){
-            holder.apply_status_tv.setText(context.getString(R.string.product_status_reject));
+            holder.Approval_Status.setText(context.getString(R.string.product_status_reject));
         }else if (list.get(position).getProduct_Status().equals("Cancel")){
-            holder.apply_status_tv.setText(context.getString(R.string.product_status_cancel));
+            holder.Approval_Status.setText(context.getString(R.string.product_status_cancel));
         }
 
         if (list.get(position).getAlarm_Time().isEmpty()){
-            holder.alert_icon_im.setVisibility(View.GONE);
+            holder.Alarm_Icon.setVisibility(View.GONE);
         }else {
-            holder.alert_icon_im.setVisibility(View.VISIBLE);
+            holder.Alarm_Icon.setVisibility(View.VISIBLE);
         }
 
-        if (list.get(position).getRemarks().equals("")){
-            holder.remarks_tv.setText("未有輸入");
-        }else {
-            holder.remarks_tv.setText(list.get(position).getRemarks().toString());
-        }
-
-		holder.last_modify.setText(context.getResources().getString(R.string.favourite_lastmodify));
-
-        holder.Del_btn.setOnClickListener(new View.OnClickListener() {
+        holder.Delete_Btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -129,17 +121,10 @@ public class WishList_Adapter extends RecyclerSwipeAdapter<WishList_ViewHolder> 
                 notifyItemRemoved(position);
                 notifyItemRangeChanged(position, getItemCount()); //加埋呢句先唔會 IndexOutOfIndexException
 
-                // 防止用戶過快駛用刪除按鈕 (未完成)
-//                try {
-//                    Thread.sleep(5000);
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-
             }
         });
 
-        holder.Edit_btn.setOnClickListener(new View.OnClickListener() {
+        holder.Edit_Btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -163,58 +148,6 @@ public class WishList_Adapter extends RecyclerSwipeAdapter<WishList_ViewHolder> 
                         .commit();
             }
         });
-
-
-//        Calcultor mCalcultor = new Calcultor();
-//        double result = mCalcultor.getMonthlyInstallment(list.get(position).getLoan_Amount(), list.get(position).getLoan_Trems(), list.get(position).getLoan_Rate());
-//        holder.installment_tv.setText(String.format(dec_point, result));
-
-        holder.swipeLayout.setShowMode(SwipeLayout.ShowMode.LayDown);
-
-        holder.swipeLayout.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-
-//                ====================================================
-//                設置2秒後自動關閉
-                new Handler().postDelayed(new Runnable(){
-
-                    @Override
-                    public void run()
-                    {
-                        // TODO: Implement this method
-                        holder.swipeLayout.close();
-                    }
-                },2000);
-
-//                ====================================================
-                return false;
-            }
-        });
-
-        holder.top_warp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                holder.swipeLayout.open();
-
-//                ====================================================
-//                設置2秒後自動關閉
-                new Handler().postDelayed(new Runnable(){
-
-                    @Override
-                    public void run()
-                    {
-                        // TODO: Implement this method
-                        holder.swipeLayout.close();
-                    }
-                },2000);
-
-//                ====================================================
-
-            }
-        });
-
 
     }
 

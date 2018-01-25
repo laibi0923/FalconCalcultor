@@ -1,5 +1,6 @@
 package com.savtor.Wish_List;
 
+import android.opengl.EGLDisplay;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -14,34 +15,42 @@ import com.savtor.falconcalcultor.*;
  */
 public class WishList_ViewHolder extends RecyclerView.ViewHolder {
 
-    TextView  create_date_tv, name_tv, loan_amount_tv, loan_trems_tv, loan_rate_tv, installment_tv, apply_status_tv, remarks_tv, loan_number_tv, last_modify;
+    TextView Last_Modify, Product_Name, Approval_Status, Loan_Number, Loan_Amount, Loan_Trems, Loan_Rate, Loan_installment, Edit_Text, Delete_Text;
 
-    ImageView alert_icon_im, loan_type_icon;
+    ImageView Alarm_Icon, Product_Icon;
 
-    public SwipeLayout swipeLayout;
-
-    RelativeLayout Del_btn, Edit_btn;
-    LinearLayout top_warp;
-
+    LinearLayout Edit_Btn, Delete_Btn;
 
     public WishList_ViewHolder(View itemView) {
+
         super(itemView);
 
-        top_warp = (LinearLayout) itemView.findViewById(R.id.top_warp);
-        create_date_tv = (TextView) itemView.findViewById(R.id.create_date_tv);
-        name_tv = (TextView) itemView.findViewById(R.id.name_tv);
-        loan_amount_tv = (TextView) itemView.findViewById(R.id.loan_amount_tv);
-        loan_trems_tv = (TextView) itemView.findViewById(R.id.loan_trems_tv);
-        loan_rate_tv = (TextView) itemView.findViewById(R.id.loan_rate_tv);
-        installment_tv = (TextView) itemView.findViewById(R.id.installment_tv);
-        apply_status_tv = (TextView) itemView.findViewById(R.id.apply_status_tv);
-        loan_type_icon = (ImageView) itemView.findViewById(R.id.loan_type_icon);
-        alert_icon_im = (ImageView) itemView.findViewById(R.id.alert_icon_im);
-        swipeLayout = (SwipeLayout) itemView.findViewById(R.id.swipe_layout);
-        Edit_btn = (RelativeLayout) itemView.findViewById(R.id.edit_btn);
-        Del_btn = (RelativeLayout) itemView.findViewById(R.id.del_btn);
-        remarks_tv = (TextView) itemView.findViewById(R.id.remarks_tv);
-        loan_number_tv = (TextView) itemView.findViewById(R.id.loan_number_tv);
-		last_modify = (TextView) itemView.findViewById(R.id.last_modify);
+        Last_Modify = (TextView) itemView.findViewById(R.id.last_modfiy);
+
+        Alarm_Icon = (ImageView) itemView.findViewById(R.id.alarm_icon);
+
+        Product_Icon = (ImageView) itemView.findViewById(R.id.product_type_icon);
+
+        Product_Name = (TextView) itemView.findViewById(R.id.product_name);
+
+        Approval_Status = (TextView) itemView.findViewById(R.id.approval_status);
+
+        Loan_Number = (TextView) itemView.findViewById(R.id.loan_number);
+
+        Loan_Amount = (TextView) itemView.findViewById(R.id.loan_amount);
+
+        Loan_Rate = (TextView) itemView.findViewById(R.id.loan_rate);
+
+        Loan_Trems = (TextView) itemView.findViewById(R.id.loan_trems);
+
+        Loan_installment = (TextView) itemView.findViewById(R.id.loan_installment);
+
+        Edit_Btn = (LinearLayout) itemView.findViewById(R.id.edit_btn);
+
+        Edit_Text = (TextView) itemView.findViewById(R.id.edit_text);
+
+        Delete_Btn = (LinearLayout) itemView.findViewById(R.id.del_btnn);
+
+        Delete_Text = (TextView) itemView.findViewById(R.id.del_text);
     }
 }
