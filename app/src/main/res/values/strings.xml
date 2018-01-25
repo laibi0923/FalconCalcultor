@@ -132,7 +132,7 @@
     <string name="totast_enter_name">請先輸入名稱</string>
     <string name="toast_max_amount">貸款額輸入上限為 $ 10,000,000</string>
     <string name="toast_max_rate">實際年利率輸入上限為 60 %p.a.</string>
-    <string name="toast_max_trems">還款期輸入上限為 90 個月</string>
+    <string name="toast_max_trems">還款期輸入上限為</string>
 
 
     <!--==============================================================================================-->
