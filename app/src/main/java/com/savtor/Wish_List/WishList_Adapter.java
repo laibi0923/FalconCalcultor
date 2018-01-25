@@ -83,9 +83,9 @@ public class WishList_Adapter extends RecyclerSwipeAdapter<WishList_ViewHolder> 
 
 		holder.Loan_Amount.setText("借貸金額 : $ " + String.format(dec_point, list.get(position).getLoan_Amount()));
 
-        holder.Loan_Trems.setText("償還期限 : " + String.valueOf(list.get(position).getLoan_Trems() ));
+        holder.Loan_Trems.setText("償還期限 : " + String.valueOf(list.get(position).getLoan_Trems()) + " 個月");
 
-		holder.Loan_Rate.setText("借貸年利率 : " + String.format(dec_point, list.get(position).getLoan_Rate()));
+		holder.Loan_Rate.setText("借貸年利率 : " + String.format(dec_point, list.get(position).getLoan_Rate()) + " % p.a.");
 
         holder.Loan_installment.setText("$ " + String.format(dec_point, list.get(position).getLoan_Installment()));
 
