@@ -157,16 +157,11 @@
 
     <!--==============================================================================================-->
     <!--for Wish List-->
-		
-	<!--<string name="favourite_status_notapply">未申請</string>-->
-	<!--<string name="favourite_status_pending">申請中</string>-->
-	<!--<string name="favourite_status_approval">已成功批核</string>-->
-	<!--<string name="favourite_status_reject">不成功批核</string>-->
-	<!--<string name="favourite_status_cancel">取消申請</string>-->
 	
-	<string name="favourite_lastmodify">最後修改日期 : </string>
-
-    <string name="favourite_month"> 個月供款期 </string>
+	<string name="wishlist_dialog_title">是否刪除此項目？</string>
+	<string name="wishlist_yes_btn">是</string>
+	<string name="wishlist_no_btn">否</string>
+	
 
     <!--==============================================================================================-->
     <!--for Password Gate-->
@@ -188,6 +183,11 @@
     <string name="schedule_balance"> 結餘 </string>
     <string name="schedule_cumulative_interest"> 本期累計利息支出 </string>
 
-
+	<!--==============================================================================================-->
+    <!--For Public-->
+	<string name="prefixes_dollars">$ </string>
+	<string name="suffixes_months"> 個月</string>
+	<string name="suffixes_rate"> % p.a.</string>
+	
 </resources>
 

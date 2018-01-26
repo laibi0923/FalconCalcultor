@@ -185,7 +185,7 @@ public class Credit_Profile_Main extends Fragment {
             Init_Product_Icon = R.drawable.ic_location_city_black_48dp;
             Init_Product_Type = getString(R.string.title_product_mortgage);
         }else if (PRODUCT_CODE.equals("Revolving")){
-            Init_Product_Icon = R.drawable.ic_person_black_48dp;
+            Init_Product_Icon = R.drawable.ic_loop_black_48dp;
             Init_Product_Type = getString(R.string.title_product_revolving);
         }else if (PRODUCT_CODE.equals("Car")){
             Init_Product_Icon = R.drawable.ic_airport_shuttle_black_48dp;
@@ -254,7 +254,7 @@ public class Credit_Profile_Main extends Fragment {
 
             case R.id.save_to_fav:
 
-                if (PRODUCT_NAME == null || PRODUCT_NAME == ""){
+                if (PRODUCT_NAME == null || PRODUCT_NAME == "" || PRODUCT_NAME.equals(getString(R.string.hints_product_name))){
                     Toast.makeText(getContext(), getString(R.string.totast_enter_name), Toast.LENGTH_SHORT).show();
                 }else {
 
@@ -266,7 +266,7 @@ public class Credit_Profile_Main extends Fragment {
 
                     LAST_MODIFY = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Last_Modify_Calendar.getTime());
 					// 新創 Request Code
-					REQUEST_CODE = (int) -Last_Modify_Calendar.getTimeInMillis();
+					REQUEST_CODE = (int) Last_Modify_Calendar.getTimeInMillis();
 					
                     DataBasic = new Favourite_DataBasic(getActivity(), This_Fragment_Name);
 
@@ -285,7 +285,7 @@ public class Credit_Profile_Main extends Fragment {
                             FINAL_DUE,
                             EOM_DUEDATE,
                             SETUP_ALARM,
-                            ALARM_TIME, //HH:mm:ss
+                            ALARM_TIME,
                             Address.getText().toString(),
                             PhoneNo.getText().toString(),
                             Remarks.getText().toString(),
@@ -358,6 +358,10 @@ public class Credit_Profile_Main extends Fragment {
     }
 
 	private void Change_View(){
+		
+		if (mBundle != null && mBundle.getString("From").equals("Favoutive")){
+			Product_Type_Icon.setClickable(false);
+		}
 
 		if (STATUS_CODE.equals("Approval")){
             Loan_Number_Linear.setVisibility(View.VISIBLE);
@@ -369,7 +373,7 @@ public class Credit_Profile_Main extends Fragment {
 			FinalDue_Linear.setVisibility(View.GONE);
         }
 		
-		if(FINAL_DUE == null || FINAL_DUE == ""){
+		if(FINAL_DUE == null || FINAL_DUE == "" || FINAL_DUE.isEmpty()){
 			Setup_Alarm_Linear.setVisibility(View.GONE);
 		}else {
 			Setup_Alarm_Linear.setVisibility(View.VISIBLE);
@@ -406,7 +410,6 @@ public class Credit_Profile_Main extends Fragment {
 			//FinalDue_Linear.setVisibility(View.VISIBLE);
             Address_Linear.setVisibility(View.VISIBLE);
             Phone_Linear.setVisibility(View.VISIBLE);
-			Log.e("tag", "=xxxxxxxxx");
             //  Change Title
             Loan_Amount_Title.setText(getString(R.string.title_loan_amount));
             Loan_Rate_Title.setText(getString(R.string.title_loan_rate));
@@ -785,6 +788,7 @@ public class Credit_Profile_Main extends Fragment {
 //                    });
 //
 //					mAlertDialog.show();
+					
 					break;
 /*================================================================================================
  *                                       Product Status
@@ -878,8 +882,6 @@ public class Credit_Profile_Main extends Fragment {
                         public void onClick(View v) {
                             Product_Status_Result.setText(R.string.product_status_cancel);
 
-                          
-                           /// Due_Date_Linear.setVisibility(View.GONE);
                             //  Clear
                             First_Due_Result.setText("");
                             Final_Due_Result.setText("");

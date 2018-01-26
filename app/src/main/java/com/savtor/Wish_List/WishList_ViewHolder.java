@@ -15,7 +15,7 @@ import com.savtor.falconcalcultor.*;
  */
 public class WishList_ViewHolder extends RecyclerView.ViewHolder {
 
-    TextView Last_Modify, Product_Name, Approval_Status, Loan_Number, Loan_Amount, Loan_Trems, Loan_Rate, Loan_installment, Edit_Text, Delete_Text;
+    TextView Last_Modify, Product_Name, Approval_Status, Loan_Number, Loan_Amount, Loan_Trems, Loan_Rate, Loan_installment, Edit_Text, Delete_Text, Remark;
 
     ImageView Alarm_Icon, Product_Icon;
 
@@ -24,6 +24,8 @@ public class WishList_ViewHolder extends RecyclerView.ViewHolder {
     public WishList_ViewHolder(View itemView) {
 
         super(itemView);
+		
+		Remark = (TextView) itemView.findViewById(R.id.wishlist_remark);
 
         Last_Modify = (TextView) itemView.findViewById(R.id.last_modfiy);
 

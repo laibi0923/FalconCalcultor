@@ -77,7 +77,6 @@ public class Activity_Main extends AppCompatActivity {
 	}
 	
 
-
     final void init_toolbar() {
         mToolbar = (Toolbar) findViewById(R.id.mToolbar);
 		TextView mToolbar_title = (TextView) mToolbar.findViewById(R.id.toolbar_TextView);
@@ -132,7 +131,7 @@ public class Activity_Main extends AppCompatActivity {
 
                         
                         case R.id.nav_item6:
-                            Fragment_Transaction(new aa_credit_profile());
+                            Fragment_Transaction(new DebitInfo_Main());
                             break;
 
 							/*

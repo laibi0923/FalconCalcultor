@@ -21,6 +21,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import android.support.v4.app.*;
+import android.support.v7.app.*;
+import android.graphics.drawable.*;
+import android.graphics.*;
+import android.widget.*;
+import android.view.View.*;
 
 
 /**
@@ -36,6 +41,7 @@ public class WishList_Adapter extends RecyclerSwipeAdapter<WishList_ViewHolder> 
     private SharedPreferences mSharedPreferences;
     private String dec_point = "%1$.2f";
 
+	private AlertDialog mAlertDialog;
 
     public WishList_Adapter(List<Favouite_Item> list, Context context, FragmentManager mFragmentManager) {
         this.list = list;
@@ -60,6 +66,8 @@ public class WishList_Adapter extends RecyclerSwipeAdapter<WishList_ViewHolder> 
     public void onBindViewHolder(final WishList_ViewHolder holder, final int position ) {
         
         holder.Last_Modify.setText(list.get(position).getCreate_Date());
+		
+		holder.Remark.setText(list.get(position).getRemarks());
 
         if (list.get(position).getProduct_Type().equals("Personal")){
             holder.Product_Icon.setImageResource(R.drawable.ic_person_black_48dp);
@@ -111,16 +119,48 @@ public class WishList_Adapter extends RecyclerSwipeAdapter<WishList_ViewHolder> 
             @Override
             public void onClick(View v) {
 
-                // Del on database
-                Favourite_DataBasic favourite_dataBasic = new Favourite_DataBasic(v.getContext(), "WishList_Adapter");
-                favourite_dataBasic.delete(list.get(position).getID());
+				mAlertDialog = new AlertDialog.Builder(v.getContext()).create();
+				View Dialog_View = LayoutInflater.from(v.getContext()).inflate(R.layout.wishlist_dialog, null);
+				mAlertDialog.setView(Dialog_View);
+				mAlertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+				
+				TextView dialog_title = (TextView) Dialog_View.findViewById(R.id.wishlist_dialog_title);
+				dialog_title.setText(v.getContext().getString(R.string.wishlist_dialog_title));
+				
+				LinearLayout YES_btn =(LinearLayout) Dialog_View.findViewById(R.id.wishlistdialog_yes_btn);
+				YES_btn.setOnClickListener(new View.OnClickListener(){
 
-                // Del on list
-                list.remove(position);
+						@Override
+						public void onClick(View v)
+						{
+							// TODO: Implement this method
+							// Del on database
+							Favourite_DataBasic favourite_dataBasic = new Favourite_DataBasic(v.getContext(), "WishList_Adapter");
+							favourite_dataBasic.delete(list.get(position).getID());
 
-                notifyItemRemoved(position);
-                notifyItemRangeChanged(position, getItemCount()); //加埋呢句先唔會 IndexOutOfIndexException
+							// Del on list
+							list.remove(position);
 
+							notifyItemRemoved(position);
+							notifyItemRangeChanged(position, getItemCount()); //加埋呢句先唔會 IndexOutOfIndexException
+							
+							mAlertDialog.dismiss();
+						}
+					});
+				
+				LinearLayout NO_btn =(LinearLayout) Dialog_View.findViewById(R.id.wishlistdialog_no_btn);
+				NO_btn.setOnClickListener(new View.OnClickListener(){
+
+						@Override
+						public void onClick(View v)
+						{
+							// TODO: Implement this method
+							mAlertDialog.dismiss();
+						}
+					});
+				
+				mAlertDialog.show();
+				
             }
         });
 
@@ -179,7 +219,7 @@ public class WishList_Adapter extends RecyclerSwipeAdapter<WishList_ViewHolder> 
     public void get_sharedpreferences(){
         get_setting_password = mSharedPreferences.getInt("Setting_password", 1);
         get_setting_language = mSharedPreferences.getInt("Setting_language", 1);
-        get_setting_decimal = mSharedPreferences.getInt("Setting_decimal" , 1);
+        get_setting_decimal = mSharedPreferences.getInt("Setting_decimal" , 2);
 
         if (get_setting_decimal == 1){
             dec_point = "%1$.0f";
