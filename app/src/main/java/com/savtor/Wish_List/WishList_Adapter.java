@@ -41,6 +41,8 @@ public class WishList_Adapter extends RecyclerSwipeAdapter<WishList_ViewHolder> 
     private SharedPreferences mSharedPreferences;
     private String dec_point = "%1$.2f";
 
+    private String prefixes_dollars, suffixes_dollars, prefixes_months, suffiex_months, prefixes_rate, suffixes_rate;
+
 	private AlertDialog mAlertDialog;
 
     public WishList_Adapter(List<Favouite_Item> list, Context context, FragmentManager mFragmentManager) {
@@ -58,6 +60,12 @@ public class WishList_Adapter extends RecyclerSwipeAdapter<WishList_ViewHolder> 
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.aa_wish_item, parent, false);
 
         WishList_ViewHolder holder = new WishList_ViewHolder(v);
+
+        prefixes_dollars = v.getResources().getString(R.string.wishlist_prefixes_dollars);
+        prefixes_months = v.getResources().getString(R.string.wishlist_prefixes_months);
+        suffiex_months = v.getResources().getString(R.string.suffixes_months);
+        prefixes_rate = v.getResources().getString(R.string.wishlist_prefixes_rate);
+        suffixes_rate = v.getResources().getString(R.string.suffixes_rate);
 
         return holder;
     }
@@ -89,13 +97,13 @@ public class WishList_Adapter extends RecyclerSwipeAdapter<WishList_ViewHolder> 
             holder.Loan_Number.setText(list.get(position).getLoan_No());
         }
 
-		holder.Loan_Amount.setText("借貸金額 : $ " + String.format(dec_point, list.get(position).getLoan_Amount()));
+		holder.Loan_Amount.setText(prefixes_dollars + String.format(dec_point, list.get(position).getLoan_Amount()));
 
-        holder.Loan_Trems.setText("償還期限 : " + String.valueOf(list.get(position).getLoan_Trems()) + " 個月");
+        holder.Loan_Trems.setText(prefixes_months + String.valueOf(list.get(position).getLoan_Trems()) + suffiex_months);
 
-		holder.Loan_Rate.setText("借貸年利率 : " + String.format(dec_point, list.get(position).getLoan_Rate()) + " % p.a.");
+		holder.Loan_Rate.setText(prefixes_rate + String.format(dec_point, list.get(position).getLoan_Rate()) + suffixes_rate);
 
-        holder.Loan_installment.setText("$ " + String.format(dec_point, list.get(position).getLoan_Installment()));
+        holder.Loan_installment.setText(prefixes_dollars + String.format(dec_point, list.get(position).getLoan_Installment()));
 
         if (list.get(position).getProduct_Status().equals("NotApply")){
             holder.Approval_Status.setText(context.getString(R.string.product_status_notapply));

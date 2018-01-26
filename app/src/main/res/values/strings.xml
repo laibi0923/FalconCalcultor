@@ -161,6 +161,10 @@
 	<string name="wishlist_dialog_title">是否刪除此項目？</string>
 	<string name="wishlist_yes_btn">是</string>
 	<string name="wishlist_no_btn">否</string>
+
+    <string name="wishlist_prefixes_dollars">借貸金額 ： $ </string>
+    <string name="wishlist_prefixes_months">償還期限 : </string>
+    <string name="wishlist_prefixes_rate">借貸年利率 ： </string>
 	
 
     <!--==============================================================================================-->
