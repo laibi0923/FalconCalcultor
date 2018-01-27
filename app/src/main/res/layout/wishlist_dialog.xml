@@ -22,7 +22,7 @@
 		android:gravity="center">
 
 		<LinearLayout
-			android:background="@drawable/cirle_bg"
+			android:background="@drawable/cirle_bg_blue"
 			android:layout_height="100dp"
 			android:layout_width="100dp"
 			android:clickable="true"
@@ -42,7 +42,7 @@
 		</LinearLayout>
 
 		<LinearLayout
-			android:background="@drawable/cirle_bg"
+			android:background="@drawable/cirle_bg_red"
 			android:layout_height="100dp"
 			android:layout_width="100dp"
 			android:clickable="true"

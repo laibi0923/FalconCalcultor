@@ -7,18 +7,27 @@
     android:orientation="vertical">
 
 
-    <ImageView
-        android:src="@drawable/falcon_icon_white"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:id="@+id/imageView10" />
-
-    <TextView
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Falcon Calcultor"
-        android:id="@+id/textView"
-        android:textColor="@color/TextColor_White"
-        android:layout_gravity="center" />
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:src="@drawable/falcon_icon_white"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:id="@+id/imageView10"
+            android:padding="15dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Falcon Calcultor"
+            android:id="@+id/textView"
+            android:textColor="@color/TextColor_White"
+            android:layout_gravity="center"
+            android:visibility="gone" />
+
+    </LinearLayout>
 </LinearLayout>

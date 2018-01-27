@@ -8,21 +8,32 @@
 	android:orientation="vertical">
 
 	<LinearLayout
-		android:id="@+id/count_text_linear"
+		android:id="@+id/linearLayout"
 		android:orientation="horizontal"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:gravity="center"
-		android:padding="10dp" >
+		android:layout_marginTop="10dp"
+		android:background="@color/blue_grey_900"
+		android:clickable="true">
 
-		<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:textColor="@color/TextColor_Gray"
-			android:textAppearance="?android:attr/textAppearanceMedium"
-			android:text="Medium Text"
-			android:id="@+id/count_result_tv"/>
+		<LinearLayout
+			android:background="?attr/selectableItemBackground"
+			android:orientation="horizontal"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:gravity="center"
+			android:padding="10dp"
+			android:clickable="true"
+			android:id="@+id/create_wish_btn">
 
+			<TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/TextColor_Gray"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="新增一筆紀錄"
+                android:id="@+id/textView3" />
+		</LinearLayout>
 	</LinearLayout>
 
 	<android.support.v7.widget.RecyclerView
@@ -31,6 +42,30 @@
 		android:layout_height="match_parent"
 		app:layout_behavior="@string/appbar_scrolling_view_behavior"
 		android:layout_marginTop="10dp"/>
+
+	<LinearLayout
+		android:id="@+id/empty_data_linear"
+		android:orientation="vertical"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:gravity="center"
+		android:padding="10dp" >
+
+		<ImageView
+			android:layout_width="200dp"
+			android:layout_height="200dp"
+			android:id="@+id/imageView6"
+			android:src="@drawable/ic_falcon_black" />
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textColor="@color/TextColor_Gray"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:text="@string/wishlist_empty_text"
+			android:id="@+id/count_result_tv"/>
+
+	</LinearLayout>
 
 </LinearLayout>
 

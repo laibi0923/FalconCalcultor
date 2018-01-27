@@ -9,6 +9,7 @@
 	<color name="deep_teal_500">#ff009688</color>
 	<color name="TextColor_White">#ffffffff</color>
 	<color name="TextColor_Gray">#bdbdbdbd</color>
+	<color name="red_grey">#ff771e1e</color>
 
 </resources>
 

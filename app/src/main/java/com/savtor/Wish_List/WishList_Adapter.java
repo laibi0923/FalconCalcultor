@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -41,14 +43,17 @@ public class WishList_Adapter extends RecyclerSwipeAdapter<WishList_ViewHolder> 
     private SharedPreferences mSharedPreferences;
     private String dec_point = "%1$.2f";
 
-    private String prefixes_dollars, suffixes_dollars, prefixes_months, suffiex_months, prefixes_rate, suffixes_rate;
+    private String prefixes_dollars, prefixes_months, suffiex_months, prefixes_rate, suffixes_rate;
 
 	private AlertDialog mAlertDialog;
 
-    public WishList_Adapter(List<Favouite_Item> list, Context context, FragmentManager mFragmentManager) {
+    private RecyclerView mRecyclerView;
+
+    public WishList_Adapter(List<Favouite_Item> list, Context context, FragmentManager mFragmentManager, RecyclerView mRecyclerView) {
         this.list = list;
         this.context = context;
         this.mFragmentManager = mFragmentManager;
+        this.mRecyclerView = mRecyclerView;
 
         mSharedPreferences = context.getSharedPreferences("Setting", Context.MODE_PRIVATE);
         get_sharedpreferences();
@@ -150,8 +155,9 @@ public class WishList_Adapter extends RecyclerSwipeAdapter<WishList_ViewHolder> 
 							list.remove(position);
 
 							notifyItemRemoved(position);
-							notifyItemRangeChanged(position, getItemCount()); //加埋呢句先唔會 IndexOutOfIndexException
-							
+                            //加埋呢句先唔會 IndexOutOfIndexException
+							notifyItemRangeChanged(position, getItemCount());
+
 							mAlertDialog.dismiss();
 						}
 					});
@@ -199,7 +205,6 @@ public class WishList_Adapter extends RecyclerSwipeAdapter<WishList_ViewHolder> 
 
     }
 
-
     @Override
     public int getItemCount() {
         return list.size();
@@ -217,10 +222,6 @@ public class WishList_Adapter extends RecyclerSwipeAdapter<WishList_ViewHolder> 
         notifyDataSetChanged();
     }
 
-    @Override
-    public void openItem(int position) {
-        super.openItem(position);
-    }
 
     //=============================================================================================
     // []
@@ -235,8 +236,6 @@ public class WishList_Adapter extends RecyclerSwipeAdapter<WishList_ViewHolder> 
             dec_point = "%1$.2f";
         }
     }
-
-
 
 }
 

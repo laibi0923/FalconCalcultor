@@ -34,9 +34,9 @@ public class WishList_Main extends Fragment {
     Favourite_DataBasic favourite_dataBasic;
     WishList_Adapter fav_adapter;
     List<Favouite_Item> favouriteData;
-    TextView count_result_tv;
     RecyclerView favourite_recyclerview;
-	private LinearLayout CountText_Linear;
+    WishList_RecycleView mRecycleView;
+	private LinearLayout Empty_Data_Linear;
 
 
     @Override
@@ -50,7 +50,7 @@ public class WishList_Main extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.wish_main, container, false);
-        Find_View(v);   // [1]
+        Find_View(v);
         return v;
     }
 
@@ -81,20 +81,25 @@ public class WishList_Main extends Fragment {
 
         FragmentManager mFragmentManager = getFragmentManager();
 
-        favourite_recyclerview = (RecyclerView) v.findViewById(R.id.favourite_recyclerView);
+//        favourite_recyclerview = (RecyclerView) v.findViewById(R.id.favourite_recyclerView);
+
+
+        Empty_Data_Linear = (LinearLayout) v.findViewById(R.id.empty_data_linear);
 
         favouriteData = getDataBase_Data();
-        fav_adapter = new WishList_Adapter(favouriteData, getActivity(), mFragmentManager);
+        fav_adapter = new WishList_Adapter(favouriteData, getActivity(), mFragmentManager, favourite_recyclerview);
 
+        mRecycleView = (WishList_RecycleView) v.findViewById(R.id.favourite_recyclerView);
+        mRecycleView.setLayoutManager(new LinearLayoutManager(this.getActivity(), LinearLayoutManager.VERTICAL, false));
         DefaultItemAnimator mDefaultItemAnimator = new DefaultItemAnimator();
         mDefaultItemAnimator.setRemoveDuration(100);
-        favourite_recyclerview.setItemAnimator(mDefaultItemAnimator);
-        favourite_recyclerview.setAdapter(fav_adapter);
-        favourite_recyclerview.setLayoutManager(new LinearLayoutManager(this.getActivity(), LinearLayoutManager.VERTICAL, false));
+        mRecycleView.setItemAnimator(mDefaultItemAnimator);
+        mRecycleView.setAdapter(fav_adapter);
+        mRecycleView.setEmptyView(Empty_Data_Linear);
 
-		CountText_Linear = (LinearLayout) v.findViewById(R.id.count_text_linear);
-        count_result_tv = (TextView) v.findViewById(R.id.count_result_tv);
-        update_count_text();
+
+
+        check_data_empty();
     }
 
 
@@ -180,21 +185,18 @@ public class WishList_Main extends Fragment {
     }
 
 /*================================================================================================
- *                                     顯示有幾條紀錄 (未完成)
+ *
 ================================================================================================ */
-    public void update_count_text() {
+    public void check_data_empty(){
 
-        if (fav_adapter.getItemCount() == 0){
-			CountText_Linear.setVisibility(View.VISIBLE);
-            count_result_tv.setText("沒有任何紀錄");
-        }else{
-            //String count_text = String.valueOf(fav_adapter.getItemCount());
-            //count_result_tv.setText("一共搜索共" + count_text + "條紀錄");
-			CountText_Linear.setVisibility(View.GONE);
+        if (favouriteData.isEmpty()){
+            favourite_recyclerview.setVisibility(View.GONE);
+            Empty_Data_Linear.setVisibility(View.VISIBLE);
+        }else {
+            favourite_recyclerview.setVisibility(View.VISIBLE);
+            Empty_Data_Linear.setVisibility(View.GONE);
         }
 
     }
-
-
 
 }

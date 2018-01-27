@@ -20,7 +20,7 @@ public class DebitInfo_Main extends Fragment
 		// TODO: Implement this method
 		View v = inflater.inflate(R.layout.tesing_fragment_1, container, false);
 
-		T01 = (TextView) v.findViewById(R.id.T01);
+//		T01 = (TextView) v.findViewById(R.id.T01);
 
 		Favourite_DataBasic favourite_dataBasic = new Favourite_DataBasic(getContext(), "DebitInfo_Main");
 

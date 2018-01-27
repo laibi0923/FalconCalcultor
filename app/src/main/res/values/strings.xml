@@ -165,6 +165,7 @@
     <string name="wishlist_prefixes_dollars">借貸金額 ： $ </string>
     <string name="wishlist_prefixes_months">償還期限 : </string>
     <string name="wishlist_prefixes_rate">借貸年利率 ： </string>
+    <string name="wishlist_empty_text">沒有任何紀錄</string>
 	
 
     <!--==============================================================================================-->
