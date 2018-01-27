@@ -70,8 +70,27 @@ public class WishList_Adapter extends RecyclerSwipeAdapter<WishList_ViewHolder> 
     public void onBindViewHolder(final WishList_ViewHolder holder, final int position ) {
         
         holder.Last_Modify.setText(list.get(position).getCreate_Date());
+
+        if (list.get(position).getAlarm_Time().isEmpty()){
+            holder.Alarm_Icon.setVisibility(View.GONE);
+        }else {
+            holder.Alarm_Icon.setVisibility(View.VISIBLE);
+        }
 		
 		holder.Remark.setText(list.get(position).getRemarks());
+
+        if (list.get(position).getProduct_Status().equals("NotApply")){
+            holder.Approval_Status.setVisibility(View.GONE);
+        }else if (list.get(position).getProduct_Status().equals("Pending")){
+            holder.Approval_Status.setText(context.getString(R.string.product_status_pending));
+        }else if (list.get(position).getProduct_Status().equals("Approval")){
+            holder.Approval_Status.setText(context.getString(R.string.product_status_approval));
+        }else if (list.get(position).getProduct_Status().equals("Reject")){
+            holder.Approval_Status.setText(context.getString(R.string.product_status_reject));
+        }else if (list.get(position).getProduct_Status().equals("Cancel")){
+            holder.Approval_Status.setText(context.getString(R.string.product_status_cancel));
+        }
+
 
         if (list.get(position).getProduct_Type().equals("Personal")){
             holder.Product_Icon.setImageResource(R.drawable.ic_person_black_48dp);
@@ -93,31 +112,25 @@ public class WishList_Adapter extends RecyclerSwipeAdapter<WishList_ViewHolder> 
             holder.Loan_Number.setText(list.get(position).getLoan_No());
         }
 
-		holder.Loan_Amount.setText(prefixes_dollars + String.format(dec_point, list.get(position).getLoan_Amount()));
-
-        holder.Loan_Trems.setText(prefixes_months + String.valueOf(list.get(position).getLoan_Trems()) + suffiex_months);
-
-		holder.Loan_Rate.setText(prefixes_rate + String.format(dec_point, list.get(position).getLoan_Rate()) + suffixes_rate);
-
-        holder.Loan_installment.setText(prefixes_dollars + String.format(dec_point, list.get(position).getLoan_Installment()));
-
-        if (list.get(position).getProduct_Status().equals("NotApply")){
-            holder.Approval_Status.setText(context.getString(R.string.product_status_notapply));
-        }else if (list.get(position).getProduct_Status().equals("Pending")){
-            holder.Approval_Status.setText(context.getString(R.string.product_status_pending));
-        }else if (list.get(position).getProduct_Status().equals("Approval")){
-            holder.Approval_Status.setText(context.getString(R.string.product_status_approval));
-        }else if (list.get(position).getProduct_Status().equals("Reject")){
-            holder.Approval_Status.setText(context.getString(R.string.product_status_reject));
-        }else if (list.get(position).getProduct_Status().equals("Cancel")){
-            holder.Approval_Status.setText(context.getString(R.string.product_status_cancel));
-        }
-
-        if (list.get(position).getAlarm_Time().isEmpty()){
-            holder.Alarm_Icon.setVisibility(View.GONE);
+        if (list.get(position).getLoan_Amount() == 0){
+            holder.Loan_Amount.setVisibility(View.GONE);
         }else {
-            holder.Alarm_Icon.setVisibility(View.VISIBLE);
+            holder.Loan_Amount.setText(prefixes_dollars + String.format(dec_point, list.get(position).getLoan_Amount()));
         }
+
+        if (list.get(position).getLoan_Trems() == 0){
+            holder.Loan_Trems.setVisibility(View.GONE);
+        }else {
+            holder.Loan_Trems.setText(prefixes_months + String.valueOf(list.get(position).getLoan_Trems()) + suffiex_months);
+        }
+
+        if (list.get(position).getLoan_Rate() == 0){
+            holder.Loan_Rate.setVisibility(View.GONE);
+        }else {
+            holder.Loan_Rate.setText(prefixes_rate + String.format(dec_point, list.get(position).getLoan_Rate()) + suffixes_rate);
+        }
+
+        holder.Loan_installment.setText(String.format(dec_point, list.get(position).getLoan_Installment()));
 
         holder.Delete_Btn.setOnClickListener(new View.OnClickListener() {
             @Override
