@@ -3,20 +3,15 @@ package com.savtor.Wish_List;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
-import com.savtor.Credit_Database.Favourite_DataBasic;
+import com.savtor.WishList_Database.WishList_DataBasic;
+import com.savtor.WishList_Database.WishList_Item;
 import com.savtor.falconcalcultor.*;
-import com.savtor.Credit_Database.Favouite_Item;
 import com.savtor.Credit_Profile.Credit_Profile_Main;
 
 import java.util.ArrayList;
@@ -27,7 +22,6 @@ import android.support.v7.app.*;
 import android.graphics.drawable.*;
 import android.graphics.*;
 import android.widget.*;
-import android.view.View.*;
 
 
 /**
@@ -35,7 +29,7 @@ import android.view.View.*;
  */
 public class WishList_Adapter extends RecyclerSwipeAdapter<WishList_ViewHolder> {
 
-    private List<Favouite_Item> list = Collections.emptyList();
+    private List<WishList_Item> list = Collections.emptyList();
     private Context context;
     private FragmentManager mFragmentManager;
 
@@ -47,13 +41,10 @@ public class WishList_Adapter extends RecyclerSwipeAdapter<WishList_ViewHolder> 
 
 	private AlertDialog mAlertDialog;
 
-    private RecyclerView mRecyclerView;
-
-    public WishList_Adapter(List<Favouite_Item> list, Context context, FragmentManager mFragmentManager, RecyclerView mRecyclerView) {
+    public WishList_Adapter(List<WishList_Item> list, Context context, FragmentManager mFragmentManager) {
         this.list = list;
         this.context = context;
         this.mFragmentManager = mFragmentManager;
-        this.mRecyclerView = mRecyclerView;
 
         mSharedPreferences = context.getSharedPreferences("Setting", Context.MODE_PRIVATE);
         get_sharedpreferences();
@@ -62,7 +53,7 @@ public class WishList_Adapter extends RecyclerSwipeAdapter<WishList_ViewHolder> 
     @Override
     public WishList_ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.aa_wish_item, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.wish_item, parent, false);
 
         WishList_ViewHolder holder = new WishList_ViewHolder(v);
 
@@ -148,8 +139,8 @@ public class WishList_Adapter extends RecyclerSwipeAdapter<WishList_ViewHolder> 
 						{
 							// TODO: Implement this method
 							// Del on database
-							Favourite_DataBasic favourite_dataBasic = new Favourite_DataBasic(v.getContext(), "WishList_Adapter");
-							favourite_dataBasic.delete(list.get(position).getID());
+							WishList_DataBasic wishList_dataBasic = new WishList_DataBasic(v.getContext(), "WishList_Adapter");
+							wishList_dataBasic.delete(list.get(position).getID());
 
 							// Del on list
 							list.remove(position);
@@ -216,15 +207,16 @@ public class WishList_Adapter extends RecyclerSwipeAdapter<WishList_ViewHolder> 
     }
 
 
-    public void setFilter(List<Favouite_Item> countryModels) {
+    public void setFilter(List<WishList_Item> countryModels) {
         list = new ArrayList<>();
         list.addAll(countryModels);
         notifyDataSetChanged();
     }
 
 
-    //=============================================================================================
-    // []
+/*================================================================================================
+ *                                      Find View
+================================================================================================ */
     public void get_sharedpreferences(){
         get_setting_password = mSharedPreferences.getInt("Setting_password", 1);
         get_setting_language = mSharedPreferences.getInt("Setting_language", 1);

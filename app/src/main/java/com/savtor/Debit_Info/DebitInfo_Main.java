@@ -5,7 +5,7 @@ import android.os.*;
 import android.widget.TextView;
 
 import com.savtor.falconcalcultor.*;
-import com.savtor.Credit_Database.*;
+import com.savtor.WishList_Database.*;
 
 import java.util.List;
 
@@ -22,15 +22,15 @@ public class DebitInfo_Main extends Fragment
 
 //		T01 = (TextView) v.findViewById(R.id.T01);
 
-		Favourite_DataBasic favourite_dataBasic = new Favourite_DataBasic(getContext(), "DebitInfo_Main");
+		WishList_DataBasic wishList_dataBasic = new WishList_DataBasic(getContext(), "DebitInfo_Main");
 
 		T01.setText("");
 
-		List<Favouite_Item> items = favourite_dataBasic.query_all();
+		List<WishList_Item> items = wishList_dataBasic.query_all();
 
 
 
-		for(Favouite_Item i : items){
+		for(WishList_Item i : items){
 
 			T01.append("ID : " + i.getID() + "\n");
 			T01.append("Create Date : " + i.getCreate_Date() + "\n");
@@ -54,7 +54,7 @@ public class DebitInfo_Main extends Fragment
 
 		}
 
-		favourite_dataBasic.close();
+		wishList_dataBasic.close();
 
 		return v;
 	}

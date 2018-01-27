@@ -1,4 +1,4 @@
-package com.savtor.Credit_Database;
+package com.savtor.WishList_Database;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by GhostLeo_DT on 30/11/2017.
  */
-public class Favourite_DataBasic {
+public class WishList_DataBasic {
 
     // 表格名稱
     public static final String TABLE_NAME = "favourite";
@@ -68,19 +68,20 @@ public class Favourite_DataBasic {
             REMARKS_COULUMN + " TEXT," +
 			REQUEST_CODE_COULUMN + " INTEGER)";
 
+/*================================================================================================
+ *                                 建構子，一般的應用都不需要修改
+================================================================================================ */
+    public WishList_DataBasic(Context context, String open_from){
 
-    //=============================================================================================
-    // 建構子，一般的應用都不需要修改
-    public Favourite_DataBasic(Context context, String open_from){
-
-        db = myDBhelper.getDatabase(context);
+        db = WishList_DBhelper.getDatabase(context);
 
         Log.e("DATA BASIC ACTION : ", "從" + open_from + "打開資料庫"); // [Log.e]
     }
 
-    //=============================================================================================
-    // [1] INSERT - 新增參數指定的物件
-    public Favouite_Item inster(Favouite_Item item){
+/*================================================================================================
+ *                                 INSERT - 新增參數指定的物件
+================================================================================================ */
+    public WishList_Item inster(WishList_Item item){
 
         ContentValues cv = new ContentValues();
 //
@@ -91,10 +92,10 @@ public class Favourite_DataBasic {
 
         return item;
     }
-
-    //=============================================================================================
-    // [2] UPDATE - 修改
-    public boolean update(Favouite_Item item){
+/*================================================================================================
+ *                                      UPDATE - 修改
+================================================================================================ */
+    public boolean update(WishList_Item item){
 
         ContentValues cv = new ContentValues();
 
@@ -106,9 +107,9 @@ public class Favourite_DataBasic {
 
         return db.update(TABLE_NAME, cv, where, null) > 0;
     }
-
-    //=============================================================================================
-    // [3] DELETE - 刪除
+/*================================================================================================
+ *                                  DELETE - 刪除指定 ID 紀錄
+================================================================================================ */
     public boolean delete(int id){
 
         String where = KEY_ID + "=" + id;
@@ -117,12 +118,12 @@ public class Favourite_DataBasic {
 
         return db.delete(TABLE_NAME, where, null) > 0;
     }
+/*================================================================================================
+ *                                 QUERY - 查詢一條紀錄
+================================================================================================ */
+    public WishList_Item query(long id){
 
-    //=============================================================================================
-    // [4] QUERY - 查詢一條紀錄
-    public Favouite_Item query(long id){
-
-        Favouite_Item item = null;
+        WishList_Item item = null;
 
         String where = KEY_ID + "=" + id;
 
@@ -138,12 +139,12 @@ public class Favourite_DataBasic {
 
         return item;
     }
+/*================================================================================================
+ *                                 QUERY ALL - 查詢所有紀錄
+================================================================================================ */
+    public List<WishList_Item> query_all(){
 
-    //=============================================================================================
-    // [5] QUERY ALL - 查詢所有紀錄
-    public List<Favouite_Item> query_all(){
-
-        List <Favouite_Item> result = new ArrayList<Favouite_Item>();
+        List <WishList_Item> result = new ArrayList<WishList_Item>();
 
         Cursor cursor = db.query(TABLE_NAME, null, null, null, null, null, null, null);
 
@@ -158,11 +159,12 @@ public class Favourite_DataBasic {
         return result;
     }
 
-    //=============================================================================================
-    // [5] QUERY ALL ORDER BY DATE - 查詢所有紀錄
-    public List<Favouite_Item> query_orderby_date(){
+/*================================================================================================
+ *                             QUERY ALL ORDER BY DATE - 查詢所有紀錄
+================================================================================================ */
+    public List<WishList_Item> query_orderby_date(){
 
-        List <Favouite_Item> result = new ArrayList<Favouite_Item>();
+        List <WishList_Item> result = new ArrayList<WishList_Item>();
 
         // ASC = 由小至大 ; DESC = 由大至小
         Cursor cursor = db.query(TABLE_NAME, null, null, null, null, null, CREATE_DATE_COULUMN + "  DESC");
@@ -178,9 +180,9 @@ public class Favourite_DataBasic {
 
         return result;
     }
-
-	//=============================================================================================
-    //
+/*================================================================================================
+ *                                      找出最新 ID
+================================================================================================ */
     public int query_max_id(){
 
         int max_id = 0;
@@ -197,12 +199,13 @@ public class Favourite_DataBasic {
 
         return max_id;
     }
-	
-    //=============================================================================================
-    // [6] 被[5]所用
-    public Favouite_Item get_database_record(Cursor cusor){
 
-        Favouite_Item item = new Favouite_Item();
+/*================================================================================================
+ *                                           ???
+================================================================================================ */
+    public WishList_Item get_database_record(Cursor cusor){
+
+        WishList_Item item = new WishList_Item();
 
         item.setID(cusor.getInt(0));
         item.setCreate_Date(cusor.getString(1));
@@ -230,10 +233,10 @@ public class Favourite_DataBasic {
 		
         return item;
     }
-
-    //=============================================================================================
-    // [7] 被[1], [2]所用
-    public ContentValues get_ContenValue(Favouite_Item item){
+/*================================================================================================
+*                                          ???
+================================================================================================ */
+    public ContentValues get_ContenValue(WishList_Item item){
 
         ContentValues cv = new ContentValues();
 
@@ -258,9 +261,9 @@ public class Favourite_DataBasic {
 
         return cv;
     }
-
-    //=============================================================================================
-    // [8] 取得資料大小
+/*================================================================================================
+ *                                 取得資料大小
+================================================================================================ */
     public int getCount() {
 
         int result = 0;
@@ -274,8 +277,9 @@ public class Favourite_DataBasic {
         return result;
     }
 
-    //=============================================================================================
-    // [9] 取得資料大小
+/*================================================================================================
+ *                                 COLSE - 關閉 DataBasic
+================================================================================================ */
     public void close() {
         db.close();
     }

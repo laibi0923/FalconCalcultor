@@ -5,10 +5,12 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.ViewGroup;
 
 /**
- * Created by GhostLeo_DT on 27/1/2018.
+ *      Created by GhostLeo_DT on 27/1/2018.
+ *      實現當 RecycleView 為空時, 顯堊 Empty View
+ *      http://blog.csdn.net/whitley_gong/article/details/51244723
+ *      Github : https://github.com/hiwhitley/EmptyRecyclerView/tree/master/src/main/java/com/hiwhitley/recycleviewdemo01
  */
 public class WishList_RecycleView extends RecyclerView{
 

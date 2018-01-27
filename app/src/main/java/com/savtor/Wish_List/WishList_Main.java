@@ -1,7 +1,7 @@
 package com.savtor.Wish_List;
 
-import com.savtor.Credit_Database.Favouite_Item;
-import com.savtor.Credit_Database.Favourite_DataBasic;
+import com.savtor.WishList_Database.WishList_Item;
+import com.savtor.WishList_Database.WishList_DataBasic;
 import com.savtor.falconcalcultor.*;
 
 import android.graphics.PorterDuff;
@@ -12,7 +12,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,7 +19,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,12 +29,15 @@ import android.widget.*;
  */
 public class WishList_Main extends Fragment {
 
-    Favourite_DataBasic favourite_dataBasic;
-    WishList_Adapter fav_adapter;
-    List<Favouite_Item> favouriteData;
-    RecyclerView favourite_recyclerview;
-    WishList_RecycleView mRecycleView;
-	private LinearLayout Empty_Data_Linear;
+//    WishList_DataBasic favourite_dataBasic;
+//    WishList_Adapter fav_adapter;
+//    List<WishList_Item> favouriteData;
+
+    private WishList_RecycleView mRecycleView;
+    private WishList_Adapter mAdapter;
+    private WishList_DataBasic mDataBasic;
+	private LinearLayout Empty_View;
+    private List<WishList_Item> WishList_Data;
 
 
     @Override
@@ -79,46 +80,41 @@ public class WishList_Main extends Fragment {
 ================================================================================================ */
     private void Find_View(View v){
 
+        /**     will change     **/
         FragmentManager mFragmentManager = getFragmentManager();
 
-//        favourite_recyclerview = (RecyclerView) v.findViewById(R.id.favourite_recyclerView);
+        Empty_View = (LinearLayout) v.findViewById(R.id.empty_data_linear);
 
-
-        Empty_Data_Linear = (LinearLayout) v.findViewById(R.id.empty_data_linear);
-
-        favouriteData = getDataBase_Data();
-        fav_adapter = new WishList_Adapter(favouriteData, getActivity(), mFragmentManager, favourite_recyclerview);
+        WishList_Data = getDataBase_Data();
+        mAdapter = new WishList_Adapter(WishList_Data, getActivity(), mFragmentManager);
 
         mRecycleView = (WishList_RecycleView) v.findViewById(R.id.favourite_recyclerView);
         mRecycleView.setLayoutManager(new LinearLayoutManager(this.getActivity(), LinearLayoutManager.VERTICAL, false));
         DefaultItemAnimator mDefaultItemAnimator = new DefaultItemAnimator();
         mDefaultItemAnimator.setRemoveDuration(100);
         mRecycleView.setItemAnimator(mDefaultItemAnimator);
-        mRecycleView.setAdapter(fav_adapter);
-        mRecycleView.setEmptyView(Empty_Data_Linear);
+        mRecycleView.setAdapter(mAdapter);
+        mRecycleView.setEmptyView(Empty_View);
 
-
-
-        check_data_empty();
     }
 
 
 /*================================================================================================
  *                                      Get Data Base Data
 ================================================================================================ */
-    public List<Favouite_Item> getDataBase_Data() {
+    public List<WishList_Item> getDataBase_Data() {
 
-        favourite_dataBasic = new Favourite_DataBasic(getActivity(), "WishList_Main");
+        mDataBasic = new WishList_DataBasic(getActivity(), "WishList_Main");
 
-        Log.e("DATA BASIC ACTION : ","數據庫開啟, 共" + favourite_dataBasic.getCount() + "條紀錄");
+        Log.e("DATA BASIC ACTION : ","數據庫開啟, 共" + mDataBasic.getCount() + "條紀錄");
 
-        List<Favouite_Item> items = favourite_dataBasic.query_orderby_date();
+        List<WishList_Item> items = mDataBasic.query_orderby_date();
 
-        favouriteData = new ArrayList<Favouite_Item>();
+        WishList_Data = new ArrayList<WishList_Item>();
 
-        for(Favouite_Item i : items){
+        for(WishList_Item i : items){
 
-            favouriteData.add(new Favouite_Item(
+            WishList_Data.add(new WishList_Item(
 				i.getID(),
 				i.getCreate_Date().substring(0, 10),
 				i.getProduct_Name(),
@@ -140,8 +136,8 @@ public class WishList_Main extends Fragment {
 				i.getRequestCode()));
         }
 
-        favourite_dataBasic.close();
-        return  favouriteData;
+        mDataBasic.close();
+        return  WishList_Data;
     }
 
 /*================================================================================================
@@ -158,8 +154,8 @@ public class WishList_Main extends Fragment {
             @Override
             public boolean onQueryTextChange(String newText) {
 
-                final List<Favouite_Item> search_list = filter(getDataBase_Data() ,newText.toLowerCase());
-                fav_adapter.setFilter(search_list);
+                final List<WishList_Item> search_list = filter(getDataBase_Data() ,newText.toLowerCase());
+                mAdapter.setFilter(search_list);
 
                 return true;
             }
@@ -169,13 +165,13 @@ public class WishList_Main extends Fragment {
 /*================================================================================================
  *                                     與現有內容對比
 ================================================================================================ */
-    private List<Favouite_Item> filter (List<Favouite_Item> models, String query){
+    private List<WishList_Item> filter (List<WishList_Item> models, String query){
 
         query.toLowerCase().toString();
 
-        final List<Favouite_Item> filterList = new ArrayList<>();
+        final List<WishList_Item> filterList = new ArrayList<>();
 
-        for (Favouite_Item fav_data : models){
+        for (WishList_Item fav_data : models){
 
             if(fav_data.getProduct_Name().toLowerCase().contains(query)){
                 filterList.add(fav_data);
@@ -184,19 +180,5 @@ public class WishList_Main extends Fragment {
         return filterList;
     }
 
-/*================================================================================================
- *
-================================================================================================ */
-    public void check_data_empty(){
-
-        if (favouriteData.isEmpty()){
-            favourite_recyclerview.setVisibility(View.GONE);
-            Empty_Data_Linear.setVisibility(View.VISIBLE);
-        }else {
-            favourite_recyclerview.setVisibility(View.VISIBLE);
-            Empty_Data_Linear.setVisibility(View.GONE);
-        }
-
-    }
 
 }

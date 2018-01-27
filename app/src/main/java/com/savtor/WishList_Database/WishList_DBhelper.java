@@ -1,4 +1,4 @@
-package com.savtor.Credit_Database;
+package com.savtor.WishList_Database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -8,7 +8,7 @@ import android.util.Log;
 /**
  * Created by GhostLeo_DT on 30/11/2017.
  */
-public class myDBhelper extends SQLiteOpenHelper {
+public class WishList_DBhelper extends SQLiteOpenHelper {
 
     // Data Base 名稱
     public static final String DATABASE_NAME = "falcon_db_dummyy.db";
@@ -18,7 +18,7 @@ public class myDBhelper extends SQLiteOpenHelper {
 
     public static SQLiteDatabase database;
 
-    public myDBhelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+    public WishList_DBhelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
 
@@ -26,7 +26,7 @@ public class myDBhelper extends SQLiteOpenHelper {
     public static SQLiteDatabase getDatabase(Context context){
 
         if(database == null || !database.isOpen()){
-            database = new myDBhelper(context, DATABASE_NAME, null, VERSION).getWritableDatabase();
+            database = new WishList_DBhelper(context, DATABASE_NAME, null, VERSION).getWritableDatabase();
         }
 
         return database;
@@ -38,14 +38,14 @@ public class myDBhelper extends SQLiteOpenHelper {
         // 1. SQL語法不分大小寫
         // 2. 這裡大寫代表的是SQL標準語法, 小寫字是資料表/欄位的命名
         // 建立應用程式需要的表格
-        db.execSQL(Favourite_DataBasic.CREATE_TABLE);
-        Log.d("123", Favourite_DataBasic.CREATE_TABLE + "");
+        db.execSQL(WishList_DataBasic.CREATE_TABLE);
+        Log.d("123", WishList_DataBasic.CREATE_TABLE + "");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // 刪除原有的表格
-        db.execSQL("DROP TABLE IF EXISTS " + Favourite_DataBasic.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + WishList_DataBasic.TABLE_NAME);
         // 呼叫onCreate建立新版的表格
         onCreate(db);
 

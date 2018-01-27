@@ -7,8 +7,6 @@ import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,10 +24,11 @@ import java.util.Calendar;
 import java.util.Date;
 import android.view.View.*;
 import android.widget.*;
+
+import com.savtor.WishList_Database.WishList_DataBasic;
+import com.savtor.WishList_Database.WishList_Item;
 import com.savtor.falconcalcultor.*;
 import com.savtor.Alarm_Notification.*;
-import com.savtor.Credit_Database.Favouite_Item;
-import com.savtor.Credit_Database.Favourite_DataBasic;
 import com.savtor.Wish_List.WishList_Main;
 import android.content.*;
 
@@ -81,7 +80,7 @@ public class Credit_Profile_Main extends Fragment {
     private double LOAN_AMOUNT, LOAN_RATE, LOAN_INSTALLMENT;
     private int DB_ID, LOAN_TREMS, SETUP_ALARM, REQUEST_CODE;
 
-    private Favourite_DataBasic DataBasic;
+    private WishList_DataBasic DataBasic;
 
     private Bundle mBundle;
 
@@ -138,7 +137,7 @@ public class Credit_Profile_Main extends Fragment {
         }else if (mBundle != null && mBundle.getString("From").equals("Favoutive")){
 
             DB_ID = mBundle.getInt("DB_ID");
-            DataBasic = new Favourite_DataBasic(getActivity(), This_Fragment_Name);
+            DataBasic = new WishList_DataBasic(getActivity(), This_Fragment_Name);
 
             LAST_MODIFY = DataBasic.query(DB_ID).getCreate_Date();
             PRODUCT_NAME = DataBasic.query(DB_ID).getProduct_Name();
@@ -268,9 +267,9 @@ public class Credit_Profile_Main extends Fragment {
 					// 新創 Request Code
 					REQUEST_CODE = (int) Last_Modify_Calendar.getTimeInMillis();
 					
-                    DataBasic = new Favourite_DataBasic(getActivity(), This_Fragment_Name);
+                    DataBasic = new WishList_DataBasic(getActivity(), This_Fragment_Name);
 
-                    Favouite_Item fav_item = new Favouite_Item(
+                    WishList_Item fav_item = new WishList_Item(
                             DB_ID,
                             LAST_MODIFY,
                             PRODUCT_NAME,
@@ -349,7 +348,7 @@ public class Credit_Profile_Main extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.aa_credit_profile_main, container, false);
+        View v = inflater.inflate(R.layout.credit_profile_main, container, false);
 
         Find_View(v);
 		Change_View();
