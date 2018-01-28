@@ -166,6 +166,10 @@
     <string name="wishlist_prefixes_months">償還期限 : </string>
     <string name="wishlist_prefixes_rate">借貸年利率 ： </string>
     <string name="wishlist_empty_text">沒有任何紀錄</string>
+
+    <string name="wishlist_edit_btn">修改</string>
+    <string name="wishlist_share_btn">分享</string>
+    <string name="wishlist_delete_btn">刪除</string>
 	
 
     <!--==============================================================================================-->

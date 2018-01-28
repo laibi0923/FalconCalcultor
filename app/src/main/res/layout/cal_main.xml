@@ -2,12 +2,12 @@
 <LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
-	android:orientation="vertical"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
 	android:minHeight="50dp"
-	android:background="@color/blue_grey_950">
+	android:background="@color/blue_grey_950"
+	android:orientation="vertical">
 
 	<LinearLayout
 		android:layout_width="match_parent"
@@ -101,11 +101,21 @@
 			android:layout_weight="1"
 			android:gravity="center">
 
+			<TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/cal_installment_title"
+                android:id="@+id/textView7"
+                android:textColor="@color/deep_teal_200"
+                android:textSize="30sp"/>
+
 			<LinearLayout
 				android:orientation="horizontal"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:gravity="center">
+				android:gravity="center"
+				android:padding="10dp">
 
 				<TextView
 					android:layout_width="wrap_content"
@@ -119,113 +129,52 @@
 				<TextView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="0.00"
+					android:text="100,000,000.00"
 					android:id="@+id/installment_tv"
 					android:textColor="@color/deep_teal_200"
 					android:textSize="50sp"/>
 
 			</LinearLayout>
 
-			<TextView
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:textAppearance="?android:attr/textAppearanceMedium"
-				android:text="@string/cal_installment_title"
-				android:id="@+id/textView7"
-				android:textColor="@color/deep_teal_200"
-				android:textSize="30sp"/>
-
 		</LinearLayout>
 
 
 		<LinearLayout
-			android:orientation="horizontal"
+			android:orientation="vertical"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
+			android:background="@color/blue_grey_800"
 			android:padding="5dp">
 
 			<LinearLayout
-				android:orientation="vertical"
-				android:layout_width="wrap_content"
+				android:orientation="horizontal"
+				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_weight="1"
-				android:gravity="center"
-				android:padding="5dp">
-
-				<LinearLayout
-					android:orientation="horizontal"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:gravity="center">
-
-					<TextView
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						android:textAppearance="?android:attr/textAppearanceSmall"
-						android:text="$"
-						android:id="@+id/textView5"
-						android:textColor="@color/TextColor_Gray"/>
-
-					<TextView
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						android:textAppearance="?android:attr/textAppearanceSmall"
-						android:text="0.00"
-						android:id="@+id/total_interest_tv"
-						android:textColor="@color/TextColor_Gray"/>
-
-				</LinearLayout>
+				android:padding="10dp">
 
 				<TextView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:textAppearance="?android:attr/textAppearanceSmall"
-					android:text="@string/cal_totalinsterestt_title"
-					android:id="@+id/textView9"
-					android:textColor="@color/TextColor_White"/>
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="@string/cal_totalinsterestt_title"
+                    android:id="@+id/textView9"
+                    android:textColor="@color/TextColor_White"/>
 
+				<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:textAppearance="?android:attr/textAppearanceSmall"
+    android:text="$ 0.00"
+    android:id="@+id/total_interest_tv"
+    android:textColor="@color/TextColor_Gray"
+					android:textAlignment="viewEnd" />
 			</LinearLayout>
 
-			<View
-				android:layout_width="0.5dp"
-				android:layout_height="match_parent"
-				android:background="#999999"
-				android:id="@+id/sub_underline"
-				android:visibility="visible">
-
-			</View>
-
 			<LinearLayout
-				android:orientation="vertical"
-				android:layout_width="wrap_content"
+				android:orientation="horizontal"
+				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_weight="1"
-				android:gravity="center"
-				android:padding="5dp">
-
-				<LinearLayout
-					android:orientation="horizontal"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:gravity="center">
-
-					<TextView
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						android:textAppearance="?android:attr/textAppearanceSmall"
-						android:text="$"
-						android:id="@+id/textView17"
-						android:textColor="@color/TextColor_Gray"/>
-
-					<TextView
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						android:textAppearance="?android:attr/textAppearanceSmall"
-						android:text="0.00"
-						android:id="@+id/total_payment_tv"
-						android:textColor="@color/TextColor_Gray"/>
-
-				</LinearLayout>
+				android:padding="10dp">
 
 				<TextView
 					android:layout_width="wrap_content"
@@ -235,18 +184,18 @@
 					android:id="@+id/textView11"
 					android:textColor="@color/TextColor_White"/>
 
+				<TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="$ 0.00"
+                    android:id="@+id/total_payment_tv"
+                    android:textColor="@color/TextColor_Gray"
+					android:textAlignment="viewEnd" />
+
 			</LinearLayout>
 
 		</LinearLayout>
-
-		<View
-			android:layout_width="match_parent"
-			android:layout_height="0.2dp"
-			android:background="#999999"
-			android:layout_marginLeft="20dp"
-			android:layout_marginRight="20dp">
-
-		</View>
 
 
 	</LinearLayout>
@@ -255,17 +204,17 @@
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:orientation="vertical"
-		android:padding="0dp">
+		android:padding="5dp">
 
 		<LinearLayout
 			android:orientation="horizontal"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
-			android:background="?attr/selectableItemBackgroundBorderless"
+			android:background="?attr/selectableItemBackground"
 			android:clickable="true"
 			android:focusable="true"
 			android:id="@+id/loanAmount_linear"
-			android:padding="20dp"
+			android:padding="10dp"
 			android:gravity="center">
 
 			<ImageView
@@ -276,55 +225,24 @@
 				android:layout_marginRight="30dp"
 				android:tint="@color/deep_teal_200" />
 
-			<LinearLayout
-				android:orientation="vertical"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_weight="1">
+			<TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="@string/cal_loanamount_title"
+                android:id="@+id/textView12"
+                android:textColor="@color/TextColor_White"/>
 
-				<TextView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:textAppearance="?android:attr/textAppearanceSmall"
-					android:text="@string/cal_loanamount_title"
-					android:id="@+id/textView12"
-					android:textColor="@color/TextColor_White"/>
-
-				<TextView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:textAppearance="?android:attr/textAppearanceSmall"
-					android:text="@string/cal_loanamount_subtitle"
-					android:id="@+id/textView13"
-					android:textColor="@color/TextColor_Gray"/>
-
-			</LinearLayout>
-
-			<LinearLayout
-				android:orientation="horizontal"
-				android:layout_width="wrap_content"
-				android:layout_height="match_parent"
-				android:gravity="bottom">
-
-				<TextView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:textAppearance="?android:attr/textAppearanceSmall"
-					android:text="0.00"
-					android:id="@+id/loanAmount_tv"
-					android:textColor="@color/TextColor_Gray"
-					android:paddingLeft="10dp"/>
-
-				<TextView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:textAppearance="?android:attr/textAppearanceSmall"
-					android:text="@string/cal_loanamount_pun"
-					android:id="@+id/textView22"
-					android:textColor="@color/TextColor_Gray"
-					android:paddingLeft="10dp"/>
-
-			</LinearLayout>
+			<TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="$ 0.00"
+                android:id="@+id/loanAmount_tv"
+                android:textColor="@color/TextColor_Gray"
+                android:paddingLeft="10dp"
+				android:layout_weight="1"
+				android:textAlignment="textEnd" />
 
 		</LinearLayout>
 
@@ -332,11 +250,12 @@
 			android:orientation="horizontal"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
-			android:background="?attr/selectableItemBackgroundBorderless"
+			android:background="?attr/selectableItemBackground"
 			android:clickable="true"
 			android:focusable="true"
 			android:id="@+id/loanTrems_linear"
-			android:padding="20dp">
+			android:padding="10dp"
+			android:gravity="center">
 
 			<ImageView
 				android:layout_width="30dp"
@@ -346,55 +265,24 @@
 				android:layout_marginRight="30dp"
 				android:tint="@color/deep_teal_200" />
 
-			<LinearLayout
-				android:orientation="vertical"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_weight="1">
+			<TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="@string/cal_loantreams_title"
+                android:id="@+id/textView15"
+                android:textColor="@color/TextColor_White"/>
 
-				<TextView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:textAppearance="?android:attr/textAppearanceSmall"
-					android:text="@string/cal_loantreams_title"
-					android:id="@+id/textView15"
-					android:textColor="@color/TextColor_White"/>
-
-				<TextView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:textAppearance="?android:attr/textAppearanceSmall"
-					android:text="@string/cal_loantreams_subtitle"
-					android:id="@+id/textView16"
-					android:textColor="@color/TextColor_Gray"/>
-
-			</LinearLayout>
-
-			<LinearLayout
-				android:orientation="horizontal"
-				android:layout_width="wrap_content"
-				android:layout_height="match_parent"
-				android:gravity="bottom">
-
-				<TextView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:textAppearance="?android:attr/textAppearanceSmall"
-					android:text="12"
-					android:id="@+id/loanTrems_tv"
-					android:textColor="@color/TextColor_Gray"
-					android:paddingLeft="10dp"/>
-
-				<TextView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:textAppearance="?android:attr/textAppearanceSmall"
-					android:text="@string/cal_loantreams_pun"
-					android:id="@+id/textView23"
-					android:textColor="@color/TextColor_Gray"
-					android:paddingLeft="10dp"/>
-
-			</LinearLayout>
+			<TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="12 個月"
+                android:id="@+id/loanTrems_tv"
+                android:textColor="@color/TextColor_Gray"
+                android:paddingLeft="10dp"
+				android:layout_weight="1"
+				android:textAlignment="textEnd" />
 
 		</LinearLayout>
 
@@ -402,11 +290,12 @@
 			android:orientation="horizontal"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
-			android:background="?attr/selectableItemBackgroundBorderless"
+			android:background="?attr/selectableItemBackground"
 			android:clickable="true"
 			android:focusable="true"
 			android:id="@+id/loanRate_linear"
-			android:padding="20dp">
+			android:padding="10dp"
+			android:gravity="center">
 
 			<ImageView
 				android:layout_width="30dp"
@@ -416,55 +305,24 @@
 				android:layout_marginRight="30dp"
 				android:tint="@color/deep_teal_200" />
 
-			<LinearLayout
-				android:orientation="vertical"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_weight="1">
+			<TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="@string/cal_loanrate_title"
+                android:id="@+id/textView18"
+                android:textColor="@color/TextColor_White"/>
 
-				<TextView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:textAppearance="?android:attr/textAppearanceSmall"
-					android:text="@string/cal_loanrate_title"
-					android:id="@+id/textView18"
-					android:textColor="@color/TextColor_White"/>
-
-				<TextView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:textAppearance="?android:attr/textAppearanceSmall"
-					android:text="@string/cal_loanrate_subtitle"
-					android:id="@+id/textView19"
-					android:textColor="@color/TextColor_Gray"/>
-
-			</LinearLayout>
-
-			<LinearLayout
-				android:orientation="horizontal"
-				android:layout_width="wrap_content"
-				android:layout_height="match_parent"
-				android:gravity="bottom">
-
-				<TextView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:textAppearance="?android:attr/textAppearanceSmall"
-					android:text="54.00"
-					android:id="@+id/loanRate_tv"
-					android:textColor="@color/TextColor_Gray"
-					android:paddingLeft="10dp"/>
-
-				<TextView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:textAppearance="?android:attr/textAppearanceSmall"
-					android:text="@string/cal_loanrate_pun"
-					android:id="@+id/textView24"
-					android:textColor="@color/TextColor_Gray"
-					android:paddingLeft="10dp"/>
-
-			</LinearLayout>
+			<TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="54.00 % p.a."
+                android:id="@+id/loanRate_tv"
+                android:textColor="@color/TextColor_Gray"
+                android:paddingLeft="10dp"
+				android:layout_weight="1"
+				android:textAlignment="textEnd" />
 
 		</LinearLayout>
 
@@ -478,32 +336,22 @@
 		android:transitionName="sechedule_animation"
 		android:id="@+id/schedule_btn"
 		android:clickable="true"
-		android:gravity="center">
+		android:gravity="center"
+		android:padding="5dp">
 
-		<LinearLayout
-			android:orientation="vertical"
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:clickable="false"
-			android:background="@color/blue_grey_950"
-			android:visibility="visible"
-			android:gravity="center"
-			android:paddingTop="10dp">
+		<TextView
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:textAppearance="?android:attr/textAppearanceSmall"
+android:text="@string/schedule_btn_text"
+android:id="@+id/textView21"
+            android:textColor="@color/TextColor_Gray"/>
 
-			<TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="@string/schedule_btn_text"
-                android:id="@+id/textView21"
-				android:textColor="@color/TextColor_Gray"/>
-
-			<ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/imageView3"
-                android:src="@drawable/ic_falcon_white"/>
-		</LinearLayout>
+		<ImageView
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:id="@+id/imageView3"
+android:src="@drawable/ic_falcon_white"/>
 
 	</LinearLayout>
 

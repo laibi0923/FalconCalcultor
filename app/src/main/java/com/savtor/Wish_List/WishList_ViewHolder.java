@@ -19,7 +19,7 @@ public class WishList_ViewHolder extends RecyclerView.ViewHolder {
 
     ImageView Alarm_Icon, Product_Icon;
 
-    LinearLayout Edit_Btn, Delete_Btn;
+    LinearLayout Edit_Btn, Share_Btn, Delete_Btn;
 
     public WishList_ViewHolder(View itemView) {
 
@@ -49,10 +49,9 @@ public class WishList_ViewHolder extends RecyclerView.ViewHolder {
 
         Edit_Btn = (LinearLayout) itemView.findViewById(R.id.edit_btn);
 
-        Edit_Text = (TextView) itemView.findViewById(R.id.edit_text);
+        Share_Btn = (LinearLayout) itemView.findViewById(R.id.share_btn);
 
         Delete_Btn = (LinearLayout) itemView.findViewById(R.id.del_btnn);
 
-        Delete_Text = (TextView) itemView.findViewById(R.id.del_text);
     }
 }

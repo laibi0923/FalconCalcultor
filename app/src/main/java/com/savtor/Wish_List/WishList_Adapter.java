@@ -132,6 +132,40 @@ public class WishList_Adapter extends RecyclerSwipeAdapter<WishList_ViewHolder> 
 
         holder.Loan_installment.setText(String.format(dec_point, list.get(position).getLoan_Installment()));
 
+
+        holder.Edit_Btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Fragment mFragment = new Credit_Profile_Main();
+
+                Bundle mBundle = new Bundle();
+
+                mBundle.putString("From", "Favoutive");
+                mBundle.putDouble("Amount", list.get(position).getLoan_Amount());
+                mBundle.putInt("Trems", list.get(position).getLoan_Trems());
+                mBundle.putDouble("Rate", list.get(position).getLoan_Rate());
+                mBundle.putDouble("Installment", list.get(position).getLoan_Installment());
+                mBundle.putInt("DB_ID", list.get(position).getID());
+
+                mFragment.setArguments(mBundle);
+
+                mFragmentManager.beginTransaction()
+                        .addToBackStack(null)
+                        .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right)
+                        .replace(R.id.mFrameLayout, mFragment)
+                        .commit();
+            }
+        });
+
+        holder.Share_Btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //  share information to other apps, etc : whatsapp, gmail, SMS...
+            }
+        });
+
         holder.Delete_Btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -181,32 +215,6 @@ public class WishList_Adapter extends RecyclerSwipeAdapter<WishList_ViewHolder> 
 				
             }
         });
-
-        holder.Edit_Btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Fragment mFragment = new Credit_Profile_Main();
-
-                Bundle mBundle = new Bundle();
-				
-				mBundle.putString("From", "Favoutive");
-                mBundle.putDouble("Amount", list.get(position).getLoan_Amount());
-                mBundle.putInt("Trems", list.get(position).getLoan_Trems());
-                mBundle.putDouble("Rate", list.get(position).getLoan_Rate());
-                mBundle.putDouble("Installment", list.get(position).getLoan_Installment());
-				mBundle.putInt("DB_ID", list.get(position).getID());
-
-				mFragment.setArguments(mBundle);
-
-				mFragmentManager.beginTransaction()
-                        .addToBackStack(null)
-                        .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right)
-                        .replace(R.id.mFrameLayout, mFragment)
-                        .commit();
-            }
-        });
-
     }
 
     @Override
@@ -228,7 +236,7 @@ public class WishList_Adapter extends RecyclerSwipeAdapter<WishList_ViewHolder> 
 
 
 /*================================================================================================
- *                                      Find View
+ *
 ================================================================================================ */
     public void get_sharedpreferences(){
         get_setting_password = mSharedPreferences.getInt("Setting_password", 1);

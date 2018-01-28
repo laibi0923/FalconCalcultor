@@ -197,7 +197,7 @@
 					android:textAppearance="?android:attr/textAppearanceSmall"
 					android:layout_width="wrap_content"
 					android:background="?attr/selectableItemBackgroundBorderless"
-					android:text="修改"
+					android:text="@string/wishlist_edit_btn"
 					android:clickable="false"
 					android:padding="10dp"
 					android:textAlignment="center"
@@ -215,13 +215,37 @@
 				android:gravity="center"
 				android:clickable="true"
 				android:background="?attr/selectableItemBackgroundBorderless"
+				android:id="@+id/share_btn"
+				android:visibility="gone">
+
+				<TextView
+					android:layout_height="wrap_content"
+					android:textAppearance="?android:attr/textAppearanceSmall"
+					android:layout_width="wrap_content"
+					android:text="@string/wishlist_share_btn"
+					android:clickable="false"
+					android:background="?attr/selectableItemBackgroundBorderless"
+					android:gravity="center"
+					android:padding="10dp"
+					android:textColor="@color/TextColor_Gray"
+					android:id="@+id/textView4" />
+			</LinearLayout>
+
+			<LinearLayout
+				android:orientation="horizontal"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				android:gravity="center"
+				android:clickable="true"
+				android:background="?attr/selectableItemBackgroundBorderless"
 				android:id="@+id/del_btnn">
 
 				<TextView
 					android:layout_height="wrap_content"
 					android:textAppearance="?android:attr/textAppearanceSmall"
 					android:layout_width="wrap_content"
-					android:text="刪除"
+					android:text="@string/wishlist_delete_btn"
 					android:clickable="false"
 					android:background="?attr/selectableItemBackgroundBorderless"
 					android:gravity="center"

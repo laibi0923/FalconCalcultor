@@ -1,5 +1,6 @@
 package com.savtor.Wish_List;
 
+import com.savtor.Credit_Profile.Product_Type;
 import com.savtor.WishList_Database.WishList_Item;
 import com.savtor.WishList_Database.WishList_DataBasic;
 import com.savtor.falconcalcultor.*;
@@ -29,14 +30,10 @@ import android.widget.*;
  */
 public class WishList_Main extends Fragment {
 
-//    WishList_DataBasic favourite_dataBasic;
-//    WishList_Adapter fav_adapter;
-//    List<WishList_Item> favouriteData;
-
     private WishList_RecycleView mRecycleView;
     private WishList_Adapter mAdapter;
     private WishList_DataBasic mDataBasic;
-	private LinearLayout Empty_View;
+	private LinearLayout Empty_View, Create_Wish_Btn;
     private List<WishList_Item> WishList_Data;
 
 
@@ -96,6 +93,13 @@ public class WishList_Main extends Fragment {
         mRecycleView.setAdapter(mAdapter);
         mRecycleView.setEmptyView(Empty_View);
 
+        Create_Wish_Btn = (LinearLayout) v.findViewById(R.id.create_wish_btn);
+        Create_Wish_Btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((Activity_Main)getActivity()).Fragment_Transaction(new Product_Type());
+            }
+        });
     }
 
 
