@@ -109,9 +109,9 @@ public class Activity_Main extends AppCompatActivity {
                     switch (item.getItemId()) {
 
 
-//                        case R.id.nav_item1:
-//                            Fragment_Transaction(new Fragment1());
-//                            break;
+                       case R.id.nav_item1:
+                            Fragment_Transaction(new DebitInfo_Main());
+                            break;
 
                         case R.id.nav_item2:
                             Fragment_Transaction(new Calcultor_Main());
@@ -149,7 +149,7 @@ public class Activity_Main extends AppCompatActivity {
             }
         });
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.mFrameLayout, new Calcultor_Main()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.mFrameLayout, new DebitInfo_Main()).commit();
         mNavView.getMenu().getItem(0).setChecked(true);
     }
 

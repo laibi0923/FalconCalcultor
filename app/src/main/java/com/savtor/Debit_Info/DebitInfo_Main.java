@@ -1,63 +1,67 @@
 package com.savtor.Debit_Info;
+import android.os.*;
 import android.support.v4.app.*;
 import android.view.*;
-import android.os.*;
-import android.widget.TextView;
-
 import com.savtor.falconcalcultor.*;
-import com.savtor.WishList_Database.*;
-
-import java.util.List;
-
+import java.util.*;
+import java.util.zip.*;
+import android.support.v4.view.*;
+import android.widget.*;
 
 public class DebitInfo_Main extends Fragment
 {
 
-	private TextView T01;
+	private View Page_Personal, Page_Mortgage;
+	private Typer_TextView Personal_TextView, Mort_TextView;
+	private ImageView Personal_Icon;
+	private List<View> Page_List;
+	private ViewPager mViewPager;
+	private DebitInfo_Adapter mAdapter;
+	private String Total_Count_Text = "已批出貸款共 ";
+	private String Total_Amount = "總貸款銀碼$ ";
+	private String Toal_Insterest = "預計總利息支出$ ";
+	private String Month_Pay = "每月共支出$ ";
+	private String Month_Insterest = "每月利息支出$ ";
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
 		// TODO: Implement this method
-		View v = inflater.inflate(R.layout.tesing_fragment_1, container, false);
-
-//		T01 = (TextView) v.findViewById(R.id.T01);
-
-		WishList_DataBasic wishList_dataBasic = new WishList_DataBasic(getContext(), "DebitInfo_Main");
-
-		T01.setText("");
-
-		List<WishList_Item> items = wishList_dataBasic.query_all();
-
-
-
-		for(WishList_Item i : items){
-
-			T01.append("ID : " + i.getID() + "\n");
-			T01.append("Create Date : " + i.getCreate_Date() + "\n");
-			T01.append("Name : " + i.getProduct_Name() + "\n");
-			T01.append("LoanNum : " + i.getLoan_No() + "\n");
-			T01.append("Product Type : " + i.getProduct_Type() + "\n");
-			T01.append("Product Status :" + i.getProduct_Status() + "\n");
-			T01.append("Loan Amount : " + i.getLoan_Amount() + "\n");
-			T01.append("Loan Trems : " + i.getLoan_Trems() +"\n");
-			T01.append("Loan Rate : " + i.getLoan_Rate() + "\n");
-			T01.append("Loan Installment : " + i.getLoan_Installment() + "\n");
-			T01.append("First due date : " + i.getFirst_Due() + "\n");
-			T01.append("Final due date : " + i.getFinal_Due() + "\n");
-			T01.append("EOM : " + i.getEOM_DueDate() + "\n");
-			T01.append("Setup Alarm : " + i.getSetup_Alarm() + "\n");
-			T01.append("Alert Time : " + i.getAlarm_Time() + "\n");
-			T01.append("Address :" + i.getAddress() + "\n");
-			T01.append("Phone :" + i.getPhone_No() + "\n");
-			T01.append("Request Code :" + i.getRequestCode() + "\n");
-			T01.append("Remarks : \n" + i.getRemarks() + "\n \n");
-
-		}
-
-		wishList_dataBasic.close();
-
+		View v = inflater.inflate(R.layout.zz_debit_main, container, false);
+		
+		Find_View(v, inflater);
+		
 		return v;
 	}
-
+	
+	private void Find_View(View v, LayoutInflater inflater){
+		
+		Page_Personal = inflater.inflate(R.layout.zz_tseting_debit_viewpapger, null);
+		Personal_Icon = (ImageView) Page_Personal.findViewById(R.id.product_type_icon);
+		Personal_Icon.setImageResource(R.drawable.ic_person_black_48dp);
+		Personal_TextView = (Typer_TextView) Page_Personal.findViewById(R.id.typer_textview);
+		Personal_TextView.setPrintText(Total_Count_Text + "個\n" +
+		Total_Amount + "18,000\n" +
+		Toal_Insterest + "5,000\n" +
+		Month_Pay + "60,000\n" +
+		Month_Insterest + "30,000"
+		, 50, "_");
+		Personal_TextView.startPrint();
+		
+		Page_Mortgage = inflater.inflate(R.layout.zz_tseting_debit_viewpapger, null);
+		Mort_TextView = (Typer_TextView) Page_Mortgage.findViewById(R.id.typer_textview);
+		Mort_TextView.setPrintText("12445678890065433678", 100, "|");
+		Mort_TextView.startPrint();
+		
+		Page_List = new ArrayList<View>();
+		Page_List.add(Page_Personal);
+		Page_List.add(Page_Mortgage);
+		
+		
+		mViewPager = (ViewPager) v.findViewById(R.id.mviewPager);
+		mAdapter = new DebitInfo_Adapter(Page_List);
+		mViewPager.setAdapter(mAdapter);
+	}
+	
 }
 

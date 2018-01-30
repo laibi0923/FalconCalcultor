@@ -2,12 +2,12 @@
 
 	<group android:checkableBehavior="single">
 
-		<!--
+		
 		<item
 			android:icon="@drawable/ic_data_usage_black_24dp"
 			android:id="@+id/nav_item1"
 			android:title="@string/nav_menu_one"/>
-		-->
+		
 		<item
 			android:icon="@drawable/ic_exposure_black_24dp"
 			android:id="@+id/nav_item2"
