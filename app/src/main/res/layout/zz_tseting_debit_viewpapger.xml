@@ -4,18 +4,16 @@
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
 	android:orientation="vertical"
-	android:background="@color/blue_grey_950">
+	android:background="@color/blue_grey_950"
+	android:layout_marginBottom="3dp">
 
 	<LinearLayout
 		android:orientation="horizontal"
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
+		android:layout_height="match_parent"
 		android:layout_gravity="center_horizontal"
-		android:minHeight="100dp"
-		android:paddingTop="50dp"
-		android:paddingBottom="50dp"
-		android:paddingLeft="10dp"
-		android:paddingRight="10dp">
+		android:layout_weight="1.0"
+		android:padding="10dp">
 
 		<RelativeLayout
 			android:layout_width="match_parent"
@@ -40,7 +38,8 @@
 					android:layout_height="100dp"
 					android:id="@+id/product_type_icon"
 					android:src="@drawable/ic_person_black_48dp"
-					android:tint="@color/blue_grey_900" />
+					android:tint="@color/blue_grey_900"/>
+
 			</RelativeLayout>
 
 			<RelativeLayout
@@ -62,8 +61,10 @@
 					android:id="@+id/total_count"
 					android:layout_alignParentEnd="false"
 					android:gravity="center"
-					android:textColor="@color/TextColor_Gray" />
+					android:textColor="@color/TextColor_Gray"/>
+
 			</RelativeLayout>
+
 		</RelativeLayout>
 
 		<LinearLayout
@@ -84,7 +85,7 @@
 				android:layout_centerHorizontal="true"
 				android:textColor="@color/TextColor_Gray"
 				android:layout_marginTop="15dp"
-				android:layout_marginBottom="15dp" />
+				android:layout_marginBottom="15dp"/>
 
 			<LinearLayout
 				android:layout_width="match_parent"
@@ -103,7 +104,8 @@
 					android:id="@+id/textView20"
 					android:layout_centerVertical="true"
 					android:layout_centerHorizontal="true"
-					android:textColor="@color/TextColor_Gray" />
+					android:textColor="@color/TextColor_Gray"/>
+
 			</LinearLayout>
 
 		</LinearLayout>
@@ -121,7 +123,7 @@
 			android:layout_height="wrap_content"
 			android:layout_weight="1"
 			android:gravity="center"
-			android:padding="10dp">
+			android:padding="5dp">
 
 			<TextView
 				android:layout_width="wrap_content"
@@ -129,7 +131,7 @@
 				android:textAppearance="?android:attr/textAppearanceSmall"
 				android:text="$ 10,000,000.00"
 				android:id="@+id/total_amount"
-				android:textColor="@color/TextColor_Gray" />
+				android:textColor="@color/TextColor_Gray"/>
 
 			<TextView
 				android:layout_width="wrap_content"
@@ -137,13 +139,14 @@
 				android:textAppearance="?android:attr/textAppearanceSmall"
 				android:text="總貸款額"
 				android:id="@+id/textView24"
-				android:textColor="@color/TextColor_Gray" />
+				android:textColor="@color/TextColor_Gray"/>
+
 		</LinearLayout>
 
 		<View
-			android:layout_width="0.1dp"
+			android:background="@color/TextColor_Gray"
 			android:layout_height="match_parent"
-			android:background="@color/TextColor_Gray" />
+			android:layout_width="1dp"/>
 
 		<LinearLayout
 			android:orientation="vertical"
@@ -151,7 +154,7 @@
 			android:layout_height="wrap_content"
 			android:layout_weight="1"
 			android:gravity="center"
-			android:padding="10dp">
+			android:padding="5dp">
 
 			<TextView
 				android:layout_width="wrap_content"
@@ -159,7 +162,7 @@
 				android:textAppearance="?android:attr/textAppearanceSmall"
 				android:text="$10,000.00"
 				android:id="@+id/total_payment"
-				android:textColor="@color/TextColor_Gray" />
+				android:textColor="@color/TextColor_Gray"/>
 
 			<TextView
 				android:layout_width="wrap_content"
@@ -167,14 +170,11 @@
 				android:textAppearance="?android:attr/textAppearanceSmall"
 				android:text="每月支出"
 				android:id="@+id/textView34"
-				android:textColor="@color/TextColor_Gray" />
-		</LinearLayout>
-	</LinearLayout>
+				android:textColor="@color/TextColor_Gray"/>
 
-	<View
-		android:layout_width="match_parent"
-		android:layout_height="0.1dp"
-		android:background="@color/TextColor_Gray" />
+		</LinearLayout>
+
+	</LinearLayout>
 
 </LinearLayout>
 
