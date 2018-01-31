@@ -4,6 +4,7 @@ import com.savtor.falconcalcultor.*;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import java.util.ArrayList;
@@ -263,7 +264,7 @@ public class WishList_DataBasic {
         return cv;
     }
 /*================================================================================================
- *                                 取得資料大小
+ *                                   取得資料大小
 ================================================================================================ */
     public int getCount() {
 
@@ -275,6 +276,22 @@ public class WishList_DataBasic {
             result = cursor.getInt(0);
         }
 
+        return result;
+    }
+
+/*================================================================================================
+ *      SELECT * FROM favourite WHERE ProductType = 'Personal' AND ProductStatus = 'Approval'
+================================================================================================ */
+    public int countValue(String condition1, String condition2){
+
+        int result = 0;
+        final String SQL_Count_Statement = "SELECT COUNT(*) FROM " + TABLE_NAME + " WHERE " + PRODUCT_TYPE_COULUMN + "=? AND " + PRODUCT_STATUS_COULUMN +  "=?";
+
+        Cursor mCursor = db.rawQuery(SQL_Count_Statement, new String[] { condition1, condition2 });
+        mCursor.moveToFirst();
+//        result = (int) DatabaseUtils.longForQuery(db,SQL_Count_Statement, null );
+        result = mCursor.getInt(0);
+        mCursor.close();
         return result;
     }
 

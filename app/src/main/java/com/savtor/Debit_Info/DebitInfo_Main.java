@@ -1,15 +1,17 @@
 package com.savtor.Debit_Info;
+import com.savtor.WishList_Database.WishList_DataBasic;
+import com.savtor.falconcalcultor.*;
+
 import android.content.res.*;
 import android.os.*;
+import android.support.annotation.Nullable;
 import android.support.v4.app.*;
 import android.support.v4.content.*;
 import android.support.v4.view.*;
 import android.util.*;
 import android.view.*;
 import android.widget.*;
-import com.savtor.falconcalcultor.*;
 import java.util.*;
-import android.view.View.*;
 
 public class DebitInfo_Main extends Fragment
 {
@@ -17,20 +19,53 @@ public class DebitInfo_Main extends Fragment
 	private View Page_Personal, Page_Mortgage, Page_Revolving, Page_Car, Page_Card;
 	private View Amount_Bar1, Amount_Bar2, Amount_Bar3, Amount_Bar4, Amount_Bar5;
 	private View Count_Bar1, Count_Bar2, Count_Bar3, Count_Bar4, Count_Bar5;
+
 	private TextView Personal_Title, Mortgage_Title, Revolving_Title, Car_Title, Card_Title;
-	private TextView Personal_Count_Text, Mortgage_Count_Text, Revolving_Count_Text, Car_Count_Text, Card_Count_Text;
-	private TextView Personal_TotalAmount_Text, Mortgage_TotalAmount_Text, Revolving_TotalAmount_Text, Car_TotalAmount_Text, Card_TotalAmount_Text;
-	private TextView Personal_TotalPay_Text, Mortgage_TotalPay_Text, Revolving_TotalPay_Text, Car_TotalPay_Text, Card_TotalPay_Text;
+	private TextView Personal_Count_TextView, Mortgage_Count_TextView, Revolving_Count_TextView, Car_Count_TextView, Card_Count_TextView;
+	private TextView Personal_TotalAmount_TextView, Mortgage_TotalAmount_TextView, Revolving_TotalAmount_TextView, Car_TotalAmount_TextView, Card_TotalAmount_TextView;
+	private TextView Personal_TotalPay_TextView, Mortgage_TotalPay_TextView, Revolving_TotalPay_TextView, Car_TotalPay_TextView, Card_TotalPay_TextView;
+
+	private int Personal_Count, Mortgage_Count, Revolving_Count, Car_Count, Card_Count;
+	private double Personal_TotalAmount, Mortgage_TotalAmount, Revolving_TotalAmount, Car_TotalAmount, Card_TotalAmount;
+	private double Personal_TotalpayAmount, Mortgage_TotalpayAmount, Revolving_TotalpayAmount, Car_TotalpayAmount, Card_TotalpayAmount;
+
 	private LinearLayout Personal_Review_Btn, Mortgage_Review_Btn, Revolving_Review_Btn, Car_Review_Btn, Card_Review_Btn;
+
 	private ImageView Personal_Icon, Mortgage_Icon, Revolving_Icon, Car_Icon, Card_Icon;
+
 	private List<View> Page_List;
+
 	private ViewPager mViewPager;
+
 	private DebitInfo_Adapter mAdapter;
+
 	private LinearLayout silderDotspanel;
+
 	private ImageView[] dots;
+
 	private int dotscount;
+
 	private int bar_min_height = 5;
-	
+
+	private WishList_DataBasic mDataBasic;
+
+	@Override
+	public void onCreate(@Nullable Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+
+		mDataBasic = new WishList_DataBasic(getActivity(), "DebitInfo_Main");
+
+		Personal_Count = mDataBasic.countValue("Personal", "Approval");
+		Mortgage_Count = mDataBasic.countValue("Mortgage", "Approval");
+		Revolving_Count = mDataBasic.countValue("Revolving", "Approval");
+		Car_Count = mDataBasic.countValue("Car", "Approval");
+		Card_Count = mDataBasic.countValue("Card", "Approval");
+
+
+		int total_count = Personal_Count += Mortgage_Count += Revolving_Count += Car_Count += Card_Count;
+		mDataBasic.close();
+	}
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
@@ -49,9 +84,13 @@ public class DebitInfo_Main extends Fragment
 		Personal_Title.setText(getString(R.string.title_product_personal));
 		Personal_Icon = (ImageView) Page_Personal.findViewById(R.id.product_type_icon);
 		Personal_Icon.setImageResource(R.drawable.ic_person_black_48dp);
-		Personal_Count_Text = (TextView) Page_Personal.findViewById(R.id.total_count);
-		Personal_TotalAmount_Text = (TextView) Page_Personal.findViewById(R.id.total_amount);
-		Personal_TotalPay_Text = (TextView) Page_Personal.findViewById(R.id.total_payment);
+		Personal_Count_TextView = (TextView) Page_Personal.findViewById(R.id.total_count);
+		Personal_Count_TextView.setText(Personal_Count + "");
+
+		Personal_TotalAmount_TextView = (TextView) Page_Personal.findViewById(R.id.total_amount);
+		Personal_TotalAmount_TextView.setText("");
+		Personal_TotalPay_TextView = (TextView) Page_Personal.findViewById(R.id.total_payment);
+		Personal_TotalPay_TextView.setText("");
 		Personal_Review_Btn = (LinearLayout) Page_Personal.findViewById(R.id.product_review_btn);
 		Personal_Review_Btn.setTag(1);
 		Personal_Review_Btn.setOnClickListener(Review_Btn_OnclikListener);
@@ -62,9 +101,12 @@ public class DebitInfo_Main extends Fragment
 		Mortgage_Title.setText(getString(R.string.title_product_mortgage));
 		Mortgage_Icon = (ImageView) Page_Mortgage.findViewById(R.id.product_type_icon);
 		Mortgage_Icon.setImageResource(R.drawable.ic_location_city_black_48dp);
-		Mortgage_Count_Text = (TextView) Page_Mortgage.findViewById(R.id.total_count);
-		Mortgage_TotalAmount_Text = (TextView) Page_Mortgage.findViewById(R.id.total_amount);
-		Mortgage_TotalPay_Text = (TextView) Page_Mortgage.findViewById(R.id.total_payment);
+		Mortgage_Count_TextView = (TextView) Page_Mortgage.findViewById(R.id.total_count);
+		Mortgage_Count_TextView.setText(String.valueOf(Mortgage_Count));
+		Mortgage_TotalAmount_TextView = (TextView) Page_Mortgage.findViewById(R.id.total_amount);
+		Mortgage_TotalAmount_TextView.setText("");
+		Mortgage_TotalPay_TextView = (TextView) Page_Mortgage.findViewById(R.id.total_payment);
+		Mortgage_TotalPay_TextView.setText("");
 		Mortgage_Review_Btn = (LinearLayout) Page_Mortgage.findViewById(R.id.product_review_btn);
 		Mortgage_Review_Btn.setTag(2);
 		Mortgage_Review_Btn.setOnClickListener(Review_Btn_OnclikListener);
@@ -75,9 +117,12 @@ public class DebitInfo_Main extends Fragment
 		Revolving_Title.setText(getString(R.string.title_product_revolving));
 		Revolving_Icon = (ImageView) Page_Revolving.findViewById(R.id.product_type_icon);
 		Revolving_Icon.setImageResource(R.drawable.ic_loop_black_48dp);
-		Revolving_Count_Text = (TextView) Page_Revolving.findViewById(R.id.total_count);
-		Revolving_TotalAmount_Text = (TextView) Page_Revolving.findViewById(R.id.total_amount);
-		Revolving_TotalPay_Text = (TextView) Page_Revolving.findViewById(R.id.total_payment);
+		Revolving_Count_TextView = (TextView) Page_Revolving.findViewById(R.id.total_count);
+		Revolving_Count_TextView.setText(String.valueOf(Revolving_Count));
+		Revolving_TotalAmount_TextView = (TextView) Page_Revolving.findViewById(R.id.total_amount);
+		Revolving_TotalAmount_TextView.setText("");
+		Revolving_TotalPay_TextView = (TextView) Page_Revolving.findViewById(R.id.total_payment);
+		Revolving_TotalPay_TextView.setText("");
 		Revolving_Review_Btn = (LinearLayout) Page_Revolving.findViewById(R.id.product_review_btn);
 		Revolving_Review_Btn.setTag(3);
 		Revolving_Review_Btn.setOnClickListener(Review_Btn_OnclikListener);
@@ -88,9 +133,12 @@ public class DebitInfo_Main extends Fragment
 		Car_Title.setText(getString(R.string.title_product_car));
 		Car_Icon = (ImageView) Page_Car.findViewById(R.id.product_type_icon);
 		Car_Icon.setImageResource(R.drawable.ic_airport_shuttle_black_48dp);
-		Car_Count_Text = (TextView) Page_Car.findViewById(R.id.total_count);
-		Car_TotalAmount_Text = (TextView) Page_Car.findViewById(R.id.total_amount);
-		Car_TotalPay_Text = (TextView) Page_Car.findViewById(R.id.total_payment);
+		Car_Count_TextView = (TextView) Page_Car.findViewById(R.id.total_count);
+		Car_Count_TextView.setText(String.valueOf(Car_Count));
+		Car_TotalAmount_TextView = (TextView) Page_Car.findViewById(R.id.total_amount);
+		Car_TotalAmount_TextView.setText("");
+		Car_TotalPay_TextView = (TextView) Page_Car.findViewById(R.id.total_payment);
+		Car_TotalPay_TextView.setText("");
 		Car_Review_Btn = (LinearLayout) Page_Car.findViewById(R.id.product_review_btn);
 		Car_Review_Btn.setTag(4);
 		Car_Review_Btn.setOnClickListener(Review_Btn_OnclikListener);
@@ -101,9 +149,12 @@ public class DebitInfo_Main extends Fragment
 		Card_Title.setText(getString(R.string.title_product_card));
 		Card_Icon = (ImageView) Page_Card.findViewById(R.id.product_type_icon);
 		Card_Icon.setImageResource(R.drawable.ic_credit_card_black_48dp);
-		Card_Count_Text = (TextView) Page_Card.findViewById(R.id.total_count);
-		Card_TotalAmount_Text = (TextView) Page_Card.findViewById(R.id.total_amount);
-		Card_TotalPay_Text = (TextView) Page_Card.findViewById(R.id.total_payment);
+		Card_Count_TextView = (TextView) Page_Card.findViewById(R.id.total_count);
+		Card_Count_TextView.setText(String.valueOf(Card_Count));
+		Card_TotalAmount_TextView = (TextView) Page_Card.findViewById(R.id.total_amount);
+		Card_TotalAmount_TextView.setText("");
+		Card_TotalPay_TextView = (TextView) Page_Card.findViewById(R.id.total_payment);
+		Card_TotalPay_TextView.setText("");
 		Card_Review_Btn = (LinearLayout) Page_Card.findViewById(R.id.product_review_btn);
 		Card_Review_Btn.setTag(5);
 		Card_Review_Btn.setOnClickListener(Review_Btn_OnclikListener);
@@ -182,37 +233,48 @@ public class DebitInfo_Main extends Fragment
 		}
 
 		dots[0].setImageDrawable(ContextCompat.getDrawable(getContext().getApplicationContext(), R.drawable.dot_active));
-        
+
 	}
-	
+
+/*================================================================================================
+ *
+================================================================================================ */
 	private View.OnClickListener Review_Btn_OnclikListener = new View.OnClickListener(){
 
 		@Override
 		public void onClick(View view)
 		{
 			// TODO: Implement this method
-			int btn_tag = view.getTag();
-			switch( (int) btn_tag){
+			int btn_tag = (int) view.getTag();
+			switch(btn_tag){
 				
 				case 1:
+					Toast.makeText(getContext(), "1", Toast.LENGTH_SHORT).show();
 					break;
 					
 				case 2:
+					Toast.makeText(getContext(), "2", Toast.LENGTH_SHORT).show();
 					break;
 					
 				case 3:
+					Toast.makeText(getContext(), "3", Toast.LENGTH_SHORT).show();
 					break;
 					
 				case 4:
+					Toast.makeText(getContext(), "4", Toast.LENGTH_SHORT).show();
 					break;
 					
 				case 5:
+					Toast.makeText(getContext(), "5", Toast.LENGTH_SHORT).show();
 					break;
 			}
 		}
 		
 	};
-	
+
+/*================================================================================================
+ *                                  預設所有 Bar 顏色
+================================================================================================ */
 	private void clear_bar_color(){
 		Amount_Bar1.setBackgroundResource(R.color.blue_grey_900);
 		Amount_Bar2.setBackgroundResource(R.color.blue_grey_900);
@@ -225,7 +287,10 @@ public class DebitInfo_Main extends Fragment
 		Count_Bar4.setBackgroundResource(R.color.blue_grey_900);
 		Count_Bar5.setBackgroundResource(R.color.blue_grey_900);
 	}
-	
+
+/*================================================================================================
+ *                                 高亮選中 Bar 顏色
+================================================================================================ */
 	private void set_bar_color(int position){
 		
 		switch(position){
@@ -257,7 +322,10 @@ public class DebitInfo_Main extends Fragment
 		}
 		
 	}
-	
+
+/*================================================================================================
+ *                                     轉換為 DP
+================================================================================================ */
 	public float getRawSize(int unit, float value) { 
         Resources res = this.getResources(); 
         return TypedValue.applyDimension(unit, value, res.getDisplayMetrics()); 
