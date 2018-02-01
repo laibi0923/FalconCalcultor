@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.*;
 import android.support.v4.content.*;
 import android.support.v4.view.*;
+import android.support.v4.widget.NestedScrollView;
 import android.util.*;
 import android.view.*;
 import android.widget.*;
@@ -17,8 +18,10 @@ public class DebitInfo_Main extends Fragment
 {
 
 	private View Page_Personal, Page_Mortgage, Page_Revolving, Page_Car, Page_Card;
+
 	private View Amount_Bar1, Amount_Bar2, Amount_Bar3, Amount_Bar4, Amount_Bar5;
 	private View Count_Bar1, Count_Bar2, Count_Bar3, Count_Bar4, Count_Bar5;
+	private View Payment_Bar1, Payment_Bar2, Payment_Bar3, Payment_Bar4, Payment_Bar5;
 
 	private TextView Personal_Title, Mortgage_Title, Revolving_Title, Car_Title, Card_Title;
 	private TextView Personal_Count_TextView, Mortgage_Count_TextView, Revolving_Count_TextView, Car_Count_TextView, Card_Count_TextView;
@@ -28,7 +31,8 @@ public class DebitInfo_Main extends Fragment
 	private String Personal_Count, Mortgage_Count, Revolving_Count, Car_Count, Card_Count;
 	private String Personal_TotalAmount, Mortgage_TotalAmount, Revolving_TotalAmount, Car_TotalAmount, Card_TotalAmount;
 	private String Personal_TotalpayAmount, Mortgage_TotalpayAmount, Revolving_TotalpayAmount, Car_TotalpayAmount, Card_TotalpayAmount;
-	private float total_count, total_approval_amount;
+
+	private float total_count, total_approval_amount, total_payment_amount;
 	
 	private LinearLayout Personal_Review_Btn, Mortgage_Review_Btn, Revolving_Review_Btn, Car_Review_Btn, Card_Review_Btn;
 
@@ -53,9 +57,8 @@ public class DebitInfo_Main extends Fragment
 	@Override
 	public void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+
 		mDataBasic = new WishList_DataBasic(getActivity(), "DebitInfo_Main");
-		
 
 		Personal_Count = String.valueOf(mDataBasic.get_count_value("Personal", "Approval"));
 		Mortgage_Count = String.valueOf(mDataBasic.get_count_value("Mortgage", "Approval"));
@@ -78,6 +81,8 @@ public class DebitInfo_Main extends Fragment
 		Revolving_TotalpayAmount = String.format("%.2f", mDataBasic.get_sumPayment_value("Revolving", "Approval"));
 		Car_TotalpayAmount = String.format("%.2f", mDataBasic.get_sumPayment_value("Car", "Approval"));
 		Card_TotalpayAmount = String.format("%.2f", mDataBasic.get_sumPayment_value("Card", "Approval"));
+
+		total_payment_amount = mDataBasic.get_sumPayment_value("Approval");
 		
 		mDataBasic.close();
 	}
@@ -94,6 +99,9 @@ public class DebitInfo_Main extends Fragment
 	}
 	
 	private void Find_View(View v, LayoutInflater inflater){
+
+//		NestedScrollView ncv = (NestedScrollView) v.findViewById(R.id.ncv);
+//		ncv.setFillViewport(true);
 		
 		Page_Personal = inflater.inflate(R.layout.zz_tseting_debit_viewpapger, null);
 		Personal_Title = (TextView) Page_Personal.findViewById(R.id.product_type);
@@ -186,7 +194,7 @@ public class DebitInfo_Main extends Fragment
 		Amount_Bar4.getLayoutParams().height = (int) getRawSize(TypedValue.COMPLEX_UNIT_DIP, set_bar_height(Float.parseFloat(Car_TotalAmount), total_approval_amount));
 		Amount_Bar5 = v.findViewById(R.id.amount_bar_5);
 		Amount_Bar5.getLayoutParams().height = (int) getRawSize(TypedValue.COMPLEX_UNIT_DIP, set_bar_height(Float.parseFloat(Card_TotalAmount), total_approval_amount));
-		
+
 
 		Count_Bar1 = v.findViewById(R.id.count_bar_1);
 		Count_Bar1.getLayoutParams().height = (int) getRawSize(TypedValue.COMPLEX_UNIT_DIP, set_bar_height(Float.parseFloat(Personal_Count), total_count));
@@ -198,10 +206,24 @@ public class DebitInfo_Main extends Fragment
 		Count_Bar4.getLayoutParams().height = (int) getRawSize(TypedValue.COMPLEX_UNIT_DIP, set_bar_height(Float.parseFloat(Car_Count), total_count));
 		Count_Bar5 = v.findViewById(R.id.count_bar_5);
 		Count_Bar5.getLayoutParams().height = (int) getRawSize(TypedValue.COMPLEX_UNIT_DIP, set_bar_height(Float.parseFloat(Card_Count), total_count));
+
+
+
+		Payment_Bar1 = v.findViewById(R.id.payment_bar_1);
+		Payment_Bar1.getLayoutParams().height = (int) getRawSize(TypedValue.COMPLEX_UNIT_DIP, set_bar_height(Float.parseFloat(Personal_TotalpayAmount), total_payment_amount));
+		Payment_Bar2 = v.findViewById(R.id.payment_bar_2);
+		Payment_Bar2.getLayoutParams().height = (int) getRawSize(TypedValue.COMPLEX_UNIT_DIP, set_bar_height(Float.parseFloat(Mortgage_TotalpayAmount), total_payment_amount));
+		Payment_Bar3 = v.findViewById(R.id.payment_bar_3);
+		Payment_Bar3.getLayoutParams().height = (int) getRawSize(TypedValue.COMPLEX_UNIT_DIP, set_bar_height(Float.parseFloat(Revolving_TotalpayAmount), total_payment_amount));
+		Payment_Bar4 = v.findViewById(R.id.payment_bar_4);
+		Payment_Bar4.getLayoutParams().height = (int) getRawSize(TypedValue.COMPLEX_UNIT_DIP, set_bar_height(Float.parseFloat(Car_TotalpayAmount), total_payment_amount));
+		Payment_Bar5 = v.findViewById(R.id.payment_bar_5);
+		Payment_Bar5.getLayoutParams().height = (int) getRawSize(TypedValue.COMPLEX_UNIT_DIP, set_bar_height(Float.parseFloat(Card_TotalpayAmount), total_payment_amount));
 		
 		clear_bar_color();
 		Amount_Bar1.setBackgroundResource(R.color.blue_grey_800);
 		Count_Bar1.setBackgroundResource(R.color.blue_grey_800);
+		Payment_Bar1.setBackgroundResource(R.color.blue_grey_800);
 		
 		Page_List = new ArrayList<View>();
 		Page_List.add(Page_Personal);
@@ -301,6 +323,11 @@ public class DebitInfo_Main extends Fragment
 		Count_Bar3.setBackgroundResource(R.color.blue_grey_900);
 		Count_Bar4.setBackgroundResource(R.color.blue_grey_900);
 		Count_Bar5.setBackgroundResource(R.color.blue_grey_900);
+		Payment_Bar1.setBackgroundResource(R.color.blue_grey_900);
+		Payment_Bar2.setBackgroundResource(R.color.blue_grey_900);
+		Payment_Bar3.setBackgroundResource(R.color.blue_grey_900);
+		Payment_Bar4.setBackgroundResource(R.color.blue_grey_900);
+		Payment_Bar5.setBackgroundResource(R.color.blue_grey_900);
 	}
 
 /*================================================================================================
@@ -313,26 +340,31 @@ public class DebitInfo_Main extends Fragment
 			case 0:
 				Amount_Bar1.setBackgroundResource(R.color.blue_grey_800);
 				Count_Bar1.setBackgroundResource(R.color.blue_grey_800);
+				Payment_Bar1.setBackgroundResource(R.color.blue_grey_800);
 				break;
 				
 			case 1:
 				Amount_Bar2.setBackgroundResource(R.color.blue_grey_800);
 				Count_Bar2.setBackgroundResource(R.color.blue_grey_800);
+				Payment_Bar2.setBackgroundResource(R.color.blue_grey_800);
 				break;
 				
 			case 2:
 				Amount_Bar3.setBackgroundResource(R.color.blue_grey_800);
 				Count_Bar3.setBackgroundResource(R.color.blue_grey_800);
+				Payment_Bar3.setBackgroundResource(R.color.blue_grey_800);
 				break;
 				
 			case 3:
 				Amount_Bar4.setBackgroundResource(R.color.blue_grey_800);
 				Count_Bar4.setBackgroundResource(R.color.blue_grey_800);
+				Payment_Bar4.setBackgroundResource(R.color.blue_grey_800);
 				break;
 				
 			case 4:
 				Amount_Bar5.setBackgroundResource(R.color.blue_grey_800);
 				Count_Bar5.setBackgroundResource(R.color.blue_grey_800);
+				Payment_Bar5.setBackgroundResource(R.color.blue_grey_800);
 				break;
 		}
 		
@@ -344,14 +376,18 @@ public class DebitInfo_Main extends Fragment
 	public float getRawSize(int unit, float value) { 
         Resources res = this.getResources(); 
         return TypedValue.applyDimension(unit, value, res.getDisplayMetrics()); 
-    } 
-	
+    }
+
+
+/*================================================================================================
+ *                                     設置統計項目條高度
+================================================================================================ */
 	private float set_bar_height(float value, float total){
 		
 		float result = value / total * 100 + bar_min_height;
-		
-		
+
 		return result;
 	}
+
 }
 

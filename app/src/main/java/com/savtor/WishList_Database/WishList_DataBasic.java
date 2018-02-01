@@ -280,73 +280,84 @@ public class WishList_DataBasic {
     }
 
 /*================================================================================================
- *      SELECT * FROM favourite WHERE ProductType = 'Personal' AND ProductStatus = 'Approval'
+    *      DebitInfo_Main 專用
+    *      計算 Data Basic 內指定 Product Type 且 Approval 數目
+    *      SQL STATEMENT :
+    *      SELECT * FROM TABLE NAME WHERE ProductType = '?' AND ProductStatus = '?'
 ================================================================================================ */
-    public int get_count_value(String condition1, String condition2){
+    public final int get_count_value(String condition1, String condition2){
 
         int result = 0;
         final String SQL_Count_Statement = "SELECT COUNT(*) FROM " + TABLE_NAME + " WHERE " + PRODUCT_TYPE_COULUMN + "=? AND " + PRODUCT_STATUS_COULUMN +  "=?";
 
         Cursor mCursor = db.rawQuery(SQL_Count_Statement, new String[] { condition1, condition2 });
         mCursor.moveToFirst();
-//        result = (int) DatabaseUtils.longForQuery(db,SQL_Count_Statement, null );
         result = mCursor.getInt(0);
         mCursor.close();
         return result;
     }
 
-	/*================================================================================================
-	 *      SELECT * FROM favourite WHERE ProductType = 'Personal' AND ProductStatus = 'Approval'
-	 ================================================================================================ */
-    public int get_count_value(String condition1){
+/*================================================================================================
+    *      DebitInfo_Main 專用
+    *      計算 Data Basic 內所有 Approval 數目
+    *      SQL STATEMENT :
+    *      SELECT * FROM TABLE NAME WHERE ProductStatus = '?'
+ ================================================================================================ */
+    public final int get_count_value(String condition1){
 
         int result = 0;
         final String SQL_Count_Statement = "SELECT COUNT(*) FROM " + TABLE_NAME + " WHERE " + PRODUCT_STATUS_COULUMN +  "=?";
 
         Cursor mCursor = db.rawQuery(SQL_Count_Statement, new String[] { condition1 });
         mCursor.moveToFirst();
-//        result = (int) DatabaseUtils.longForQuery(db,SQL_Count_Statement, null );
         result = mCursor.getInt(0);
         mCursor.close();
         return result;
     }
-	
-	
-	/*================================================================================================
-	 *      SELECT * FROM favourite WHERE ProductType = 'Personal' AND ProductStatus = 'Approval'
-	 ================================================================================================ */
-	public double get_sumAmount_value(String condition1, String condition2){
+
+
+/*================================================================================================
+    *      DebitInfo_Main 專用
+    *      將 Data Basic 內指定 Product Type 且 Approval 的 Loan Amount 加總
+    *      SQL STATEMENT :
+    *      SELECT SUM (?) FROM TABLE NAME WHERE ProductType = '?' AND ProductStatus = '?'
+ ================================================================================================ */
+	public final double get_sumAmount_value(String condition1, String condition2){
 		
 		double result = 0;
 		final String SQL_Count_Statement = "SELECT SUM(" + AMOUNT_COLUMN + ") FROM " + TABLE_NAME + " WHERE " + PRODUCT_TYPE_COULUMN + "=? AND " + PRODUCT_STATUS_COULUMN +  "=?";
 		
 		Cursor mCursor = db.rawQuery(SQL_Count_Statement, new String[] { condition1,  condition2 });
         mCursor.moveToFirst();
-//        result = (int) DatabaseUtils.longForQuery(db,SQL_Count_Statement, null );
         result = mCursor.getInt(0);
         mCursor.close();
 		return result;
 	}
-	
-	/*================================================================================================
-	 *      SELECT * FROM favourite WHERE ProductType = 'Personal' AND ProductStatus = 'Approval'
-	 ================================================================================================ */
-	public float get_sumAmount_value(String condition1){
+
+/*================================================================================================
+    *      DebitInfo_Main 專用
+    *      將 Data Basic 內所有 Approval 的 Loan Amount 加總
+    *      SQL STATEMENT :
+    *      SELECT SUM (?) FROM TABLE NAME WHERE ProductStatus = '?'
+ ================================================================================================ */
+	public final float get_sumAmount_value(String condition1){
 
 		float result = 0;
 		final String SQL_Count_Statement = "SELECT SUM(" + AMOUNT_COLUMN + ") FROM " + TABLE_NAME + " WHERE " + PRODUCT_STATUS_COULUMN +  "=?";
 
 		Cursor mCursor = db.rawQuery(SQL_Count_Statement, new String[] { condition1 });
         mCursor.moveToFirst();
-//        result = (int) DatabaseUtils.longForQuery(db,SQL_Count_Statement, null );
         result = mCursor.getInt(0);
         mCursor.close();
 		return result;
 	}
-	
-	/*================================================================================================
-	 *      SELECT * FROM favourite WHERE ProductType = 'Personal' AND ProductStatus = 'Approval'
-	 ================================================================================================ */
+
+/*================================================================================================
+    *      DebitInfo_Main 專用
+    *      將 Data Basic 內指定 Product Type 且 Approval 的 Loan Installment 加總
+    *      SQL STATEMENT :
+    *      SELECT SUM (?) FROM TABLE NAME WHERE ProductType = '?' AND ProductStatus = '?'
+ ================================================================================================ */
 	public double get_sumPayment_value(String condition1, String condition2){
 
 		double result = 0;
@@ -354,11 +365,28 @@ public class WishList_DataBasic {
 
 		Cursor mCursor = db.rawQuery(SQL_Count_Statement, new String[] { condition1,  condition2 });
         mCursor.moveToFirst();
-//        result = (int) DatabaseUtils.longForQuery(db,SQL_Count_Statement, null );
         result = mCursor.getInt(0);
         mCursor.close();
 		return result;
 	}
+
+/*================================================================================================
+    *      DebitInfo_Main 專用
+    *      將 Data Basic 內所有 Approval 的 Loan Installment 加總
+    *      SQL STATEMENT :
+    *      SELECT SUM (?) FROM TABLE NAME WHERE ProductStatus = '?'
+ ================================================================================================ */
+    public float get_sumPayment_value(String condition1){
+
+        float result = 0;
+        final String SQL_Count_Statement = "SELECT SUM(" + INSTALLMENT_COULUMN + ") FROM " + TABLE_NAME + " WHERE " + PRODUCT_STATUS_COULUMN +  "=?";
+
+        Cursor mCursor = db.rawQuery(SQL_Count_Statement, new String[] { condition1 });
+        mCursor.moveToFirst();
+        result = mCursor.getInt(0);
+        mCursor.close();
+        return result;
+    }
 	
 /*================================================================================================
  *                                 COLSE - 關閉 DataBasic

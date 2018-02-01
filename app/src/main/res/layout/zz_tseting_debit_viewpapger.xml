@@ -176,5 +176,10 @@
 
 	</LinearLayout>
 
+	<View
+		android:background="@color/TextColor_Gray"
+		android:layout_height="1dp"
+		android:layout_width="match_parent"/>
+
 </LinearLayout>
 
