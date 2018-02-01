@@ -282,7 +282,7 @@ public class WishList_DataBasic {
 /*================================================================================================
  *      SELECT * FROM favourite WHERE ProductType = 'Personal' AND ProductStatus = 'Approval'
 ================================================================================================ */
-    public int countValue(String condition1, String condition2){
+    public int get_count_value(String condition1, String condition2){
 
         int result = 0;
         final String SQL_Count_Statement = "SELECT COUNT(*) FROM " + TABLE_NAME + " WHERE " + PRODUCT_TYPE_COULUMN + "=? AND " + PRODUCT_STATUS_COULUMN +  "=?";
@@ -295,6 +295,71 @@ public class WishList_DataBasic {
         return result;
     }
 
+	/*================================================================================================
+	 *      SELECT * FROM favourite WHERE ProductType = 'Personal' AND ProductStatus = 'Approval'
+	 ================================================================================================ */
+    public int get_count_value(String condition1){
+
+        int result = 0;
+        final String SQL_Count_Statement = "SELECT COUNT(*) FROM " + TABLE_NAME + " WHERE " + PRODUCT_STATUS_COULUMN +  "=?";
+
+        Cursor mCursor = db.rawQuery(SQL_Count_Statement, new String[] { condition1 });
+        mCursor.moveToFirst();
+//        result = (int) DatabaseUtils.longForQuery(db,SQL_Count_Statement, null );
+        result = mCursor.getInt(0);
+        mCursor.close();
+        return result;
+    }
+	
+	
+	/*================================================================================================
+	 *      SELECT * FROM favourite WHERE ProductType = 'Personal' AND ProductStatus = 'Approval'
+	 ================================================================================================ */
+	public double get_sumAmount_value(String condition1, String condition2){
+		
+		double result = 0;
+		final String SQL_Count_Statement = "SELECT SUM(" + AMOUNT_COLUMN + ") FROM " + TABLE_NAME + " WHERE " + PRODUCT_TYPE_COULUMN + "=? AND " + PRODUCT_STATUS_COULUMN +  "=?";
+		
+		Cursor mCursor = db.rawQuery(SQL_Count_Statement, new String[] { condition1,  condition2 });
+        mCursor.moveToFirst();
+//        result = (int) DatabaseUtils.longForQuery(db,SQL_Count_Statement, null );
+        result = mCursor.getInt(0);
+        mCursor.close();
+		return result;
+	}
+	
+	/*================================================================================================
+	 *      SELECT * FROM favourite WHERE ProductType = 'Personal' AND ProductStatus = 'Approval'
+	 ================================================================================================ */
+	public float get_sumAmount_value(String condition1){
+
+		float result = 0;
+		final String SQL_Count_Statement = "SELECT SUM(" + AMOUNT_COLUMN + ") FROM " + TABLE_NAME + " WHERE " + PRODUCT_STATUS_COULUMN +  "=?";
+
+		Cursor mCursor = db.rawQuery(SQL_Count_Statement, new String[] { condition1 });
+        mCursor.moveToFirst();
+//        result = (int) DatabaseUtils.longForQuery(db,SQL_Count_Statement, null );
+        result = mCursor.getInt(0);
+        mCursor.close();
+		return result;
+	}
+	
+	/*================================================================================================
+	 *      SELECT * FROM favourite WHERE ProductType = 'Personal' AND ProductStatus = 'Approval'
+	 ================================================================================================ */
+	public double get_sumPayment_value(String condition1, String condition2){
+
+		double result = 0;
+		final String SQL_Count_Statement = "SELECT SUM(" + INSTALLMENT_COULUMN + ") FROM " + TABLE_NAME + " WHERE " + PRODUCT_TYPE_COULUMN + "=? AND " + PRODUCT_STATUS_COULUMN +  "=?";
+
+		Cursor mCursor = db.rawQuery(SQL_Count_Statement, new String[] { condition1,  condition2 });
+        mCursor.moveToFirst();
+//        result = (int) DatabaseUtils.longForQuery(db,SQL_Count_Statement, null );
+        result = mCursor.getInt(0);
+        mCursor.close();
+		return result;
+	}
+	
 /*================================================================================================
  *                                 COLSE - 關閉 DataBasic
 ================================================================================================ */

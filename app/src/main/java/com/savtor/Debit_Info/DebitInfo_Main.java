@@ -25,10 +25,11 @@ public class DebitInfo_Main extends Fragment
 	private TextView Personal_TotalAmount_TextView, Mortgage_TotalAmount_TextView, Revolving_TotalAmount_TextView, Car_TotalAmount_TextView, Card_TotalAmount_TextView;
 	private TextView Personal_TotalPay_TextView, Mortgage_TotalPay_TextView, Revolving_TotalPay_TextView, Car_TotalPay_TextView, Card_TotalPay_TextView;
 
-	private int Personal_Count, Mortgage_Count, Revolving_Count, Car_Count, Card_Count;
-	private double Personal_TotalAmount, Mortgage_TotalAmount, Revolving_TotalAmount, Car_TotalAmount, Card_TotalAmount;
-	private double Personal_TotalpayAmount, Mortgage_TotalpayAmount, Revolving_TotalpayAmount, Car_TotalpayAmount, Card_TotalpayAmount;
-
+	private String Personal_Count, Mortgage_Count, Revolving_Count, Car_Count, Card_Count;
+	private String Personal_TotalAmount, Mortgage_TotalAmount, Revolving_TotalAmount, Car_TotalAmount, Card_TotalAmount;
+	private String Personal_TotalpayAmount, Mortgage_TotalpayAmount, Revolving_TotalpayAmount, Car_TotalpayAmount, Card_TotalpayAmount;
+	private float total_count, total_approval_amount;
+	
 	private LinearLayout Personal_Review_Btn, Mortgage_Review_Btn, Revolving_Review_Btn, Car_Review_Btn, Card_Review_Btn;
 
 	private ImageView Personal_Icon, Mortgage_Icon, Revolving_Icon, Car_Icon, Card_Icon;
@@ -52,17 +53,32 @@ public class DebitInfo_Main extends Fragment
 	@Override
 	public void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		
 		mDataBasic = new WishList_DataBasic(getActivity(), "DebitInfo_Main");
+		
 
-		Personal_Count = mDataBasic.countValue("Personal", "Approval");
-		Mortgage_Count = mDataBasic.countValue("Mortgage", "Approval");
-		Revolving_Count = mDataBasic.countValue("Revolving", "Approval");
-		Car_Count = mDataBasic.countValue("Car", "Approval");
-		Card_Count = mDataBasic.countValue("Card", "Approval");
+		Personal_Count = String.valueOf(mDataBasic.get_count_value("Personal", "Approval"));
+		Mortgage_Count = String.valueOf(mDataBasic.get_count_value("Mortgage", "Approval"));
+		Revolving_Count = String.valueOf(mDataBasic.get_count_value("Revolving", "Approval"));
+		Car_Count = String.valueOf(mDataBasic.get_count_value("Car", "Approval"));
+		Card_Count = String.valueOf(mDataBasic.get_count_value("Card", "Approval"));
 
-
-		int total_count = Personal_Count += Mortgage_Count += Revolving_Count += Car_Count += Card_Count;
+		total_count = mDataBasic.get_count_value("Approval");
+		
+		Personal_TotalAmount = String.format("%.2f", mDataBasic.get_sumAmount_value("Personal", "Approval"));
+		Mortgage_TotalAmount = String.format("%.2f", mDataBasic.get_sumAmount_value("Mortgage", "Approval"));
+		Revolving_TotalAmount = String.format("%.2f", mDataBasic.get_sumAmount_value("Revolving", "Approval"));
+		Car_TotalAmount = String.format("%.2f", mDataBasic.get_sumAmount_value("Car", "Approval"));
+		Card_TotalAmount = String.format("%.2f", mDataBasic.get_sumAmount_value("Card", "Approval"));
+		
+		total_approval_amount = mDataBasic.get_sumAmount_value("Approval");
+		
+		Personal_TotalpayAmount = String.format("%.2f", mDataBasic.get_sumPayment_value("Personal", "Approval"));
+		Mortgage_TotalpayAmount = String.format("%.2f", mDataBasic.get_sumPayment_value("Mortgage", "Approval"));
+		Revolving_TotalpayAmount = String.format("%.2f", mDataBasic.get_sumPayment_value("Revolving", "Approval"));
+		Car_TotalpayAmount = String.format("%.2f", mDataBasic.get_sumPayment_value("Car", "Approval"));
+		Card_TotalpayAmount = String.format("%.2f", mDataBasic.get_sumPayment_value("Card", "Approval"));
+		
 		mDataBasic.close();
 	}
 
@@ -85,12 +101,11 @@ public class DebitInfo_Main extends Fragment
 		Personal_Icon = (ImageView) Page_Personal.findViewById(R.id.product_type_icon);
 		Personal_Icon.setImageResource(R.drawable.ic_person_black_48dp);
 		Personal_Count_TextView = (TextView) Page_Personal.findViewById(R.id.total_count);
-		Personal_Count_TextView.setText(Personal_Count + "");
-
+		Personal_Count_TextView.setText(Personal_Count);
 		Personal_TotalAmount_TextView = (TextView) Page_Personal.findViewById(R.id.total_amount);
-		Personal_TotalAmount_TextView.setText("");
+		Personal_TotalAmount_TextView.setText("$ " + Personal_TotalAmount);
 		Personal_TotalPay_TextView = (TextView) Page_Personal.findViewById(R.id.total_payment);
-		Personal_TotalPay_TextView.setText("");
+		Personal_TotalPay_TextView.setText("$ " + Personal_TotalpayAmount);
 		Personal_Review_Btn = (LinearLayout) Page_Personal.findViewById(R.id.product_review_btn);
 		Personal_Review_Btn.setTag(1);
 		Personal_Review_Btn.setOnClickListener(Review_Btn_OnclikListener);
@@ -102,11 +117,11 @@ public class DebitInfo_Main extends Fragment
 		Mortgage_Icon = (ImageView) Page_Mortgage.findViewById(R.id.product_type_icon);
 		Mortgage_Icon.setImageResource(R.drawable.ic_location_city_black_48dp);
 		Mortgage_Count_TextView = (TextView) Page_Mortgage.findViewById(R.id.total_count);
-		Mortgage_Count_TextView.setText(String.valueOf(Mortgage_Count));
+		Mortgage_Count_TextView.setText(Mortgage_Count);
 		Mortgage_TotalAmount_TextView = (TextView) Page_Mortgage.findViewById(R.id.total_amount);
-		Mortgage_TotalAmount_TextView.setText("");
+		Mortgage_TotalAmount_TextView.setText("$ " + Mortgage_TotalAmount);
 		Mortgage_TotalPay_TextView = (TextView) Page_Mortgage.findViewById(R.id.total_payment);
-		Mortgage_TotalPay_TextView.setText("");
+		Mortgage_TotalPay_TextView.setText("$ " + Mortgage_TotalpayAmount);
 		Mortgage_Review_Btn = (LinearLayout) Page_Mortgage.findViewById(R.id.product_review_btn);
 		Mortgage_Review_Btn.setTag(2);
 		Mortgage_Review_Btn.setOnClickListener(Review_Btn_OnclikListener);
@@ -120,9 +135,9 @@ public class DebitInfo_Main extends Fragment
 		Revolving_Count_TextView = (TextView) Page_Revolving.findViewById(R.id.total_count);
 		Revolving_Count_TextView.setText(String.valueOf(Revolving_Count));
 		Revolving_TotalAmount_TextView = (TextView) Page_Revolving.findViewById(R.id.total_amount);
-		Revolving_TotalAmount_TextView.setText("");
+		Revolving_TotalAmount_TextView.setText("$ " + Revolving_TotalAmount);
 		Revolving_TotalPay_TextView = (TextView) Page_Revolving.findViewById(R.id.total_payment);
-		Revolving_TotalPay_TextView.setText("");
+		Revolving_TotalPay_TextView.setText("$ " + Revolving_TotalpayAmount);
 		Revolving_Review_Btn = (LinearLayout) Page_Revolving.findViewById(R.id.product_review_btn);
 		Revolving_Review_Btn.setTag(3);
 		Revolving_Review_Btn.setOnClickListener(Review_Btn_OnclikListener);
@@ -136,9 +151,9 @@ public class DebitInfo_Main extends Fragment
 		Car_Count_TextView = (TextView) Page_Car.findViewById(R.id.total_count);
 		Car_Count_TextView.setText(String.valueOf(Car_Count));
 		Car_TotalAmount_TextView = (TextView) Page_Car.findViewById(R.id.total_amount);
-		Car_TotalAmount_TextView.setText("");
+		Car_TotalAmount_TextView.setText("$ " + Car_TotalAmount);
 		Car_TotalPay_TextView = (TextView) Page_Car.findViewById(R.id.total_payment);
-		Car_TotalPay_TextView.setText("");
+		Car_TotalPay_TextView.setText("$ " + Car_TotalpayAmount);
 		Car_Review_Btn = (LinearLayout) Page_Car.findViewById(R.id.product_review_btn);
 		Car_Review_Btn.setTag(4);
 		Car_Review_Btn.setOnClickListener(Review_Btn_OnclikListener);
@@ -152,9 +167,9 @@ public class DebitInfo_Main extends Fragment
 		Card_Count_TextView = (TextView) Page_Card.findViewById(R.id.total_count);
 		Card_Count_TextView.setText(String.valueOf(Card_Count));
 		Card_TotalAmount_TextView = (TextView) Page_Card.findViewById(R.id.total_amount);
-		Card_TotalAmount_TextView.setText("");
+		Card_TotalAmount_TextView.setText("$ " + Card_TotalAmount);
 		Card_TotalPay_TextView = (TextView) Page_Card.findViewById(R.id.total_payment);
-		Card_TotalPay_TextView.setText("");
+		Card_TotalPay_TextView.setText("$ " + Card_TotalpayAmount);
 		Card_Review_Btn = (LinearLayout) Page_Card.findViewById(R.id.product_review_btn);
 		Card_Review_Btn.setTag(5);
 		Card_Review_Btn.setOnClickListener(Review_Btn_OnclikListener);
@@ -162,27 +177,27 @@ public class DebitInfo_Main extends Fragment
 		
 		
 		Amount_Bar1 = v.findViewById(R.id.amount_bar_1);
-		Amount_Bar1.getLayoutParams().height = (int) getRawSize(TypedValue.COMPLEX_UNIT_DIP, bar_min_height);
+		Amount_Bar1.getLayoutParams().height = (int) getRawSize(TypedValue.COMPLEX_UNIT_DIP, set_bar_height(Float.parseFloat(Personal_TotalAmount), total_approval_amount));
 		Amount_Bar2 = v.findViewById(R.id.amount_bar_2);
-		Amount_Bar2.getLayoutParams().height = (int) getRawSize(TypedValue.COMPLEX_UNIT_DIP, bar_min_height);
+		Amount_Bar2.getLayoutParams().height = (int) getRawSize(TypedValue.COMPLEX_UNIT_DIP, set_bar_height(Float.parseFloat(Mortgage_TotalAmount), total_approval_amount));
 		Amount_Bar3 = v.findViewById(R.id.amount_bar_3);
-		Amount_Bar3.getLayoutParams().height = (int) getRawSize(TypedValue.COMPLEX_UNIT_DIP, bar_min_height);
+		Amount_Bar3.getLayoutParams().height = (int) getRawSize(TypedValue.COMPLEX_UNIT_DIP, set_bar_height(Float.parseFloat(Revolving_TotalAmount), total_approval_amount));
 		Amount_Bar4 = v.findViewById(R.id.amount_bar_4);
-		Amount_Bar4.getLayoutParams().height = (int) getRawSize(TypedValue.COMPLEX_UNIT_DIP, bar_min_height);
+		Amount_Bar4.getLayoutParams().height = (int) getRawSize(TypedValue.COMPLEX_UNIT_DIP, set_bar_height(Float.parseFloat(Car_TotalAmount), total_approval_amount));
 		Amount_Bar5 = v.findViewById(R.id.amount_bar_5);
-		Amount_Bar5.getLayoutParams().height = (int) getRawSize(TypedValue.COMPLEX_UNIT_DIP, bar_min_height);
+		Amount_Bar5.getLayoutParams().height = (int) getRawSize(TypedValue.COMPLEX_UNIT_DIP, set_bar_height(Float.parseFloat(Card_TotalAmount), total_approval_amount));
 		
 
 		Count_Bar1 = v.findViewById(R.id.count_bar_1);
-		Count_Bar1.getLayoutParams().height = (int) getRawSize(TypedValue.COMPLEX_UNIT_DIP, bar_min_height);
+		Count_Bar1.getLayoutParams().height = (int) getRawSize(TypedValue.COMPLEX_UNIT_DIP, set_bar_height(Float.parseFloat(Personal_Count), total_count));
 		Count_Bar2 = v.findViewById(R.id.count_bar_2);
-		Count_Bar2.getLayoutParams().height = (int) getRawSize(TypedValue.COMPLEX_UNIT_DIP, bar_min_height);
+		Count_Bar2.getLayoutParams().height = (int) getRawSize(TypedValue.COMPLEX_UNIT_DIP, set_bar_height(Float.parseFloat(Mortgage_Count), total_count));
 		Count_Bar3 = v.findViewById(R.id.count_bar_3);
-		Count_Bar3.getLayoutParams().height = (int) getRawSize(TypedValue.COMPLEX_UNIT_DIP, bar_min_height);
+		Count_Bar3.getLayoutParams().height = (int) getRawSize(TypedValue.COMPLEX_UNIT_DIP, set_bar_height(Float.parseFloat(Revolving_Count), total_count));
 		Count_Bar4 = v.findViewById(R.id.count_bar_4);
-		Count_Bar4.getLayoutParams().height = (int) getRawSize(TypedValue.COMPLEX_UNIT_DIP, bar_min_height);
+		Count_Bar4.getLayoutParams().height = (int) getRawSize(TypedValue.COMPLEX_UNIT_DIP, set_bar_height(Float.parseFloat(Car_Count), total_count));
 		Count_Bar5 = v.findViewById(R.id.count_bar_5);
-		Count_Bar5.getLayoutParams().height = (int) getRawSize(TypedValue.COMPLEX_UNIT_DIP, bar_min_height);
+		Count_Bar5.getLayoutParams().height = (int) getRawSize(TypedValue.COMPLEX_UNIT_DIP, set_bar_height(Float.parseFloat(Card_Count), total_count));
 		
 		clear_bar_color();
 		Amount_Bar1.setBackgroundResource(R.color.blue_grey_800);
@@ -330,5 +345,13 @@ public class DebitInfo_Main extends Fragment
         Resources res = this.getResources(); 
         return TypedValue.applyDimension(unit, value, res.getDisplayMetrics()); 
     } 
+	
+	private float set_bar_height(float value, float total){
+		
+		float result = value / total * 100 + bar_min_height;
+		
+		
+		return result;
+	}
 }
 
