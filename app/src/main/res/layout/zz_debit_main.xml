@@ -1,404 +1,440 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="@color/blue_grey_950"
-    android:fitsSystemWindows="true"
-    android:orientation="vertical">
-
-    <android.support.design.widget.AppBarLayout
-        android:background="@color/blue_grey_950"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:id="@+id/sliding_dots"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center"
-                android:paddingTop="10dp" />
-
-            <android.support.v4.view.ViewPager
-                android:id="@+id/debit_viewpager"
-                android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:layout_weight="1" />
-
-        </LinearLayout>
-
-
-    </android.support.design.widget.AppBarLayout>
-
-    <android.support.v4.widget.NestedScrollView
-        android:id="@+id/ncv"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_weight="1">
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <!--<View-->
-                <!--android:background="@color/TextColor_Gray"-->
-                <!--android:layout_height="1dp"-->
-                <!--android:layout_width="match_parent" />-->
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingTop="10dp"
-                android:paddingRight="10dp"
-                android:paddingLeft="10dp"
-                android:layout_weight="1">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="總貸款額比例"
-                    android:id="@+id/textView35"
-                    android:textColor="@color/TextColor_Gray"/>
-
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="bottom|center"
-                    android:layout_weight="1"
-                    android:minHeight="150dp">
-
-                    <RelativeLayout
-                        android:layout_height="100dp"
-                        android:layout_width="wrap_content"
-                        android:gravity="bottom"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp">
-
-                        <View
-                            android:layout_width="30dp"
-                            android:background="@color/blue_grey_800"
-                            android:minHeight="53dp"
-                            android:id="@+id/amount_bar_1"
-                            android:layout_height="0dp"/>
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_height="100dp"
-                        android:layout_width="wrap_content"
-                        android:gravity="bottom"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp">
-
-                        <View
-                            android:layout_width="30dp"
-                            android:layout_height="0dp"
-                            android:background="@color/blue_grey_800"
-                            android:minHeight="5dp"
-                            android:id="@+id/amount_bar_2"/>
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_height="100dp"
-                        android:layout_width="wrap_content"
-                        android:gravity="bottom"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp">
-
-                        <View
-                            android:layout_width="30dp"
-                            android:layout_height="0dp"
-                            android:background="@color/blue_grey_800"
-                            android:minHeight="5dp"
-                            android:id="@+id/amount_bar_3"/>
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_height="100dp"
-                        android:layout_width="wrap_content"
-                        android:gravity="bottom"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp">
-
-                        <View
-                            android:layout_width="30dp"
-                            android:layout_height="0dp"
-                            android:background="@color/blue_grey_800"
-                            android:minHeight="5dp"
-                            android:id="@+id/amount_bar_4"/>
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_height="100dp"
-                        android:layout_width="wrap_content"
-                        android:gravity="bottom"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp">
-
-                        <View
-                            android:layout_width="30dp"
-                            android:layout_height="0dp"
-                            android:background="@color/blue_grey_800"
-                            android:minHeight="5dp"
-                            android:id="@+id/amount_bar_5"/>
-
-                    </RelativeLayout>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <View
-                android:background="@color/TextColor_Gray"
-                android:layout_height="1dp"
-                android:layout_width="match_parent" />
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingTop="10dp"
-                android:paddingRight="10dp"
-                android:paddingLeft="10dp"
-                android:layout_weight="1">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="產品佔有比例"
-                    android:id="@+id/textView3555"
-                    android:textColor="@color/TextColor_Gray"/>
-
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="bottom|center"
-                    android:layout_weight="1"
-                    android:minHeight="150dp">
-
-                    <RelativeLayout
-                        android:layout_height="100dp"
-                        android:layout_width="wrap_content"
-                        android:gravity="bottom"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp">
-
-                        <View
-                            android:layout_width="30dp"
-                            android:background="@color/blue_grey_800"
-                            android:minHeight="53dp"
-                            android:id="@+id/count_bar_1"
-                            android:layout_height="0dp"/>
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_height="100dp"
-                        android:layout_width="wrap_content"
-                        android:gravity="bottom"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp">
-
-                        <View
-                            android:layout_width="30dp"
-                            android:layout_height="0dp"
-                            android:background="@color/blue_grey_800"
-                            android:minHeight="5dp"
-                            android:id="@+id/count_bar_2"/>
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_height="100dp"
-                        android:layout_width="wrap_content"
-                        android:gravity="bottom"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp">
-
-                        <View
-                            android:layout_width="30dp"
-                            android:layout_height="0dp"
-                            android:background="@color/blue_grey_800"
-                            android:minHeight="5dp"
-                            android:id="@+id/count_bar_3"/>
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_height="100dp"
-                        android:layout_width="wrap_content"
-                        android:gravity="bottom"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp">
-
-                        <View
-                            android:layout_width="30dp"
-                            android:layout_height="0dp"
-                            android:background="@color/blue_grey_800"
-                            android:minHeight="5dp"
-                            android:id="@+id/count_bar_4"/>
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_height="100dp"
-                        android:layout_width="wrap_content"
-                        android:gravity="bottom"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp">
-
-                        <View
-                            android:layout_width="30dp"
-                            android:layout_height="0dp"
-                            android:background="@color/blue_grey_800"
-                            android:minHeight="5dp"
-                            android:id="@+id/count_bar_5"/>
-
-                    </RelativeLayout>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <View
-                android:background="@color/TextColor_Gray"
-                android:layout_height="1dp"
-                android:layout_width="match_parent" />
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingTop="10dp"
-                android:paddingRight="10dp"
-                android:paddingLeft="10dp"
-                android:layout_weight="1">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="每月供款比例"
-                    android:textColor="@color/TextColor_Gray"/>
-
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="bottom|center"
-                    android:layout_weight="1"
-                    android:minHeight="150dp">
-
-                    <RelativeLayout
-                        android:layout_height="100dp"
-                        android:layout_width="wrap_content"
-                        android:gravity="bottom"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp">
-
-                        <View
-                            android:layout_width="30dp"
-                            android:background="@color/blue_grey_800"
-                            android:minHeight="53dp"
-                            android:id="@+id/payment_bar_1"
-                            android:layout_height="0dp"/>
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_height="100dp"
-                        android:layout_width="wrap_content"
-                        android:gravity="bottom"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp">
-
-                        <View
-                            android:layout_width="30dp"
-                            android:layout_height="0dp"
-                            android:background="@color/blue_grey_800"
-                            android:minHeight="5dp"
-                            android:id="@+id/payment_bar_2"/>
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_height="100dp"
-                        android:layout_width="wrap_content"
-                        android:gravity="bottom"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp">
-
-                        <View
-                            android:layout_width="30dp"
-                            android:layout_height="0dp"
-                            android:background="@color/blue_grey_800"
-                            android:minHeight="5dp"
-                            android:id="@+id/payment_bar_3"/>
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_height="100dp"
-                        android:layout_width="wrap_content"
-                        android:gravity="bottom"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp">
-
-                        <View
-                            android:layout_width="30dp"
-                            android:layout_height="0dp"
-                            android:background="@color/blue_grey_800"
-                            android:minHeight="5dp"
-                            android:id="@+id/payment_bar_4"/>
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_height="100dp"
-                        android:layout_width="wrap_content"
-                        android:gravity="bottom"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp">
-
-                        <View
-                            android:layout_width="30dp"
-                            android:layout_height="0dp"
-                            android:background="@color/blue_grey_800"
-                            android:minHeight="5dp"
-                            android:id="@+id/payment_bar_5"/>
-
-                    </RelativeLayout>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <View
-                android:background="@color/TextColor_Gray"
-                android:layout_height="1dp"
-                android:layout_width="match_parent"
-                android:layout_marginBottom="10dp" />
-        </LinearLayout>
-
-    </android.support.v4.widget.NestedScrollView>
-
-</android.support.design.widget.CoordinatorLayout>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:background="@color/blue_grey_950"
+	android:fitsSystemWindows="true"
+	android:orientation="vertical">
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_weight="1"
+		android:orientation="vertical">
+
+		<LinearLayout
+			android:id="@+id/sliding_dots"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal"
+			android:gravity="center"
+			android:paddingTop="10dp"/>
+
+		<android.support.v4.view.ViewPager
+			android:id="@+id/debit_viewpager"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"/>
+
+	</LinearLayout>
+
+	<android.support.v4.widget.NestedScrollView
+		android:id="@+id/ncv"
+		app:layout_behavior="@string/appbar_scrolling_view_behavior"
+		android:layout_width="fill_parent"
+		android:layout_height="match_parent"
+		android:layout_weight="1">
+
+		<LinearLayout
+			android:orientation="vertical"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+
+			<LinearLayout
+				android:minHeight="100dp"
+				android:orientation="vertical"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:paddingTop="10dp"
+				android:paddingRight="10dp"
+				android:paddingLeft="10dp"
+				android:layout_weight="1">
+
+				<LinearLayout
+					android:layout_height="wrap_content"
+					android:layout_width="match_parent"
+					android:orientation="horizontal">
+
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:textAppearance="?android:attr/textAppearanceSmall"
+						android:text="總貸款額比例"
+						android:id="@+id/textView35"
+						android:textColor="@color/TextColor_Gray"
+						android:layout_weight="1.0"/>
+
+					<TextView
+						android:layout_height="wrap_content"
+						android:textAppearance="?android:attr/textAppearanceSmall"
+						android:layout_width="wrap_content"
+						android:text="0.00 %"
+						android:textColor="@color/TextColor_Gray"
+						android:id="@+id/amount_percentage"/>
+
+				</LinearLayout>
+
+				<LinearLayout
+					android:orientation="horizontal"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:gravity="bottom|center"
+					android:layout_weight="1">
+
+					<RelativeLayout
+						android:layout_height="100dp"
+						android:layout_width="wrap_content"
+						android:gravity="bottom"
+						android:layout_marginLeft="10dp"
+						android:layout_marginRight="10dp">
+
+						<View
+							android:layout_width="30dp"
+							android:background="@color/blue_grey_800"
+							android:minHeight="53dp"
+							android:id="@+id/amount_bar_1"
+							android:layout_height="0dp"/>
+
+					</RelativeLayout>
+
+					<RelativeLayout
+						android:layout_height="100dp"
+						android:layout_width="wrap_content"
+						android:gravity="bottom"
+						android:layout_marginLeft="10dp"
+						android:layout_marginRight="10dp">
+
+						<View
+							android:layout_width="30dp"
+							android:layout_height="0dp"
+							android:background="@color/blue_grey_800"
+							android:minHeight="5dp"
+							android:id="@+id/amount_bar_2"/>
+
+					</RelativeLayout>
+
+					<RelativeLayout
+						android:layout_height="100dp"
+						android:layout_width="wrap_content"
+						android:gravity="bottom"
+						android:layout_marginLeft="10dp"
+						android:layout_marginRight="10dp">
+
+						<View
+							android:layout_width="30dp"
+							android:layout_height="0dp"
+							android:background="@color/blue_grey_800"
+							android:minHeight="5dp"
+							android:id="@+id/amount_bar_3"/>
+
+					</RelativeLayout>
+
+					<RelativeLayout
+						android:layout_height="100dp"
+						android:layout_width="wrap_content"
+						android:gravity="bottom"
+						android:layout_marginLeft="10dp"
+						android:layout_marginRight="10dp">
+
+						<View
+							android:layout_width="30dp"
+							android:layout_height="0dp"
+							android:background="@color/blue_grey_800"
+							android:minHeight="5dp"
+							android:id="@+id/amount_bar_4"/>
+
+					</RelativeLayout>
+
+					<RelativeLayout
+						android:layout_height="100dp"
+						android:layout_width="wrap_content"
+						android:gravity="bottom"
+						android:layout_marginLeft="10dp"
+						android:layout_marginRight="10dp">
+
+						<View
+							android:layout_width="30dp"
+							android:layout_height="0dp"
+							android:background="@color/blue_grey_800"
+							android:minHeight="5dp"
+							android:id="@+id/amount_bar_5"/>
+
+					</RelativeLayout>
+
+				</LinearLayout>
+
+			</LinearLayout>
+
+			<View
+				android:background="@color/TextColor_Gray"
+				android:layout_height="1dp"
+				android:layout_width="match_parent"/>
+
+			<LinearLayout
+				android:minHeight="100dp"
+				android:orientation="vertical"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:paddingTop="10dp"
+				android:paddingRight="10dp"
+				android:paddingLeft="10dp"
+				android:layout_weight="1">
+
+				<LinearLayout
+					android:layout_height="wrap_content"
+					android:layout_width="match_parent"
+					android:orientation="horizontal">
+
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:textAppearance="?android:attr/textAppearanceSmall"
+						android:text="產品佔有比例"
+						android:id="@+id/textView3555"
+						android:textColor="@color/TextColor_Gray"
+						android:layout_weight="1.0"/>
+
+					<TextView
+						android:layout_height="wrap_content"
+						android:textAppearance="?android:attr/textAppearanceSmall"
+						android:layout_width="wrap_content"
+						android:text="0.00 %"
+						android:textColor="@color/TextColor_Gray"
+						android:id="@+id/product_percentage"/>
+
+				</LinearLayout>
+
+				<LinearLayout
+					android:orientation="horizontal"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:gravity="bottom|center"
+					android:layout_weight="1">
+
+					<RelativeLayout
+						android:layout_height="100dp"
+						android:layout_width="wrap_content"
+						android:gravity="bottom"
+						android:layout_marginLeft="10dp"
+						android:layout_marginRight="10dp">
+
+						<View
+							android:layout_width="30dp"
+							android:background="@color/blue_grey_800"
+							android:minHeight="53dp"
+							android:id="@+id/count_bar_1"
+							android:layout_height="0dp"/>
+
+					</RelativeLayout>
+
+					<RelativeLayout
+						android:layout_height="100dp"
+						android:layout_width="wrap_content"
+						android:gravity="bottom"
+						android:layout_marginLeft="10dp"
+						android:layout_marginRight="10dp">
+
+						<View
+							android:layout_width="30dp"
+							android:layout_height="0dp"
+							android:background="@color/blue_grey_800"
+							android:minHeight="5dp"
+							android:id="@+id/count_bar_2"/>
+
+					</RelativeLayout>
+
+					<RelativeLayout
+						android:layout_height="100dp"
+						android:layout_width="wrap_content"
+						android:gravity="bottom"
+						android:layout_marginLeft="10dp"
+						android:layout_marginRight="10dp">
+
+						<View
+							android:layout_width="30dp"
+							android:layout_height="0dp"
+							android:background="@color/blue_grey_800"
+							android:minHeight="5dp"
+							android:id="@+id/count_bar_3"/>
+
+					</RelativeLayout>
+
+					<RelativeLayout
+						android:layout_height="100dp"
+						android:layout_width="wrap_content"
+						android:gravity="bottom"
+						android:layout_marginLeft="10dp"
+						android:layout_marginRight="10dp">
+
+						<View
+							android:layout_width="30dp"
+							android:layout_height="0dp"
+							android:background="@color/blue_grey_800"
+							android:minHeight="5dp"
+							android:id="@+id/count_bar_4"/>
+
+					</RelativeLayout>
+
+					<RelativeLayout
+						android:layout_height="100dp"
+						android:layout_width="wrap_content"
+						android:gravity="bottom"
+						android:layout_marginLeft="10dp"
+						android:layout_marginRight="10dp">
+
+						<View
+							android:layout_width="30dp"
+							android:layout_height="0dp"
+							android:background="@color/blue_grey_800"
+							android:minHeight="5dp"
+							android:id="@+id/count_bar_5"/>
+
+					</RelativeLayout>
+
+				</LinearLayout>
+
+			</LinearLayout>
+
+			<View
+				android:background="@color/TextColor_Gray"
+				android:layout_height="1dp"
+				android:layout_width="match_parent"/>
+
+			<LinearLayout
+				android:minHeight="100dp"
+				android:orientation="vertical"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:paddingTop="10dp"
+				android:paddingRight="10dp"
+				android:paddingLeft="10dp"
+				android:layout_weight="1">
+
+				<LinearLayout
+					android:layout_height="wrap_content"
+					android:layout_width="match_parent"
+					android:orientation="horizontal">
+
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:textAppearance="?android:attr/textAppearanceSmall"
+						android:text="每月供款比例"
+						android:textColor="@color/TextColor_Gray"
+						android:layout_weight="1.0"/>
+
+					<TextView
+						android:layout_height="wrap_content"
+						android:textAppearance="?android:attr/textAppearanceSmall"
+						android:layout_width="wrap_content"
+						android:text="0.00 %"
+						android:textColor="@color/TextColor_Gray"
+						android:id="@+id/payment_percentage"/>
+
+				</LinearLayout>
+
+				<LinearLayout
+					android:orientation="horizontal"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:gravity="bottom|center"
+					android:layout_weight="1">
+
+					<RelativeLayout
+						android:layout_height="100dp"
+						android:layout_width="wrap_content"
+						android:gravity="bottom"
+						android:layout_marginLeft="10dp"
+						android:layout_marginRight="10dp">
+
+						<View
+							android:layout_width="30dp"
+							android:background="@color/blue_grey_800"
+							android:minHeight="53dp"
+							android:id="@+id/payment_bar_1"
+							android:layout_height="0dp"/>
+
+					</RelativeLayout>
+
+					<RelativeLayout
+						android:layout_height="100dp"
+						android:layout_width="wrap_content"
+						android:gravity="bottom"
+						android:layout_marginLeft="10dp"
+						android:layout_marginRight="10dp">
+
+						<View
+							android:layout_width="30dp"
+							android:layout_height="0dp"
+							android:background="@color/blue_grey_800"
+							android:minHeight="5dp"
+							android:id="@+id/payment_bar_2"/>
+
+					</RelativeLayout>
+
+					<RelativeLayout
+						android:layout_height="100dp"
+						android:layout_width="wrap_content"
+						android:gravity="bottom"
+						android:layout_marginLeft="10dp"
+						android:layout_marginRight="10dp">
+
+						<View
+							android:layout_width="30dp"
+							android:layout_height="0dp"
+							android:background="@color/blue_grey_800"
+							android:minHeight="5dp"
+							android:id="@+id/payment_bar_3"/>
+
+					</RelativeLayout>
+
+					<RelativeLayout
+						android:layout_height="100dp"
+						android:layout_width="wrap_content"
+						android:gravity="bottom"
+						android:layout_marginLeft="10dp"
+						android:layout_marginRight="10dp">
+
+						<View
+							android:layout_width="30dp"
+							android:layout_height="0dp"
+							android:background="@color/blue_grey_800"
+							android:minHeight="5dp"
+							android:id="@+id/payment_bar_4"/>
+
+					</RelativeLayout>
+
+					<RelativeLayout
+						android:layout_height="100dp"
+						android:layout_width="wrap_content"
+						android:gravity="bottom"
+						android:layout_marginLeft="10dp"
+						android:layout_marginRight="10dp">
+
+						<View
+							android:layout_width="30dp"
+							android:layout_height="0dp"
+							android:background="@color/blue_grey_800"
+							android:minHeight="5dp"
+							android:id="@+id/payment_bar_5"/>
+
+					</RelativeLayout>
+
+				</LinearLayout>
+
+			</LinearLayout>
+
+			<View
+				android:background="@color/TextColor_Gray"
+				android:layout_height="1dp"
+				android:layout_width="match_parent"
+				android:layout_marginBottom="10dp"/>
+
+		</LinearLayout>
+
+	</android.support.v4.widget.NestedScrollView>>
+
+</LinearLayout>
 

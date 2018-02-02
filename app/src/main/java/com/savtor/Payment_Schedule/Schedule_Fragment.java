@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import com.savtor.falconcalcultor.R;
+import com.savtor.falconcalcultor.*;
 import com.savtor.Falcon_Calcultor.Calcultor;
 
 import java.util.ArrayList;

@@ -6,7 +6,7 @@
     <string name="drawer_close">close</string>
 
     <!--nav menu-->
-    <string name="nav_menu_one">Debit Info</string>
+    <string name="nav_menu_one">數據統計</string>
     <string name="nav_menu_two">貸款計算機</string>
     <string name="nav_menu_three">新增紀錄</string>
     <string name="nav_menu_four">心水清單</string>
@@ -14,7 +14,9 @@
     <string name="nav_menu_six">Version</string>
     <string name="nav_menu_seven">通知測試</string>
 
-
+	<!--==============================================================================================-->
+    <!--Fragment Debit Info-->
+		
     <!--==============================================================================================-->
     <!--Fragment Calcultor-->
     <string name="cal_installment_title">每月供款</string>

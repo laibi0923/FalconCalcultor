@@ -27,6 +27,7 @@ public class DebitInfo_Main extends Fragment
 	private TextView Personal_Count_TextView, Mortgage_Count_TextView, Revolving_Count_TextView, Car_Count_TextView, Card_Count_TextView;
 	private TextView Personal_TotalAmount_TextView, Mortgage_TotalAmount_TextView, Revolving_TotalAmount_TextView, Car_TotalAmount_TextView, Card_TotalAmount_TextView;
 	private TextView Personal_TotalPay_TextView, Mortgage_TotalPay_TextView, Revolving_TotalPay_TextView, Car_TotalPay_TextView, Card_TotalPay_TextView;
+	private TextView Amount_Percentage, Product_Percentage, Payment_Percentage;
 
 	private String Personal_Count, Mortgage_Count, Revolving_Count, Car_Count, Card_Count;
 	private String Personal_TotalAmount, Mortgage_TotalAmount, Revolving_TotalAmount, Car_TotalAmount, Card_TotalAmount;
@@ -183,42 +184,47 @@ public class DebitInfo_Main extends Fragment
 		Card_Review_Btn.setOnClickListener(Review_Btn_OnclikListener);
 		
 		
-		
+		Amount_Percentage = (TextView) v.findViewById(R.id.amount_percentage);
 		Amount_Bar1 = v.findViewById(R.id.amount_bar_1);
-		Amount_Bar1.getLayoutParams().height = (int) getRawSize(TypedValue.COMPLEX_UNIT_DIP, set_bar_height(Float.parseFloat(Personal_TotalAmount), total_approval_amount));
+		Amount_Bar1.getLayoutParams().height = (int) getRawSize(TypedValue.COMPLEX_UNIT_DIP, cal_percentage(Float.parseFloat(Personal_TotalAmount), total_approval_amount) + bar_min_height);
 		Amount_Bar2 = v.findViewById(R.id.amount_bar_2);
-		Amount_Bar2.getLayoutParams().height = (int) getRawSize(TypedValue.COMPLEX_UNIT_DIP, set_bar_height(Float.parseFloat(Mortgage_TotalAmount), total_approval_amount));
+		Amount_Bar2.getLayoutParams().height = (int) getRawSize(TypedValue.COMPLEX_UNIT_DIP, cal_percentage(Float.parseFloat(Mortgage_TotalAmount), total_approval_amount) + bar_min_height);
 		Amount_Bar3 = v.findViewById(R.id.amount_bar_3);
-		Amount_Bar3.getLayoutParams().height = (int) getRawSize(TypedValue.COMPLEX_UNIT_DIP, set_bar_height(Float.parseFloat(Revolving_TotalAmount), total_approval_amount));
+		Amount_Bar3.getLayoutParams().height = (int) getRawSize(TypedValue.COMPLEX_UNIT_DIP, cal_percentage(Float.parseFloat(Revolving_TotalAmount), total_approval_amount) + bar_min_height);
 		Amount_Bar4 = v.findViewById(R.id.amount_bar_4);
-		Amount_Bar4.getLayoutParams().height = (int) getRawSize(TypedValue.COMPLEX_UNIT_DIP, set_bar_height(Float.parseFloat(Car_TotalAmount), total_approval_amount));
+		Amount_Bar4.getLayoutParams().height = (int) getRawSize(TypedValue.COMPLEX_UNIT_DIP, cal_percentage(Float.parseFloat(Car_TotalAmount), total_approval_amount) + bar_min_height);
 		Amount_Bar5 = v.findViewById(R.id.amount_bar_5);
-		Amount_Bar5.getLayoutParams().height = (int) getRawSize(TypedValue.COMPLEX_UNIT_DIP, set_bar_height(Float.parseFloat(Card_TotalAmount), total_approval_amount));
+		Amount_Bar5.getLayoutParams().height = (int) getRawSize(TypedValue.COMPLEX_UNIT_DIP, cal_percentage(Float.parseFloat(Card_TotalAmount), total_approval_amount) + bar_min_height);
 
 
+		Product_Percentage = (TextView) v.findViewById(R.id.product_percentage);
 		Count_Bar1 = v.findViewById(R.id.count_bar_1);
-		Count_Bar1.getLayoutParams().height = (int) getRawSize(TypedValue.COMPLEX_UNIT_DIP, set_bar_height(Float.parseFloat(Personal_Count), total_count));
+		Count_Bar1.getLayoutParams().height = (int) getRawSize(TypedValue.COMPLEX_UNIT_DIP, cal_percentage(Float.parseFloat(Personal_Count), total_count) + bar_min_height);
 		Count_Bar2 = v.findViewById(R.id.count_bar_2);
-		Count_Bar2.getLayoutParams().height = (int) getRawSize(TypedValue.COMPLEX_UNIT_DIP, set_bar_height(Float.parseFloat(Mortgage_Count), total_count));
+		Count_Bar2.getLayoutParams().height = (int) getRawSize(TypedValue.COMPLEX_UNIT_DIP, cal_percentage(Float.parseFloat(Mortgage_Count), total_count) + bar_min_height);
 		Count_Bar3 = v.findViewById(R.id.count_bar_3);
-		Count_Bar3.getLayoutParams().height = (int) getRawSize(TypedValue.COMPLEX_UNIT_DIP, set_bar_height(Float.parseFloat(Revolving_Count), total_count));
+		Count_Bar3.getLayoutParams().height = (int) getRawSize(TypedValue.COMPLEX_UNIT_DIP, cal_percentage(Float.parseFloat(Revolving_Count), total_count) + bar_min_height);
 		Count_Bar4 = v.findViewById(R.id.count_bar_4);
-		Count_Bar4.getLayoutParams().height = (int) getRawSize(TypedValue.COMPLEX_UNIT_DIP, set_bar_height(Float.parseFloat(Car_Count), total_count));
+		Count_Bar4.getLayoutParams().height = (int) getRawSize(TypedValue.COMPLEX_UNIT_DIP, cal_percentage(Float.parseFloat(Car_Count), total_count) + bar_min_height);
 		Count_Bar5 = v.findViewById(R.id.count_bar_5);
-		Count_Bar5.getLayoutParams().height = (int) getRawSize(TypedValue.COMPLEX_UNIT_DIP, set_bar_height(Float.parseFloat(Card_Count), total_count));
+		Count_Bar5.getLayoutParams().height = (int) getRawSize(TypedValue.COMPLEX_UNIT_DIP, cal_percentage(Float.parseFloat(Card_Count), total_count) + bar_min_height);
 
 
-
+		Payment_Percentage = (TextView) v.findViewById(R.id.payment_percentage);
 		Payment_Bar1 = v.findViewById(R.id.payment_bar_1);
-		Payment_Bar1.getLayoutParams().height = (int) getRawSize(TypedValue.COMPLEX_UNIT_DIP, set_bar_height(Float.parseFloat(Personal_TotalpayAmount), total_payment_amount));
+		Payment_Bar1.getLayoutParams().height = (int) getRawSize(TypedValue.COMPLEX_UNIT_DIP, cal_percentage(Float.parseFloat(Personal_TotalpayAmount), total_payment_amount) + bar_min_height);
 		Payment_Bar2 = v.findViewById(R.id.payment_bar_2);
-		Payment_Bar2.getLayoutParams().height = (int) getRawSize(TypedValue.COMPLEX_UNIT_DIP, set_bar_height(Float.parseFloat(Mortgage_TotalpayAmount), total_payment_amount));
+		Payment_Bar2.getLayoutParams().height = (int) getRawSize(TypedValue.COMPLEX_UNIT_DIP, cal_percentage(Float.parseFloat(Mortgage_TotalpayAmount), total_payment_amount) + bar_min_height);
 		Payment_Bar3 = v.findViewById(R.id.payment_bar_3);
-		Payment_Bar3.getLayoutParams().height = (int) getRawSize(TypedValue.COMPLEX_UNIT_DIP, set_bar_height(Float.parseFloat(Revolving_TotalpayAmount), total_payment_amount));
+		Payment_Bar3.getLayoutParams().height = (int) getRawSize(TypedValue.COMPLEX_UNIT_DIP, cal_percentage(Float.parseFloat(Revolving_TotalpayAmount), total_payment_amount) + bar_min_height);
 		Payment_Bar4 = v.findViewById(R.id.payment_bar_4);
-		Payment_Bar4.getLayoutParams().height = (int) getRawSize(TypedValue.COMPLEX_UNIT_DIP, set_bar_height(Float.parseFloat(Car_TotalpayAmount), total_payment_amount));
+		Payment_Bar4.getLayoutParams().height = (int) getRawSize(TypedValue.COMPLEX_UNIT_DIP, cal_percentage(Float.parseFloat(Car_TotalpayAmount), total_payment_amount) + bar_min_height);
 		Payment_Bar5 = v.findViewById(R.id.payment_bar_5);
-		Payment_Bar5.getLayoutParams().height = (int) getRawSize(TypedValue.COMPLEX_UNIT_DIP, set_bar_height(Float.parseFloat(Card_TotalpayAmount), total_payment_amount));
+		Payment_Bar5.getLayoutParams().height = (int) getRawSize(TypedValue.COMPLEX_UNIT_DIP, cal_percentage(Float.parseFloat(Card_TotalpayAmount), total_payment_amount) +bar_min_height);
+		
+		Amount_Percentage.setText(String.format("%.2f", cal_percentage(Float.parseFloat(Personal_TotalAmount), total_approval_amount)) + " %");
+		Product_Percentage.setText(String.format("%.2f", cal_percentage(Float.parseFloat(Personal_Count), total_count)) + " %");
+		Payment_Percentage.setText(String.format("%.2f", cal_percentage(Float.parseFloat(Personal_TotalpayAmount), total_payment_amount)) + " %");
 		
 		clear_bar_color();
 		Amount_Bar1.setBackgroundResource(R.color.blue_grey_800);
@@ -341,30 +347,45 @@ public class DebitInfo_Main extends Fragment
 				Amount_Bar1.setBackgroundResource(R.color.blue_grey_800);
 				Count_Bar1.setBackgroundResource(R.color.blue_grey_800);
 				Payment_Bar1.setBackgroundResource(R.color.blue_grey_800);
+				Amount_Percentage.setText(String.format("%.2f", cal_percentage(Float.parseFloat(Personal_TotalAmount), total_approval_amount)) + " %");
+				Product_Percentage.setText(String.format("%.2f", cal_percentage(Float.parseFloat(Personal_Count), total_count)) + " %");
+				Payment_Percentage.setText(String.format("%.2f", cal_percentage(Float.parseFloat(Personal_TotalpayAmount), total_payment_amount)) + " %");
 				break;
 				
 			case 1:
 				Amount_Bar2.setBackgroundResource(R.color.blue_grey_800);
 				Count_Bar2.setBackgroundResource(R.color.blue_grey_800);
 				Payment_Bar2.setBackgroundResource(R.color.blue_grey_800);
+				Amount_Percentage.setText(String.format("%.2f", cal_percentage(Float.parseFloat(Mortgage_TotalpayAmount), total_approval_amount)) + " %");
+				Product_Percentage.setText(String.format("%.2f", cal_percentage(Float.parseFloat(Mortgage_Count), total_count)) + " %");
+				Payment_Percentage.setText(String.format("%.2f", cal_percentage(Float.parseFloat(Mortgage_TotalpayAmount), total_payment_amount)) + " %");
 				break;
 				
 			case 2:
 				Amount_Bar3.setBackgroundResource(R.color.blue_grey_800);
 				Count_Bar3.setBackgroundResource(R.color.blue_grey_800);
 				Payment_Bar3.setBackgroundResource(R.color.blue_grey_800);
+				Amount_Percentage.setText(String.format("%.2f", cal_percentage(Float.parseFloat(Revolving_TotalAmount), total_approval_amount)) + " %");
+				Product_Percentage.setText(String.format("%.2f", cal_percentage(Float.parseFloat(Revolving_Count), total_count)) + " %");
+				Payment_Percentage.setText(String.format("%.2f", cal_percentage(Float.parseFloat(Revolving_TotalpayAmount), total_payment_amount)) + " %");
 				break;
 				
 			case 3:
 				Amount_Bar4.setBackgroundResource(R.color.blue_grey_800);
 				Count_Bar4.setBackgroundResource(R.color.blue_grey_800);
 				Payment_Bar4.setBackgroundResource(R.color.blue_grey_800);
+				Amount_Percentage.setText(String.format("%.2f", cal_percentage(Float.parseFloat(Car_TotalAmount), total_approval_amount)) + " %");
+				Product_Percentage.setText(String.format("%.2f", cal_percentage(Float.parseFloat(Car_Count), total_count)) + " %");
+				Payment_Percentage.setText(String.format("%.2f", cal_percentage(Float.parseFloat(Car_TotalpayAmount), total_payment_amount)) + " %");
 				break;
 				
 			case 4:
 				Amount_Bar5.setBackgroundResource(R.color.blue_grey_800);
 				Count_Bar5.setBackgroundResource(R.color.blue_grey_800);
 				Payment_Bar5.setBackgroundResource(R.color.blue_grey_800);
+				Amount_Percentage.setText(String.format("%.2f", cal_percentage(Float.parseFloat(Card_TotalAmount), total_approval_amount)) + " %");
+				Product_Percentage.setText(String.format("%.2f", cal_percentage(Float.parseFloat(Card_Count), total_count)) + " %");
+				Payment_Percentage.setText(String.format("%.2f", cal_percentage(Float.parseFloat(Card_TotalpayAmount), total_payment_amount)) + " %");
 				break;
 		}
 		
@@ -382,9 +403,9 @@ public class DebitInfo_Main extends Fragment
 /*================================================================================================
  *                                     設置統計項目條高度
 ================================================================================================ */
-	private float set_bar_height(float value, float total){
+	private float cal_percentage(float value, float total){
 		
-		float result = value / total * 100 + bar_min_height;
+		float result = value / total * 100;
 
 		return result;
 	}
