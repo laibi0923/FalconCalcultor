@@ -132,7 +132,12 @@ public class Credit_Profile_NumDialog extends Dialog {
 
             case R.id.done_linear:
 
-                if (Double.parseDouble(Number_Display.getText().toString()) > Max_Amount){
+                if (Number_Display.getText().toString().isEmpty() || Number_Display.getText().toString() == ""){
+
+                    dismiss();
+
+                }else if (Double.parseDouble(Number_Display.getText().toString()) > Max_Amount){
+
                     Message_Display.setText("輸入不正確");
 
                 }else {
