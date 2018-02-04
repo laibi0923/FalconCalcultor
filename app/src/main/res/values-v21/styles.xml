@@ -10,6 +10,9 @@
 	</style>
 
 
+	<!--===============================================================================================
+		Credit Profile 內日期設定 Dialog style
+	=================================================================================================-->
 	<!--	Date Dialog Theme-->
 	<style name="myDateDialogTheme" parent="Theme.AppCompat.Light.Dialog">
 		<item name="colorAccent">@color/colorPrimaryDark</item>
@@ -25,7 +28,9 @@
 	</style>
 
 
-	<!--	Time Dialog Theme-->
+	<!--===============================================================================================
+		Credit Profile 內時間設定 Dialog style
+	=================================================================================================-->
 	<style name="myTimeDialogTheme" parent="Theme.AppCompat.Light.Dialog">
 		<item name="colorAccent">@color/colorPrimaryDark</item>
 		<item name="android:datePickerStyle">@style/myTimeDialogStyle</item>
@@ -40,14 +45,27 @@
 	</style>
 
 
+	<!--===============================================================================================
+		Credit Profile 內銀碼輸入 Dialog style
+	=================================================================================================-->
 	<style name="FullScreenDialogStyle">
 		<item name="android:windowFrame">@null</item>
 		<item name="android:windowContentOverlay">@null</item>
-		<item name="android:windowBackground">@color/blue_grey_800</item>
-		<item name="android:colorBackground">#2b2b2b</item>
+		<item name="android:windowBackground">@null</item>
+		<item name="android:backgroundDimEnabled">true</item>
+		<item name="android:colorBackground">@null</item>
+		<item name="android:windowIsTranslucent">true</item>
+		<item name="android:windowAnimationStyle">@style/ActionSheetDialogAnimation</item>
+
 	</style>
 
+	<style name="ActionSheetDialogAnimation">
+		<item name="android:windowEnterAnimation">@anim/bot_to_top</item>
+		<item name="android:windowExitAnimation">@anim/top_to_bot</item>
+	</style>
 
+	<!--===============================================================================================
+	=================================================================================================-->
 
 </resources>
 

@@ -8,7 +8,7 @@
 	android:paddingBottom="10dp">
 
 	<LinearLayout
-		android:background="@drawable/wishlist_top_bg"
+		android:background="@drawable/radius_wishlist_top_bg"
 		android:layout_height="wrap_content"
 		android:layout_width="match_parent"
 		android:orientation="vertical">
@@ -109,7 +109,7 @@
 		android:orientation="vertical"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:background="@drawable/wishlist_bot_bg"
+		android:background="@drawable/radius_wishlist_bot_bg"
 		android:paddingLeft="20dp"
 		android:paddingRight="20dp">
 

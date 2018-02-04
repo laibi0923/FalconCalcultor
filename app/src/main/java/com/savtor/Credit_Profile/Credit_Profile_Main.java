@@ -94,7 +94,8 @@ public class Credit_Profile_Main extends Fragment {
     private SharedPreferences mSharedPreferences;
 
     private String dec_point = "%.2f";
-	
+
+    private Credit_Profile_NumDialog Number_Dialog;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -915,105 +916,9 @@ public class Credit_Profile_Main extends Fragment {
 ================================================================================================ */
 				case R.id.loan_amount:
 
-                    Credit_Profile_NumDialog Number_Dialog = new Credit_Profile_NumDialog(getContext(), "Testing", Loan_Amount_Result);
+                    Number_Dialog = new Credit_Profile_NumDialog(getContext(), getString(R.string.dialog_title_amount), Loan_Amount_Result, LOAN_AMOUNT);
                     Number_Dialog.show();
 
-//                    mAlertDialog = new AlertDialog.Builder(getContext()).create();
-//                    Find_Dialog_View();
-//
-//                    mAlertDialog.setView(Dialog_View);
-//
-//                    Dialog_Title.setText(getString(R.string.dialog_title_amount));
-//
-//                    Dialog_Option_1_Icon.setVisibility(View.GONE);
-//                    Dialog_Option_1_Text.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-//                    Dialog_Option_1_Text.setText("$ 10,000.00");
-//                    Dialog_Option_1.setOnClickListener(new OnClickListener() {
-//                        @Override
-//                        public void onClick(View v) {
-//                            // 快速輸入
-//                            LOAN_AMOUNT = 10000;
-//                            Loan_Amount_Result.setText("$ " + LOAN_AMOUNT);
-//
-//                            mAlertDialog.dismiss();
-//                        }
-//                    });
-//
-//                    Dialog_Option_2_Icon.setVisibility(View.GONE);
-//                    Dialog_Option_2_Text.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-//                    Dialog_Option_2_Text.setText("$ 30,000.00");
-//                    Dialog_Option_2.setOnClickListener(new OnClickListener() {
-//                        @Override
-//                        public void onClick(View v) {
-//                            // 快速輸入
-//                            LOAN_AMOUNT = 30000;
-//                            Loan_Amount_Result.setText("$ " + LOAN_AMOUNT);
-//
-//
-//                            mAlertDialog.dismiss();
-//                        }
-//                    });
-//
-//                    Dialog_Option_3_Icon.setVisibility(View.GONE);
-//                    Dialog_Option_3_Text.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-//                    Dialog_Option_3_Text.setText("$ 50,000.00");
-//                    Dialog_Option_3.setOnClickListener(new OnClickListener() {
-//                        @Override
-//                        public void onClick(View v) {
-//                            // 快速輸入
-//                            LOAN_AMOUNT = 50000;
-//                            Loan_Amount_Result.setText("$ " + LOAN_AMOUNT);
-//
-//                            mAlertDialog.dismiss();
-//                        }
-//                    });
-//
-//                    Dialog_Option_4_Icon.setVisibility(View.GONE);
-//                    Dialog_Option_4_Text.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-//                    Dialog_Option_4_Text.setText("$ 100,000.00");
-//                    Dialog_Option_4.setOnClickListener(new OnClickListener() {
-//                        @Override
-//                        public void onClick(View v) {
-//                            // 快速輸入
-//                            LOAN_AMOUNT = 100000;
-//                            Loan_Amount_Result.setText("$ " + LOAN_AMOUNT);
-//
-//                            mAlertDialog.dismiss();
-//                        }
-//                    });
-//
-//                    Dialog_Option_5.setVisibility(View.GONE);
-//                    Dialog_Edittext.setVisibility(View.VISIBLE);
-//                    Dialog_Option_Edittext.setHint(getString(R.string.dialog_hints_loanammount));
-//                    Dialog_Option_Edittext.requestFocus();
-//
-//                    Dialog_Done.setVisibility(View.VISIBLE);
-//                    Dialog_Done.setOnClickListener(new OnClickListener() {
-//                        @Override
-//                        public void onClick(View v) {
-//
-//                            if (Dialog_Option_Edittext.getText().toString().isEmpty()){
-//
-//                            }else if(Double.parseDouble(Dialog_Option_Edittext.getText().toString()) > Max_Amount) {
-//                                Toast.makeText(getContext(), getString(R.string.toast_max_amount), Toast.LENGTH_SHORT).show();
-//
-//                            }else{
-//								LOAN_AMOUNT = Double.parseDouble(Dialog_Option_Edittext.getText().toString());
-//								Loan_Amount_Result.setText("$ " + String.format(dec_point, LOAN_AMOUNT));
-//							}
-//
-//                            mAlertDialog.dismiss();
-//                        }
-//                    });
-//
-//                    Dialog_Dismiss.setOnClickListener(new OnClickListener() {
-//                        @Override
-//                        public void onClick(View v) {
-//                            mAlertDialog.dismiss();
-//                        }
-//                    });
-//
-//                    mAlertDialog.show();
 					break;
 /*================================================================================================
  *                                       Loan Rate
@@ -1166,49 +1071,52 @@ public class Credit_Profile_Main extends Fragment {
 ================================================================================================ */
 				case R.id.loan_installment:
 
-                    mAlertDialog = new AlertDialog.Builder(getContext()).create();
-                    Find_Dialog_View();
+                    Number_Dialog = new Credit_Profile_NumDialog(getContext(), getString(R.string.dialog_title_installment), Loan_Installment_Result, LOAN_INSTALLMENT);
+                    Number_Dialog.show();
 
-                    mAlertDialog.setView(Dialog_View);
-
-                    Dialog_Title.setText(getString(R.string.dialog_title_installment));
-
-                    Dialog_Option_1.setVisibility(View.GONE);
-                    Dialog_Option_2.setVisibility(View.GONE);
-                    Dialog_Option_3.setVisibility(View.GONE);
-                    Dialog_Option_4.setVisibility(View.GONE);
-                    Dialog_Option_5.setVisibility(View.GONE);
-
-                    Dialog_Edittext.setVisibility(View.VISIBLE);
-                    Dialog_Option_Edittext.setHint(getString(R.string.dialog_hints_loaninstallment));
-                    Dialog_Option_Edittext.requestFocus();
-
-                    Dialog_Done.setVisibility(View.VISIBLE);
-                    Dialog_Done.setOnClickListener(new OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-
-                            if (Dialog_Option_Edittext.getText().toString().isEmpty()){
-
-                            }else {
-
-								LOAN_INSTALLMENT = Double.parseDouble(Dialog_Option_Edittext.getText().toString());
-                                Loan_Installment_Result.setText("$ " + String.format(dec_point, LOAN_INSTALLMENT));
-								
-                            }
-
-                            mAlertDialog.dismiss();
-                        }
-                    });
-
-                    Dialog_Dismiss.setOnClickListener(new OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            mAlertDialog.dismiss();
-                        }
-                    });
-
-                    mAlertDialog.show();
+//                    mAlertDialog = new AlertDialog.Builder(getContext()).create();
+//                    Find_Dialog_View();
+//
+//                    mAlertDialog.setView(Dialog_View);
+//
+//                    Dialog_Title.setText(getString(R.string.dialog_title_installment));
+//
+//                    Dialog_Option_1.setVisibility(View.GONE);
+//                    Dialog_Option_2.setVisibility(View.GONE);
+//                    Dialog_Option_3.setVisibility(View.GONE);
+//                    Dialog_Option_4.setVisibility(View.GONE);
+//                    Dialog_Option_5.setVisibility(View.GONE);
+//
+//                    Dialog_Edittext.setVisibility(View.VISIBLE);
+//                    Dialog_Option_Edittext.setHint(getString(R.string.dialog_hints_loaninstallment));
+//                    Dialog_Option_Edittext.requestFocus();
+//
+//                    Dialog_Done.setVisibility(View.VISIBLE);
+//                    Dialog_Done.setOnClickListener(new OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//
+//                            if (Dialog_Option_Edittext.getText().toString().isEmpty()){
+//
+//                            }else {
+//
+//								LOAN_INSTALLMENT = Double.parseDouble(Dialog_Option_Edittext.getText().toString());
+//                                Loan_Installment_Result.setText("$ " + String.format(dec_point, LOAN_INSTALLMENT));
+//
+//                            }
+//
+//                            mAlertDialog.dismiss();
+//                        }
+//                    });
+//
+//                    Dialog_Dismiss.setOnClickListener(new OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            mAlertDialog.dismiss();
+//                        }
+//                    });
+//
+//                    mAlertDialog.show();
 
 					break;
 /*================================================================================================
