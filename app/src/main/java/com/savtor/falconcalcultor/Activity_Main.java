@@ -1,5 +1,15 @@
 package com.savtor.falconcalcultor;
 
+import com.savtor.Alarm_Notification.*;
+import com.savtor.Credit_Profile.*;
+import com.savtor.Debit_Info.*;
+import com.savtor.Falcon_Calcultor.*;
+import com.savtor.Password_Gate.*;
+import com.savtor.Payment_Schedule.*;
+import com.savtor.Setting.*;
+import com.savtor.Wish_List.*;
+import com.savtor.WishList_Database.*;
+
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,18 +26,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
-
-import com.savtor.Alarm_Notification.Testing_Notification;
-import com.savtor.Credit_Profile.Product_Type;
-import com.savtor.Debit_Info.DebitInfo_Main;
-import com.savtor.Falcon_Calcultor.Calcultor_Main;
-import com.savtor.Credit_Profile.Credit_Profile_Main;
-import com.savtor.Wish_List.WishList_Main;
-import com.savtor.Setting.Fragment_Setting;
 import android.widget.*;
 import android.view.*;
 import android.view.inputmethod.*;
-import com.savtor.Credit_Profile.*;
 
 /**
  * Created by GhostLeo_DT on 21/11/2017.
