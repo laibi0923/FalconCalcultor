@@ -8,7 +8,8 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/blue_grey_900">
 
         <LinearLayout
             android:orientation="horizontal"
@@ -40,7 +41,8 @@
             android:layout_height="200dp"
             android:gravity="center|right"
             android:paddingLeft="10dp"
-            android:paddingRight="10dp">
+            android:paddingRight="10dp"
+            android:background="@color/blue_grey_900">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -85,7 +87,7 @@
 
                 <ImageView
                     android:layout_width="wrap_content"
-                    android:layout_height="35dp"
+                    android:layout_height="20dp"
                     android:id="@+id/imageView4"
                     android:src="@drawable/ic_backspace_black_48dp"
                     android:tint="@color/TextColor_Gray" />
@@ -106,7 +108,7 @@
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
                 android:textColor="@color/TextColor_Gray"
-                android:textSize="30dp" />
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <Button
                 android:layout_width="match_parent"
@@ -116,7 +118,7 @@
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
                 android:textColor="@color/TextColor_Gray"
-                android:textSize="30dp" />
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <Button
                 android:layout_width="match_parent"
@@ -126,7 +128,7 @@
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
                 android:textColor="@color/TextColor_Gray"
-                android:textSize="30dp" />
+                android:textAppearance="?android:attr/textAppearanceMedium" />
         </LinearLayout>
 
         <LinearLayout
@@ -143,7 +145,7 @@
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
                 android:textColor="@color/TextColor_Gray"
-                android:textSize="30dp" />
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <Button
                 android:layout_width="match_parent"
@@ -153,7 +155,7 @@
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
                 android:textColor="@color/TextColor_Gray"
-                android:textSize="30dp" />
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <Button
                 android:layout_width="match_parent"
@@ -163,7 +165,7 @@
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
                 android:textColor="@color/TextColor_Gray"
-                android:textSize="30dp" />
+                android:textAppearance="?android:attr/textAppearanceMedium" />
         </LinearLayout>
 
         <LinearLayout
@@ -180,7 +182,7 @@
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
                 android:textColor="@color/TextColor_Gray"
-                android:textSize="30dp" />
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <Button
                 android:layout_width="match_parent"
@@ -190,7 +192,7 @@
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
                 android:textColor="@color/TextColor_Gray"
-                android:textSize="30dp" />
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <Button
                 android:layout_width="match_parent"
@@ -200,7 +202,7 @@
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
                 android:textColor="@color/TextColor_Gray"
-                android:textSize="30dp" />
+                android:textAppearance="?android:attr/textAppearanceMedium" />
         </LinearLayout>
 
         <LinearLayout
@@ -217,7 +219,7 @@
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
                 android:textColor="@color/TextColor_Gray"
-                android:textSize="30dp" />
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <Button
                 android:layout_width="match_parent"
@@ -227,7 +229,7 @@
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
                 android:textColor="@color/TextColor_Gray"
-                android:textSize="30dp" />
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <Button
                 android:layout_width="match_parent"
@@ -237,8 +239,13 @@
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
                 android:textColor="@color/TextColor_Gray"
-                android:textSize="30dp" />
+                android:textAppearance="?android:attr/textAppearanceMedium" />
         </LinearLayout>
+
+        <View
+            android:layout_height="0.1dp"
+            android:layout_width="match_parent"
+            android:background="@color/TextColor_Gray"/>
 
         <LinearLayout
             android:orientation="horizontal"
