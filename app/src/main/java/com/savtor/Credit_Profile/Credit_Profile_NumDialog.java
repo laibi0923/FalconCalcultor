@@ -3,7 +3,6 @@ import com.savtor.falconcalcultor.*;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,8 +11,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import javax.xml.transform.Source;
 
 /**
  *      Created by GhostLeo_DT on 3/2/2018.
@@ -43,7 +40,7 @@ public class Credit_Profile_NumDialog extends Dialog {
 
         super(context, R.style.FullScreenDialogStyle);
 
-        setDialogView = LayoutInflater.from(context).inflate(R.layout.zzzz_number_dialog, null);
+        setDialogView = LayoutInflater.from(context).inflate(R.layout.credit_profile_number_dialog, null);
 
         this.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 

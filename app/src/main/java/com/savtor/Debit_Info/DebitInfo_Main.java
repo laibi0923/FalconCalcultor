@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.*;
 import android.support.v4.content.*;
 import android.support.v4.view.*;
-import android.support.v4.widget.NestedScrollView;
 import android.util.*;
 import android.view.*;
 import android.widget.*;
@@ -92,7 +91,7 @@ public class DebitInfo_Main extends Fragment
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
 		// TODO: Implement this method
-		View v = inflater.inflate(R.layout.zz_debit_main, container, false);
+		View v = inflater.inflate(R.layout.debitinfo_main, container, false);
 		
 		Find_View(v, inflater);
 		
@@ -104,7 +103,7 @@ public class DebitInfo_Main extends Fragment
 //		NestedScrollView ncv = (NestedScrollView) v.findViewById(R.id.ncv);
 //		ncv.setFillViewport(true);
 		
-		Page_Personal = inflater.inflate(R.layout.zz_tseting_debit_viewpapger, null);
+		Page_Personal = inflater.inflate(R.layout.debitinfo_viewpapger, null);
 		Personal_Title = (TextView) Page_Personal.findViewById(R.id.product_type);
 		Personal_Title.setText(getString(R.string.title_product_personal));
 		Personal_Icon = (ImageView) Page_Personal.findViewById(R.id.product_type_icon);
@@ -120,7 +119,7 @@ public class DebitInfo_Main extends Fragment
 		Personal_Review_Btn.setOnClickListener(Review_Btn_OnclikListener);
 		
 		
-		Page_Mortgage = inflater.inflate(R.layout.zz_tseting_debit_viewpapger, null);
+		Page_Mortgage = inflater.inflate(R.layout.debitinfo_viewpapger, null);
 		Mortgage_Title = (TextView) Page_Mortgage.findViewById(R.id.product_type);
 		Mortgage_Title.setText(getString(R.string.title_product_mortgage));
 		Mortgage_Icon = (ImageView) Page_Mortgage.findViewById(R.id.product_type_icon);
@@ -136,7 +135,7 @@ public class DebitInfo_Main extends Fragment
 		Mortgage_Review_Btn.setOnClickListener(Review_Btn_OnclikListener);
 		
 		
-		Page_Revolving = inflater.inflate(R.layout.zz_tseting_debit_viewpapger, null);
+		Page_Revolving = inflater.inflate(R.layout.debitinfo_viewpapger, null);
 		Revolving_Title = (TextView) Page_Revolving.findViewById(R.id.product_type);
 		Revolving_Title.setText(getString(R.string.title_product_revolving));
 		Revolving_Icon = (ImageView) Page_Revolving.findViewById(R.id.product_type_icon);
@@ -152,7 +151,7 @@ public class DebitInfo_Main extends Fragment
 		Revolving_Review_Btn.setOnClickListener(Review_Btn_OnclikListener);
 		
 		
-		Page_Car = inflater.inflate(R.layout.zz_tseting_debit_viewpapger, null);
+		Page_Car = inflater.inflate(R.layout.debitinfo_viewpapger, null);
 		Car_Title = (TextView) Page_Car.findViewById(R.id.product_type);
 		Car_Title.setText(getString(R.string.title_product_car));
 		Car_Icon = (ImageView) Page_Car.findViewById(R.id.product_type_icon);
@@ -168,7 +167,7 @@ public class DebitInfo_Main extends Fragment
 		Car_Review_Btn.setOnClickListener(Review_Btn_OnclikListener);
 		
 		
-		Page_Card = inflater.inflate(R.layout.zz_tseting_debit_viewpapger, null);
+		Page_Card = inflater.inflate(R.layout.debitinfo_viewpapger, null);
 		Card_Title = (TextView) Page_Card.findViewById(R.id.product_type);
 		Card_Title.setText(getString(R.string.title_product_card));
 		Card_Icon = (ImageView) Page_Card.findViewById(R.id.product_type_icon);

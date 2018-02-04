@@ -96,6 +96,7 @@ public class Credit_Profile_Main extends Fragment {
     private String dec_point = "%.2f";
 
     private Credit_Profile_NumDialog Number_Dialog;
+    private Credit_Profile_TextDialog Text_Dialog;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -981,89 +982,92 @@ public class Credit_Profile_Main extends Fragment {
 ================================================================================================ */
 				case R.id.loan_trems:
 
-                    mAlertDialog = new AlertDialog.Builder(getContext()).create();
-                    Find_Dialog_View();
-
-                    mAlertDialog.setView(Dialog_View);
-
-                    Dialog_Title.setText(getString(R.string.dialog_title_trems));
-
-                    Dialog_Option_1_Icon.setVisibility(View.GONE);
-                    Dialog_Option_1_Text.setText("12 個月");
-                    Dialog_Option_1_Text.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-                    Dialog_Option_1.setOnClickListener(new OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-
-                            Loan_Trems_Result.setText("12 個月");
-                            LOAN_TREMS = 12;
-
-                            mAlertDialog.dismiss();
-                        }
-                    });
-
-                    Dialog_Option_2_Icon.setVisibility(View.GONE);
-                    Dialog_Option_2_Text.setText("24 個月");
-                    Dialog_Option_2_Text.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-                    Dialog_Option_2.setOnClickListener(new OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-
-                            Loan_Trems_Result.setText("24 個月");
-                            LOAN_TREMS = 24;
-
-                            mAlertDialog.dismiss();
-                        }
-                    });
-
-                    Dialog_Option_3_Icon.setVisibility(View.GONE);
-                    Dialog_Option_3_Text.setText("36 個月");
-                    Dialog_Option_3_Text.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-                    Dialog_Option_3.setOnClickListener(new OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-
-                            Loan_Trems_Result.setText("36 個月");
-                            LOAN_TREMS = 36;
-
-                            mAlertDialog.dismiss();
-                        }
-                    });
-
-                    Dialog_Option_4.setVisibility(View.GONE);
-                    Dialog_Option_5.setVisibility(View.GONE);
-
-                    Dialog_Edittext.setVisibility(View.VISIBLE);
-                    Dialog_Option_Edittext.setHint(getString(R.string.dialog_hints_trems));
-                    Dialog_Option_Edittext.setInputType(InputType.TYPE_CLASS_NUMBER);
-                    Dialog_Option_Edittext.requestFocus();
-
-                    Dialog_Done.setVisibility(View.VISIBLE);
-                    Dialog_Done.setOnClickListener(new OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-
-                            if (Dialog_Option_Edittext.getText().toString().isEmpty()){
-                                mAlertDialog.dismiss();
-                            }else if(Integer.parseInt(Dialog_Option_Edittext.getText().toString()) > Max_Trems){
-                                Toast.makeText(getContext(), getString(R.string.toast_max_trems) + Max_Trems + "個月", Toast.LENGTH_SHORT).show();
-                            }else {
-								LOAN_TREMS = Integer.parseInt(Dialog_Option_Edittext.getText().toString());
-                                Loan_Trems_Result.setText(LOAN_TREMS + " 個月");
-                            }
-
-                            mAlertDialog.dismiss();
-                        }
-                    });
-
-                    Dialog_Dismiss.setOnClickListener(new OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            mAlertDialog.dismiss();
-                        }
-                    });
-
-                    mAlertDialog.show();
+                    Text_Dialog = new Credit_Profile_TextDialog(getContext(), "Testing", Loan_Trems_Result);
+                    Text_Dialog.show();
+//
+//                    mAlertDialog = new AlertDialog.Builder(getContext()).create();
+//                    Find_Dialog_View();
+//
+//                    mAlertDialog.setView(Dialog_View);
+//
+//                    Dialog_Title.setText(getString(R.string.dialog_title_trems));
+//
+//                    Dialog_Option_1_Icon.setVisibility(View.GONE);
+//                    Dialog_Option_1_Text.setText("12 個月");
+//                    Dialog_Option_1_Text.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+//                    Dialog_Option_1.setOnClickListener(new OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//
+//                            Loan_Trems_Result.setText("12 個月");
+//                            LOAN_TREMS = 12;
+//
+//                            mAlertDialog.dismiss();
+//                        }
+//                    });
+//
+//                    Dialog_Option_2_Icon.setVisibility(View.GONE);
+//                    Dialog_Option_2_Text.setText("24 個月");
+//                    Dialog_Option_2_Text.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+//                    Dialog_Option_2.setOnClickListener(new OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//
+//                            Loan_Trems_Result.setText("24 個月");
+//                            LOAN_TREMS = 24;
+//
+//                            mAlertDialog.dismiss();
+//                        }
+//                    });
+//
+//                    Dialog_Option_3_Icon.setVisibility(View.GONE);
+//                    Dialog_Option_3_Text.setText("36 個月");
+//                    Dialog_Option_3_Text.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+//                    Dialog_Option_3.setOnClickListener(new OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//
+//                            Loan_Trems_Result.setText("36 個月");
+//                            LOAN_TREMS = 36;
+//
+//                            mAlertDialog.dismiss();
+//                        }
+//                    });
+//
+//                    Dialog_Option_4.setVisibility(View.GONE);
+//                    Dialog_Option_5.setVisibility(View.GONE);
+//
+//                    Dialog_Edittext.setVisibility(View.VISIBLE);
+//                    Dialog_Option_Edittext.setHint(getString(R.string.dialog_hints_trems));
+//                    Dialog_Option_Edittext.setInputType(InputType.TYPE_CLASS_NUMBER);
+//                    Dialog_Option_Edittext.requestFocus();
+//
+//                    Dialog_Done.setVisibility(View.VISIBLE);
+//                    Dialog_Done.setOnClickListener(new OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//
+//                            if (Dialog_Option_Edittext.getText().toString().isEmpty()){
+//                                mAlertDialog.dismiss();
+//                            }else if(Integer.parseInt(Dialog_Option_Edittext.getText().toString()) > Max_Trems){
+//                                Toast.makeText(getContext(), getString(R.string.toast_max_trems) + Max_Trems + "個月", Toast.LENGTH_SHORT).show();
+//                            }else {
+//								LOAN_TREMS = Integer.parseInt(Dialog_Option_Edittext.getText().toString());
+//                                Loan_Trems_Result.setText(LOAN_TREMS + " 個月");
+//                            }
+//
+//                            mAlertDialog.dismiss();
+//                        }
+//                    });
+//
+//                    Dialog_Dismiss.setOnClickListener(new OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            mAlertDialog.dismiss();
+//                        }
+//                    });
+//
+//                    mAlertDialog.show();
 
 					break;
 /*================================================================================================
