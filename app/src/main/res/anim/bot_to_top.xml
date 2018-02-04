@@ -6,7 +6,7 @@
         duration    = 動畫時間
     -->
     <translate
-        android:fromXDelta="100%"
+        android:fromYDelta="100%"
         android:toYDelta="0"
         android:startOffset = "0"
         android:duration="200"/>
