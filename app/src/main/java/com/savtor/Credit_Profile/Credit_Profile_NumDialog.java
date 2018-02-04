@@ -36,7 +36,7 @@ public class Credit_Profile_NumDialog extends Dialog {
 
         super(context, R.style.FullScreenDialogStyle);
 
-        setDialogView = LayoutInflater.from(context).inflate(R.layout.zzz_number_dialog, null);
+        setDialogView = LayoutInflater.from(context).inflate(R.layout.zzzz_number_dialog, null);
 
         this.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 

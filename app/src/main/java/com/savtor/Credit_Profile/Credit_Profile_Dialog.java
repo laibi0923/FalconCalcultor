@@ -15,7 +15,6 @@ import com.savtor.falconcalcultor.*;
  * Created by GhostLeo_DT on 5/1/2018.
  */
 public class Credit_Profile_Dialog extends AlertDialog {
-
     // Dialog
     private View Dialog_View;
 
