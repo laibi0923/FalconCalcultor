@@ -4,6 +4,8 @@ import com.savtor.falconcalcultor.*;
 import android.app.Dialog;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,41 +28,27 @@ public class Credit_Profile_TextDialog extends Dialog{
 	
 	private ImageView done_linear;
 
-    public TextView Source_View;
+	private String Text_Dialog_Title;
 
-    public String Text_Dialog_Title;
-	
-	private String Scoure_Value;
+	private String TAG;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState)
-	{
-		// TODO: Implement this method
-		super.onCreate(savedInstanceState);
-		
+    protected Credit_Profile_TextDialog(Context context, String Text_Dialog_Title, String TAG) {
+
+		super(context, R.style.FullScreenDialogStyle);
+
 		setDialogView = LayoutInflater.from(getContext()).inflate(R.layout.zz_credit_profile_text_dialog, null);
-		
-		setContentView(setDialogView);
-		
-		Find_View(setDialogView);
-		
+
 		this.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-		
-	}
 
-    protected Credit_Profile_TextDialog(Context context, String Text_Dialog_Title, TextView Source_View, String Scoure_Value) {
+		setContentView(setDialogView);
 
-        super(context, R.style.FullScreenDialogStyle);
-
-        this.Source_View = Source_View;
-		
         this.Text_Dialog_Title = Text_Dialog_Title;
-		
-		this.Scoure_Value = Scoure_Value;
-        
+
+		this.TAG = TAG;
+
+		Find_View(setDialogView);
     }
 
-	
 /*================================================================================================
     *      Find Dialog View
  ================================================================================================ */
@@ -70,6 +58,10 @@ public class Credit_Profile_TextDialog extends Dialog{
         Dialog_Title.setText(Text_Dialog_Title);
 
         Input_Editor = (EditText) dialog_view.findViewById(R.id.input_editor);
+
+		if (TAG == "Trems"){
+			Input_Editor.setInputType(InputType.TYPE_CLASS_NUMBER);
+		}
 
         mRecyclerView = (RecyclerView) dialog_view.findViewById(R.id.text_dialog_recycleview);
 		
@@ -87,18 +79,18 @@ public class Credit_Profile_TextDialog extends Dialog{
 			switch(v.getId()){
 				
 				case R.id.done_linear:
-					
-					if(Input_Editor.getText().toString().isEmpty() || Input_Editor.getText().toString() == ""){
-						dismiss();
-					}else{
-						String get_value = Input_Editor.getText().toString();
-						Source_View.setText(get_value);
-						Scoure_Value = Input_Editor.getText().toString();
-						dismiss();
-					}
+					dismiss();
 					break;
 			}
 		}
 	};
+
+
+/*================================================================================================
+    *      Return Result to source
+ ================================================================================================ */
+	public String get_Result(){
+		return Input_Editor.getText().toString();
+	}
 
 }

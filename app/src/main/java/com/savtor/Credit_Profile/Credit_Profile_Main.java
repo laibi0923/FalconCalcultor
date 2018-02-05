@@ -98,6 +98,8 @@ public class Credit_Profile_Main extends Fragment {
     private Credit_Profile_NumDialog Number_Dialog;
     private Credit_Profile_TextDialog Text_Dialog;
 
+    private String TAG;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
 		
@@ -614,9 +616,20 @@ public class Credit_Profile_Main extends Fragment {
 ================================================================================================ */
                 case R.id.product_name_linear:
 
-                    Text_Dialog = new Credit_Profile_TextDialog(getContext(), "name", Product_Name, PRODUCT_NAME);
+                    TAG = "Name";
+                    Text_Dialog = new Credit_Profile_TextDialog(getContext(), getString(R.string.hints_product_name), TAG);
 					Text_Dialog.show();
-					
+					Text_Dialog.setOnDismissListener(new Dialog.OnDismissListener() {
+                        @Override
+                        public void onDismiss(DialogInterface dialog) {
+                            if (Text_Dialog.get_Result().length() != 0){
+                                String Temp_Value = Text_Dialog.get_Result();
+                                Product_Name.setText(Temp_Value);
+                                PRODUCT_NAME = Temp_Value;
+                            }
+                        }
+                    });
+
                     break;
 /*================================================================================================
  *                                       Product Type
@@ -626,128 +639,6 @@ public class Credit_Profile_Main extends Fragment {
 
                     getActivity().getSupportFragmentManager().popBackStack();
 
-//					mAlertDialog = new AlertDialog.Builder(getContext()).create();
-//                    Find_Dialog_View();
-//
-//                    mAlertDialog.setView(Dialog_View);
-//
-//					Dialog_Title.setText(getString(R.string.title_product_type));
-//
-//                    Dialog_Option_1_Icon.setImageResource(R.drawable.ic_person_black_48dp);
-//                    Dialog_Option_1_Text.setText(getString(R.string.title_product_personal));
-//					Dialog_Option_1.setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View v) {
-//                            Product_Type_Icon.setImageResource(R.drawable.ic_person_black_48dp);
-//                            Product_Type_Name.setText(getString(R.string.title_product_personal));
-//
-//                            if (PRODUCT_CODE == "Card"){
-//
-//                                Reset_Value();
-//                            }
-//
-//
-//                            PRODUCT_CODE = "Personal";
-//							Change_View();
-//
-//                            mAlertDialog.dismiss();
-//                        }
-//                    });
-//
-//                    Dialog_Option_2_Icon.setImageResource(R.drawable.ic_location_city_black_48dp);
-//                    Dialog_Option_2_Text.setText(getString(R.string.title_product_mortgage));
-//					Dialog_Option_2.setOnClickListener(new OnClickListener() {
-//                        @Override
-//                        public void onClick(View v) {
-//                            Product_Type_Icon.setImageResource(R.drawable.ic_location_city_black_48dp);
-//                            Product_Type_Name.setText(getString(R.string.title_product_mortgage));
-//
-//                            if (PRODUCT_CODE == "Card"){
-//
-//                                Reset_Value();
-//                            }
-//
-//                            PRODUCT_CODE = "Mortgage";
-//							Change_View();
-//
-//                            mAlertDialog.dismiss();
-//                        }
-//                    });
-//
-//                    Dialog_Option_3_Icon.setImageResource(R.drawable.ic_loop_black_48dp);
-//                    Dialog_Option_3_Text.setText(getString(R.string.title_product_revolving));
-//					Dialog_Option_3.setOnClickListener(new OnClickListener() {
-//                        @Override
-//                        public void onClick(View v) {
-//                            Product_Type_Icon.setImageResource(R.drawable.ic_loop_black_48dp);
-//                            Product_Type_Name.setText(getString(R.string.title_product_revolving));
-//
-//                            if (PRODUCT_CODE == "Card"){
-//                                Reset_Value();
-//                            }
-//
-//                            PRODUCT_CODE = "Revolving";
-//							Change_View();
-//
-//                            mAlertDialog.dismiss();
-//                        }
-//                    });
-//
-//                    Dialog_Option_4_Icon.setImageResource(R.drawable.ic_airport_shuttle_black_48dp);
-//                    Dialog_Option_4_Text.setText(getString(R.string.title_product_car));
-//					Dialog_Option_4.setOnClickListener(new OnClickListener() {
-//                        @Override
-//                        public void onClick(View v) {
-//                            Product_Type_Icon.setImageResource(R.drawable.ic_airport_shuttle_black_48dp);
-//                            Product_Type_Name.setText(getString(R.string.title_product_car));
-//
-//                            if (PRODUCT_CODE == "Card"){
-//
-//                                Reset_Value();
-//                            }
-//
-//                            PRODUCT_CODE = "Car";
-//							Change_View();
-//
-//                            mAlertDialog.dismiss();
-//                        }
-//                    });
-//
-//                    Dialog_Option_5_Icon.setImageResource(R.drawable.ic_credit_card_black_24dp);
-//                    Dialog_Option_5_Text.setText(getString(R.string.title_product_card));
-//					Dialog_Option_5.setOnClickListener(new OnClickListener() {
-//                        @Override
-//                        public void onClick(View v) {
-//
-//                            Product_Type_Icon.setImageResource(R.drawable.ic_credit_card_black_48dp);
-//                            Product_Type_Name.setText(getString(R.string.title_product_card));
-//
-//                            Reset_Value();
-//
-//							PRODUCT_CODE = "Card";
-//                            STATUS_CODE = "Approval";
-//                            LOAN_TREMS = 1;
-//                            EOM_DUEDATE = "false";
-//                            SETUP_ALARM = 99;
-//                            ALARM_TIME = "";
-//
-//							Change_View();
-//
-//                            mAlertDialog.dismiss();
-//                        }
-//                    });
-//
-//                    Dialog_Edittext.setVisibility(View.GONE);
-//
-//                    Dialog_Dismiss.setOnClickListener(new OnClickListener() {
-//                        @Override
-//                        public void onClick(View v) {
-//                            mAlertDialog.dismiss();
-//                        }
-//                    });
-//
-//					mAlertDialog.show();
-					
 					break;
 /*================================================================================================
  *                                       Product Status
@@ -874,8 +765,18 @@ public class Credit_Profile_Main extends Fragment {
 ================================================================================================ */
 				case R.id.loan_amount:
 
-                    Number_Dialog = new Credit_Profile_NumDialog(getContext(), getString(R.string.dialog_title_amount), Loan_Amount_Result, LOAN_AMOUNT);
+                    Number_Dialog = new Credit_Profile_NumDialog(getContext(), getString(R.string.dialog_title_amount), Max_Amount);
                     Number_Dialog.show();
+                    Number_Dialog.setOnDismissListener(new Dialog.OnDismissListener() {
+                        @Override
+                        public void onDismiss(DialogInterface dialog) {
+                            if (Number_Dialog.get_Result().length() != 0){
+                                double Temp_Value = Double.parseDouble(Number_Dialog.get_Result());
+                                Loan_Amount_Result.setText("$ " + String.format("%.2f", Temp_Value));
+                                LOAN_AMOUNT = Temp_Value;
+                            }
+                        }
+                    });
 
 					break;
 /*================================================================================================
@@ -883,148 +784,38 @@ public class Credit_Profile_Main extends Fragment {
 ================================================================================================ */
 				case R.id.loan_rate:
 
-                    mAlertDialog = new AlertDialog.Builder(getContext()).create();
-                    Find_Dialog_View();
-
-                    mAlertDialog.setView(Dialog_View);
-
-                    Dialog_Title.setText(getResources().getString(R.string.dialog_title_rate));
-
-                    Dialog_Option_1.setVisibility(View.GONE);
-                    Dialog_Option_2.setVisibility(View.GONE);
-                    Dialog_Option_3.setVisibility(View.GONE);
-                    Dialog_Option_4.setVisibility(View.GONE);
-                    Dialog_Option_5.setVisibility(View.GONE);
-
-                    Dialog_Edittext.setVisibility(View.VISIBLE);
-                    Dialog_Option_Edittext.setHint(getString(R.string.dialog_hints_loanrate));
-                    Dialog_Option_Edittext.requestFocus();
-
-                    Dialog_Done.setVisibility(View.VISIBLE);
-                    Dialog_Done.setOnClickListener(new OnClickListener() {
+                    Number_Dialog = new Credit_Profile_NumDialog(getContext(), getString(R.string.dialog_title_installment), Max_Rate);
+                    Number_Dialog.show();
+                    Number_Dialog.setOnDismissListener(new Dialog.OnDismissListener() {
                         @Override
-                        public void onClick(View v) {
-
-                            if (Dialog_Option_Edittext.getText().toString().isEmpty()){
-                                mAlertDialog.dismiss();
-                            }else {
-
-                                if (Double.parseDouble(Dialog_Option_Edittext.getText().toString()) > Max_Rate){
-                                    Toast.makeText(getContext(), getString(R.string.toast_max_rate), Toast.LENGTH_SHORT).show();
-                               
-								}else {
-									LOAN_RATE = Double.parseDouble(Dialog_Option_Edittext.getText().toString());
-                                    Loan_Rate_Result.setText(String.format(dec_point, LOAN_RATE) + " % p.a.");
-                                    
-                                }
-
-                                mAlertDialog.dismiss();
+                        public void onDismiss(DialogInterface dialog) {
+                            if (Number_Dialog.get_Result().length() != 0){
+                                double Temp_Value = Double.parseDouble(Number_Dialog.get_Result());
+                                Loan_Rate_Result.setText(String.format("%.2f", Temp_Value) + " %p.a.");
+                                LOAN_RATE = Temp_Value;
                             }
-
-                            mAlertDialog.dismiss();
                         }
                     });
 
-                    Dialog_Dismiss.setOnClickListener(new OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            mAlertDialog.dismiss();
-                        }
-                    });
-
-                    mAlertDialog.show();
 					break;
 /*================================================================================================
  *                                       Loan Trems
 ================================================================================================ */
 				case R.id.loan_trems:
 
-                   // Text_Dialog = new Credit_Profile_TextDialog(getContext(), "Testing", Loan_Trems_Result, LOAN_TREMS);
-                  //  Text_Dialog.show();
-//
-//                    mAlertDialog = new AlertDialog.Builder(getContext()).create();
-//                    Find_Dialog_View();
-//
-//                    mAlertDialog.setView(Dialog_View);
-//
-//                    Dialog_Title.setText(getString(R.string.dialog_title_trems));
-//
-//                    Dialog_Option_1_Icon.setVisibility(View.GONE);
-//                    Dialog_Option_1_Text.setText("12 個月");
-//                    Dialog_Option_1_Text.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-//                    Dialog_Option_1.setOnClickListener(new OnClickListener() {
-//                        @Override
-//                        public void onClick(View v) {
-//
-//                            Loan_Trems_Result.setText("12 個月");
-//                            LOAN_TREMS = 12;
-//
-//                            mAlertDialog.dismiss();
-//                        }
-//                    });
-//
-//                    Dialog_Option_2_Icon.setVisibility(View.GONE);
-//                    Dialog_Option_2_Text.setText("24 個月");
-//                    Dialog_Option_2_Text.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-//                    Dialog_Option_2.setOnClickListener(new OnClickListener() {
-//                        @Override
-//                        public void onClick(View v) {
-//
-//                            Loan_Trems_Result.setText("24 個月");
-//                            LOAN_TREMS = 24;
-//
-//                            mAlertDialog.dismiss();
-//                        }
-//                    });
-//
-//                    Dialog_Option_3_Icon.setVisibility(View.GONE);
-//                    Dialog_Option_3_Text.setText("36 個月");
-//                    Dialog_Option_3_Text.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-//                    Dialog_Option_3.setOnClickListener(new OnClickListener() {
-//                        @Override
-//                        public void onClick(View v) {
-//
-//                            Loan_Trems_Result.setText("36 個月");
-//                            LOAN_TREMS = 36;
-//
-//                            mAlertDialog.dismiss();
-//                        }
-//                    });
-//
-//                    Dialog_Option_4.setVisibility(View.GONE);
-//                    Dialog_Option_5.setVisibility(View.GONE);
-//
-//                    Dialog_Edittext.setVisibility(View.VISIBLE);
-//                    Dialog_Option_Edittext.setHint(getString(R.string.dialog_hints_trems));
-//                    Dialog_Option_Edittext.setInputType(InputType.TYPE_CLASS_NUMBER);
-//                    Dialog_Option_Edittext.requestFocus();
-//
-//                    Dialog_Done.setVisibility(View.VISIBLE);
-//                    Dialog_Done.setOnClickListener(new OnClickListener() {
-//                        @Override
-//                        public void onClick(View v) {
-//
-//                            if (Dialog_Option_Edittext.getText().toString().isEmpty()){
-//                                mAlertDialog.dismiss();
-//                            }else if(Integer.parseInt(Dialog_Option_Edittext.getText().toString()) > Max_Trems){
-//                                Toast.makeText(getContext(), getString(R.string.toast_max_trems) + Max_Trems + "個月", Toast.LENGTH_SHORT).show();
-//                            }else {
-//								LOAN_TREMS = Integer.parseInt(Dialog_Option_Edittext.getText().toString());
-//                                Loan_Trems_Result.setText(LOAN_TREMS + " 個月");
-//                            }
-//
-//                            mAlertDialog.dismiss();
-//                        }
-//                    });
-//
-//                    Dialog_Dismiss.setOnClickListener(new OnClickListener() {
-//                        @Override
-//                        public void onClick(View v) {
-//                            mAlertDialog.dismiss();
-//                        }
-//                    });
-//
-//                    mAlertDialog.show();
+                    TAG = "Trems";
+                    Text_Dialog = new Credit_Profile_TextDialog(getContext(), getString(R.string.title_loan_trems), TAG);
+                    Text_Dialog.show();
+                    Text_Dialog.setOnDismissListener(new Dialog.OnDismissListener() {
+                        @Override
+                        public void onDismiss(DialogInterface dialog) {
+                            if (Text_Dialog.get_Result().length() != 0){
+                                String Temp_Value = Text_Dialog.get_Result();
+                                Loan_Trems_Result.setText(Temp_Value + " 個月");
+                                LOAN_TREMS = Integer.valueOf(Temp_Value);
+                            }
+                        }
+                    });
 
 					break;
 /*================================================================================================
@@ -1032,52 +823,18 @@ public class Credit_Profile_Main extends Fragment {
 ================================================================================================ */
 				case R.id.loan_installment:
 
-                    Number_Dialog = new Credit_Profile_NumDialog(getContext(), getString(R.string.dialog_title_installment), Loan_Installment_Result, LOAN_INSTALLMENT);
+                    Number_Dialog = new Credit_Profile_NumDialog(getContext(), getString(R.string.dialog_title_installment), 0);
                     Number_Dialog.show();
-
-//                    mAlertDialog = new AlertDialog.Builder(getContext()).create();
-//                    Find_Dialog_View();
-//
-//                    mAlertDialog.setView(Dialog_View);
-//
-//                    Dialog_Title.setText(getString(R.string.dialog_title_installment));
-//
-//                    Dialog_Option_1.setVisibility(View.GONE);
-//                    Dialog_Option_2.setVisibility(View.GONE);
-//                    Dialog_Option_3.setVisibility(View.GONE);
-//                    Dialog_Option_4.setVisibility(View.GONE);
-//                    Dialog_Option_5.setVisibility(View.GONE);
-//
-//                    Dialog_Edittext.setVisibility(View.VISIBLE);
-//                    Dialog_Option_Edittext.setHint(getString(R.string.dialog_hints_loaninstallment));
-//                    Dialog_Option_Edittext.requestFocus();
-//
-//                    Dialog_Done.setVisibility(View.VISIBLE);
-//                    Dialog_Done.setOnClickListener(new OnClickListener() {
-//                        @Override
-//                        public void onClick(View v) {
-//
-//                            if (Dialog_Option_Edittext.getText().toString().isEmpty()){
-//
-//                            }else {
-//
-//								LOAN_INSTALLMENT = Double.parseDouble(Dialog_Option_Edittext.getText().toString());
-//                                Loan_Installment_Result.setText("$ " + String.format(dec_point, LOAN_INSTALLMENT));
-//
-//                            }
-//
-//                            mAlertDialog.dismiss();
-//                        }
-//                    });
-//
-//                    Dialog_Dismiss.setOnClickListener(new OnClickListener() {
-//                        @Override
-//                        public void onClick(View v) {
-//                            mAlertDialog.dismiss();
-//                        }
-//                    });
-//
-//                    mAlertDialog.show();
+                    Number_Dialog.setOnDismissListener(new Dialog.OnDismissListener() {
+                        @Override
+                        public void onDismiss(DialogInterface dialog) {
+                            if (Number_Dialog.get_Result().length() != 0){
+                                double Temp_Value = Double.parseDouble(Number_Dialog.get_Result());
+                                Loan_Installment_Result.setText("$ " + String.format("%.2f", Temp_Value));
+                                LOAN_INSTALLMENT = Temp_Value;
+                            }
+                        }
+                    });
 
 					break;
 /*================================================================================================
@@ -1312,6 +1069,7 @@ public class Credit_Profile_Main extends Fragment {
 			}, Times_Calendar.get(Calendar.HOUR_OF_DAY), Times_Calendar.get(Calendar.MINUTE), true);
 
         return mDialog;
-    } 
+    }
+
 
 }

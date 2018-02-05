@@ -30,13 +30,7 @@ public class Credit_Profile_NumDialog extends Dialog {
 
     private String Number_Dialog_Title;
 
-    private double Max_Amount = 10000000;
-
-    public TextView Source_View;
-
-    public double Source_Value;
-
-    protected Credit_Profile_NumDialog (Context context, String Number_Dialog_Title, TextView Source_View, double Source_Value){
+    protected Credit_Profile_NumDialog (Context context, String Number_Dialog_Title, double Max_Value){
 
         super(context, R.style.FullScreenDialogStyle);
 
@@ -46,8 +40,6 @@ public class Credit_Profile_NumDialog extends Dialog {
 
         setContentView(setDialogView);
 
-        this.Source_View = Source_View;
-        this.Source_Value = Source_Value;
         this.Number_Dialog_Title = Number_Dialog_Title;
 
         Find_View(setDialogView);
@@ -116,6 +108,7 @@ public class Credit_Profile_NumDialog extends Dialog {
         switch(v.getId()){
 
             case R.id.backpop_linear:
+                Number_Display.setText("");
                 dismiss();
                 break;
 
@@ -128,28 +121,19 @@ public class Credit_Profile_NumDialog extends Dialog {
                 break;
 
             case R.id.done_linear:
-
-                if (Number_Display.getText().toString().isEmpty() || Number_Display.getText().toString() == ""){
-
-                    dismiss();
-
-                }else if (Double.parseDouble(Number_Display.getText().toString()) > Max_Amount){
-
-                    Message_Display.setText("輸入不正確");
-
-                }else {
-
-                    double get_amount = Double.parseDouble(Number_Display.getText().toString());
-                    Source_View.setText("$ " + String.format("%.2f", get_amount));
-                    Source_Value = get_amount;
-                    dismiss();
-                }
-
+                dismiss();
                 break;
         }
 
     }
 };
+
+/*================================================================================================
+    *      Return Result to source
+ ================================================================================================ */
+    public String get_Result(){
+        return Number_Display.getText().toString();
+    }
 
 /*================================================================================================
     *      Setup Button Onclick Listener
