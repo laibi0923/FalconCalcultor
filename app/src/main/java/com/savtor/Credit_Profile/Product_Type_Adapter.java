@@ -8,7 +8,7 @@ import com.savtor.falconcalcultor.*;
 
 import java.util.List;
 
-/**
+/** 
  * Created by GhostLeo_DT on 18/1/2018.
  */
 public class Product_Type_Adapter extends PagerAdapter{

@@ -614,52 +614,9 @@ public class Credit_Profile_Main extends Fragment {
 ================================================================================================ */
                 case R.id.product_name_linear:
 
-                    mAlertDialog = new AlertDialog.Builder(getContext()).create();
-                    Find_Dialog_View();
-                    mAlertDialog.setView(Dialog_View);
-                    Dialog_Title.setText(getResources().getString(R.string.hints_product_name));
-
-                    Dialog_Option_1.setVisibility(View.GONE);
-                    Dialog_Option_2.setVisibility(View.GONE);
-                    Dialog_Option_3.setVisibility(View.GONE);
-                    Dialog_Option_4.setVisibility(View.GONE);
-                    Dialog_Option_5.setVisibility(View.GONE);
-
-                    Dialog_Edittext.setVisibility(View.VISIBLE);
-                    Dialog_Option_Edittext.setHint(getString(R.string.hints_product_name));
-					/*
-                    if (Init_Product_Name != "" || Init_Product_Name != null){
-                        Dialog_Option_Edittext.setText(Init_Product_Name);
-                    }
-					*/
-                    Dialog_Option_Edittext.requestFocus();
-                    Dialog_Option_Edittext.setInputType(InputType.TYPE_CLASS_TEXT);
-
-                    Dialog_Done.setVisibility(View.VISIBLE);
-                    Dialog_Done.setOnClickListener(new OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-
-                            if (Dialog_Option_Edittext.getText().toString().isEmpty()){
-
-                            }else {
-
-                                PRODUCT_NAME = String.valueOf(Dialog_Option_Edittext.getText().toString());
-                                Product_Name.setText(PRODUCT_NAME);
-                            }
-
-                            mAlertDialog.dismiss();
-                        }
-                    });
-
-                    Dialog_Dismiss.setOnClickListener(new OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            mAlertDialog.dismiss();
-                        }
-                    });
-
-                    mAlertDialog.show();
+                    Text_Dialog = new Credit_Profile_TextDialog(getContext(), "name", Product_Name, PRODUCT_NAME);
+					Text_Dialog.show();
+					
                     break;
 /*================================================================================================
  *                                       Product Type
@@ -982,8 +939,8 @@ public class Credit_Profile_Main extends Fragment {
 ================================================================================================ */
 				case R.id.loan_trems:
 
-                    Text_Dialog = new Credit_Profile_TextDialog(getContext(), "Testing", Loan_Trems_Result);
-                    Text_Dialog.show();
+                   // Text_Dialog = new Credit_Profile_TextDialog(getContext(), "Testing", Loan_Trems_Result, LOAN_TREMS);
+                  //  Text_Dialog.show();
 //
 //                    mAlertDialog = new AlertDialog.Builder(getContext()).create();
 //                    Find_Dialog_View();
