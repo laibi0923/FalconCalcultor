@@ -39,7 +39,7 @@ import android.content.*;
 public class Credit_Profile_Main extends Fragment {
 
     // Fragment View
-    private EditText Product_Loan_Number, Address, PhoneNo, Remarks;
+    private TextView Product_Loan_Number, Address, PhoneNo, Remarks;
 
     private TextView Product_Name, Product_Type_Name, Product_Status_Title, Product_Status_Result,
                      Loan_Amount_Title, Loan_Rate_Title, Loan_Trems_Title, Loan_Installment_Title, Loan_Amount_Result, Loan_Rate_Result, Loan_Trems_Result, Loan_Installment_Result,
@@ -469,8 +469,8 @@ public class Credit_Profile_Main extends Fragment {
         Loan_Number_Linear = (LinearLayout) v.findViewById(R.id.loan_number);
         Product_Loan_Number_Icon = (ImageView) Loan_Number_Linear.findViewById(R.id.sub_image);
         Product_Loan_Number_Icon.setImageResource(R.drawable.ic_count);
-        Product_Loan_Number = (EditText) Loan_Number_Linear.findViewById(R.id.sub_edittext);
-        Product_Loan_Number.setHint(R.string.hints_loan_number);
+        Product_Loan_Number = (TextView) Loan_Number_Linear.findViewById(R.id.sub_textview);
+        //Product_Loan_Number.setHint(R.string.hints_loan_number);
         Product_Loan_Number.setText(Init_Loan_Number);
 
         Loan_Amount_Linear = (LinearLayout) v.findViewById(R.id.loan_amount);
@@ -542,26 +542,30 @@ public class Credit_Profile_Main extends Fragment {
         Alarm_Time_Result.setText(Init_Alarm_Time);
 
         Address_Linear = (LinearLayout) v.findViewById(R.id.address_details);
+		Address_Linear.setOnClickListener(Item_OnClickListener);
         Address_Icon = (ImageView) Address_Linear.findViewById(R.id.sub_image);
         Address_Icon.setImageResource(R.drawable.ic_location_on_black_24dp);
-        Address = (EditText) Address_Linear.findViewById(R.id.sub_edittext);
-        Address.setHint(R.string.hints_address);
+        Address = (TextView) Address_Linear.findViewById(R.id.sub_textview);
+        //Address.setHint(R.string.hints_address);
         Address.setText(Init_Address);
 
         Phone_Linear = (LinearLayout) v.findViewById(R.id.phone_details);
+		Phone_Linear.setOnClickListener(Item_OnClickListener);
         Phone_Icon = (ImageView) Phone_Linear.findViewById(R.id.sub_image);
         Phone_Icon.setImageResource(R.drawable.ic_call_black_24dp);
-        PhoneNo = (EditText) Phone_Linear.findViewById(R.id.sub_edittext);
+        PhoneNo = (TextView) Phone_Linear.findViewById(R.id.sub_textview);
         PhoneNo.setInputType(InputType.TYPE_CLASS_NUMBER);
-        PhoneNo.setHint(R.string.hints_phone);
+        //PhoneNo.setHint(R.string.hints_phone);
         PhoneNo.setText(Init_Phone);
 
         Remarks_Linear = (LinearLayout) v.findViewById(R.id.remark_details);
+		Remarks_Linear.setOnClickListener(Item_OnClickListener);
         Remarks_Icon = (ImageView) Remarks_Linear.findViewById(R.id.sub_image);
         Remarks_Icon.setImageResource(R.drawable.ic_create_black_24dp);
-        Remarks = (EditText) Remarks_Linear.findViewById(R.id.sub_edittext);
-        Remarks.setHint(R.string.hints_remarks);
+        Remarks = (TextView) Remarks_Linear.findViewById(R.id.sub_textview);
+        //Remarks.setHint(R.string.hints_remarks);
         Remarks.setText(Init_Remarks);
+		
         
     }
 
@@ -1041,15 +1045,37 @@ public class Credit_Profile_Main extends Fragment {
                     mAlertDialog.show();
 					break;
 /*================================================================================================
- *                                       Alarm Times
+ *                                       Remarks
 ================================================================================================ */
                 case R.id.alarm_time:
 					show_time_dialog().show();
                     break;
+					
+				case R.id.remark_details:
+					
+					TAG = "Remark";
+                    Text_Dialog = new Credit_Profile_TextDialog(getContext(), getString(R.string.hints_remarks), TAG);
+                    Text_Dialog.show();
+                    Text_Dialog.setOnDismissListener(new Dialog.OnDismissListener() {
+							@Override
+							public void onDismiss(DialogInterface dialog) {
+								if (Text_Dialog.get_Result().length() != 0){
+									String Temp_Value = Text_Dialog.get_Result();
+									Remarks.setText(Temp_Value);
+									REMARKS = Temp_Value;
+								}
+							}
+						});
+						
+					break;
 			}
 		}
 		
 	};
+	
+/*================================================================================================
+ *                                       Time Dialog
+ ================================================================================================ */
 	
 	protected Dialog show_time_dialog(){
 

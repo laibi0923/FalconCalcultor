@@ -7,6 +7,8 @@
 	android:padding="10dp"
 	android:gravity="top|center"
 	android:layout_gravity="center"
+	android:clickable="true"
+	android:background="?attr/selectableItemBackground"
 	android:id="@+id/sub_linear">
 
 	<android.support.v7.widget.AppCompatImageView
@@ -18,16 +20,15 @@
 		android:layout_marginLeft="10dp"
 		android:layout_marginTop="10dp"/>
 
-	<EditText
-		android:layout_width="match_parent"
+	<TextView
 		android:layout_height="wrap_content"
-		android:inputType="textMultiLine"
-		android:id="@+id/sub_edittext"
-		android:textColor="@color/TextColor_White"
-		android:hint="Edit Text"
-		android:background="@color/blue_grey_900"
-		android:padding="10dp"
 		android:textAppearance="?android:attr/textAppearanceSmall"
+		android:layout_width="match_parent"
+		android:padding="10dp"
+		android:textColor="@color/TextColor_Gray"
+		android:id="@+id/sub_textview"
+		android:layout_weight="1"
+		android:hint="TextView"
 		android:textColorHint="@color/TextColor_Gray"/>
 
 </LinearLayout>
