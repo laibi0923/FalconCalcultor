@@ -110,7 +110,7 @@
 				android:layout_height="wrap_content"/>
 			
 			<include
-				android:id="@+id/loan_number"
+				android:id="@+id/loan_number_display"
 				layout="@layout/saver_dialog_sub_ed"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"/>

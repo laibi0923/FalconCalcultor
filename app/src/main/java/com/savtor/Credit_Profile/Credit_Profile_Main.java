@@ -98,7 +98,9 @@ public class Credit_Profile_Main extends Fragment {
     private Credit_Profile_NumDialog Number_Dialog;
     private Credit_Profile_TextDialog Text_Dialog;
 
-    private String TAG;
+    private String FRAGMENT_TAG;
+
+    public static int DIALOG_REQUEST_CODE;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -245,12 +247,61 @@ public class Credit_Profile_Main extends Fragment {
 
     }
 
+/*================================================================================================
+ *                                  接收 Dialog Fragment Result
+================================================================================================ */
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //  DIALOG_REQUEST_CODE : NAME / LOAN_NUM / PHONE / ADDRESS / REMARK
+        String result = data.getStringExtra(Credit_Profile_TextDialog.RESPONSE);
+        if (result.length() != 0){
+            switch(requestCode){
+                //  Name Result
+                case 1:
+                    Product_Name.setText(result);
+                    PRODUCT_NAME = result;
+                    break;
+
+                //  Loan Number Result
+                case 2:
+                    Product_Loan_Number.setText(result);
+                    LOAN_NUM = result;
+                    break;
+
+                //  Phone number Result
+                case 12:
+                    PhoneNo.setText(result);
+                    PHONE = result;
+                    break;
+
+                //  Loaction Result
+                case 13:
+                    Address.setText(result);
+                    ADDRESS = result;
+                    break;
+
+                //  Remark Result
+                case 14:
+                    Remarks.setText(result);
+                    REMARKS = result;
+                    break;
+            }
+        }
+    }
+
+/*================================================================================================
+ *                                          顥示儲存按鈕
+================================================================================================ */
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.saver_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
+/*================================================================================================
+ *                                         儲存按鈕動作
+================================================================================================ */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -322,26 +373,7 @@ public class Credit_Profile_Main extends Fragment {
                     ((Activity_Main)getActivity()).Fragment_Transaction(new WishList_Main());
                     ((Activity_Main)getActivity()).mNavView.getMenu().getItem(2).setChecked(true);
 
-			/*
-			 *	Testing Get Value
-			*/
-                    Log.e("LAST_MODIFY", new SimpleDateFormat("yyyy/MM/dd").format(new Date()) + "");
-                    Log.e("PRODUCT_NAME", Product_Name.getText().toString());
-                    Log.e("PRODUCT_CODE", PRODUCT_CODE + "");
-                    Log.e("STATUS_CODE", STATUS_CODE + "");
-                    Log.e("LOAN_NUM", Product_Loan_Number.getText().toString());
-                    Log.e("LOAN_AMOUNT", LOAN_AMOUNT + "");
-                    Log.e("LOAN_RATE", LOAN_RATE + "");
-                    Log.e("LOAN_TREMS", LOAN_TREMS + "");
-                    Log.e("LOAN_INSTALLMENT", LOAN_INSTALLMENT + "");
-                    Log.e("FIRST_DUE", FIRST_DUE + "");
-                    Log.e("EOM_DUEDATE", EOM_DUEDATE + "");
-                    Log.e("SETUP_ALARM", SETUP_ALARM + "");
-                    Log.e("ALARM_TIME", ALARM_TIME + "");
-                    Log.e("ADDRESS", Address.getText().toString());
-                    Log.e("PHONE_NO", PhoneNo.getText().toString());
-                    Log.e("REMARKS", Remarks.getText().toString());
-                    Log.e("REQUEST CODE", REQUEST_CODE + "");
+                    testing_get_value();
                 }
 
                 break;
@@ -424,7 +456,9 @@ public class Credit_Profile_Main extends Fragment {
 		
 	}
 
-	
+/*================================================================================================
+ *                                  Get SharedPreferences Value
+================================================================================================ */
 	private void get_SharedPreferences(){
 		
         mSharedPreferences = this.getActivity().getSharedPreferences("Setting", Context.MODE_PRIVATE);
@@ -441,7 +475,7 @@ public class Credit_Profile_Main extends Fragment {
     }
 
 /*================================================================================================
- *                                      Find View
+ *                                          Find View
 ================================================================================================ */
     private void Find_View (View v){
 		
@@ -466,11 +500,11 @@ public class Credit_Profile_Main extends Fragment {
         Product_Status_Result = (TextView) Product_Status_Linear.findViewById(R.id.sub_textview_result);
         Product_Status_Result.setText(Init_Product_Status);
 
-        Loan_Number_Linear = (LinearLayout) v.findViewById(R.id.loan_number);
+        Loan_Number_Linear = (LinearLayout) v.findViewById(R.id.loan_number_display);
+        Loan_Number_Linear.setOnClickListener(Item_OnClickListener);
         Product_Loan_Number_Icon = (ImageView) Loan_Number_Linear.findViewById(R.id.sub_image);
         Product_Loan_Number_Icon.setImageResource(R.drawable.ic_count);
         Product_Loan_Number = (TextView) Loan_Number_Linear.findViewById(R.id.sub_textview);
-        //Product_Loan_Number.setHint(R.string.hints_loan_number);
         Product_Loan_Number.setText(Init_Loan_Number);
 
         Loan_Amount_Linear = (LinearLayout) v.findViewById(R.id.loan_amount);
@@ -546,7 +580,6 @@ public class Credit_Profile_Main extends Fragment {
         Address_Icon = (ImageView) Address_Linear.findViewById(R.id.sub_image);
         Address_Icon.setImageResource(R.drawable.ic_location_on_black_24dp);
         Address = (TextView) Address_Linear.findViewById(R.id.sub_textview);
-        //Address.setHint(R.string.hints_address);
         Address.setText(Init_Address);
 
         Phone_Linear = (LinearLayout) v.findViewById(R.id.phone_details);
@@ -555,7 +588,6 @@ public class Credit_Profile_Main extends Fragment {
         Phone_Icon.setImageResource(R.drawable.ic_call_black_24dp);
         PhoneNo = (TextView) Phone_Linear.findViewById(R.id.sub_textview);
         PhoneNo.setInputType(InputType.TYPE_CLASS_NUMBER);
-        //PhoneNo.setHint(R.string.hints_phone);
         PhoneNo.setText(Init_Phone);
 
         Remarks_Linear = (LinearLayout) v.findViewById(R.id.remark_details);
@@ -563,7 +595,6 @@ public class Credit_Profile_Main extends Fragment {
         Remarks_Icon = (ImageView) Remarks_Linear.findViewById(R.id.sub_image);
         Remarks_Icon.setImageResource(R.drawable.ic_create_black_24dp);
         Remarks = (TextView) Remarks_Linear.findViewById(R.id.sub_textview);
-        //Remarks.setHint(R.string.hints_remarks);
         Remarks.setText(Init_Remarks);
 		
         
@@ -614,25 +645,16 @@ public class Credit_Profile_Main extends Fragment {
 		{
 			// TODO: Implement this method
 			switch(item.getId()){
-
 /*================================================================================================
  *                                       Product Name
 ================================================================================================ */
                 case R.id.product_name_linear:
 
-                    TAG = "Name";
-                    Text_Dialog = new Credit_Profile_TextDialog(getContext(), getString(R.string.hints_product_name), TAG);
-					Text_Dialog.show();
-					Text_Dialog.setOnDismissListener(new Dialog.OnDismissListener() {
-                        @Override
-                        public void onDismiss(DialogInterface dialog) {
-                            if (Text_Dialog.get_Result().length() != 0){
-                                String Temp_Value = Text_Dialog.get_Result();
-                                Product_Name.setText(Temp_Value);
-                                PRODUCT_NAME = Temp_Value;
-                            }
-                        }
-                    });
+                    DIALOG_REQUEST_CODE = 1;
+                    FRAGMENT_TAG = "PRODUCT_NAME";
+                    Text_Dialog = new Credit_Profile_TextDialog(getString(R.string.hints_product_name), FRAGMENT_TAG);
+                    Text_Dialog.setTargetFragment(Credit_Profile_Main.this, DIALOG_REQUEST_CODE);
+                    Text_Dialog.show(getFragmentManager(), FRAGMENT_TAG);
 
                     break;
 /*================================================================================================
@@ -764,6 +786,19 @@ public class Credit_Profile_Main extends Fragment {
 
                     mAlertDialog.show();
 					break;
+
+/*================================================================================================
+ *                                       Loan Number
+================================================================================================ */
+                case R.id.loan_number_display:
+
+                    DIALOG_REQUEST_CODE = 2;
+                    FRAGMENT_TAG = "PRODUCT_LOAN_NUM";
+                    Text_Dialog = new Credit_Profile_TextDialog(getString(R.string.hints_loan_number), FRAGMENT_TAG);
+                    Text_Dialog.setTargetFragment(Credit_Profile_Main.this, DIALOG_REQUEST_CODE);
+                    Text_Dialog.show(getFragmentManager(), FRAGMENT_TAG);
+
+                    break;
 /*================================================================================================
  *                                       Loan Amount
 ================================================================================================ */
@@ -806,21 +841,6 @@ public class Credit_Profile_Main extends Fragment {
  *                                       Loan Trems
 ================================================================================================ */
 				case R.id.loan_trems:
-
-                    TAG = "Trems";
-                    Text_Dialog = new Credit_Profile_TextDialog(getContext(), getString(R.string.title_loan_trems), TAG);
-                    Text_Dialog.show();
-                    Text_Dialog.setOnDismissListener(new Dialog.OnDismissListener() {
-                        @Override
-                        public void onDismiss(DialogInterface dialog) {
-                            if (Text_Dialog.get_Result().length() != 0){
-                                String Temp_Value = Text_Dialog.get_Result();
-                                Loan_Trems_Result.setText(Temp_Value + " 個月");
-                                LOAN_TREMS = Integer.valueOf(Temp_Value);
-                            }
-                        }
-                    });
-
 					break;
 /*================================================================================================
  *                                       Loan Installment
@@ -1045,28 +1065,49 @@ public class Credit_Profile_Main extends Fragment {
                     mAlertDialog.show();
 					break;
 /*================================================================================================
- *                                       Remarks
+ *                                       Time Dialog
 ================================================================================================ */
                 case R.id.alarm_time:
 					show_time_dialog().show();
                     break;
-					
+
+/*================================================================================================
+ *                                       Phone
+================================================================================================ */
+                case R.id.phone_details:
+
+                    DIALOG_REQUEST_CODE = 12;
+                    FRAGMENT_TAG = "PRODUCT_PHONE";
+                    Text_Dialog = new Credit_Profile_TextDialog(getString(R.string.hints_phone), FRAGMENT_TAG);
+                    Text_Dialog.setTargetFragment(Credit_Profile_Main.this, DIALOG_REQUEST_CODE);
+                    Text_Dialog.show(getFragmentManager(), FRAGMENT_TAG);
+
+                    break;
+
+/*================================================================================================
+ *                                       Address
+================================================================================================ */
+                case R.id.address_details:
+
+                    DIALOG_REQUEST_CODE = 13;
+                    FRAGMENT_TAG = "PRODUCT_ADDRESS";
+                    Text_Dialog = new Credit_Profile_TextDialog(getString(R.string.hints_address), FRAGMENT_TAG);
+                    Text_Dialog.setTargetFragment(Credit_Profile_Main.this, DIALOG_REQUEST_CODE);
+                    Text_Dialog.show(getFragmentManager(), FRAGMENT_TAG);
+
+                    break;
+
+/*================================================================================================
+ *                                       Remarks
+================================================================================================ */
 				case R.id.remark_details:
-					
-					TAG = "Remark";
-                    Text_Dialog = new Credit_Profile_TextDialog(getContext(), getString(R.string.hints_remarks), TAG);
-                    Text_Dialog.show();
-                    Text_Dialog.setOnDismissListener(new Dialog.OnDismissListener() {
-							@Override
-							public void onDismiss(DialogInterface dialog) {
-								if (Text_Dialog.get_Result().length() != 0){
-									String Temp_Value = Text_Dialog.get_Result();
-									Remarks.setText(Temp_Value);
-									REMARKS = Temp_Value;
-								}
-							}
-						});
-						
+
+                    DIALOG_REQUEST_CODE = 14;
+                    FRAGMENT_TAG = "PRODUCT_REMARK";
+                    Text_Dialog = new Credit_Profile_TextDialog(getString(R.string.hints_remarks), FRAGMENT_TAG);
+                    Text_Dialog.setTargetFragment(Credit_Profile_Main.this, DIALOG_REQUEST_CODE);
+                    Text_Dialog.show(getFragmentManager(), FRAGMENT_TAG);
+
 					break;
 			}
 		}
@@ -1097,5 +1138,26 @@ public class Credit_Profile_Main extends Fragment {
         return mDialog;
     }
 
+
+    private void testing_get_value(){
+
+        Log.e("LAST_MODIFY", new SimpleDateFormat("yyyy/MM/dd").format(new Date()) + "");
+        Log.e("PRODUCT_NAME", Product_Name.getText().toString());
+        Log.e("PRODUCT_CODE", PRODUCT_CODE + "");
+        Log.e("STATUS_CODE", STATUS_CODE + "");
+        Log.e("LOAN_NUM", Product_Loan_Number.getText().toString());
+        Log.e("LOAN_AMOUNT", LOAN_AMOUNT + "");
+        Log.e("LOAN_RATE", LOAN_RATE + "");
+        Log.e("LOAN_TREMS", LOAN_TREMS + "");
+        Log.e("LOAN_INSTALLMENT", LOAN_INSTALLMENT + "");
+        Log.e("FIRST_DUE", FIRST_DUE + "");
+        Log.e("EOM_DUEDATE", EOM_DUEDATE + "");
+        Log.e("SETUP_ALARM", SETUP_ALARM + "");
+        Log.e("ALARM_TIME", ALARM_TIME + "");
+        Log.e("ADDRESS", Address.getText().toString());
+        Log.e("PHONE_NO", PhoneNo.getText().toString());
+        Log.e("REMARKS", Remarks.getText().toString());
+        Log.e("REQUEST CODE", REQUEST_CODE + "");
+    }
 
 }
