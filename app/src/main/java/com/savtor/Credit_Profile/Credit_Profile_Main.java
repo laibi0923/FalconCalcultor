@@ -39,9 +39,9 @@ import android.content.*;
 public class Credit_Profile_Main extends Fragment {
 
     // Fragment View
-    private TextView Product_Loan_Number, Address, PhoneNo, Remarks;
+    //private TextView Product_Loan_Number, Address, PhoneNo, Remarks;
 
-    private TextView Product_Name, Product_Type_Name, Product_Status_Title, Product_Status_Result,
+    private TextView Product_Type_Name, Product_Status_Title, Product_Status_Result,
                      Loan_Amount_Title, Loan_Rate_Title, Loan_Trems_Title, Loan_Installment_Title, Loan_Amount_Result, Loan_Rate_Result, Loan_Trems_Result, Loan_Installment_Result,
                      First_Due_Title, First_Due_Result, Final_Due_Title, Final_Due_Result, Setup_Alarm_Title, Setup_Alarm_Result, Alarm_Time_Title, Alarm_Time_Result;
 
@@ -101,6 +101,8 @@ public class Credit_Profile_Main extends Fragment {
     private String FRAGMENT_TAG;
 
     public static int DIALOG_REQUEST_CODE;
+	
+	private CreditProfile_TextView Product_Name, Product_Loan_Number, Address, PhoneNo, Remarks;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -117,7 +119,7 @@ public class Credit_Profile_Main extends Fragment {
         Last_Modify_Calendar = Calendar.getInstance();
 
         LAST_MODIFY = new SimpleDateFormat("yyyy/MM/dd").format(new Date());
-        PRODUCT_NAME = getString(R.string.hints_product_name);
+        PRODUCT_NAME = "";
         PRODUCT_CODE = "Personal";
         STATUS_CODE = "NotApply";
         LOAN_AMOUNT = 0;
@@ -184,6 +186,7 @@ public class Credit_Profile_Main extends Fragment {
         }
 
         Init_Product_Name = PRODUCT_NAME;
+		
         if (PRODUCT_CODE.equals("Personal")){
             Init_Product_Icon = R.drawable.ic_person_black_48dp;
             Init_Product_Type = getString(R.string.title_product_personal);
@@ -255,39 +258,37 @@ public class Credit_Profile_Main extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         //  DIALOG_REQUEST_CODE : NAME / LOAN_NUM / PHONE / ADDRESS / REMARK
         String result = data.getStringExtra(Credit_Profile_TextDialog.RESPONSE);
-        if (result.length() != 0){
-            switch(requestCode){
+        switch(requestCode){
                 //  Name Result
-                case 1:
-                    Product_Name.setText(result);
-                    PRODUCT_NAME = result;
-                    break;
+			case 1:
+				Product_Name.setText_Hints(result, getString(R.string.hints_product_name));
+				PRODUCT_NAME = result;
+				break;
 
                 //  Loan Number Result
-                case 2:
-                    Product_Loan_Number.setText(result);
-                    LOAN_NUM = result;
-                    break;
+			case 2:
+				Product_Loan_Number.setText_Hints(result, getString(R.string.hints_loan_number));
+				LOAN_NUM = result;
+				break;
 
                 //  Phone number Result
-                case 12:
-                    PhoneNo.setText(result);
-                    PHONE = result;
-                    break;
+			case 12:
+				PhoneNo.setText_Hints(result, getString(R.string.hints_phone));
+				PHONE = result;
+				break;
 
                 //  Loaction Result
-                case 13:
-                    Address.setText(result);
-                    ADDRESS = result;
-                    break;
+			case 13:
+				Address.setText_Hints(result, getString(R.string.hints_address));
+				ADDRESS = result;
+				break;
 
                 //  Remark Result
-                case 14:
-                    Remarks.setText(result);
-                    REMARKS = result;
-                    break;
-            }
-        }
+			case 14:
+				Remarks.setText_Hints(result, getString(R.string.hints_remarks));
+				REMARKS = result;
+				break;
+		}
     }
 
 /*================================================================================================
@@ -309,7 +310,7 @@ public class Credit_Profile_Main extends Fragment {
 
             case R.id.save_to_fav:
 
-                if (PRODUCT_NAME == null || PRODUCT_NAME == "" || PRODUCT_NAME.equals(getString(R.string.hints_product_name))){
+                if (PRODUCT_NAME == null || PRODUCT_NAME == "" || PRODUCT_NAME.isEmpty() || PRODUCT_NAME.equals(getString(R.string.hints_product_name))){
                     Toast.makeText(getContext(), getString(R.string.totast_enter_name), Toast.LENGTH_SHORT).show();
                 }else {
 
@@ -481,8 +482,8 @@ public class Credit_Profile_Main extends Fragment {
 		
 		Product_Name_Linear = (LinearLayout) v.findViewById(R.id.product_name_linear);
 		Product_Name_Linear.setOnClickListener(Item_OnClickListener);
-		Product_Name = (TextView) v.findViewById(R.id.product_name);
-		Product_Name.setText(Init_Product_Name);
+		Product_Name = (CreditProfile_TextView) v.findViewById(R.id.product_name);
+		Product_Name.setText_Hints(Init_Product_Name, getString(R.string.hints_product_name));
 
         Product_Type_Icon = (ImageView) v.findViewById(R.id.product_type_icon);
         Product_Type_Icon.setImageResource(Init_Product_Icon);
@@ -504,7 +505,7 @@ public class Credit_Profile_Main extends Fragment {
         Loan_Number_Linear.setOnClickListener(Item_OnClickListener);
         Product_Loan_Number_Icon = (ImageView) Loan_Number_Linear.findViewById(R.id.sub_image);
         Product_Loan_Number_Icon.setImageResource(R.drawable.ic_count);
-        Product_Loan_Number = (TextView) Loan_Number_Linear.findViewById(R.id.sub_textview);
+        Product_Loan_Number = (CreditProfile_TextView) Loan_Number_Linear.findViewById(R.id.sub_textview);
         Product_Loan_Number.setText(Init_Loan_Number);
 
         Loan_Amount_Linear = (LinearLayout) v.findViewById(R.id.loan_amount);
@@ -579,23 +580,23 @@ public class Credit_Profile_Main extends Fragment {
 		Address_Linear.setOnClickListener(Item_OnClickListener);
         Address_Icon = (ImageView) Address_Linear.findViewById(R.id.sub_image);
         Address_Icon.setImageResource(R.drawable.ic_location_on_black_24dp);
-        Address = (TextView) Address_Linear.findViewById(R.id.sub_textview);
-        Address.setText(Init_Address);
+        Address = (CreditProfile_TextView) Address_Linear.findViewById(R.id.sub_textview);
+        Address.setText_Hints(Init_Address, getString(R.string.hints_address));
 
         Phone_Linear = (LinearLayout) v.findViewById(R.id.phone_details);
 		Phone_Linear.setOnClickListener(Item_OnClickListener);
         Phone_Icon = (ImageView) Phone_Linear.findViewById(R.id.sub_image);
         Phone_Icon.setImageResource(R.drawable.ic_call_black_24dp);
-        PhoneNo = (TextView) Phone_Linear.findViewById(R.id.sub_textview);
+        PhoneNo = (CreditProfile_TextView) Phone_Linear.findViewById(R.id.sub_textview);
         PhoneNo.setInputType(InputType.TYPE_CLASS_NUMBER);
-        PhoneNo.setText(Init_Phone);
+        PhoneNo.setText_Hints(Init_Phone, getString(R.string.hints_phone));
 
         Remarks_Linear = (LinearLayout) v.findViewById(R.id.remark_details);
 		Remarks_Linear.setOnClickListener(Item_OnClickListener);
         Remarks_Icon = (ImageView) Remarks_Linear.findViewById(R.id.sub_image);
         Remarks_Icon.setImageResource(R.drawable.ic_create_black_24dp);
-        Remarks = (TextView) Remarks_Linear.findViewById(R.id.sub_textview);
-        Remarks.setText(Init_Remarks);
+        Remarks =  (CreditProfile_TextView) Remarks_Linear.findViewById(R.id.sub_textview);
+        Remarks.setText_Hints(Init_Remarks, getString(R.string.hints_remarks));
 		
         
     }
@@ -652,7 +653,7 @@ public class Credit_Profile_Main extends Fragment {
 
                     DIALOG_REQUEST_CODE = 1;
                     FRAGMENT_TAG = "PRODUCT_NAME";
-                    Text_Dialog = new Credit_Profile_TextDialog(getString(R.string.hints_product_name), FRAGMENT_TAG);
+                    Text_Dialog = new Credit_Profile_TextDialog(getString(R.string.hints_product_name), FRAGMENT_TAG, PRODUCT_NAME);
                     Text_Dialog.setTargetFragment(Credit_Profile_Main.this, DIALOG_REQUEST_CODE);
                     Text_Dialog.show(getFragmentManager(), FRAGMENT_TAG);
 
@@ -794,7 +795,7 @@ public class Credit_Profile_Main extends Fragment {
 
                     DIALOG_REQUEST_CODE = 2;
                     FRAGMENT_TAG = "PRODUCT_LOAN_NUM";
-                    Text_Dialog = new Credit_Profile_TextDialog(getString(R.string.hints_loan_number), FRAGMENT_TAG);
+                    Text_Dialog = new Credit_Profile_TextDialog(getString(R.string.hints_loan_number), FRAGMENT_TAG, LOAN_NUM);
                     Text_Dialog.setTargetFragment(Credit_Profile_Main.this, DIALOG_REQUEST_CODE);
                     Text_Dialog.show(getFragmentManager(), FRAGMENT_TAG);
 
@@ -1078,7 +1079,7 @@ public class Credit_Profile_Main extends Fragment {
 
                     DIALOG_REQUEST_CODE = 12;
                     FRAGMENT_TAG = "PRODUCT_PHONE";
-                    Text_Dialog = new Credit_Profile_TextDialog(getString(R.string.hints_phone), FRAGMENT_TAG);
+                    Text_Dialog = new Credit_Profile_TextDialog(getString(R.string.hints_phone), FRAGMENT_TAG, PHONE);
                     Text_Dialog.setTargetFragment(Credit_Profile_Main.this, DIALOG_REQUEST_CODE);
                     Text_Dialog.show(getFragmentManager(), FRAGMENT_TAG);
 
@@ -1091,7 +1092,7 @@ public class Credit_Profile_Main extends Fragment {
 
                     DIALOG_REQUEST_CODE = 13;
                     FRAGMENT_TAG = "PRODUCT_ADDRESS";
-                    Text_Dialog = new Credit_Profile_TextDialog(getString(R.string.hints_address), FRAGMENT_TAG);
+                    Text_Dialog = new Credit_Profile_TextDialog(getString(R.string.hints_address), FRAGMENT_TAG, ADDRESS);
                     Text_Dialog.setTargetFragment(Credit_Profile_Main.this, DIALOG_REQUEST_CODE);
                     Text_Dialog.show(getFragmentManager(), FRAGMENT_TAG);
 
@@ -1104,7 +1105,7 @@ public class Credit_Profile_Main extends Fragment {
 
                     DIALOG_REQUEST_CODE = 14;
                     FRAGMENT_TAG = "PRODUCT_REMARK";
-                    Text_Dialog = new Credit_Profile_TextDialog(getString(R.string.hints_remarks), FRAGMENT_TAG);
+                    Text_Dialog = new Credit_Profile_TextDialog(getString(R.string.hints_remarks), FRAGMENT_TAG, REMARKS);
                     Text_Dialog.setTargetFragment(Credit_Profile_Main.this, DIALOG_REQUEST_CODE);
                     Text_Dialog.show(getFragmentManager(), FRAGMENT_TAG);
 

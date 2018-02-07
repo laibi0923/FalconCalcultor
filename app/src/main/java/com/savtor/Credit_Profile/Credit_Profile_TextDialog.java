@@ -27,11 +27,12 @@ public class Credit_Profile_TextDialog extends DialogFragment {
 	private RecyclerView mRecyclerView;
 	public static final String RESPONSE = "response";
 
-	private String Dialog_Title_Text, Tag;
+	private String Dialog_Title_Text, Tag, Content;
 
-	public Credit_Profile_TextDialog(String Dialog_Title_Text, String Tag){
+	public Credit_Profile_TextDialog(String Dialog_Title_Text, String Tag, String Content){
 		this.Dialog_Title_Text = Dialog_Title_Text;
 		this.Tag = Tag;
+		this.Content = Content;
 	}
 
 	@Override
@@ -58,6 +59,10 @@ public class Credit_Profile_TextDialog extends DialogFragment {
 	private void Find_Dialog_View(View v){
 		Text_Editor = (EditText) v.findViewById(R.id.input_editor);
 		Text_Editor.setHint(Dialog_Title_Text);
+		if(Content != null && !Content.trim().isEmpty()){
+			Text_Editor.setText(Content);
+			Text_Editor.setSelection(Content.length());
+		}
         if (Tag == "PRODUCT_REMARK"){
             Text_Editor.setSingleLine(false);
         }
@@ -77,7 +82,7 @@ public class Credit_Profile_TextDialog extends DialogFragment {
 				return;
 			}else{
 				Intent mIntent = new Intent();
-				mIntent.putExtra(RESPONSE, Text_Editor.getText().toString());
+				mIntent.putExtra(RESPONSE, Text_Editor.getText().toString().trim());
 				getTargetFragment().onActivityResult(Credit_Profile_Main.DIALOG_REQUEST_CODE, Activity.RESULT_OK, mIntent);
 				dismiss();
 			}
