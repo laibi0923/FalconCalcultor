@@ -1,5 +1,6 @@
 package com.savtor.Credit_Profile;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -39,10 +40,12 @@ import android.content.*;
 public class Credit_Profile_Main extends Fragment {
 
     // Fragment View
-    //private TextView Product_Loan_Number, Address, PhoneNo, Remarks;
+    private CreditProfile_TextView Product_Name, Product_Loan_Number, Address, PhoneNo, Remarks;
+
+    private TextView Loan_Amount_Result, Loan_Rate_Result, Loan_Installment_Result;
 
     private TextView Product_Type_Name, Product_Status_Title, Product_Status_Result,
-                     Loan_Amount_Title, Loan_Rate_Title, Loan_Trems_Title, Loan_Installment_Title, Loan_Amount_Result, Loan_Rate_Result, Loan_Trems_Result, Loan_Installment_Result,
+                     Loan_Amount_Title, Loan_Rate_Title, Loan_Trems_Title, Loan_Installment_Title, Loan_Trems_Result,
                      First_Due_Title, First_Due_Result, Final_Due_Title, Final_Due_Result, Setup_Alarm_Title, Setup_Alarm_Result, Alarm_Time_Title, Alarm_Time_Result;
 
     private ImageView Product_Type_Icon, Product_Status_Icon, Product_Loan_Number_Icon,
@@ -101,8 +104,6 @@ public class Credit_Profile_Main extends Fragment {
     private String FRAGMENT_TAG;
 
     public static int DIALOG_REQUEST_CODE;
-	
-	private CreditProfile_TextView Product_Name, Product_Loan_Number, Address, PhoneNo, Remarks;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -257,36 +258,69 @@ public class Credit_Profile_Main extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         //  DIALOG_REQUEST_CODE : NAME / LOAN_NUM / PHONE / ADDRESS / REMARK
-        String result = data.getStringExtra(Credit_Profile_TextDialog.RESPONSE);
+
         switch(requestCode){
-                //  Name Result
+            //  Name Result
 			case 1:
-				Product_Name.setText_Hints(result, getString(R.string.hints_product_name));
-				PRODUCT_NAME = result;
+                String dialog_result_name = data.getStringExtra(Credit_Profile_TextDialog.RESPONSE);
+				Product_Name.setText_Hints(dialog_result_name, getString(R.string.hints_product_name));
+				PRODUCT_NAME = dialog_result_name;
 				break;
 
-                //  Loan Number Result
+            //  Loan Number Result
 			case 2:
-				Product_Loan_Number.setText_Hints(result, getString(R.string.hints_loan_number));
-				LOAN_NUM = result;
+                String dialog_result_loanNum = data.getStringExtra(Credit_Profile_TextDialog.RESPONSE);
+				Product_Loan_Number.setText_Hints(dialog_result_loanNum, getString(R.string.hints_loan_number));
+				LOAN_NUM = dialog_result_loanNum;
 				break;
 
-                //  Phone number Result
+            //  Loan Amount
+            case 4:
+                Double dialog_result_loanAmount = data.getDoubleExtra(Credit_Profile_NumDialog.RESPONSE, 0.00);
+                Loan_Amount_Result.setText("$ " + String.format(dec_point, dialog_result_loanAmount));
+                LOAN_AMOUNT = dialog_result_loanAmount;
+                break;
+
+            //  Loan Rate
+            case 5:
+                Double dialog_result_loanRate = data.getDoubleExtra(Credit_Profile_NumDialog.RESPONSE, 0.00);
+                Loan_Rate_Result.setText(String.format(dec_point, dialog_result_loanRate) + " % p.a.");
+                LOAN_RATE = dialog_result_loanRate;
+                break;
+
+            // Loan Trems
+            case 6:
+                double dialog_result_trems = data.getDoubleExtra(Credit_Profile_NumDialog.RESPONSE, 0);
+                Loan_Trems_Result.setText((int) dialog_result_trems + " 個月");
+                LOAN_TREMS = (int) dialog_result_trems;
+                break;
+
+            // Loan Installment
+            case 7:
+                Double dialog_result_loanInstallment = data.getDoubleExtra(Credit_Profile_NumDialog.RESPONSE, 0.00);
+                Loan_Installment_Result.setText("$ " + String.format(dec_point, dialog_result_loanInstallment));
+                LOAN_INSTALLMENT = dialog_result_loanInstallment;
+                break;
+
+            //  Phone number Result
 			case 12:
-				PhoneNo.setText_Hints(result, getString(R.string.hints_phone));
-				PHONE = result;
+                String dialog_result_phone = data.getStringExtra(Credit_Profile_TextDialog.RESPONSE);
+				PhoneNo.setText_Hints(dialog_result_phone, getString(R.string.hints_phone));
+				PHONE = dialog_result_phone;
 				break;
 
-                //  Loaction Result
+            //  Loaction Result
 			case 13:
-				Address.setText_Hints(result, getString(R.string.hints_address));
-				ADDRESS = result;
+                String dialog_result_location = data.getStringExtra(Credit_Profile_TextDialog.RESPONSE);
+				Address.setText_Hints(dialog_result_location, getString(R.string.hints_address));
+				ADDRESS = dialog_result_location;
 				break;
 
-                //  Remark Result
+            //  Remark Result
 			case 14:
-				Remarks.setText_Hints(result, getString(R.string.hints_remarks));
-				REMARKS = result;
+                String dialog_result_remark = data.getStringExtra(Credit_Profile_TextDialog.RESPONSE);
+				Remarks.setText_Hints(dialog_result_remark, getString(R.string.hints_remarks));
+				REMARKS = dialog_result_remark;
 				break;
 		}
     }
@@ -478,6 +512,7 @@ public class Credit_Profile_Main extends Fragment {
 /*================================================================================================
  *                                          Find View
 ================================================================================================ */
+    @SuppressLint("WrongViewCast")
     private void Find_View (View v){
 		
 		Product_Name_Linear = (LinearLayout) v.findViewById(R.id.product_name_linear);
@@ -524,7 +559,8 @@ public class Credit_Profile_Main extends Fragment {
         Loan_Rate_Title = (TextView) Loan_Rate_Linear.findViewById(R.id.sub_textview);
         Loan_Rate_Title.setText(getString(R.string.title_loan_rate));
         Loan_Rate_Result = (TextView) Loan_Rate_Linear.findViewById(R.id.sub_textview_result);
-        Loan_Rate_Result.setText(Init_Loan_Rate + " %p.a.");
+        Loan_Rate_Result.setText(Init_Loan_Rate + " % p.a.");
+
         
 		Loan_Trems_Linear = (LinearLayout) v.findViewById(R.id.loan_trems);
 		Loan_Trems_Linear.setOnClickListener(Item_OnClickListener);
@@ -595,7 +631,7 @@ public class Credit_Profile_Main extends Fragment {
 		Remarks_Linear.setOnClickListener(Item_OnClickListener);
         Remarks_Icon = (ImageView) Remarks_Linear.findViewById(R.id.sub_image);
         Remarks_Icon.setImageResource(R.drawable.ic_create_black_24dp);
-        Remarks =  (CreditProfile_TextView) Remarks_Linear.findViewById(R.id.sub_textview);
+        Remarks =  (CreditProfile_TextView) (TextView) Remarks_Linear.findViewById(R.id.sub_textview);
         Remarks.setText_Hints(Init_Remarks, getString(R.string.hints_remarks));
 		
         
@@ -805,18 +841,11 @@ public class Credit_Profile_Main extends Fragment {
 ================================================================================================ */
 				case R.id.loan_amount:
 
-                    Number_Dialog = new Credit_Profile_NumDialog(getContext(), getString(R.string.dialog_title_amount), Max_Amount);
-                    Number_Dialog.show();
-                    Number_Dialog.setOnDismissListener(new Dialog.OnDismissListener() {
-                        @Override
-                        public void onDismiss(DialogInterface dialog) {
-                            if (Number_Dialog.get_Result().length() != 0){
-                                double Temp_Value = Double.parseDouble(Number_Dialog.get_Result());
-                                Loan_Amount_Result.setText("$ " + String.format("%.2f", Temp_Value));
-                                LOAN_AMOUNT = Temp_Value;
-                            }
-                        }
-                    });
+                    DIALOG_REQUEST_CODE = 4;
+                    FRAGMENT_TAG = "PRODUCT_LOAN_AMOUNT";
+                    Number_Dialog = new Credit_Profile_NumDialog(getString(R.string.title_loan_amount), FRAGMENT_TAG, Max_Amount);
+                    Number_Dialog.setTargetFragment(Credit_Profile_Main.this, DIALOG_REQUEST_CODE);
+                    Number_Dialog.show(getFragmentManager(), FRAGMENT_TAG);
 
 					break;
 /*================================================================================================
@@ -824,42 +853,35 @@ public class Credit_Profile_Main extends Fragment {
 ================================================================================================ */
 				case R.id.loan_rate:
 
-                    Number_Dialog = new Credit_Profile_NumDialog(getContext(), getString(R.string.dialog_title_installment), Max_Rate);
-                    Number_Dialog.show();
-                    Number_Dialog.setOnDismissListener(new Dialog.OnDismissListener() {
-                        @Override
-                        public void onDismiss(DialogInterface dialog) {
-                            if (Number_Dialog.get_Result().length() != 0){
-                                double Temp_Value = Double.parseDouble(Number_Dialog.get_Result());
-                                Loan_Rate_Result.setText(String.format("%.2f", Temp_Value) + " %p.a.");
-                                LOAN_RATE = Temp_Value;
-                            }
-                        }
-                    });
+                    DIALOG_REQUEST_CODE = 5;
+                    FRAGMENT_TAG = "PRODUCT_LOAN_RATE";
+                    Number_Dialog = new Credit_Profile_NumDialog(getString(R.string.title_loan_rate), FRAGMENT_TAG, Max_Rate);
+                    Number_Dialog.setTargetFragment(Credit_Profile_Main.this, DIALOG_REQUEST_CODE);
+                    Number_Dialog.show(getFragmentManager(), FRAGMENT_TAG);
 
 					break;
 /*================================================================================================
  *                                       Loan Trems
 ================================================================================================ */
 				case R.id.loan_trems:
+
+                    DIALOG_REQUEST_CODE = 6;
+                    FRAGMENT_TAG = "PRODUCT_LOAN_TREMS";
+                    Number_Dialog = new Credit_Profile_NumDialog(getString(R.string.title_loan_trems), FRAGMENT_TAG, Max_Trems);
+                    Number_Dialog.setTargetFragment(Credit_Profile_Main.this, DIALOG_REQUEST_CODE);
+                    Number_Dialog.show(getFragmentManager(), FRAGMENT_TAG);
+
 					break;
 /*================================================================================================
  *                                       Loan Installment
 ================================================================================================ */
 				case R.id.loan_installment:
 
-                    Number_Dialog = new Credit_Profile_NumDialog(getContext(), getString(R.string.dialog_title_installment), 0);
-                    Number_Dialog.show();
-                    Number_Dialog.setOnDismissListener(new Dialog.OnDismissListener() {
-                        @Override
-                        public void onDismiss(DialogInterface dialog) {
-                            if (Number_Dialog.get_Result().length() != 0){
-                                double Temp_Value = Double.parseDouble(Number_Dialog.get_Result());
-                                Loan_Installment_Result.setText("$ " + String.format("%.2f", Temp_Value));
-                                LOAN_INSTALLMENT = Temp_Value;
-                            }
-                        }
-                    });
+                    DIALOG_REQUEST_CODE = 7;
+                    FRAGMENT_TAG = "PRODUCT_LOAN_RATE";
+                    Number_Dialog = new Credit_Profile_NumDialog(getString(R.string.title_loan_installment), FRAGMENT_TAG, 9999999);
+                    Number_Dialog.setTargetFragment(Credit_Profile_Main.this, DIALOG_REQUEST_CODE);
+                    Number_Dialog.show(getFragmentManager(), FRAGMENT_TAG);
 
 					break;
 /*================================================================================================

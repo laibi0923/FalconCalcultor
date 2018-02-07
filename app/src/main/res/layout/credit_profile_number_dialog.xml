@@ -2,20 +2,20 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/radius_numberdialog_topbg">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/radius_numberdialog_topbg"
-        android:layout_weight="1">
+        android:layout_weight="3">
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="10dp"
+            android:padding="15dp"
             android:id="@+id/backpop_linear"
             android:gravity="left|center">
 
@@ -29,7 +29,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:id="@+id/number_dialog_title"
                 android:textColor="@color/TextColor_Gray"
                 android:text="Title" />
@@ -39,7 +39,7 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center|right"
+            android:gravity="center"
             android:paddingLeft="10dp"
             android:paddingRight="10dp">
 
@@ -52,11 +52,11 @@
                 android:textSize="45dp"
                 android:background="@android:color/transparent"
                 android:inputType="numberDecimal"
-                android:hint="0.00"
+                android:hint="0"
                 android:textColorHint="@color/TextColor_Gray"
                 android:focusableInTouchMode="false"
                 android:focusable="false"
-                android:textAlignment="viewEnd" />
+                android:textAlignment="center" />
         </LinearLayout>
 
     </LinearLayout>
@@ -65,9 +65,8 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/radius_numberdialog_botbg"
         android:elevation="4dp"
-        android:layout_weight="1">
+        android:layout_weight="2">
 
         <LinearLayout
             android:orientation="horizontal"
@@ -78,8 +77,8 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:layout_height="match_parent"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:id="@+id/message_display"
                 android:layout_weight="1"
                 android:textColor="@color/TextColor_Gray" />
@@ -93,7 +92,7 @@
 
                 <ImageView
                     android:layout_width="wrap_content"
-                    android:layout_height="20dp"
+                    android:layout_height="25dp"
                     android:id="@+id/imageView4"
                     android:src="@drawable/ic_backspace_black_48dp"
                     android:tint="@color/TextColor_Gray" />
@@ -251,28 +250,26 @@
         <View
             android:layout_height="0.1dp"
             android:layout_width="match_parent"
-            android:background="@color/TextColor_Gray"/>
+            android:background="@color/TextColor_Gray"
+            android:visibility="gone" />
 
         <LinearLayout
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:padding="10dp">
+            android:background="@drawable/radius_numberdialog_botbg"
+            android:clickable="true">
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/done_linear">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="35dp"
-                    android:id="@+id/imageView7"
-                    android:src="@drawable/ic_done_all_black_48dp"
-                    android:tint="@color/TextColor_Gray" />
-            </LinearLayout>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Export"
+                android:id="@+id/output_value_btn"
+                android:padding="20dp"
+                android:background="@android:color/transparent"
+                android:textColor="@color/TextColor_Gray" />
         </LinearLayout>
+
     </LinearLayout>
 </LinearLayout>

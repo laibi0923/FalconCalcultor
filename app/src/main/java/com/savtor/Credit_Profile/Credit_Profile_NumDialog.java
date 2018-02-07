@@ -1,8 +1,14 @@
 package com.savtor.Credit_Profile;
 import com.savtor.falconcalcultor.*;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +22,7 @@ import android.widget.TextView;
  *      Created by GhostLeo_DT on 3/2/2018.
  *      Full Screen Dialog :   http://blog.csdn.net/small_lee/article/details/72780179
  */
-public class Credit_Profile_NumDialog extends Dialog {
+public class Credit_Profile_NumDialog extends DialogFragment {
 
     private View setDialogView;
 
@@ -24,36 +30,50 @@ public class Credit_Profile_NumDialog extends Dialog {
 
     private EditText Number_Display;
 
-    private LinearLayout Backpop_Linear, Del_Linear, Done_Linear;
+    private LinearLayout Backpop_Linear, Del_Linear;
 
     private Button Btn_1, Btn_2, Btn_3, Btn_4, Btn_5, Btn_6, Btn_7, Btn_8, Btn_9, Btn_10, Btn_11, Btn_12;
 
-    private String Number_Dialog_Title;
+    private Button Post_Btn;
 
-    protected Credit_Profile_NumDialog (Context context, String Number_Dialog_Title, double Max_Value){
+    private String Dialog_Title_Text, Tag;
 
-        super(context, R.style.FullScreenDialogStyle);
+    private double Max_Value;
 
-        setDialogView = LayoutInflater.from(context).inflate(R.layout.credit_profile_number_dialog, null);
+    public static final String RESPONSE = "response";
 
-        this.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+    public Credit_Profile_NumDialog(String Dialog_Title_Text, String Tag, double Max_Value){
+        this.Dialog_Title_Text = Dialog_Title_Text;
+        this.Tag = Tag;
+        this.Max_Value = Max_Value;
+    }
 
-        setContentView(setDialogView);
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        //	設定 Dialog Style
+        setStyle(DialogFragment.STYLE_NO_TITLE, R.style.FullScreenDialogStyle);
+    }
 
-        this.Number_Dialog_Title = Number_Dialog_Title;
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        Find_View(setDialogView);
+        View view = inflater.inflate(R.layout.credit_profile_number_dialog, container, false);
 
+        Find_Dialog_View(view);
+
+        return view;
     }
 
 
 /*================================================================================================
     *      Find Dialog View
  ================================================================================================ */
-    private void Find_View(View dialog_view){
+    private void Find_Dialog_View(View dialog_view){
 
         Dialog_Title = (TextView) dialog_view.findViewById(R.id.number_dialog_title);
-        Dialog_Title.setText(Number_Dialog_Title);
+        Dialog_Title.setText(Dialog_Title_Text);
 
         Number_Display = (EditText) dialog_view.findViewById(R.id.number_dissplay);
         Number_Display.setOnClickListener(View_OnClickListener);
@@ -92,11 +112,14 @@ public class Credit_Profile_NumDialog extends Dialog {
         Btn_11 = (Button) dialog_view.findViewById(R.id.button11);
         Btn_11.setOnClickListener(Button_OnClickListener);
         Btn_12 = (Button) dialog_view.findViewById(R.id.button12);
-        Btn_12.setOnClickListener(Button_OnClickListener);
+        if (Tag != "PRODUCT_LOAN_TREMS"){
+            Btn_12.setOnClickListener(Button_OnClickListener);
+        }
 
-        Done_Linear = (LinearLayout) dialog_view.findViewById(R.id.done_linear);
-        Done_Linear.setOnClickListener(View_OnClickListener);
+        Post_Btn = (Button) dialog_view.findViewById(R.id.output_value_btn);
+        Post_Btn.setOnClickListener(Button_OnClickListener);
     }
+
 
 /*================================================================================================
 *      Setup View Onclick Listener
@@ -119,10 +142,6 @@ public class Credit_Profile_NumDialog extends Dialog {
                 Number_Display.dispatchKeyEvent(keyEvent);
 
                 break;
-
-            case R.id.done_linear:
-                dismiss();
-                break;
         }
 
     }
@@ -139,7 +158,7 @@ public class Credit_Profile_NumDialog extends Dialog {
     *      Setup Button Onclick Listener
     *      Number 1-9 & Point Button
  ================================================================================================ */
-    protected Button.OnClickListener Button_OnClickListener = new Button.OnClickListener(){
+    private Button.OnClickListener Button_OnClickListener = new Button.OnClickListener(){
 
         @Override
         public void onClick(View v) {
@@ -191,6 +210,24 @@ public class Credit_Profile_NumDialog extends Dialog {
 
                 case R.id.button12:
                     Number_Display.append(".");
+                    break;
+
+                case R.id.output_value_btn:
+
+                    if (getTargetFragment() == null){
+                        return;
+                    }else{
+
+                        double Temp_Value = 0;
+                        if (!Number_Display.getText().toString().isEmpty() && Number_Display.getText().toString() != null){
+                            Temp_Value = Double.valueOf(Number_Display.getText().toString());
+                        }
+
+                        Intent mIntent = new Intent();
+                        mIntent.putExtra(RESPONSE, Temp_Value);
+                        getTargetFragment().onActivityResult(Credit_Profile_Main.DIALOG_REQUEST_CODE, Activity.RESULT_OK, mIntent);
+                        dismiss();
+                    }
                     break;
 
             }
