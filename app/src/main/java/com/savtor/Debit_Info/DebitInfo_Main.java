@@ -12,6 +12,7 @@ import android.util.*;
 import android.view.*;
 import android.widget.*;
 import java.util.*;
+import android.support.v4.widget.*;
 
 public class DebitInfo_Main extends Fragment
 {
@@ -37,6 +38,10 @@ public class DebitInfo_Main extends Fragment
 	private LinearLayout Personal_Review_Btn, Mortgage_Review_Btn, Revolving_Review_Btn, Car_Review_Btn, Card_Review_Btn;
 
 	private ImageView Personal_Icon, Mortgage_Icon, Revolving_Icon, Car_Icon, Card_Icon;
+	
+	private LinearLayout Empty_View;
+	
+	private NestedScrollView NCV;
 
 	private List<View> Page_List;
 
@@ -53,6 +58,8 @@ public class DebitInfo_Main extends Fragment
 	private int bar_min_height = 5;
 
 	private WishList_DataBasic mDataBasic;
+	
+	private String toggle_view;
 
 	@Override
 	public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,6 +67,12 @@ public class DebitInfo_Main extends Fragment
 
 		mDataBasic = new WishList_DataBasic(getActivity(), "DebitInfo_Main");
 
+		if(mDataBasic.getCount() != 0){
+			toggle_view = "open";
+		}else{
+			toggle_view = "close";
+		}
+		
 		Personal_Count = String.valueOf(mDataBasic.get_count_value("Personal", "Approval"));
 		Mortgage_Count = String.valueOf(mDataBasic.get_count_value("Mortgage", "Approval"));
 		Revolving_Count = String.valueOf(mDataBasic.get_count_value("Revolving", "Approval"));
@@ -67,15 +80,15 @@ public class DebitInfo_Main extends Fragment
 		Card_Count = String.valueOf(mDataBasic.get_count_value("Card", "Approval"));
 
 		total_count = mDataBasic.get_count_value("Approval");
-		
+
 		Personal_TotalAmount = String.format("%.2f", mDataBasic.get_sumAmount_value("Personal", "Approval"));
 		Mortgage_TotalAmount = String.format("%.2f", mDataBasic.get_sumAmount_value("Mortgage", "Approval"));
 		Revolving_TotalAmount = String.format("%.2f", mDataBasic.get_sumAmount_value("Revolving", "Approval"));
 		Car_TotalAmount = String.format("%.2f", mDataBasic.get_sumAmount_value("Car", "Approval"));
 		Card_TotalAmount = String.format("%.2f", mDataBasic.get_sumAmount_value("Card", "Approval"));
-		
+
 		total_approval_amount = mDataBasic.get_sumAmount_value("Approval");
-		
+
 		Personal_TotalpayAmount = String.format("%.2f", mDataBasic.get_sumPayment_value("Personal", "Approval"));
 		Mortgage_TotalpayAmount = String.format("%.2f", mDataBasic.get_sumPayment_value("Mortgage", "Approval"));
 		Revolving_TotalpayAmount = String.format("%.2f", mDataBasic.get_sumPayment_value("Revolving", "Approval"));
@@ -183,6 +196,10 @@ public class DebitInfo_Main extends Fragment
 		Card_Review_Btn.setOnClickListener(Review_Btn_OnclikListener);
 		
 		
+		NCV = (NestedScrollView) v.findViewById(R.id.ncv);
+		
+		Empty_View = (LinearLayout) v.findViewById(R.id.debit_info_emptyview);
+		
 		Amount_Percentage = (TextView) v.findViewById(R.id.amount_percentage);
 		Amount_Bar1 = v.findViewById(R.id.amount_bar_1);
 		Amount_Bar1.getLayoutParams().height = (int) getRawSize(TypedValue.COMPLEX_UNIT_DIP, cal_percentage(Float.parseFloat(Personal_TotalAmount), total_approval_amount) + bar_min_height);
@@ -276,6 +293,13 @@ public class DebitInfo_Main extends Fragment
 
 		dots[0].setImageDrawable(ContextCompat.getDrawable(getContext().getApplicationContext(), R.drawable.dot_active));
 
+		if(toggle_view == "open"){
+			NCV.setVisibility(View.VISIBLE);
+			Empty_View.setVisibility(View.GONE);
+		}else{
+			NCV.setVisibility(View.GONE);
+			Empty_View.setVisibility(View.VISIBLE);
+		}
 	}
 
 /*================================================================================================
