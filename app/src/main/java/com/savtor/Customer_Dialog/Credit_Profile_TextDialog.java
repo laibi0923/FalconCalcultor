@@ -1,4 +1,5 @@
-package com.savtor.Credit_Profile;
+package com.savtor.Customer_Dialog;
+import com.savtor.Credit_Profile.Credit_Profile_Main;
 import com.savtor.falconcalcultor.*;
 
 import android.app.Activity;
@@ -45,7 +46,7 @@ public class Credit_Profile_TextDialog extends DialogFragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-		View view = inflater.inflate(R.layout.zz_credit_profile_text_dialog, container, false);
+		View view = inflater.inflate(R.layout.creditprofile_dialog_fortextinput, container, false);
 
 		Find_Dialog_View(view);
 

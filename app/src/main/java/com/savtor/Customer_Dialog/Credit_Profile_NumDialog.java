@@ -1,14 +1,12 @@
-package com.savtor.Credit_Profile;
+package com.savtor.Customer_Dialog;
+import com.savtor.Credit_Profile.Credit_Profile_Main;
 import com.savtor.falconcalcultor.*;
 
 import android.app.Activity;
-import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,7 +57,7 @@ public class Credit_Profile_NumDialog extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.credit_profile_number_dialog, container, false);
+        View view = inflater.inflate(R.layout.creditprofile_dialog_fornuminput, container, false);
 
         Find_Dialog_View(view);
 

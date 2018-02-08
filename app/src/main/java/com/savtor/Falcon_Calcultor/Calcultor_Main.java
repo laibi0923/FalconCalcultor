@@ -27,8 +27,8 @@ public class Calcultor_Main extends Fragment {
     private String Dialog_Title, Sub_Title;
     private double result_Installment, result_Total_Interest, result_Total_Payment;
     private int myCaseID;
-    private double current_LoanAmount, current_LoanRate;
-    private int current_LoanTrems;
+    private double Loan_Amount, Loan_Rate;
+    private int Loan_Trems;
     private float x = 0;
 
 	private Drawable edit_icon;
@@ -59,9 +59,9 @@ public class Calcultor_Main extends Fragment {
 
         get_SharedPreferences();
 
-        current_LoanAmount = 0;
-        current_LoanTrems = 12;
-        current_LoanRate = 54;
+        Loan_Amount = 0;
+        Loan_Trems = 12;
+        Loan_Rate = 54;
         result_Installment = 0;
         result_Total_Interest = 0;
         result_Total_Payment = 0;
@@ -117,22 +117,22 @@ public class Calcultor_Main extends Fragment {
         addtofav_btn.setOnClickListener(Action_OnclickListener);    // [7-2]
 
         loanAmount_tv = (TextView) v.findViewById(R.id.loanAmount_tv);
-        loanAmount_tv.setText(String.format("%1$.2f", current_LoanAmount));
+        loanAmount_tv.setText("$ " + String.format("%1$.2f", Loan_Amount));
 
         loanTrems_tv = (TextView) v.findViewById(R.id.loanTrems_tv);
-        loanTrems_tv.setText(String.valueOf(current_LoanTrems));
+        loanTrems_tv.setText(String.valueOf(Loan_Trems) + " 個月");
 
         loanRate_tv = (TextView) v.findViewById(R.id.loanRate_tv);
-        loanRate_tv.setText(String.format("%.2f", current_LoanRate));
+        loanRate_tv.setText(String.format("%.2f", Loan_Rate) + " % p.a.");
 
         installment_tv = (TextView) v.findViewById(R.id.installment_tv);
-		installment_tv.setText(String.format(dec_point, result_Installment));
+		installment_tv.setText("$ " + String.format(dec_point, result_Installment));
 		
         total_insterest_tv = (TextView) v.findViewById(R.id.total_interest_tv);
-		total_insterest_tv.setText(String.format(dec_point, result_Total_Interest));
+		total_insterest_tv.setText("$ " + String.format(dec_point, result_Total_Interest));
 		
         total_payment_tv = (TextView) v.findViewById(R.id.total_payment_tv);
-		total_payment_tv.setText(String.format(dec_point, result_Total_Payment));
+		total_payment_tv.setText("$ " + String.format(dec_point, result_Total_Payment));
 
         schedule_btn = (LinearLayout) v.findViewById(R.id.schedule_btn);
         schedule_btn.setOnClickListener(Action_OnclickListener);    // [7-2]
@@ -224,9 +224,9 @@ public class Calcultor_Main extends Fragment {
 
                         Bundle mBundle = new Bundle();
                         mBundle.putString("From", "Calcultor");
-                        mBundle.putDouble("Amount", current_LoanAmount);
-                        mBundle.putInt("Trems", current_LoanTrems);
-                        mBundle.putDouble("Rate", current_LoanRate);
+                        mBundle.putDouble("Amount", Loan_Amount);
+                        mBundle.putInt("Trems", Loan_Trems);
+                        mBundle.putDouble("Rate", Loan_Rate);
                         mBundle.putDouble("Installment", result_Installment);
 
                         Fragment mFragment = new Product_Type();
@@ -247,9 +247,9 @@ public class Calcultor_Main extends Fragment {
 
                         Bundle mBundle = new Bundle();
 
-                        mBundle.putDouble("loan_amount", current_LoanAmount);
-                        mBundle.putInt("loan_trems", current_LoanTrems);
-                        mBundle.putDouble("loan_rate", current_LoanRate);
+                        mBundle.putDouble("loan_amount", Loan_Amount);
+                        mBundle.putInt("loan_trems", Loan_Trems);
+                        mBundle.putDouble("loan_rate", Loan_Rate);
                         mBundle.putDouble("loan_installment", result_Installment);
 
                         Fragment mFragment = new Schedule_Fragment();
@@ -307,8 +307,8 @@ public class Calcultor_Main extends Fragment {
                             Toast.makeText(getActivity(), getResources().getString(R.string.calcultor_toast_poorvalue), Toast.LENGTH_SHORT).show();
                         }else{
                             try {
-                                current_LoanAmount = Double.parseDouble(calcul_EdTExt.getText().toString());
-                                loanAmount_tv.setText(String.format("%1$.2f", current_LoanAmount));
+                                Loan_Amount = Double.parseDouble(calcul_EdTExt.getText().toString());
+                                loanAmount_tv.setText("$" + String.format("%1$.2f", Loan_Amount));
                             }catch (NumberFormatException ee){ee.printStackTrace();}
                         }
 
@@ -323,8 +323,8 @@ public class Calcultor_Main extends Fragment {
                         }else if(Integer.parseInt(calcul_EdTExt.getText().toString()) < 3 || Integer.parseInt(calcul_EdTExt.getText().toString()) > 96) {
                             Toast.makeText(getActivity(), getResources().getString(R.string.calcultor_toast_poorvalue), Toast.LENGTH_SHORT).show();
                         }else {
-                            current_LoanTrems = Integer.parseInt(calcul_EdTExt.getText().toString());
-                            loanTrems_tv.setText(String.valueOf(current_LoanTrems));
+                            Loan_Trems = Integer.parseInt(calcul_EdTExt.getText().toString());
+                            loanTrems_tv.setText(String.valueOf(Loan_Trems) + " 個月");
                         }
 
                         break;
@@ -337,8 +337,8 @@ public class Calcultor_Main extends Fragment {
                             Toast.makeText(getActivity(), getResources().getString(R.string.calcultor_toast_poorvalue), Toast.LENGTH_SHORT).show();
                         }else {
                             try {
-                                current_LoanRate = Double.parseDouble(calcul_EdTExt.getText().toString());
-                                loanRate_tv.setText(String.format("%.2f", current_LoanRate));
+                                Loan_Rate = Double.parseDouble(calcul_EdTExt.getText().toString());
+                                loanRate_tv.setText(String.format("%.2f", Loan_Rate) + " % p.a.");
                             }catch (NumberFormatException ee){ee.printStackTrace();}
                         }
 
@@ -346,9 +346,9 @@ public class Calcultor_Main extends Fragment {
 
                 }
 
-                result_Installment = mCalcultor.getMonthlyInstallment(current_LoanAmount, current_LoanTrems, current_LoanRate);
-                result_Total_Interest = mCalcultor.getTotalInsterest(current_LoanAmount, current_LoanTrems, result_Installment);
-                result_Total_Payment = mCalcultor.getTotalPayment(result_Installment, current_LoanTrems);
+                result_Installment = mCalcultor.getMonthlyInstallment(Loan_Amount, Loan_Trems, Loan_Rate);
+                result_Total_Interest = mCalcultor.getTotalInsterest(Loan_Amount, Loan_Trems, result_Installment);
+                result_Total_Payment = mCalcultor.getTotalPayment(result_Installment, Loan_Trems);
 
 
                 if (result_Total_Interest < 1){
@@ -415,7 +415,7 @@ public class Calcultor_Main extends Fragment {
 
                 while (x <= result_Installment){
                     Message msg = mHandler.obtainMessage();
-                    x += result_Installment / current_LoanTrems;
+                    x += result_Installment / Loan_Trems;
                     msg.what = 1;
                     msg.sendToTarget();
 

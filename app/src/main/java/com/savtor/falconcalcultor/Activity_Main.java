@@ -109,7 +109,6 @@ public class Activity_Main extends AppCompatActivity {
                 if (!item.isChecked()) {
                     switch (item.getItemId()) {
 
-
                        case R.id.nav_item1:
                             Fragment_Transaction(new DebitInfo_Main());
                             break;
@@ -118,9 +117,11 @@ public class Activity_Main extends AppCompatActivity {
                             Fragment_Transaction(new Calcultor_Main());
                             break;
 
+                        /*
                         case R.id.nav_item3:
                             Fragment_Transaction(new Product_Type());
                             break;
+                        */
 
                         case R.id.nav_item4:
                             Fragment_Transaction(new WishList_Main());
@@ -130,12 +131,13 @@ public class Activity_Main extends AppCompatActivity {
                             Fragment_Transaction(new Fragment_Setting());
                             break;
 
-                        
+                        /*
                         case R.id.nav_item6:
                             Fragment_Transaction(new DebitInfo_Main());
                             break;
+                        */
 
-							/*
+                        /*
                         case R.id.nav_item7:
                             Fragment_Transaction(new Testing_Notification());
                             break;

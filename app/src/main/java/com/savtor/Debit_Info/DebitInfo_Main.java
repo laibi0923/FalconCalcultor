@@ -67,12 +67,6 @@ public class DebitInfo_Main extends Fragment
 
 		mDataBasic = new WishList_DataBasic(getActivity(), "DebitInfo_Main");
 
-		if(mDataBasic.getCount() != 0){
-			toggle_view = "open";
-		}else{
-			toggle_view = "close";
-		}
-		
 		Personal_Count = String.valueOf(mDataBasic.get_count_value("Personal", "Approval"));
 		Mortgage_Count = String.valueOf(mDataBasic.get_count_value("Mortgage", "Approval"));
 		Revolving_Count = String.valueOf(mDataBasic.get_count_value("Revolving", "Approval"));
@@ -113,9 +107,6 @@ public class DebitInfo_Main extends Fragment
 	
 	private void Find_View(View v, LayoutInflater inflater){
 
-//		NestedScrollView ncv = (NestedScrollView) v.findViewById(R.id.ncv);
-//		ncv.setFillViewport(true);
-		
 		Page_Personal = inflater.inflate(R.layout.debitinfo_viewpapger, null);
 		Personal_Title = (TextView) Page_Personal.findViewById(R.id.product_type);
 		Personal_Title.setText(getString(R.string.title_product_personal));
@@ -194,12 +185,9 @@ public class DebitInfo_Main extends Fragment
 		Card_Review_Btn = (LinearLayout) Page_Card.findViewById(R.id.product_review_btn);
 		Card_Review_Btn.setTag(5);
 		Card_Review_Btn.setOnClickListener(Review_Btn_OnclikListener);
-		
-		
-		NCV = (NestedScrollView) v.findViewById(R.id.ncv);
-		
-		Empty_View = (LinearLayout) v.findViewById(R.id.debit_info_emptyview);
-		
+
+
+
 		Amount_Percentage = (TextView) v.findViewById(R.id.amount_percentage);
 		Amount_Bar1 = v.findViewById(R.id.amount_bar_1);
 		Amount_Bar1.getLayoutParams().height = (int) getRawSize(TypedValue.COMPLEX_UNIT_DIP, cal_percentage(Float.parseFloat(Personal_TotalAmount), total_approval_amount) + bar_min_height);
@@ -292,14 +280,6 @@ public class DebitInfo_Main extends Fragment
 		}
 
 		dots[0].setImageDrawable(ContextCompat.getDrawable(getContext().getApplicationContext(), R.drawable.dot_active));
-
-		if(toggle_view == "open"){
-			NCV.setVisibility(View.VISIBLE);
-			Empty_View.setVisibility(View.GONE);
-		}else{
-			NCV.setVisibility(View.GONE);
-			Empty_View.setVisibility(View.VISIBLE);
-		}
 	}
 
 /*================================================================================================
@@ -429,7 +409,7 @@ public class DebitInfo_Main extends Fragment
 	private float cal_percentage(float value, float total){
 		
 		float result = value / total * 100;
-
+		if (Float.isNaN(result)){ result = 0; }
 		return result;
 	}
 

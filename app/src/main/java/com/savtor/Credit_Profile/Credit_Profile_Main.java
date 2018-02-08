@@ -8,7 +8,6 @@ import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,6 +26,8 @@ import java.util.Date;
 import android.view.View.*;
 import android.widget.*;
 
+import com.savtor.Customer_Dialog.Credit_Profile_NumDialog;
+import com.savtor.Customer_Dialog.Credit_Profile_TextDialog;
 import com.savtor.WishList_Database.WishList_DataBasic;
 import com.savtor.WishList_Database.WishList_Item;
 import com.savtor.falconcalcultor.*;
