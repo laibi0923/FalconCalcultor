@@ -1,8 +1,8 @@
 package com.savtor.Falcon_Calcultor;
 
-import android.annotation.TargetApi;
-import android.content.Context;
-import android.content.SharedPreferences;
+import android.annotation.*;
+import android.content.*;
+import android.graphics.drawable.*;
 import android.os.*;
 import android.support.annotation.*;
 import android.support.design.widget.*;
@@ -11,13 +11,10 @@ import android.support.v7.app.*;
 import android.text.*;
 import android.view.*;
 import android.widget.*;
-
-import com.savtor.Credit_Profile.Product_Type;
+import com.savtor.Credit_Profile.*;
+import com.savtor.Customer_Dialog.*;
+import com.savtor.Payment_Schedule.*;
 import com.savtor.falconcalcultor.*;
-import com.savtor.Payment_Schedule.Schedule_Fragment;
-import android.graphics.drawable.*;
-
-import com.savtor.Credit_Profile.Credit_Profile_Main;
 
 /**
  * Created by GhostLeo_DT on 24/11/2017.
@@ -49,7 +46,15 @@ public class Calcultor_Main extends Fragment {
     private SharedPreferences mSharedPreferences;
 
     private String dec_point = "%.2f";
+	
+	private double Max_Trems;
 
+	private Credit_Profile_NumDialog Number_Dialog;
+	
+	public static int DIALOG_REQUEST_CODE;
+	
+	private String FRAGMENT_TAG;
+	
 	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
 	public void onCreate(Bundle savedInstanceState)
@@ -68,8 +73,8 @@ public class Calcultor_Main extends Fragment {
 
         edit_icon = getResources().getDrawable(R.drawable.ic_add_black_24dp);
 	}
-	
 
+	
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -80,6 +85,31 @@ public class Calcultor_Main extends Fragment {
 
         return v;
     }
+	
+	
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data)
+	{
+		// TODO: Implement this method
+		super.onActivityResult(requestCode, resultCode, data);
+		switch(requestCode){
+			case 0:
+				double loan_amount_result = data.getDoubleExtra(Credit_Profile_NumDialog.RESPONSE, 0.00);
+				loanAmount_tv.setText("$ " + String.format(dec_point, loan_amount_result));
+				break;
+				
+			case 1:
+				double loan_trems_result = data.getDoubleExtra(Credit_Profile_NumDialog.RESPONSE, 0);
+				loanAmount_tv.setText("$ " + String.format(dec_point, loan_trems_result));
+				break;
+				
+			case 2:
+				double loan_rate_result = data.getDoubleExtra(Credit_Profile_NumDialog.RESPONSE, 0.00);
+				loanAmount_tv.setText("$ " + String.format(dec_point, loan_rate_result));
+				break;
+		}
+	}
+	
 
 /*================================================================================================
  *                               Get setting value in sharedpreferences
@@ -89,7 +119,7 @@ public class Calcultor_Main extends Fragment {
 
         get_setting_password = mSharedPreferences.getInt("Setting_password", 1);
         get_setting_language = mSharedPreferences.getInt("Setting_language", 1);
-        get_setting_decimal = mSharedPreferences.getInt("Setting_decimal" , 1);
+        get_setting_decimal = mSharedPreferences.getInt("Setting_decimal" , 2);
 
         if (get_setting_decimal == 1){
             dec_point = "%.0f";
@@ -188,26 +218,35 @@ public class Calcultor_Main extends Fragment {
             switch (v.getId()){
 
                 case R.id.loanAmount_linear:
-                    Dialog_Title = getResources().getString(R.string.calcultor_loanamount_title);
-                    Sub_Title = getResources().getString(R.string.calcultor_loanamount_subtitle);
-                    myCaseID = 1;
+					
+					DIALOG_REQUEST_CODE = 0;
+                    FRAGMENT_TAG = "PRODUCT_LOAN_AMOUNT";
+                    Number_Dialog = new Credit_Profile_NumDialog(getString(R.string.title_loan_amount), FRAGMENT_TAG, Max_Trems);
+                    Number_Dialog.setTargetFragment(Calcultor_Main.this, DIALOG_REQUEST_CODE);
+                    Number_Dialog.show(getFragmentManager(), FRAGMENT_TAG);
+					
                     break;
 
                 case R.id.loanTrems_linear:
-                    Dialog_Title = getResources().getString(R.string.calcultor_loantrems_title);
-                    Sub_Title = getResources().getString(R.string.calcultor_loantrems_subtitle);
-                    myCaseID = 2;
+					
+					DIALOG_REQUEST_CODE = 1;
+                    FRAGMENT_TAG = "PRODUCT_LOAN_TREMS";
+                    Number_Dialog = new Credit_Profile_NumDialog(getString(R.string.title_loan_trems), FRAGMENT_TAG, Max_Trems);
+                    Number_Dialog.setTargetFragment(Calcultor_Main.this, DIALOG_REQUEST_CODE);
+                    Number_Dialog.show(getFragmentManager(), FRAGMENT_TAG);
+                    
                     break;
 
                 case R.id.loanRate_linear:
-                    Dialog_Title = getResources().getString(R.string.calcultor_loanrate_title);
-                    Sub_Title = getResources().getString(R.string.calcultor_loanrate_subtitle);
-                    myCaseID = 3;
+					
+					DIALOG_REQUEST_CODE = 2;
+                    FRAGMENT_TAG = "PRODUCT_LOAN_RATE";
+                    Number_Dialog = new Credit_Profile_NumDialog(getString(R.string.title_loan_rate), FRAGMENT_TAG, Max_Trems);
+                    Number_Dialog.setTargetFragment(Calcultor_Main.this, DIALOG_REQUEST_CODE);
+                    Number_Dialog.show(getFragmentManager(), FRAGMENT_TAG);
+					
                     break;
             }
-
-            find_dialog_view();
-            show_alert_dialog(Dialog_Title, Sub_Title, myCaseID, dialog_view);  // [8]
         }
     };
 
